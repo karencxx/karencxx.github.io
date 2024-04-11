@@ -1,0 +1,878 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <!-- Minima -->
+  <!-- Hexo theme created by @adisaktijrs -->
+
+  <!-- Basic Page Needs
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <meta charset="utf-8">
+
+  
+  <title>JSnote</title>
+  
+  <link rel="sitemap" href="http://yoursite.comsitemap.xml" />
+  
+  <link rel="canonical" href="http://yoursite.com/2024/04/01/JSnote/">
+  
+  <meta name="description" content="JS，诞生于1995年专为与网页交互而设计的脚本语言三部分组成： ECMAScript：核心语言，由ECMA-262定义。与web浏览器无依赖关系，web浏览器只是宿主环境之一，其他宿主包括Node 组成部分：语法 / 类型 / 语句 / 关键字 / 保留字 / 操作符 / 对象    DOM(Do">
+  
+  
+  <meta name="author" content="karen">
+  
+  <meta property="og:image" content="http://yoursite.comundefined">
+  
+  <meta property="og:site_name" content="进阶" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="JSnote" />
+  
+  <meta property="og:description" content="JS，诞生于1995年专为与网页交互而设计的脚本语言三部分组成： ECMAScript：核心语言，由ECMA-262定义。与web浏览器无依赖关系，web浏览器只是宿主环境之一，其他宿主包括Node 组成部分：语法 / 类型 / 语句 / 关键字 / 保留字 / 操作符 / 对象    DOM(Do">
+  
+  <meta property="og:url" content="http://yoursite.com/2024/04/01/JSnote/" />
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="JSnote">
+  
+  <meta name="twitter:description" content="JS，诞生于1995年专为与网页交互而设计的脚本语言三部分组成： ECMAScript：核心语言，由ECMA-262定义。与web浏览器无依赖关系，web浏览器只是宿主环境之一，其他宿主包括Node 组成部分：语法 / 类型 / 语句 / 关键字 / 保留字 / 操作符 / 对象    DOM(Do">
+  
+  
+  <meta name="twitter:image" content="http://yoursite.comundefined">
+  
+  <meta name="twitter:url" content="http://yoursite.com/2024/04/01/JSnote/" />
+
+  <!-- Mobile Specific Metas
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Preload fonts
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link rel="preload" href="../fonts/dm-serif-display-v4-latin-regular.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="../fonts/inter-v2-latin-regular.woff2" as="font" type="font/woff2" crossorigin>
+
+  <!-- CSS
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  
+<link rel="stylesheet" href="/css/normalize.css">
+
+  
+<link rel="stylesheet" href="/css/skeleton.css">
+
+  
+<link rel="stylesheet" href="/css/custom.css">
+
+  
+<link rel="stylesheet" href="/css/prism-dark.css">
+
+  
+<link rel="stylesheet" href="/css/prism-line-numbers.css">
+
+  <!-- User css -->
+  
+  
+<link rel="stylesheet" href="/css/user.css">
+
+  
+
+  <!-- Favicon
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link rel="icon" type="image/png" href="/images/favicon.png">
+
+  <!-- Custom Theme Color Style
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <style>
+  a:not(.icon) {
+    text-decoration-color: #0FA0CE;
+    background-image: linear-gradient(
+      to bottom,
+      rgba(0, 0, 0, 0) 50%,
+      #0FA0CE 50%
+    );
+  }
+  blockquote {
+    border-left: 8px solid #0FA0CE;
+  }
+  .nanobar .bar {
+    background: #0FA0CE;
+  }
+  .button.button-primary:hover,
+  button.button-primary:hover,
+  input[type="submit"].button-primary:hover,
+  input[type="reset"].button-primary:hover,
+  input[type="button"].button-primary:hover,
+  .button.button-primary:focus,
+  button.button-primary:focus,
+  input[type="submit"].button-primary:focus,
+  input[type="reset"].button-primary:focus,
+  input[type="button"].button-primary:focus {
+    background-color: #0FA0CE;
+    border-color: #0FA0CE;
+  }
+  input[type="email"]:focus,
+  input[type="number"]:focus,
+  input[type="search"]:focus,
+  input[type="text"]:focus,
+  input[type="tel"]:focus,
+  input[type="url"]:focus,
+  input[type="password"]:focus,
+  textarea:focus,
+  select:focus {
+    border: 1px solid #0FA0CE;
+  }
+</style>
+
+  <!-- Google Analytics (With Privacy Settings On)
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  
+
+<meta name="generator" content="Hexo 5.3.0"><link rel="alternate" href="/atom.xml" title="进阶" type="application/atom+xml">
+</head>
+
+<body>
+  <div class="container">
+    <div class="row">
+      <div>
+
+        <div class="row">
+  <div class="two columns" style="max-width: 50px">
+    <h1 class="mt-2 mode">
+      <div onclick=setDarkMode(true) id="darkBtn">🌑</div>
+      <div onclick=setDarkMode(false) id="lightBtn" class=hidden>☀️</div>
+      <script >
+        if (localStorage.getItem('preferredTheme') == 'dark') {
+          setDarkMode(true)
+        }
+        function setDarkMode(isDark) {
+          var darkBtn = document.getElementById('darkBtn')
+          var lightBtn = document.getElementById('lightBtn')
+          if (isDark) {
+            lightBtn.style.display = "block"
+            darkBtn.style.display = "none"
+            localStorage.setItem('preferredTheme', 'dark');
+          } else {
+            lightBtn.style.display = "none"
+            darkBtn.style.display = "block"
+            localStorage.removeItem('preferredTheme');
+          }
+          document.body.classList.toggle("darkmode");
+        }
+      </script>
+    </h1>
+  </div>
+
+  <div class="six columns ml-1">
+    <h1 class="mt-2">
+      UP&amp;UP
+    </h1>
+  </div>
+
+  <div class="twelve columns">
+    <div class="row">
+      <div class="nine columns left">
+        <a href="/">Home</a>
+        
+        
+      </div>
+    </div>
+    <hr style="margin-bottom: 2.6rem">
+  </div>
+</div>
+
+        <div class="trans">
+            <h2>JSnote</h2>
+
+  <h1 id="JS，诞生于1995年"><a href="#JS，诞生于1995年" class="headerlink" title="JS，诞生于1995年"></a>JS，诞生于1995年</h1><h2 id="专为与网页交互而设计的脚本语言"><a href="#专为与网页交互而设计的脚本语言" class="headerlink" title="专为与网页交互而设计的脚本语言"></a>专为与网页交互而设计的脚本语言</h2><h2 id="三部分组成："><a href="#三部分组成：" class="headerlink" title="三部分组成："></a>三部分组成：</h2><ul>
+<li>ECMAScript：核心语言，由ECMA-262定义。与web浏览器无依赖关系，web浏览器只是宿主环境之一，其他宿主包括Node<ul>
+<li>组成部分：语法 / 类型 / 语句 / 关键字 / 保留字 / 操作符 / 对象 </li>
+</ul>
+</li>
+<li>DOM(Domcument Object Model)：文档对象模型，提供访问和操作网页内容的方法和接口。把整个页面映射为一个多层节点结构。</li>
+<li>BOM(Browser Object Model)：浏览器对象模型，提供与浏览器交互的方法和接口。</li>
+</ul>
+<hr>
+<h1 id="script"><a href="#script" class="headerlink" title="script"></a>script</h1><p>HTML4.0 </p>
+<script  
+    src：立即下载脚本，只对外部脚本文件有效
+    charset：指定的代码的字符集
+    defer：可延迟到文档完全被解析和显示后再执行，只对外部脚本文件有效
+    language 已废弃
+    type：替代language ，text/javascript  
+    async：立即下载脚本
+></script>
+
+<ul>
+<li>页面直接嵌入 或者 外部引入</li>
+<li>一般放在<body></body>中</li>
+<li>使用defer延迟执行时，现实中不一定按照顺序执行，因此最好包含一个延迟脚本 ？</li>
+<li>async异步脚本一定在页面load事件前执行，建议不要在加载期间修改dom</li>
+</ul>
+<p>使用外部文件：</p>
+<ul>
+<li>可维护性</li>
+<li>可缓存</li>
+<li>适应未来</li>
+</ul>
+<p>当浏览器不支持脚本 或 脚本被禁用 时，<noscript>xx</noscript>中的内容会显示出来</p>
+<h2 id="语法"><a href="#语法" class="headerlink" title="语法"></a>语法</h2><ul>
+<li>区分大小写</li>
+<li>标识符</li>
+<li>注释</li>
+<li>严格模式 use strict</li>
+<li>语句以;结尾</li>
+</ul>
+<h2 id="关键字和保留字"><a href="#关键字和保留字" class="headerlink" title="关键字和保留字"></a>关键字和保留字</h2><p>break do instanceof typeof new var return case  if else<br>continue this let …</p>
+<h2 id="变量-var-xx"><a href="#变量-var-xx" class="headerlink" title="变量 var xx"></a>变量 var xx</h2><ul>
+<li>是松散类型，可以用来保存任何类型的数据。</li>
+<li>未初始化时，有一个特殊的值 undefined</li>
+<li>全局变量很难维护，很难被收回<h3 id="基本类型，简单的数据段"><a href="#基本类型，简单的数据段" class="headerlink" title="基本类型，简单的数据段"></a>基本类型，简单的数据段</h3></li>
+<li>原始值 undefined / null / boolean / number / string / symbol</li>
+<li>在内存中占据固定大小空间，被保存在栈内存中<h3 id="引用类型，可能由多个值构成的对象"><a href="#引用类型，可能由多个值构成的对象" class="headerlink" title="引用类型，可能由多个值构成的对象"></a>引用类型，可能由多个值构成的对象</h3></li>
+<li>值为保存在内存中的对象，保存在堆内存中，不允许直接访问，按引用访问</li>
+<li>可动态地添加属性</li>
+<li>当做变量复制时，这个值的副本实际上是一个指针，指向存储在堆中的同一个对象<h3 id="执行上下文"><a href="#执行上下文" class="headerlink" title="执行上下文"></a>执行上下文</h3></li>
+<li>变量或函数的上下文决定了它们可以访问哪些数据以及行为</li>
+<li>每个上下文都有一个关联的变量对象</li>
+<li>上下文中的代码在执行时，会创建变量对象的一个作用域亮</li>
+<li>上下文之间连接是线性的、有序的<h3 id="变量声明"><a href="#变量声明" class="headerlink" title="变量声明"></a>变量声明</h3></li>
+<li>var声明会被拿到函数或全局作用域顶部，位于作用域中所有代码之前，这个叫做变量提升<ul>
+<li>会让同一作用域的代码不用考虑变量是否已声明就可以直接使用<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a = <span class="number">1</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">f</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(a,<span class="string">&#x27;1&#x27;</span>)</span><br><span class="line">    <span class="keyword">var</span> a = <span class="number">3</span></span><br><span class="line">    <span class="built_in">console</span>.log(a,<span class="string">&#x27;2&#x27;</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li>let 块级作用域，由最近的一对包含{}来界定<ul>
+<li>同一作用域不能声明两次</li>
+<li>适合在循环中声明迭代变量，不像var声明会泄漏到循环外部<ul>
+<li>将其重新绑定到循环的每个迭代，确保使用上一个循环结束时的值重新进行赋值</li>
+</ul>
+</li>
+<li>严格来说，let声明也会被提升，但由于暂时性死区，实际上不能在声明前使用let变量</li>
+</ul>
+</li>
+<li>const关键字，声明同时必须初始化，且不能再被重新赋新值<ul>
+<li>只应用到顶级原语或对象，对象的键不受限制</li>
+<li>运行时编译器可以将所有实例换成实际的值，不会通过查询表进行变量查找<h2 id="数据类型"><a href="#数据类型" class="headerlink" title="数据类型"></a>数据类型</h2>基本数据类型：undefined null boolean number string<br>复杂数据类型：object，由一组无序的键值对组成</li>
+</ul>
+</li>
+</ul>
+<h3 id="typeof操作符，用来检测给定变量的数据类型，确定值的原始类型"><a href="#typeof操作符，用来检测给定变量的数据类型，确定值的原始类型" class="headerlink" title="typeof操作符，用来检测给定变量的数据类型，确定值的原始类型"></a>typeof操作符，用来检测给定变量的数据类型，确定值的原始类型</h3><h3 id="instanceof-判断是什么类型的对象，确定值的引用类型"><a href="#instanceof-判断是什么类型的对象，确定值的引用类型" class="headerlink" title="instanceof  判断是什么类型的对象，确定值的引用类型"></a>instanceof  判断是什么类型的对象，确定值的引用类型</h3><ul>
+<li><p>null，表示空对象指针</p>
+<ul>
+<li>typeof null = ‘objct’</li>
+<li><strong>如果定义的变量准备用来保存对象，最好初始化为null，这样可以知道是否保存了一个对象的引用，也可以进一步区分null和undefined</strong></li>
+</ul>
+</li>
+<li><p><strong>undefined 值是派生自null值，因此 null == undefined 结果为true</strong></p>
+</li>
+<li><p>Number</p>
+<ul>
+<li><p>Number.MAX_VALUE / .MIN_VALUE</p>
+<ul>
+<li>超出范围的值将自动转换为Infinity / -Infinity</li>
+<li>用isFinite()判断是否位于最大和最小数值之间</li>
+</ul>
+</li>
+<li><p>浮点数，由于浮点数值需要的内存空间是保存整数值的2倍</p>
+<ul>
+<li>像1.这样的小数点后无数字，那么会被作为整数值来保存</li>
+<li>最高精度为17位小数，计算会产生舍入误差问题 ？ </li>
+</ul>
+</li>
+<li><p>NaN，Not a Number</p>
+<ul>
+<li>涉及NaN的操作都返回 NaN</li>
+<li>与任何值都不想等，包括NaN本身</li>
+<li>当对对象调用isNaN()时<ul>
+<li>先调用对象的valueOf()，确定返回值可否转换为数值</li>
+<li>如果不能，基于返回值再调用toString()，再测试返回值</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>Number() parseInt() parseFloat()</p>
+<ul>
+<li>Number(undefined) = NaN<ul>
+<li>Number(null) = 0 ?</li>
+<li>对象时，同上调用isNaN()</li>
+<li>Number(‘’) = 0 parseInt(‘’) = NaN</li>
+</ul>
+</li>
+<li>parseInt()找第一个非空格字符，如果不是数字或负号，就返回NaN<ul>
+<li>parseInt(‘’) = NaN</li>
+</ul>
+</li>
+<li>parseFloat()第一个小数点有效，后面的字符串将被忽略<ul>
+<li>十六进制的字符串会被转换为0</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>String</p>
+<ul>
+<li>字面量  \n \t \b \r \f \ &#39; &quot; \xnn \unnnn</li>
+<li>字符串一旦创建，值就不能改变。如若改变，先销毁原来的字符串，再用一个包含新值的字符串去填充该变量</li>
+<li>除了null和undefined没有 toString() 方法</li>
+<li>如果不知道转换值是否为null或undefined，可用String()去转换任何类型的值<ul>
+<li>如果值有 toString() 方法，则调用该方法并返回对应值</li>
+<li>如果值为 null或undefined，则返回’null’ 或 ‘undefined’</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>Object，通过new创建</p>
+<ul>
+<li>每个实例有下列属性和方法<ul>
+<li>Constructor</li>
+<li>hasOwnProperty(propertyName)</li>
+<li>isPrototypeOf(Object)</li>
+<li>propertyIsEnumerable(propertyName)</li>
+<li>toLocaleString()</li>
+<li>toString()</li>
+<li>valueOf()</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="操作符"><a href="#操作符" class="headerlink" title="操作符"></a>操作符</h2><h3 id="一元操作符，只能操作一个值"><a href="#一元操作符，只能操作一个值" class="headerlink" title="一元操作符，只能操作一个值"></a>一元操作符，只能操作一个值</h3><ul>
+<li>前置递增、递减 ++a –a</li>
+<li>后置递增、递减 ++b –b 先求值再执行其他</li>
+<li>加减乘除，对非数值时先用Number()执行转换，+/-param 转变为数字<h3 id="位操作符，按内存中表示数值的位来操作数值-todo"><a href="#位操作符，按内存中表示数值的位来操作数值-todo" class="headerlink" title="位操作符，按内存中表示数值的位来操作数值 todo"></a>位操作符，按内存中表示数值的位来操作数值 todo</h3></li>
+<li>按位非 ～</li>
+<li>按位与 &amp;</li>
+<li>按位或 |</li>
+<li>按位异或 ^</li>
+<li>左移</li>
+<li>有符号右移 / 无符号右移<h3 id="布尔操作符"><a href="#布尔操作符" class="headerlink" title="布尔操作符"></a>布尔操作符</h3></li>
+<li>逻辑非 ！，先转换为布尔值，再求反。用!!转换为布尔值</li>
+<li>逻辑与 &amp;&amp;，<strong>短路操作</strong> a &amp;&amp; b，即a为false时，不会再对 &amp;&amp; b求值</li>
+<li>逻辑或 |，<strong>短路操作</strong> a &amp;&amp; b，即a为true时，不会再对 || b求值<ul>
+<li>不一定返回布尔值</li>
+<li>利用||来避免为变量赋null或undefined<h3 id="乘操作符-、除操作符"><a href="#乘操作符-、除操作符" class="headerlink" title="乘操作符*、除操作符/"></a>乘操作符*、除操作符/</h3><h3 id="求模-，取余"><a href="#求模-，取余" class="headerlink" title="求模%，取余"></a>求模%，取余</h3></li>
+</ul>
+</li>
+<li>Infinity%Infinity Infinity%8 2%0 =&gt; NaN</li>
+</ul>
+<h3 id="加操作符"><a href="#加操作符" class="headerlink" title="加操作符"></a>加操作符</h3><ul>
+<li>Infinity+ -Infinity / 2 + NaN =&gt; NaN</li>
+<li>+0 + -0 =&gt; 0</li>
+<li>存在string时，做拼接操作</li>
+<li>存在object, number, boolean时，先调用totring()方法</li>
+<li>undefined null 则调用String()<h3 id="减操作符"><a href="#减操作符" class="headerlink" title="减操作符"></a>减操作符</h3></li>
+<li>Infinity - Infinity / -Infinity - -Infinity =&gt; NaN</li>
+<li>string boolean undefined null 则调用Number()</li>
+<li>Number(null) =&gt; 0 / Number(undefined) =&gt; NaN ?<h3 id="关系操作符"><a href="#关系操作符" class="headerlink" title="关系操作符"></a>关系操作符</h3></li>
+<li>比较两个字符串时，实在比较这两个字符串中对应位置的每个字符的字符编码值<ul>
+<li>大写字母的字符编码全部小于小写字母的</li>
+<li>通常将两个操作数都转换为小写再比较</li>
+</ul>
+</li>
+<li>NaN跟任何数比较都是false <ul>
+<li>NaN &gt; 3 / NaN &lt;= 3  false </li>
+</ul>
+</li>
+</ul>
+<h3 id="相等操作符"><a href="#相等操作符" class="headerlink" title="相等操作符"></a>相等操作符</h3><ul>
+<li>== / !=<ul>
+<li>NaN != NaN / null == undefined / &lt;= true</li>
+</ul>
+</li>
+<li>=== / !==  只在两个数未经转换就相等的情况下返回true</li>
+<li>== 和 != 存在类型转换问题，为了保证代码中数据类型完整性，推荐使用=== !==<h3 id="条件操作符"><a href="#条件操作符" class="headerlink" title="条件操作符"></a>条件操作符</h3></li>
+<li>boolean_expression ? value1 : value2<h3 id="赋值操作符"><a href="#赋值操作符" class="headerlink" title="赋值操作符 ="></a>赋值操作符 =</h3></li>
+<li>复合赋值 *= /= %= += -= &lt;&lt;= &gt;&gt;= &gt;&gt;&gt;=<h3 id="逗号操作符，在一条语句中执行多个操作"><a href="#逗号操作符，在一条语句中执行多个操作" class="headerlink" title="逗号操作符，在一条语句中执行多个操作"></a>逗号操作符，在一条语句中执行多个操作</h3></li>
+<li>用于赋值时，返回表达式最后一项<ul>
+<li>let num = (1,2,3,4,0) num =&gt; 0</li>
+</ul>
+</li>
+</ul>
+<h2 id="语句"><a href="#语句" class="headerlink" title="语句"></a>语句</h2><ul>
+<li><p>if () {}</p>
+</li>
+<li><p>while () {} 前测试循环语句</p>
+</li>
+<li><p>do {} while () 后测试循环语句</p>
+<ul>
+<li>在对 while () 求值之前，{}内的代码至少会被执行一次</li>
+</ul>
+</li>
+<li><p>for 前测试循环语句</p>
+<ul>
+<li>for (initialization; expression; post-loop-expression) statement</li>
+<li>循环内部定义的变量，在外部仍然可以访问 （ECMAScript不存在块极作用域）</li>
+<li>for(;;) {} 无限循环</li>
+<li>while循环 做不到的 for 也做不到</li>
+</ul>
+</li>
+<li><p>for in 精准的迭代语句，可以用来枚举对象属性</p>
+<ul>
+<li>for (property in expression) statement</li>
+<li>建议使用前先确认对象值不是null或undefined</li>
+</ul>
+</li>
+<li><p>label语句，添加标签</p>
+<ul>
+<li>label: statement，一般与for等循环语句配合使用</li>
+</ul>
+</li>
+<li><p>break continue 语句</p>
+<ul>
+<li>continue退出内部循环，执行外部循环</li>
+<li>break立即退出循环</li>
+</ul>
+</li>
+<li><p>with语句，将代码作用域设置到一个特定的对象</p>
+<ul>
+<li>with(expression) statement</li>
+<li>大量使用with会导致性能下降，给调试代码造成困难</li>
+</ul>
+</li>
+<li><p>switch 语句</p>
+<ul>
+<li>switch (expression) {<br>  case value: statement<br>  break;<br>  default; statement<br>}</li>
+<li>switch比较值时使用全等操作符</li>
+</ul>
+</li>
+</ul>
+<h2 id="函数-function"><a href="#函数-function" class="headerlink" title="函数 function"></a>函数 function</h2><h3 id="参数"><a href="#参数" class="headerlink" title="参数"></a>参数</h3><ul>
+<li>按值传递（对象也是），被传递的值会复制给一个局部变量</li>
+<li>函数参数内部用一个数组来表示，通过arguments对象来访问这个数组</li>
+<li>arguments.length由传入的参数个数决定</li>
+<li>arguments的值永远与对应命名参数的值保持同步（但它们的内存空间时独立的），<br>前提是arguments[n]访问的参数n有被传入<h3 id="函数没有签名，不能实现重载"><a href="#函数没有签名，不能实现重载" class="headerlink" title="函数没有签名，不能实现重载"></a>函数没有签名，不能实现重载</h3></li>
+</ul>
+<h2 id="执行环境-全局执行环境-函数执行环境-？"><a href="#执行环境-全局执行环境-函数执行环境-？" class="headerlink" title="执行环境 全局执行环境 函数执行环境 ？"></a>执行环境 全局执行环境 函数执行环境 ？</h2><ul>
+<li>全局执行环境 window对象</li>
+<li>每进入一个新的执行环境，都会创建一个用于搜索变量和函数的作用域链</li>
+<li>当代码在一个环境中执行时，会创建变量对象的一个作用域链，保证对执行环境有权访问的所有变量和函数的有序访问<ul>
+<li>延长作用域链     <ul>
+<li>try-catch中的catch块</li>
+<li>with语句 </li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="无块级作用域"><a href="#无块级作用域" class="headerlink" title="无块级作用域"></a>无块级作用域</h2><ul>
+<li>使用var声明的变量会自动被添加到最接近的环境中</li>
+<li>查询标识符，沿作用域链向上查找</li>
+</ul>
+<h2 id="引用类型"><a href="#引用类型" class="headerlink" title="引用类型"></a>引用类型</h2><h3 id="Object"><a href="#Object" class="headerlink" title="Object"></a>Object</h3><h3 id="Array"><a href="#Array" class="headerlink" title="Array"></a>Array</h3><ul>
+<li><p>length属性不是只读的，可通过它来添加或移除数组项</p>
+</li>
+<li><p>最多可包含4294967295个项</p>
+</li>
+<li><p>ECMAScript 5 新增.isArray()方法</p>
+</li>
+<li><p>toString() toLocaleString() valueOf() join()</p>
+</li>
+<li><p>栈方法：后进先出 push() pop() </p>
+</li>
+<li><p>队列方法：先进先出 push() unshift() shift() </p>
+</li>
+<li><p>重排序：reverse() sort() </p>
+</li>
+<li><p>concat() slice()</p>
+<ul>
+<li>slice() 参数中有负数时，则用数组长度加上该数来确定相应位置</li>
+</ul>
+</li>
+<li><p>splice() 会改变原数组</p>
+<ul>
+<li>删除：splice(起始位置, 项数)</li>
+<li>插入：splice(起始位置, 0, 插入的项)</li>
+<li>替换：splice(起始位置, 1, 插入的项)</li>
+</ul>
+</li>
+<li><p>indexOf() lastIndexOf()(从末尾开始找) 没找到返回-1</p>
+</li>
+<li><p>迭代方法：every() filter() forEach() map() some()</p>
+<ul>
+<li>(function(item, index, array){})</li>
+</ul>
+</li>
+<li><p>缩小数组：reduce() reduceRight()</p>
+<ul>
+<li>(function(prev, cur, index, array){})<h3 id="Date"><a href="#Date" class="headerlink" title="Date"></a>Date</h3></li>
+</ul>
+</li>
+<li><p>Date.parse() Date.UTC() Date.now() …</p>
+</li>
+<li><p>getTime() getFullYear() getMonth() … </p>
+<h3 id="RegExp-正则表达式-常用的一些？"><a href="#RegExp-正则表达式-常用的一些？" class="headerlink" title="RegExp 正则表达式 常用的一些？"></a>RegExp 正则表达式 常用的一些？</h3></li>
+<li><p>/ pattern / flags (g i m)</p>
+</li>
+<li><p>实例属性：global ignoreCase lastIndex multiline source</p>
+</li>
+<li><p>实例方法：exec()</p>
+<h3 id="Function"><a href="#Function" class="headerlink" title="Function"></a>Function</h3></li>
+<li><p>每个函数都是Function的实例</p>
+</li>
+<li><p>函数是对象，函数名是指向函数的指针</p>
+</li>
+<li><p>没有重载，当创建2个一样的函数时，实际是覆盖了前一个函数</p>
+</li>
+<li><p>解析器会率先读取<strong>函数声明</strong> function xxx(){} 声明提升了</p>
+</li>
+<li><p>函数表达式则在解析器执行到它所在行时，才会被解释执行 var xxx = function(){}</p>
+</li>
+<li><p>函数名只是一个包含指针的变量，所以函数可以用作值来使用</p>
+</li>
+<li><p>函数内部两个特殊对象：</p>
+<ul>
+<li>arguments：类数组对象，保存函数参数</li>
+<li>calle：指向拥有这个arguments对象的函数<ul>
+<li>典型：阶乘函数<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">factorial</span>(<span class="params">num</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(num &lt;= <span class="number">1</span>)&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span></span><br><span class="line">    &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> num * <span class="built_in">arguments</span>.callee(num-<span class="number">1</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+解耦后，无论函数名是什么，都能正常完成递归调用</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>this，引用的是函数据以执行的环境对象</p>
+</li>
+<li><p>caller，保存着当前函数的函数引用，arguments.callee.caller</p>
+</li>
+<li><p>函数属性：</p>
+<ul>
+<li>length：表示函数希望接受的命名参数的个数</li>
+<li>prototype：保存所有实例方法</li>
+</ul>
+</li>
+<li><p>每个函数都包含两个非继承而来的方法：能扩充函数赖以运动的作用域，使对象不需要与方法有任何耦合关系<br>  apply(作用域，参数数组arguments/array)<br>  call(作用域，参数1，参数2…) </p>
+</li>
+<li><p>bind()会创建一个函数实例，其this值会被绑定到传给bind()函数的值</p>
+</li>
+<li><p>toLocaleString()、toString()始终返回函数的代码，在调试代码时有用</p>
+</li>
+<li><p><strong>函数声明与函数表达式的区别</strong> 函数声明会提升</p>
+</li>
+<li><p>函数表达式可以是匿名的</p>
+<h4 id="闭包，是一个有权访问另一个函数作用域中变量的函数"><a href="#闭包，是一个有权访问另一个函数作用域中变量的函数" class="headerlink" title="闭包，是一个有权访问另一个函数作用域中变量的函数"></a>闭包，是一个有权访问另一个函数作用域中变量的函数</h4></li>
+<li><p>常见方式：在一个函数内部创建另一个函数</p>
+</li>
+<li><p>闭包作用域链包含自己的、包含函数的和全局的</p>
+</li>
+<li><p>在作用域链中查找变量，作用域链本质上是一个指向变量对象的指针列表<br>  | 本函数活动对象 | 0 |<br>  | 外部函数的活动对象 | 1 |<br>  | 外部函数的外部函数的活动对象 | 2 |<br>  …<br>  | 全局执行环境 | 终点 | </p>
+<ul>
+<li>一般来讲，函数执行完毕后，局部活动对象就会被销毁，内存中仅保存全局作用域</li>
+<li>而闭包则会使内部定义的函数将包含函数的活动对象添加到它的作用域链中<ul>
+<li>当被引用的函数返回后，其执行环境的作用域链会被销毁，但活动对象仍会留在内存中</li>
+</ul>
+</li>
+<li>过度使用闭包可能导致内存占用过多</li>
+</ul>
+</li>
+<li><p><strong>闭包只能取得包含函数中任何变量的最后一个值，因为它们引用的是一个活动对象里的变量</strong></p>
+<ul>
+<li>闭包保存的是整个变量对象，而不是某个特殊变量</li>
+</ul>
+</li>
+<li><p>匿名函数的执行环境具有全局性，this通常指向window</p>
+<ul>
+<li>要想访问作用域中的arguments对象，必须将该对象的引用保存到另一个闭包能访问的变量中</li>
+</ul>
+</li>
+<li><p>闭包会引用包含函数的整个活动对象，有可能会造成引用无法解除，占用内存</p>
+<ul>
+<li>创建闭包必须要维护额外的作用域，过度使用可能会占用大量内存</li>
+</ul>
+</li>
+<li><p>块级作用域，私有作用域，限制向全局作用域中添加过多变量和函数</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">(function()&#123;</span><br><span class="line">    &#x2F;&#x2F; 模拟块级作用域</span><br><span class="line">&#125;)()</span><br></pre></td></tr></table></figure>
+<p>  function(){}() 这是函数声明，不能加()会导致错误</p>
+</li>
+<li><p>闭包还可以用于在对象中创建私有变量、私有函数</p>
+<ul>
+<li>有权访问私有变量的共有方法叫 特权方法<ul>
+<li>单例模式、构造函数模式、原型模式</li>
+</ul>
+</li>
+<li>在原型prototype上定义公有方法 例如get() set()<ul>
+<li>但在一个实例上调用时会影响所有实例，可能会导致返回相同的值</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="基础包装类型"><a href="#基础包装类型" class="headerlink" title="基础包装类型"></a>基础包装类型</h2><ul>
+<li>String  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">let s1 &#x3D; &#39;abcde&#39;;</span><br><span class="line">let s2 &#x3D; s1.substring(2);</span><br></pre></td></tr></table></figure>
+  string是基础数据类型，substring并不是它的方法<br>  实际上  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">let s1 &#x3D; new String(&#39;abcde&#39;);</span><br><span class="line">s2 &#x3D; s1.substring(2);</span><br><span class="line">s1 &#x3D; null;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>自动创建的基础包装类型的对象，只存在于这行代码执行的瞬间</li>
+<li>new String() 构造函数，String() 转换函数，这两者是不同的(typeof 一下)</li>
+<li>字符方法 charAt() / charCodeAt() / string[n] / <pre><code>      concat() / string + string / 
+      slice(起始，结束) / sbustring(起始，结束) / substr(起始，返回字符个数) /
+      indexOf() 从前往后 / lastIndexOf() 从后往前 /
+      trim() / 
+      toLowerCase() / toUpperCase() /
+      match() / search() /
+      replace() /
+      localeCompare() 比较2个字符串 / 
+      fromCharCode() 接受一个或多个字符编码，转换为一个字符串
+</code></pre>
+</li>
+<li>当为负数时，substring将所有参数转为0 todo</li>
+</ul>
+</li>
+<li>Boolean<ul>
+<li>重写了valueOf()和toString() 返回了true/false ‘true’/‘false’</li>
+<li>使用容易造成误解<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">let falseObject &#x3D; new Boolean(false)</span><br><span class="line">let falseValue &#x3D; false</span><br></pre></td></tr></table></figure></li>
+<li> falseObject &amp;&amp; true 和  falseValue &amp;&amp; true 的结果如何</li>
+<li>typeof falseObject / typeof falseValue</li>
+</ul>
+</li>
+<li>Number<ul>
+<li>toFixed / toExponential() 指数表示法 / toPrecision()返回前两者其中合适的</li>
+</ul>
+</li>
+</ul>
+<h2 id="单体内置对象，不依赖宿主环境-Global-Math"><a href="#单体内置对象，不依赖宿主环境-Global-Math" class="headerlink" title="单体内置对象，不依赖宿主环境 Global Math"></a>单体内置对象，不依赖宿主环境 Global Math</h2><h3 id="Global"><a href="#Global" class="headerlink" title="Global"></a>Global</h3><ul>
+<li>属性： 全局变量、函数</li>
+<li>URI编码方法、window对象</li>
+<li>eval()，<strong>修改</strong>其所处的词法作用域<ul>
+<li>像一个完整的eECMAScript解析器，</li>
+<li>只接受一个参数，即要执行的脚本字符串</li>
+<li>在eval()中创建的任何变量或函数不会被提升</li>
+</ul>
+</li>
+<li>with()实际上根据你传递给它的对象凭空<strong>创建</strong>了一个全新的词法作用域<ul>
+<li>如果没找到对应的标识符，可能就会自动创建一个全局变量（非严格模式下）</li>
+</ul>
+</li>
+<li>try/catch结构在 catch 分句中具有块作用域<h3 id="Math"><a href="#Math" class="headerlink" title="Math()"></a>Math()</h3></li>
+<li>max() / min() / ceil() / floor() / round() / random()</li>
+</ul>
+<h2 id="面向对象-第六章"><a href="#面向对象-第六章" class="headerlink" title="面向对象 第六章"></a>面向对象 第六章</h2><h2 id="对象：无序属性的集合，可以包含基本值、对象或函数"><a href="#对象：无序属性的集合，可以包含基本值、对象或函数" class="headerlink" title="对象：无序属性的集合，可以包含基本值、对象或函数"></a>对象：无序属性的集合，可以包含基本值、对象或函数</h2><ul>
+<li><p>对象属性类型：configurable（能否通过delete删除） enumerable writable value</p>
+<ul>
+<li>改变默认特征：Object.defineProperty(对象，属性名，一个描述符对象)</li>
+<li>一旦把configurable: false，不能再变回可配置的（true），会抛出错误</li>
+</ul>
+</li>
+<li><p>访问器属性 getter() setter()</p>
+<ul>
+<li>get() set(val) </li>
+</ul>
+</li>
+<li><p>定义多个属性 Object.defineProperties(要操作的对象，属性值)</p>
+</li>
+<li><p>读取属性特征 Object.getOwnPropertyDescriptor(要操作的对象，属性名称)</p>
+<h2 id="创建对象"><a href="#创建对象" class="headerlink" title="创建对象"></a>创建对象</h2></li>
+<li><p>工厂模式：抽象了创建具体对象的过程</p>
+</li>
+<li><p>构造函数模式</p>
+<h2 id="原型，行为重用通过复制已存在的原型对象来实现"><a href="#原型，行为重用通过复制已存在的原型对象来实现" class="headerlink" title="原型，行为重用通过复制已存在的原型对象来实现"></a>原型，行为重用通过复制已存在的原型对象来实现</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Person</span>(<span class="params"></span>)</span>&#123;&#125; <span class="comment">// 构造函数</span></span><br><span class="line">Person.prototype.name = <span class="string">&#x27;aaa&#x27;</span> <span class="comment">// 原型</span></span><br><span class="line"><span class="keyword">let</span> p1 = <span class="keyword">new</span> Person() <span class="comment">// 对象实例</span></span><br></pre></td></tr></table></figure></li>
+<li><p>每个函数都有一个prototype属性，该属性是一个指针指向一个对象</p>
+</li>
+<li><p>Object内建对象是最高级父级对象</p>
+</li>
+<li><p>该对象用途是包含可以由特定类型的所有实例共享的属性和方法</p>
+</li>
+<li><p>好处是可以让所有对象实例共享它所包含的属性和方法</p>
+</li>
+<li><p>所有原型对象会自动获得一个constructor（构造函数）属性，包含一个指向prototype属性所在函数的指针</p>
+</li>
+<li><p>isPrototype() Object.getPrototypeOf()</p>
+</li>
+<li><p>当为对象实例添加一个属性时，就会屏蔽原型对象中保存的同名属性，即会阻止我们访问原型中的属性，但不会修改那个属性</p>
+<ul>
+<li>自身属性优先级高于其原型对象中同名属性</li>
+</ul>
+</li>
+<li><p>使用hasOwnProperty()判断哪个是实例属性，哪个是原型 属性只在属性存在于实例中时才返回true</p>
+</li>
+<li><p>in (“xxx” in p1) 只要能访问到就为true / for in （能通过对象访问的、可枚举的属性）实例和原型中的属性都包括</p>
+</li>
+<li><p>Object.keys() 返回包含所有可枚举属性的字符串数组，Object.getOwnPropertyNames()无论是否枚举都返回</p>
+</li>
+<li><p>使用对象字面量形式创建时，相当于重写了prototype对象，<strong>constructor属性就会变成新的</strong>，指向了Object构造函数</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Person.prototype = &#123;</span><br><span class="line">    <span class="title">constructor</span>: <span class="title">Person</span>, // 需要手动指向</span><br><span class="line">    <span class="title">name</span>: &#x27;<span class="title">John</span>&#x27;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li><p>在原型中查找值的过程是一次搜索，对原型对象做的任何修改都能够立即从实例上反映出来</p>
+</li>
+<li><p>原型陷阱：当重写了整个原型对象时，就切断了跟先前已经创建的实例对象之间的联系，实例引用的依然是最初的原型</p>
+<h2 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h2></li>
+<li><p>当原型对象中包含引用类型值属性时，当通过某个实例改变值时会导致所有实例指向的该属性值都会改变</p>
+</li>
+<li><p>推荐使用构造函数+原型模式组合使用</p>
+</li>
+</ul>
+<h2 id="寄生构造函数模式-稳妥构造函数模式（安全性）"><a href="#寄生构造函数模式-稳妥构造函数模式（安全性）" class="headerlink" title="寄生构造函数模式 稳妥构造函数模式（安全性）"></a>寄生构造函数模式 稳妥构造函数模式（安全性）</h2><h2 id="继承"><a href="#继承" class="headerlink" title="继承"></a>继承</h2><h3 id="原型链"><a href="#原型链" class="headerlink" title="原型链"></a>原型链</h3><ul>
+<li><strong>_proto_是某个实例对象的属性，prototype则是属于构造器函数的属性</strong></li>
+<li>所有函数的默认原型时Object的实例，默认原型的指针指向Object.prototype<ul>
+<li>即所有自定义类型都会继承toString()、valueOf()等默认方法</li>
+</ul>
+</li>
+<li>用instanceof() isPrototypeOf() 确定原型和实例等关系</li>
+<li>实现继承时，不能使用对象字面量创建原型，这样就重写原型链，切断了相互间的关系</li>
+<li>在创建子类型实例时，不能向超类型的构造函数中传递参数，解决方法如下<h3 id="借用构造函数，在子类型构造函数内部调用超类型构造函数"><a href="#借用构造函数，在子类型构造函数内部调用超类型构造函数" class="headerlink" title="借用构造函数，在子类型构造函数内部调用超类型构造函数"></a>借用构造函数，在子类型构造函数内部调用超类型构造函数</h3></li>
+<li>xxx.call(this，参数值)<h3 id="组合继承"><a href="#组合继承" class="headerlink" title="组合继承"></a>组合继承</h3></li>
+<li>使用原型链实现对原型属性和方法的继承</li>
+<li>通过借用构造函数来实现对实例属性的继承</li>
+<li>这样既在原型上定义方法实现函数复用，又能保证每个实例都有它自己的属性<h3 id="原型式继承"><a href="#原型式继承" class="headerlink" title="原型式继承"></a>原型式继承</h3></li>
+<li>借助已有对象创建新对象<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">object</span>(<span class="params">o</span>) </span>&#123; </span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">F</span>(<span class="params"></span>)</span>&#123;&#125;</span><br><span class="line">    F.prototype = o</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> F()</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> person = &#123;</span><br><span class="line">    name: <span class="string">&#x27;John&#x27;</span>,</span><br><span class="line">    friends: [<span class="string">&#x27;bob&#x27;</span>,<span class="string">&#x27;jack&#x27;</span>]</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> anotherPerson = object(person)</span><br><span class="line">anotherPerson.name = <span class="string">&#x27;greg&#x27;</span></span><br><span class="line">anotherPerson.friends.push(<span class="string">&#x27;helen&#x27;</span>) <span class="comment">// 被anotherPerson共享</span></span><br></pre></td></tr></table></figure>
+<h4 id="寄生式继承"><a href="#寄生式继承" class="headerlink" title="寄生式继承"></a>寄生式继承</h4></li>
+<li>借用构造函数来继承属性，通过原型链等混成形式来继承<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">inhreitPrototype</span>(<span class="params">subType, superType</span>) </span>&#123; <span class="comment">// 接受2个构造函数</span></span><br><span class="line">    <span class="keyword">var</span> prototype = <span class="built_in">Object</span>(superType.prototype); <span class="comment">// 创建对象</span></span><br><span class="line">    prototype.constructor = subType; <span class="comment">// 增强对象</span></span><br><span class="line">    subType.prototype =prototype; <span class="comment">// 指定对象</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>ES5 Object.create(person, object) 规范了原型是继承<ul>
+<li>object { xxx: { vlaue: ‘’} }</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h1 id="BOM"><a href="#BOM" class="headerlink" title="BOM"></a>BOM</h1><ul>
+<li>核心对象：window，表示浏览器的一个实例，是ECMAScript规定的Global对象</li>
+<li>在全局作用域中声明的变量、函数都会变成window对象的属性和方法</li>
+<li>全局变量不能被delete删除，定义在window上的属性可以被delete</li>
+<li>通过查询window对象，可知道某个未声明的变量是否存在<h2 id="框架"><a href="#框架" class="headerlink" title="框架"></a>框架<frames></frames></h2><ul>
+<li>每个框架都有自己的window对象，存在frames集合中</li>
+</ul>
+</li>
+<li>确定窗口位置 screenLeft / screenTop / moveTo() / moveBy()</li>
+<li>窗口大小 innerHeight / innerWidth / outerWidth / outerHeight<ul>
+<li>不同浏览器会有区别 inner返回视图区大小，outer可能返回浏览器窗口本身大小</li>
+<li>document.(documentElement / body).clientWidth / clientHeight</li>
+</ul>
+</li>
+<li>调整浏览器窗口大小 resizeTo() resizeBy()<h2 id="导航"><a href="#导航" class="headerlink" title="导航"></a>导航</h2></li>
+<li>window.open(URL，窗口目标，一个特性字符串，是否取代浏览器当前页布尔值)<ul>
+<li>例：URL，_self / _blank，’height=400,width=400’</li>
+</ul>
+</li>
+<li>var wroxwin = window.open(…)，通过wroxwin == null判断窗口是否被屏蔽</li>
+</ul>
+<h2 id="超时调用setTimeout-间歇调用setInterval"><a href="#超时调用setTimeout-间歇调用setInterval" class="headerlink" title="超时调用setTimeout() 间歇调用setInterval()"></a>超时调用setTimeout() 间歇调用setInterval()</h2><ul>
+<li><p>返回一个数值ID作为唯一标识符，可用来取消</p>
+<ul>
+<li>clearTimeout() clearInterval()</li>
+<li>clearInterval() 更需要被取消，不加干涉时，setInterval会一直执行</li>
+<li>一般建议使用setTimeout来模拟setInterval，因为后一个setInterval可能在前一个setInterval结束前就启动了</li>
+</ul>
+</li>
+<li><p>对话框 alert() confirm() prompt()</p>
+<h2 id="location"><a href="#location" class="headerlink" title="location"></a>location</h2></li>
+<li><p>location.search / host / hash / href / pathname / port / hostname</p>
+</li>
+<li><p>location.assign() 打开新URL并生成一条记录</p>
+</li>
+<li><p>location.replace() 替换当前页面，不会生成新记录，不能回到前一个页面</p>
+</li>
+<li><p>location.reload() 重新加载（可能从缓存中） 传入true表示从服务器重新加载</p>
+<h2 id="navigator，检测显示网页的浏览器类型"><a href="#navigator，检测显示网页的浏览器类型" class="headerlink" title="navigator，检测显示网页的浏览器类型"></a>navigator，检测显示网页的浏览器类型</h2><h2 id="screen对象"><a href="#screen对象" class="headerlink" title="screen对象"></a>screen对象</h2></li>
+<li><p>窗口外部显示器信息 screen.height / width</p>
+<h2 id="history"><a href="#history" class="headerlink" title="history"></a>history</h2></li>
+<li><p>history.go(整数值) 负数表示后退，正数表示前进</p>
+</li>
+<li><p>history.back() history.forward()</p>
+</li>
+</ul>
+<h1 id="性能"><a href="#性能" class="headerlink" title="性能"></a>性能</h1><p>JavaScript 引擎会在编译阶段进行数项的性能优化。<br>其中有些优化依赖于能够根据代码的词法进行静态分析，并<strong>预先确定</strong>所有变量和函数的定义位置，才能在执行过程中快速找到标识符。<br>但如果引擎在代码中发现了eval()或with()，它只能简单地假设关于标识符位置的判断都是无效的，因为无法在词法分析阶段明确知道 eval()会接收到什么代码，这些代码会如何对作用域进行修改，也无法知道传递给with用来创建新词法作用域的对象的内容到底是什么。<br>最悲观的情况是如果出现了eval()或with()，所有的优化可能都是无意义的，因此最简单的做法就是完全不做任何优化。</p>
+<ul>
+<li>使用任何一个机制都将导致代码运行变慢<h1 id="编译"><a href="#编译" class="headerlink" title="编译"></a>编译</h1><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a = <span class="number">2</span></span><br></pre></td></tr></table></figure>
+| 分词 / 词法分析 | var / a / = / 2 |<br>| 解析 / 语法分析| AST抽象语法树 |<br>| 代码生成 |</li>
+<li>大部分编译发生在代码执行前的几微秒甚至更少时间内</li>
+<li>引擎、编译器、作用域</li>
+<li>LHS 赋值 / RHS 取值</li>
+<li>包含变量和函数所在内的所有声明都会在任何代码被执行前首先处理<ul>
+<li>首先这个分为2部分： <ul>
+<li>var a 在编译阶段进行，即声明提升了</li>
+<li>a = 2 会被留到原地等待执行阶段时才进行赋值操作</li>
+</ul>
+</li>
+<li>先声明后赋值</li>
+<li>函数声明会比变量先提升<h1 id="模块"><a href="#模块" class="headerlink" title="模块"></a>模块</h1></li>
+</ul>
+</li>
+<li>两个特征：<ul>
+<li>为创建内部作用域而调用了一个包装函数</li>
+<li>包装函数的返回值必须至少包括一个对内部函数的引用，这样就会创建涵盖整个包装函数内部作用域的闭包</li>
+</ul>
+</li>
+</ul>
+<h1 id="动态作用域"><a href="#动态作用域" class="headerlink" title="动态作用域"></a>动态作用域</h1><h1 id="调用栈"><a href="#调用栈" class="headerlink" title="调用栈"></a>调用栈</h1><ul>
+<li>为了到达当前执行位置所调用的所有函数，可以当作一个函数调用链</li>
+<li>非严格模式下默认绑定会绑定到全局对象</li>
+<li>调用位置是否有上下文 a.b.c，隐式绑定会把函数c中调用的this绑定到这个上下文对象中，对象属性引用链中只有最后一层（即b）影响调用位置<ul>
+<li>被隐式绑定到函数会丢失绑定对象，就会引用默认绑定<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params"></span>) </span>&#123; <span class="built_in">console</span>.log(<span class="built_in">this</span>.a) &#125;</span><br><span class="line"><span class="keyword">var</span> obj = &#123;</span><br><span class="line">    a: <span class="number">2</span>,</span><br><span class="line">    foo: foo</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> bar = obj.foo</span><br><span class="line"><span class="keyword">var</span> a = <span class="number">1</span></span><br><span class="line">bar()</span><br><span class="line"><span class="comment">// bar()引用的是 foo函数 本身，bar()是不带任何修饰的函数调用，因此应用了默认绑定</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li>显式绑定，call() / apply() / 硬绑定 bind() (Function.prototype.bind）<ul>
+<li>把 null / undefined 作为this的绑定对象传入 call/apply /bind，这些在调用时会被忽略，实际应用默认绑定规则</li>
+</ul>
+</li>
+<li>new 创建的函数，this绑定的是新创建的对象</li>
+<li>优先级： new &gt; 显式绑定 &gt; 隐式绑定<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 手动修改调用时的绑定</span></span><br><span class="line"><span class="keyword">if</span> (!<span class="built_in">Function</span>.prototype.softBind) &#123; </span><br><span class="line">    <span class="built_in">Function</span>.prototype.softBind = <span class="function"><span class="keyword">function</span>(<span class="params">obj</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">var</span> fn = <span class="built_in">this</span>; <span class="comment">// 每次调用时当前的对象</span></span><br><span class="line">        <span class="comment">// 捕获所有 curried 参数</span></span><br><span class="line">        <span class="keyword">var</span> curried = [].slice.call( <span class="built_in">arguments</span>, <span class="number">1</span> ); </span><br><span class="line">        <span class="keyword">var</span> bound = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">            <span class="keyword">return</span> fn.apply(</span><br><span class="line">                (!<span class="built_in">this</span> || <span class="built_in">this</span> === (<span class="built_in">window</span> || <span class="built_in">global</span>)) ?</span><br><span class="line">                        obj : <span class="built_in">this</span>, curried.concat.apply( curried, <span class="built_in">arguments</span> )); </span><br><span class="line">        &#125;;</span><br><span class="line">        bound.prototype = <span class="built_in">Object</span>.create( fn.prototype );</span><br><span class="line">        <span class="keyword">return</span> bound; </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>箭头函数的绑定无法被修改</li>
+</ul>
+<hr>
+<ul>
+<li><p>JS中实际上不存在所谓的 构造函数，只有对于函数的 构造调用</p>
+</li>
+<li><p>创建一个全新对象</p>
+</li>
+<li><p>新对象会被执行 原型 连接</p>
+</li>
+<li><p>新对象会绑定到函数调用的this</p>
+</li>
+<li><p>如果函数没有返回其他对象，那么new表达式的函数调用会自动返回这个新对象</p>
+</li>
+<li><p>Object.create(null)和{}很像，但是并不会创建Object.prototype这个委托</p>
+<ul>
+<li>Object.create(null)没有原型链，所以它比{}“更空”</li>
+</ul>
+</li>
+<li><p>Object.create()会创建一个新对象并把它关联到我们指定的对象</p>
+<ul>
+<li>通过Prototype机制委托来关联对象并且避免不必要的麻烦</li>
+<li>用 new 的构造函数调用会生成 .prototype 和 .constructor 引用</li>
+</ul>
+</li>
+</ul>
+
+  <p><a class="classtest-link" href="/tags/%E5%A4%8D%E4%B9%A0/" rel="tag">复习</a> — Apr 1, 2024</p>
+  
+
+
+          <div class="row mt-2">
+  
+    <div class="eight columns">
+      <p id="madewith">Made with ❤ and
+        <a class="footer-link icon" href="https://hexo.io" target="_blank" style="text-decoration: none;" rel="noreferrer" aria-label="Hexo.io">
+        <svg class="hexo svg-hov" width="14" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>Hexo.js</title><path d="M12 .007L1.57 6.056V18.05L12 23.995l10.43-6.049V5.952L12 .007zm4.798 17.105l-.939.521-.939-.521V12.94H9.08v4.172l-.94.521-.938-.521V6.89l.939-.521.939.521v4.172h5.84V6.89l.94-.521.938.521v10.222z"/></svg>
+        </a>
+        
+    </div>
+
+    <!-- Sepcial thanks to https://simpleicons.org/ for the icons -->
+    <div class="four columns mb-3 posisi" >
+      
+
+      
+
+      
+
+      
+
+    </div>
+  
+</div>
+
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+  <script src="/js/nanobar.min.js"></script>
+  <script>
+    var options = {
+      classname: 'nanobar',
+      id: 'myNanobar'
+    };
+    var nanobar = new Nanobar(options);
+    nanobar.go(30);
+    nanobar.go(76);
+    nanobar.go(100);
+  </script>
+
+</body>
+
+</html>

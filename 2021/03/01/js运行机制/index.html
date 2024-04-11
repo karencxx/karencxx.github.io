@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <!-- Minima -->
+  <!-- Hexo theme created by @adisaktijrs -->
+
+  <!-- Basic Page Needs
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <meta charset="utf-8">
+
+  
+  <title>js运行机制</title>
+  
+  <link rel="sitemap" href="http://yoursite.comsitemap.xml" />
+  
+  <link rel="canonical" href="http://yoursite.com/2021/03/01/js%E8%BF%90%E8%A1%8C%E6%9C%BA%E5%88%B6/">
+  
+  <meta name="description" content="看到这个问题，首先想到了什么？单线程？任务队列？    进程 CPU资源分配的最小单位，可独立运行且拥有自己的资源空间的这么个任务程序，包括运行中的程序和程序所使用到的内存和系统资源  进程之间相互独立  但同一进程下各个线程共享程序的内存空间(包括代码段、数据集、堆等)及进程级的资源(如打开文件和">
+  
+  
+  <meta name="author" content="karen">
+  
+  <meta property="og:image" content="http://yoursite.comundefined">
+  
+  <meta property="og:site_name" content="进阶" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="js运行机制" />
+  
+  <meta property="og:description" content="看到这个问题，首先想到了什么？单线程？任务队列？    进程 CPU资源分配的最小单位，可独立运行且拥有自己的资源空间的这么个任务程序，包括运行中的程序和程序所使用到的内存和系统资源  进程之间相互独立  但同一进程下各个线程共享程序的内存空间(包括代码段、数据集、堆等)及进程级的资源(如打开文件和">
+  
+  <meta property="og:url" content="http://yoursite.com/2021/03/01/js%E8%BF%90%E8%A1%8C%E6%9C%BA%E5%88%B6/" />
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="js运行机制">
+  
+  <meta name="twitter:description" content="看到这个问题，首先想到了什么？单线程？任务队列？    进程 CPU资源分配的最小单位，可独立运行且拥有自己的资源空间的这么个任务程序，包括运行中的程序和程序所使用到的内存和系统资源  进程之间相互独立  但同一进程下各个线程共享程序的内存空间(包括代码段、数据集、堆等)及进程级的资源(如打开文件和">
+  
+  
+  <meta name="twitter:image" content="http://yoursite.comundefined">
+  
+  <meta name="twitter:url" content="http://yoursite.com/2021/03/01/js%E8%BF%90%E8%A1%8C%E6%9C%BA%E5%88%B6/" />
+
+  <!-- Mobile Specific Metas
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Preload fonts
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link rel="preload" href="../fonts/dm-serif-display-v4-latin-regular.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="../fonts/inter-v2-latin-regular.woff2" as="font" type="font/woff2" crossorigin>
+
+  <!-- CSS
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  
+<link rel="stylesheet" href="/css/normalize.css">
+
+  
+<link rel="stylesheet" href="/css/skeleton.css">
+
+  
+<link rel="stylesheet" href="/css/custom.css">
+
+  
+<link rel="stylesheet" href="/css/prism-dark.css">
+
+  
+<link rel="stylesheet" href="/css/prism-line-numbers.css">
+
+  <!-- User css -->
+  
+  
+<link rel="stylesheet" href="/css/user.css">
+
+  
+
+  <!-- Favicon
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link rel="icon" type="image/png" href="/images/favicon.png">
+
+  <!-- Custom Theme Color Style
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <style>
+  a:not(.icon) {
+    text-decoration-color: #0FA0CE;
+    background-image: linear-gradient(
+      to bottom,
+      rgba(0, 0, 0, 0) 50%,
+      #0FA0CE 50%
+    );
+  }
+  blockquote {
+    border-left: 8px solid #0FA0CE;
+  }
+  .nanobar .bar {
+    background: #0FA0CE;
+  }
+  .button.button-primary:hover,
+  button.button-primary:hover,
+  input[type="submit"].button-primary:hover,
+  input[type="reset"].button-primary:hover,
+  input[type="button"].button-primary:hover,
+  .button.button-primary:focus,
+  button.button-primary:focus,
+  input[type="submit"].button-primary:focus,
+  input[type="reset"].button-primary:focus,
+  input[type="button"].button-primary:focus {
+    background-color: #0FA0CE;
+    border-color: #0FA0CE;
+  }
+  input[type="email"]:focus,
+  input[type="number"]:focus,
+  input[type="search"]:focus,
+  input[type="text"]:focus,
+  input[type="tel"]:focus,
+  input[type="url"]:focus,
+  input[type="password"]:focus,
+  textarea:focus,
+  select:focus {
+    border: 1px solid #0FA0CE;
+  }
+</style>
+
+  <!-- Google Analytics (With Privacy Settings On)
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  
+
+<meta name="generator" content="Hexo 5.3.0"><link rel="alternate" href="/atom.xml" title="进阶" type="application/atom+xml">
+</head>
+
+<body>
+  <div class="container">
+    <div class="row">
+      <div>
+
+        <div class="row">
+  <div class="two columns" style="max-width: 50px">
+    <h1 class="mt-2 mode">
+      <div onclick=setDarkMode(true) id="darkBtn">🌑</div>
+      <div onclick=setDarkMode(false) id="lightBtn" class=hidden>☀️</div>
+      <script >
+        if (localStorage.getItem('preferredTheme') == 'dark') {
+          setDarkMode(true)
+        }
+        function setDarkMode(isDark) {
+          var darkBtn = document.getElementById('darkBtn')
+          var lightBtn = document.getElementById('lightBtn')
+          if (isDark) {
+            lightBtn.style.display = "block"
+            darkBtn.style.display = "none"
+            localStorage.setItem('preferredTheme', 'dark');
+          } else {
+            lightBtn.style.display = "none"
+            darkBtn.style.display = "block"
+            localStorage.removeItem('preferredTheme');
+          }
+          document.body.classList.toggle("darkmode");
+        }
+      </script>
+    </h1>
+  </div>
+
+  <div class="six columns ml-1">
+    <h1 class="mt-2">
+      UP&amp;UP
+    </h1>
+  </div>
+
+  <div class="twelve columns">
+    <div class="row">
+      <div class="nine columns left">
+        <a href="/">Home</a>
+        
+        
+      </div>
+    </div>
+    <hr style="margin-bottom: 2.6rem">
+  </div>
+</div>
+
+        <div class="trans">
+            <h2>js运行机制</h2>
+
+  <p>看到这个问题，首先想到了什么？单线程？任务队列？</p>
+<!-- CPU、线程与进程 -->
+
+<blockquote>
+<h3 id="进程"><a href="#进程" class="headerlink" title="进程"></a>进程</h3></blockquote>
+<p><strong>CPU资源分配</strong>的最小单位，可<strong>独立运行</strong>且拥有自己的资源空间的这么个任务程序，包括运行中的程序和程序所使用到的内存和系统资源</p>
+<ul>
+<li><p>进程之间相互独立</p>
+<ul>
+<li>但同一进程下各个线程共享程序的内存空间(包括代码段、数据集、堆等)及进程级的资源(如打开文件和信号)</li>
+</ul>
+</li>
+<li><p>多进程的好处是可以同时干不同的事情，且不受干扰</p>
+</li>
+</ul>
+<blockquote>
+<h3 id="线程"><a href="#线程" class="headerlink" title="线程"></a>线程</h3></blockquote>
+<p><strong>CPU调度</strong>的最小单位，即程序执行的最小单位。</p>
+<ul>
+<li>建立在进程基础上的一次程序运行单位，即可以理解为程序中的一个执行流，一个进程可以有多个线程</li>
+</ul>
+<blockquote>
+<h4 id="单线程，就是一个进程中只有一个执行流。反之有多个就叫多线程，允许单个程序创建多个并行执行的线程来完成各自的任务"><a href="#单线程，就是一个进程中只有一个执行流。反之有多个就叫多线程，允许单个程序创建多个并行执行的线程来完成各自的任务" class="headerlink" title="单线程，就是一个进程中只有一个执行流。反之有多个就叫多线程，允许单个程序创建多个并行执行的线程来完成各自的任务"></a>单线程，就是一个进程中只有一个执行流。反之有多个就叫多线程，允许单个程序创建多个<u>并行执行</u>的线程来完成各自的任务</h4></blockquote>
+<ul>
+<li>CPU可以有很多进程，但资源是固定的，进程越多，CPU分出去的资源越多，越卡。</li>
+<li>在运行一个进程时，其他进程处于非运行状态，使用<u>时间片轮转调度</u>算法</li>
+</ul>
+<p><strong>线程上下文切换比进程上下文切换要快得多</strong></p>
+<blockquote>
+<h2 id="JS为何是单线程"><a href="#JS为何是单线程" class="headerlink" title="JS为何是单线程"></a>JS为何是单线程</h2></blockquote>
+<ul>
+<li>与用途有关<ul>
+<li>js用途主要是<u>与用户互动及操作DOM</u>，如果不是单线程会带来复杂的同步问题</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>web worker</p>
+</blockquote>
+<ul>
+<li>JS的异步特性本质上还是绑定在一个单事件循环线程上。</li>
+<li>HTML5 提出Web Worker标准，允许js脚本创建多个线程，但子线程完全受主线程控制，不得操作DOM</li>
+<li>可以在独立的线程运行一个JavaScript文件(即程序)，使用<strong>异步事件</strong>在线程之间传递消息。</li>
+</ul>
+<blockquote>
+<p>浏览器多线程</p>
+</blockquote>
+<ul>
+<li>Browser进程<ul>
+<li>浏览器的主进程(负责协调、主控)，该进程只有一个</li>
+<li>负责浏览器界面显示，与用户交互。如前进，后退等</li>
+<li>负责各个页面的管理，创建和销毁其他进程</li>
+<li>将渲染(Renderer)进程得到的内存中的Bitmap(位图)，绘制到用户界面上</li>
+<li>网络资源的管理，下载等</li>
+</ul>
+</li>
+<li>第三方插件进程<ul>
+<li>每种类型的插件对应一个进程，当使用该插件时才创建</li>
+</ul>
+</li>
+<li>GPU进程<ul>
+<li>该进程也只有一个，用于3D绘制等等</li>
+</ul>
+</li>
+<li>渲染进程 <strong>重点</strong><ul>
+<li>即通常所说的浏览器内核(Renderer进程，内部是多线程)</li>
+<li>每个Tab页面都有一个渲染进程，互不影响</li>
+<li>主要作用为页面渲染，脚本执行，事件处理等</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>浏览器如果为单进程，那么任何一个tab崩溃或者插件奔溃就会影响到整个浏览器，这样的体验是很大的</li>
+<li>但浏览器进程很多，每个进程又有很多线程，都会占用内存。这意味着内存等资源消耗会很大，有点类似空间换时间的意思</li>
+</ul>
+<blockquote>
+<p>Renderer进程</p>
+</blockquote>
+<h4 id="一些主要线程"><a href="#一些主要线程" class="headerlink" title="一些主要线程"></a>一些主要线程</h4><ul>
+<li><p>GUI渲染线程</p>
+<ul>
+<li>解析HTML、CSS、构建DOM树和RenderObject树，布局和绘制等<ul>
+<li>解析html代码（本质是字符串）转化为浏览器的节点，生成DOM Tree</li>
+<li>解析css，生成CSSOM（css规则树）</li>
+<li>DOM Tree和 CSSOM 结合，生成Rendering Tree</li>
+</ul>
+</li>
+<li>重绘 Repaint</li>
+<li>回流 Reflow</li>
+<li>Repaint和Reflow时GUI线程执行</li>
+<li>Reflow 比 Repaint 成本要高，尽量避免这两者</li>
+</ul>
+</li>
+<li><p>JS引擎线程</p>
+<ul>
+<li>是JS内核，负责处理JS脚本程序，例如V8</li>
+<li>解析JS脚本，运行代码</li>
+<li>一直等任务队列中的任务然后开始处理   <ul>
+<li>浏览器同时只能有一个JS引擎运行JS程序，所以JS单线程运行</li>
+<li>一个Tab页无论何时只有一个JS线程</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>事件触发线程</p>
+<ul>
+<li>属于浏览器而不是JS引擎，用来控制时间循环，管理一个事件队列 task queue</li>
+<li>只关心异步回调</li>
+</ul>
+</li>
+<li><p>定时触发器线程</p>
+<ul>
+<li>setTimeout、setInterval所在线程</li>
+<li>由于JS引擎单线程，如果处于阻塞线程状态就会影响计时的准确，所以并不由JS引擎计数</li>
+<li>通过单独线程来计时并触发定时，计时完毕后，添加到事件触发线程的task queue中，等待JS引擎空闲后执行</li>
+<li>W3C在HTML标准中规定，要求setTimeout中低于4ms的时间间隔算为4ms</li>
+<li>只管理定时器不关心结果，结果在事件触发线程中</li>
+</ul>
+</li>
+<li><p>异步http请求线程</p>
+<ul>
+<li>XMLHttpRequest 在连接后通过浏览器新开一个线程请求</li>
+<li>简单地说，就是当执行到一个异步请求，就将异步请求事件添加到异步请求线程，等待http状态变化，再将回调函数添加到task queue中，等待JS引擎执行</li>
+</ul>
+</li>
+</ul>
+<p><u> GUI渲染线程和JS引擎线程是互斥的 </u><br><u> JS引擎会阻塞GUI渲染引擎，此时GUI线程会被挂起，可以认为被冻结了 </u></p>
+<ul>
+<li>也就是JS执行时间过长就会导致页面渲染加载阻塞，加载慢</li>
+<li>例如浏览器渲染的时候遇到script标签，就会停止GUI的渲染，然后js引擎线程开始执行js代码，等js执行完毕，<br>  js引擎线程停止工作，GUI继续渲染。所以如果js执行时间太长就会造成页面卡顿的情况</li>
+<li>GUI更新会被保存在一个队列中等到JS引擎空闲时立即被执行</li>
+</ul>
+<p>那么，上面都提到了一个共同点<br>来看看这个到底是什么？</p>
+<blockquote>
+<p>事件循环</p>
+</blockquote>
+<p>JS 有 <u>同步任务</u> 和 <u>异步任务</u><br><strong>同步任务在主线程上执行，形成一个执行栈</strong></p>
+<p>上面说到，事件触发线程管理一个事件队列 task queue<br>只要异步任务有运行结果，就在任务队列中放一个<u>事件回调</u></p>
+<p>一旦执行栈中的所有<u>同步任务</u>执行完毕<br>即JS引擎线程空闲下来了，系统就会读取任务队列<br>将可运行的异步任务添加到执行栈中</p>
+<p><img src="/img/js-1.png" alt="图1"></p>
+<blockquote>
+<p>宏任务 微任务</p>
+</blockquote>
+<p>宏任务：macrotask 也被称为 <u>task</u></p>
+<p>浏览器为了使 宏任务 和 DOM任务 有序地进行，通常是下面的顺序<br>宏任务 -&gt; GUI渲染 -&gt; 宏任务</p>
+<p>常见的宏任务</p>
+<ul>
+<li>主代码块</li>
+<li>setTimeout</li>
+<li>setInterval</li>
+<li>setImmediate() -&gt; Node</li>
+<li>requestAnimationFrame() -&gt; 浏览器</li>
+</ul>
+<p>微任务：microtask<br>ES6新引入了Promise标准，同时浏览器实现上多了一个微任务概念<br>在ECMAScript中，microtask 也被称为 <u>jobs</u><br>可以看作是宏任务执行后立即执行的任务</p>
+<p>常见微任务</p>
+<ul>
+<li>process.nextTick() - Node</li>
+<li>Promise.then()</li>
+<li>catch</li>
+<li>finally</li>
+<li>Object.observe</li>
+<li>MutationObserver</li>
+</ul>
+<p><strong>当一个宏任务执行完，会在渲染前，将执行期间所产生的所有微任务都执行完</strong><br>是这样的执行顺序<br>宏任务 -&gt; 微任务 -&gt; GUI渲染 -&gt; 宏任务 </p>
+<blockquote>
+<p>new Promise(() =&gt; {}).then()</p>
+</blockquote>
+<p>new Promise(() =&gt; {}) 这部分是一个构造函数，是一个同步任务<br>.then() 是 <strong>异步微任务</strong></p>
+<p>async/await 本质上还是基于promise的封装</p>
+<p>总结来自：<a target="_blank" rel="noopener" href="https://juejin.cn/post/6844904050543034376#heading-28">https://juejin.cn/post/6844904050543034376#heading-28</a><br>动画演示：<a target="_blank" rel="noopener" href="https://jakearchibald.com/2015/tasks-microtasks-queues-and-schedules/?utm_source=html5weekly">https://jakearchibald.com/2015/tasks-microtasks-queues-and-schedules/?utm_source=html5weekly</a></p>
+
+  <p> — Mar 1, 2021</p>
+  
+
+
+          <div class="row mt-2">
+  
+    <div class="eight columns">
+      <p id="madewith">Made with ❤ and
+        <a class="footer-link icon" href="https://hexo.io" target="_blank" style="text-decoration: none;" rel="noreferrer" aria-label="Hexo.io">
+        <svg class="hexo svg-hov" width="14" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>Hexo.js</title><path d="M12 .007L1.57 6.056V18.05L12 23.995l10.43-6.049V5.952L12 .007zm4.798 17.105l-.939.521-.939-.521V12.94H9.08v4.172l-.94.521-.938-.521V6.89l.939-.521.939.521v4.172h5.84V6.89l.94-.521.938.521v10.222z"/></svg>
+        </a>
+        
+    </div>
+
+    <!-- Sepcial thanks to https://simpleicons.org/ for the icons -->
+    <div class="four columns mb-3 posisi" >
+      
+
+      
+
+      
+
+      
+
+    </div>
+  
+</div>
+
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+  <script src="/js/nanobar.min.js"></script>
+  <script>
+    var options = {
+      classname: 'nanobar',
+      id: 'myNanobar'
+    };
+    var nanobar = new Nanobar(options);
+    nanobar.go(30);
+    nanobar.go(76);
+    nanobar.go(100);
+  </script>
+
+</body>
+
+</html>

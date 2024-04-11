@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <!-- Minima -->
+  <!-- Hexo theme created by @adisaktijrs -->
+
+  <!-- Basic Page Needs
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <meta charset="utf-8">
+
+  
+  <title>记录：注意点&amp;冷知识</title>
+  
+  <link rel="sitemap" href="http://yoursite.comsitemap.xml" />
+  
+  <link rel="canonical" href="http://yoursite.com/2021/03/29/%E8%BF%9F%E6%9D%A5%E7%9A%84%E6%B3%A8%E6%84%8F%E7%82%B9-%E5%86%B7%E7%9F%A5%E8%AF%86/">
+  
+  <meta name="description" content="setTimeout / setInterval   setTimeout: 0ms 并不是立即执行，被放入任务队列等待空闲时执行（js运行机制） 实际延迟比设定值更久，原因是有最小延迟4ms，最先规定的嵌套函数最小延迟10ms setTimeout 和 setInterval 每调用一次最小间隔4">
+  
+  
+  <meta name="author" content="karen">
+  
+  <meta property="og:image" content="http://yoursite.comundefined">
+  
+  <meta property="og:site_name" content="进阶" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="记录：注意点&amp;冷知识" />
+  
+  <meta property="og:description" content="setTimeout / setInterval   setTimeout: 0ms 并不是立即执行，被放入任务队列等待空闲时执行（js运行机制） 实际延迟比设定值更久，原因是有最小延迟4ms，最先规定的嵌套函数最小延迟10ms setTimeout 和 setInterval 每调用一次最小间隔4">
+  
+  <meta property="og:url" content="http://yoursite.com/2021/03/29/%E8%BF%9F%E6%9D%A5%E7%9A%84%E6%B3%A8%E6%84%8F%E7%82%B9-%E5%86%B7%E7%9F%A5%E8%AF%86/" />
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="记录：注意点&amp;冷知识">
+  
+  <meta name="twitter:description" content="setTimeout / setInterval   setTimeout: 0ms 并不是立即执行，被放入任务队列等待空闲时执行（js运行机制） 实际延迟比设定值更久，原因是有最小延迟4ms，最先规定的嵌套函数最小延迟10ms setTimeout 和 setInterval 每调用一次最小间隔4">
+  
+  
+  <meta name="twitter:image" content="http://yoursite.comundefined">
+  
+  <meta name="twitter:url" content="http://yoursite.com/2021/03/29/%E8%BF%9F%E6%9D%A5%E7%9A%84%E6%B3%A8%E6%84%8F%E7%82%B9-%E5%86%B7%E7%9F%A5%E8%AF%86/" />
+
+  <!-- Mobile Specific Metas
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Preload fonts
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link rel="preload" href="../fonts/dm-serif-display-v4-latin-regular.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="../fonts/inter-v2-latin-regular.woff2" as="font" type="font/woff2" crossorigin>
+
+  <!-- CSS
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  
+<link rel="stylesheet" href="/css/normalize.css">
+
+  
+<link rel="stylesheet" href="/css/skeleton.css">
+
+  
+<link rel="stylesheet" href="/css/custom.css">
+
+  
+<link rel="stylesheet" href="/css/prism-dark.css">
+
+  
+<link rel="stylesheet" href="/css/prism-line-numbers.css">
+
+  <!-- User css -->
+  
+  
+<link rel="stylesheet" href="/css/user.css">
+
+  
+
+  <!-- Favicon
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link rel="icon" type="image/png" href="/images/favicon.png">
+
+  <!-- Custom Theme Color Style
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <style>
+  a:not(.icon) {
+    text-decoration-color: #0FA0CE;
+    background-image: linear-gradient(
+      to bottom,
+      rgba(0, 0, 0, 0) 50%,
+      #0FA0CE 50%
+    );
+  }
+  blockquote {
+    border-left: 8px solid #0FA0CE;
+  }
+  .nanobar .bar {
+    background: #0FA0CE;
+  }
+  .button.button-primary:hover,
+  button.button-primary:hover,
+  input[type="submit"].button-primary:hover,
+  input[type="reset"].button-primary:hover,
+  input[type="button"].button-primary:hover,
+  .button.button-primary:focus,
+  button.button-primary:focus,
+  input[type="submit"].button-primary:focus,
+  input[type="reset"].button-primary:focus,
+  input[type="button"].button-primary:focus {
+    background-color: #0FA0CE;
+    border-color: #0FA0CE;
+  }
+  input[type="email"]:focus,
+  input[type="number"]:focus,
+  input[type="search"]:focus,
+  input[type="text"]:focus,
+  input[type="tel"]:focus,
+  input[type="url"]:focus,
+  input[type="password"]:focus,
+  textarea:focus,
+  select:focus {
+    border: 1px solid #0FA0CE;
+  }
+</style>
+
+  <!-- Google Analytics (With Privacy Settings On)
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  
+
+<meta name="generator" content="Hexo 5.3.0"><link rel="alternate" href="/atom.xml" title="进阶" type="application/atom+xml">
+</head>
+
+<body>
+  <div class="container">
+    <div class="row">
+      <div>
+
+        <div class="row">
+  <div class="two columns" style="max-width: 50px">
+    <h1 class="mt-2 mode">
+      <div onclick=setDarkMode(true) id="darkBtn">🌑</div>
+      <div onclick=setDarkMode(false) id="lightBtn" class=hidden>☀️</div>
+      <script >
+        if (localStorage.getItem('preferredTheme') == 'dark') {
+          setDarkMode(true)
+        }
+        function setDarkMode(isDark) {
+          var darkBtn = document.getElementById('darkBtn')
+          var lightBtn = document.getElementById('lightBtn')
+          if (isDark) {
+            lightBtn.style.display = "block"
+            darkBtn.style.display = "none"
+            localStorage.setItem('preferredTheme', 'dark');
+          } else {
+            lightBtn.style.display = "none"
+            darkBtn.style.display = "block"
+            localStorage.removeItem('preferredTheme');
+          }
+          document.body.classList.toggle("darkmode");
+        }
+      </script>
+    </h1>
+  </div>
+
+  <div class="six columns ml-1">
+    <h1 class="mt-2">
+      UP&amp;UP
+    </h1>
+  </div>
+
+  <div class="twelve columns">
+    <div class="row">
+      <div class="nine columns left">
+        <a href="/">Home</a>
+        
+        
+      </div>
+    </div>
+    <hr style="margin-bottom: 2.6rem">
+  </div>
+</div>
+
+        <div class="trans">
+            <h2>记录：注意点&冷知识</h2>
+
+  <blockquote>
+<p><strong>setTimeout / setInterval</strong></p>
+</blockquote>
+<ul>
+<li>setTimeout: 0ms 并不是立即执行，被放入任务队列等待空闲时执行（js运行机制）</li>
+<li>实际延迟比设定值更久，原因是有最小延迟4ms，最先规定的嵌套函数最小延迟10ms</li>
+<li>setTimeout 和 setInterval 每调用一次最小间隔4ms</li>
+<li>最大延迟值：当延迟大于2147483647ms，约为24.8天时就会移除，导致定时器会被立即执行</li>
+<li>可以使用postMessage实现零延迟<br>  window.postMessage()可以安全地实现跨源通信  <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line">(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> timeouts = []</span><br><span class="line">    <span class="keyword">var</span> messageName = <span class="string">&quot;zero-timeout-message&quot;</span></span><br><span class="line">    <span class="comment">// 只接受一个函数参数，延迟时间始终为0</span></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">setZeroTimeout</span>(<span class="params">fn</span>)</span>&#123;</span><br><span class="line">        timeouts.push(fn)</span><br><span class="line">        <span class="built_in">window</span>.postMessage(messageName, <span class="string">&quot;*&quot;</span>)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">handleMessage</span>(<span class="params">event</span>)</span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(event.source == <span class="built_in">window</span> &amp;&amp; event.data == messageName)&#123;</span><br><span class="line">            event.stopPropagation()</span><br><span class="line">            <span class="keyword">if</span>(timeouts.length &gt; <span class="number">0</span>)&#123;</span><br><span class="line">                <span class="keyword">var</span> fn = timeouts.shift()</span><br><span class="line">                fn()</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">window</span>.addEventListener(<span class="string">&quot;message&quot;</span>, handleMessage, <span class="literal">true</span>)</span><br><span class="line">    <span class="built_in">window</span>.setZeroTimeout = setZeroTimeout</span><br><span class="line">&#125;)()</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">runtest</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> i = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">var</span> startTime = <span class="built_in">Date</span>.now();</span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">test1</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (++i == <span class="number">100</span>) &#123;</span><br><span class="line">            <span class="keyword">var</span> endTime = <span class="built_in">Date</span>.now();</span><br><span class="line">            <span class="built_in">console</span>.log(<span class="string">&quot;100 iterations of setZeroTimeout took &quot;</span> +</span><br><span class="line">                        (endTime - startTime) + <span class="string">&quot; milliseconds.&quot;</span>);</span><br><span class="line">            i = <span class="number">0</span>;</span><br><span class="line">            startTime = <span class="built_in">Date</span>.now();</span><br><span class="line">            <span class="built_in">setTimeout</span>(test2, <span class="number">0</span>);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            setZeroTimeout(test1);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    setZeroTimeout(test1);</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">test2</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (++i == <span class="number">100</span>) &#123;</span><br><span class="line">            <span class="keyword">var</span> endTime = <span class="built_in">Date</span>.now();</span><br><span class="line">            <span class="built_in">console</span>.log(<span class="string">&quot;100 iterations of setTimeout(0) took &quot;</span> +</span><br><span class="line">                        (endTime - startTime) + <span class="string">&quot; milliseconds.&quot;</span>);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="built_in">setTimeout</span>(test2, <span class="number">0</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;   </span><br></pre></td></tr></table></figure></li>
+</ul>
+
+  <p> — Mar 29, 2021</p>
+  
+
+
+          <div class="row mt-2">
+  
+    <div class="eight columns">
+      <p id="madewith">Made with ❤ and
+        <a class="footer-link icon" href="https://hexo.io" target="_blank" style="text-decoration: none;" rel="noreferrer" aria-label="Hexo.io">
+        <svg class="hexo svg-hov" width="14" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>Hexo.js</title><path d="M12 .007L1.57 6.056V18.05L12 23.995l10.43-6.049V5.952L12 .007zm4.798 17.105l-.939.521-.939-.521V12.94H9.08v4.172l-.94.521-.938-.521V6.89l.939-.521.939.521v4.172h5.84V6.89l.94-.521.938.521v10.222z"/></svg>
+        </a>
+        
+    </div>
+
+    <!-- Sepcial thanks to https://simpleicons.org/ for the icons -->
+    <div class="four columns mb-3 posisi" >
+      
+
+      
+
+      
+
+      
+
+    </div>
+  
+</div>
+
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+  <script src="/js/nanobar.min.js"></script>
+  <script>
+    var options = {
+      classname: 'nanobar',
+      id: 'myNanobar'
+    };
+    var nanobar = new Nanobar(options);
+    nanobar.go(30);
+    nanobar.go(76);
+    nanobar.go(100);
+  </script>
+
+</body>
+
+</html>

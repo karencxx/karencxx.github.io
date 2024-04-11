@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <!-- Minima -->
+  <!-- Hexo theme created by @adisaktijrs -->
+
+  <!-- Basic Page Needs
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <meta charset="utf-8">
+
+  
+  <title>运用vuex构建note</title>
+  
+  <link rel="sitemap" href="http://yoursite.comsitemap.xml" />
+  
+  <link rel="canonical" href="http://yoursite.com/2017/11/28/vuex/">
+  
+  <meta name="description" content="vuex探究 最近研究了下vue+vuex,正好看到了国外的一篇文章(如何构建一个笔记的单页应用),就着练手了下,也从中发现了一些问题并解决了。–国外文章地址：https://coligo.io/learn-vuex-by-building-notes-app/在此记录下。 1具体安装操作什么的就不">
+  
+  
+  <meta name="author" content="karen">
+  
+  <meta property="og:image" content="http://yoursite.comundefined">
+  
+  <meta property="og:site_name" content="进阶" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="运用vuex构建note" />
+  
+  <meta property="og:description" content="vuex探究 最近研究了下vue+vuex,正好看到了国外的一篇文章(如何构建一个笔记的单页应用),就着练手了下,也从中发现了一些问题并解决了。–国外文章地址：https://coligo.io/learn-vuex-by-building-notes-app/在此记录下。 1具体安装操作什么的就不">
+  
+  <meta property="og:url" content="http://yoursite.com/2017/11/28/vuex/" />
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="运用vuex构建note">
+  
+  <meta name="twitter:description" content="vuex探究 最近研究了下vue+vuex,正好看到了国外的一篇文章(如何构建一个笔记的单页应用),就着练手了下,也从中发现了一些问题并解决了。–国外文章地址：https://coligo.io/learn-vuex-by-building-notes-app/在此记录下。 1具体安装操作什么的就不">
+  
+  
+  <meta name="twitter:image" content="http://yoursite.comundefined">
+  
+  <meta name="twitter:url" content="http://yoursite.com/2017/11/28/vuex/" />
+
+  <!-- Mobile Specific Metas
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Preload fonts
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link rel="preload" href="../fonts/dm-serif-display-v4-latin-regular.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="../fonts/inter-v2-latin-regular.woff2" as="font" type="font/woff2" crossorigin>
+
+  <!-- CSS
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  
+<link rel="stylesheet" href="/css/normalize.css">
+
+  
+<link rel="stylesheet" href="/css/skeleton.css">
+
+  
+<link rel="stylesheet" href="/css/custom.css">
+
+  
+<link rel="stylesheet" href="/css/prism-dark.css">
+
+  
+<link rel="stylesheet" href="/css/prism-line-numbers.css">
+
+  <!-- User css -->
+  
+  
+<link rel="stylesheet" href="/css/user.css">
+
+  
+
+  <!-- Favicon
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link rel="icon" type="image/png" href="/images/favicon.png">
+
+  <!-- Custom Theme Color Style
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <style>
+  a:not(.icon) {
+    text-decoration-color: #0FA0CE;
+    background-image: linear-gradient(
+      to bottom,
+      rgba(0, 0, 0, 0) 50%,
+      #0FA0CE 50%
+    );
+  }
+  blockquote {
+    border-left: 8px solid #0FA0CE;
+  }
+  .nanobar .bar {
+    background: #0FA0CE;
+  }
+  .button.button-primary:hover,
+  button.button-primary:hover,
+  input[type="submit"].button-primary:hover,
+  input[type="reset"].button-primary:hover,
+  input[type="button"].button-primary:hover,
+  .button.button-primary:focus,
+  button.button-primary:focus,
+  input[type="submit"].button-primary:focus,
+  input[type="reset"].button-primary:focus,
+  input[type="button"].button-primary:focus {
+    background-color: #0FA0CE;
+    border-color: #0FA0CE;
+  }
+  input[type="email"]:focus,
+  input[type="number"]:focus,
+  input[type="search"]:focus,
+  input[type="text"]:focus,
+  input[type="tel"]:focus,
+  input[type="url"]:focus,
+  input[type="password"]:focus,
+  textarea:focus,
+  select:focus {
+    border: 1px solid #0FA0CE;
+  }
+</style>
+
+  <!-- Google Analytics (With Privacy Settings On)
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  
+
+<meta name="generator" content="Hexo 5.3.0"><link rel="alternate" href="/atom.xml" title="进阶" type="application/atom+xml">
+</head>
+
+<body>
+  <div class="container">
+    <div class="row">
+      <div>
+
+        <div class="row">
+  <div class="two columns" style="max-width: 50px">
+    <h1 class="mt-2 mode">
+      <div onclick=setDarkMode(true) id="darkBtn">🌑</div>
+      <div onclick=setDarkMode(false) id="lightBtn" class=hidden>☀️</div>
+      <script >
+        if (localStorage.getItem('preferredTheme') == 'dark') {
+          setDarkMode(true)
+        }
+        function setDarkMode(isDark) {
+          var darkBtn = document.getElementById('darkBtn')
+          var lightBtn = document.getElementById('lightBtn')
+          if (isDark) {
+            lightBtn.style.display = "block"
+            darkBtn.style.display = "none"
+            localStorage.setItem('preferredTheme', 'dark');
+          } else {
+            lightBtn.style.display = "none"
+            darkBtn.style.display = "block"
+            localStorage.removeItem('preferredTheme');
+          }
+          document.body.classList.toggle("darkmode");
+        }
+      </script>
+    </h1>
+  </div>
+
+  <div class="six columns ml-1">
+    <h1 class="mt-2">
+      UP&amp;UP
+    </h1>
+  </div>
+
+  <div class="twelve columns">
+    <div class="row">
+      <div class="nine columns left">
+        <a href="/">Home</a>
+        
+        
+      </div>
+    </div>
+    <hr style="margin-bottom: 2.6rem">
+  </div>
+</div>
+
+        <div class="trans">
+            <h2>运用vuex构建note</h2>
+
+  <p>vuex探究</p>
+<p>最近研究了下vue+vuex,正好看到了国外的一篇文章(如何构建一个笔记的单页应用),就着练手了下,也从中发现了一些问题并解决了。<br>–国外文章地址：<a target="_blank" rel="noopener" href="https://coligo.io/learn-vuex-by-building-notes-app/">https://coligo.io/learn-vuex-by-building-notes-app/</a><br>在此记录下。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">具体安装操作什么的就不一一详细说明了。</span><br></pre></td></tr></table></figure>
+<h3 id="那篇文章的vue版本应该是1-0，而本地项目安装的版本为2-0，所以练习的过程中碰到了一些问题。"><a href="#那篇文章的vue版本应该是1-0，而本地项目安装的版本为2-0，所以练习的过程中碰到了一些问题。" class="headerlink" title="那篇文章的vue版本应该是1.0，而本地项目安装的版本为2.0，所以练习的过程中碰到了一些问题。"></a>那篇文章的vue版本应该是1.0，而本地项目安装的版本为2.0，所以练习的过程中碰到了一些问题。</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">2.0使用了mapActions,mapGetters</span><br><span class="line">dispatch =&gt; commit</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">import &#123; addNote, deleteNote, toggleFavorite &#125; from <span class="string">&#x27;../vuex/actions&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">export</span> default &#123;</span><br><span class="line">  vuex: &#123;</span><br><span class="line">    getters: &#123;</span><br><span class="line">      activeNote: state =&gt; state.activeNote</span><br><span class="line">    &#125;,</span><br><span class="line">    actions: &#123;</span><br><span class="line">      addNote,</span><br><span class="line">      deleteNote,</span><br><span class="line">      toggleFavorite</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>需要改成</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">import &#123; mapActions, mapGetters &#125; from <span class="string">&#x27;vuex&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">export</span> default &#123;</span><br><span class="line">	methods: &#123;</span><br><span class="line">		...mapActions([<span class="string">&#x27;editNote&#x27;</span>, <span class="string">&#x27;editContent&#x27;</span>])</span><br><span class="line">	&#125;,</span><br><span class="line">	computed: &#123;</span><br><span class="line">		...mapGetters([<span class="string">&#x27;activeNoteText&#x27;</span>, <span class="string">&#x27;activeNoteContent&#x27;</span>])</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>actions.js的引入</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">import * as actions from <span class="string">&#x27;./actions&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">export</span> default new Vuex.Store(&#123; actions&#125;)</span><br><span class="line"></span><br><span class="line">就不需要</span><br><span class="line">	import &#123; addNote, deleteNote, toggleFavorite &#125; from <span class="string">&#x27;../vuex/actions&#x27;</span></span><br><span class="line"></span><br><span class="line">在main.js注入store</span><br></pre></td></tr></table></figure>
+
+<p>还有个数据绑定的小问题</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;input <span class="built_in">type</span>=<span class="string">&quot;text&quot;</span> @input=<span class="string">&quot;editNote&quot;</span> v-model=<span class="string">&quot;activeNoteText&quot;</span>&gt;</span><br><span class="line">这时候会报一个错：Computed property <span class="string">&quot;activeNoteText&quot;</span> was assigned to but it has no setter.</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>stackoverflow上有段解释 (<a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/46106037/vuex-computed-property-name-was-assigned-to-but-it-has-no-setter">https://stackoverflow.com/questions/46106037/vuex-computed-property-name-was-assigned-to-but-it-has-no-setter</a>)</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">If you<span class="string">&#x27;re going to v-model a computed, it needs a setter. Whatever you want it to do with the updated value (probably write it to the $store, considering that&#x27;</span>s what your getter pulls it from) you <span class="keyword">do</span> <span class="keyword">in</span> the setter.</span><br><span class="line"></span><br><span class="line">If writing it back to the store happens via form submission, you don<span class="string">&#x27;t want to v-model, you just want to set :value.</span></span><br></pre></td></tr></table></figure>
+
+<p>具体代码在 <a target="_blank" rel="noopener" href="https://github.com/karencxx/vue.git">https://github.com/karencxx/vue.git</a></p>
+
+  <p> — Nov 28, 2017</p>
+  
+
+
+          <div class="row mt-2">
+  
+    <div class="eight columns">
+      <p id="madewith">Made with ❤ and
+        <a class="footer-link icon" href="https://hexo.io" target="_blank" style="text-decoration: none;" rel="noreferrer" aria-label="Hexo.io">
+        <svg class="hexo svg-hov" width="14" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>Hexo.js</title><path d="M12 .007L1.57 6.056V18.05L12 23.995l10.43-6.049V5.952L12 .007zm4.798 17.105l-.939.521-.939-.521V12.94H9.08v4.172l-.94.521-.938-.521V6.89l.939-.521.939.521v4.172h5.84V6.89l.94-.521.938.521v10.222z"/></svg>
+        </a>
+        
+    </div>
+
+    <!-- Sepcial thanks to https://simpleicons.org/ for the icons -->
+    <div class="four columns mb-3 posisi" >
+      
+
+      
+
+      
+
+      
+
+    </div>
+  
+</div>
+
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+  <script src="/js/nanobar.min.js"></script>
+  <script>
+    var options = {
+      classname: 'nanobar',
+      id: 'myNanobar'
+    };
+    var nanobar = new Nanobar(options);
+    nanobar.go(30);
+    nanobar.go(76);
+    nanobar.go(100);
+  </script>
+
+</body>
+
+</html>

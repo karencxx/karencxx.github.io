@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <!-- Minima -->
+  <!-- Hexo theme created by @adisaktijrs -->
+
+  <!-- Basic Page Needs
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <meta charset="utf-8">
+
+  
+  <title>ts-基础类型</title>
+  
+  <link rel="sitemap" href="http://yoursite.comsitemap.xml" />
+  
+  <link rel="canonical" href="http://yoursite.com/2020/11/16/ts-md/">
+  
+  <meta name="description" content="常见类型  1234567let a:number &amp;#x3D; 1let hex:number &amp;#x3D; 0x14let b:string &amp;#x3D; &amp;#39;b&amp;#39;let c:boolean &amp;#x3D; falselet d:number[] &amp;#x3D; [1,2,3]let ">
+  
+  
+  <meta name="author" content="karen">
+  
+  <meta property="og:image" content="http://yoursite.comundefined">
+  
+  <meta property="og:site_name" content="进阶" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="ts-基础类型" />
+  
+  <meta property="og:description" content="常见类型  1234567let a:number &amp;#x3D; 1let hex:number &amp;#x3D; 0x14let b:string &amp;#x3D; &amp;#39;b&amp;#39;let c:boolean &amp;#x3D; falselet d:number[] &amp;#x3D; [1,2,3]let ">
+  
+  <meta property="og:url" content="http://yoursite.com/2020/11/16/ts-md/" />
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="ts-基础类型">
+  
+  <meta name="twitter:description" content="常见类型  1234567let a:number &amp;#x3D; 1let hex:number &amp;#x3D; 0x14let b:string &amp;#x3D; &amp;#39;b&amp;#39;let c:boolean &amp;#x3D; falselet d:number[] &amp;#x3D; [1,2,3]let ">
+  
+  
+  <meta name="twitter:image" content="http://yoursite.comundefined">
+  
+  <meta name="twitter:url" content="http://yoursite.com/2020/11/16/ts-md/" />
+
+  <!-- Mobile Specific Metas
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Preload fonts
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link rel="preload" href="../fonts/dm-serif-display-v4-latin-regular.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="../fonts/inter-v2-latin-regular.woff2" as="font" type="font/woff2" crossorigin>
+
+  <!-- CSS
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  
+<link rel="stylesheet" href="/css/normalize.css">
+
+  
+<link rel="stylesheet" href="/css/skeleton.css">
+
+  
+<link rel="stylesheet" href="/css/custom.css">
+
+  
+<link rel="stylesheet" href="/css/prism-dark.css">
+
+  
+<link rel="stylesheet" href="/css/prism-line-numbers.css">
+
+  <!-- User css -->
+  
+  
+<link rel="stylesheet" href="/css/user.css">
+
+  
+
+  <!-- Favicon
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link rel="icon" type="image/png" href="/images/favicon.png">
+
+  <!-- Custom Theme Color Style
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <style>
+  a:not(.icon) {
+    text-decoration-color: #0FA0CE;
+    background-image: linear-gradient(
+      to bottom,
+      rgba(0, 0, 0, 0) 50%,
+      #0FA0CE 50%
+    );
+  }
+  blockquote {
+    border-left: 8px solid #0FA0CE;
+  }
+  .nanobar .bar {
+    background: #0FA0CE;
+  }
+  .button.button-primary:hover,
+  button.button-primary:hover,
+  input[type="submit"].button-primary:hover,
+  input[type="reset"].button-primary:hover,
+  input[type="button"].button-primary:hover,
+  .button.button-primary:focus,
+  button.button-primary:focus,
+  input[type="submit"].button-primary:focus,
+  input[type="reset"].button-primary:focus,
+  input[type="button"].button-primary:focus {
+    background-color: #0FA0CE;
+    border-color: #0FA0CE;
+  }
+  input[type="email"]:focus,
+  input[type="number"]:focus,
+  input[type="search"]:focus,
+  input[type="text"]:focus,
+  input[type="tel"]:focus,
+  input[type="url"]:focus,
+  input[type="password"]:focus,
+  textarea:focus,
+  select:focus {
+    border: 1px solid #0FA0CE;
+  }
+</style>
+
+  <!-- Google Analytics (With Privacy Settings On)
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  
+
+<meta name="generator" content="Hexo 5.3.0"><link rel="alternate" href="/atom.xml" title="进阶" type="application/atom+xml">
+</head>
+
+<body>
+  <div class="container">
+    <div class="row">
+      <div>
+
+        <div class="row">
+  <div class="two columns" style="max-width: 50px">
+    <h1 class="mt-2 mode">
+      <div onclick=setDarkMode(true) id="darkBtn">🌑</div>
+      <div onclick=setDarkMode(false) id="lightBtn" class=hidden>☀️</div>
+      <script >
+        if (localStorage.getItem('preferredTheme') == 'dark') {
+          setDarkMode(true)
+        }
+        function setDarkMode(isDark) {
+          var darkBtn = document.getElementById('darkBtn')
+          var lightBtn = document.getElementById('lightBtn')
+          if (isDark) {
+            lightBtn.style.display = "block"
+            darkBtn.style.display = "none"
+            localStorage.setItem('preferredTheme', 'dark');
+          } else {
+            lightBtn.style.display = "none"
+            darkBtn.style.display = "block"
+            localStorage.removeItem('preferredTheme');
+          }
+          document.body.classList.toggle("darkmode");
+        }
+      </script>
+    </h1>
+  </div>
+
+  <div class="six columns ml-1">
+    <h1 class="mt-2">
+      UP&amp;UP
+    </h1>
+  </div>
+
+  <div class="twelve columns">
+    <div class="row">
+      <div class="nine columns left">
+        <a href="/">Home</a>
+        
+        
+      </div>
+    </div>
+    <hr style="margin-bottom: 2.6rem">
+  </div>
+</div>
+
+        <div class="trans">
+            <h2>ts-基础类型</h2>
+
+  <blockquote>
+<p><strong>常见类型</strong></p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">let a:number &#x3D; 1</span><br><span class="line">let hex:number &#x3D; 0x14</span><br><span class="line">let b:string &#x3D; &#39;b&#39;</span><br><span class="line">let c:boolean &#x3D; false</span><br><span class="line">let d:number[] &#x3D; [1,2,3]</span><br><span class="line">let e:Array&lt;String&gt; &#x3D; [&#39;1&#39;,&#39;2&#39;,&#39;3&#39;]</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p><strong>元祖类型 Tuple</strong> </p>
+</blockquote>
+<p>表示一个已知元素数量和类型数组，各元素类型不必相同</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">let x:[number, string]   </span><br><span class="line">x &#x3D; [2, &#39;a&#39;] ✅</span><br><span class="line">x &#x3D; [&#39;a&#39;, 3] ❎</span><br></pre></td></tr></table></figure>
+<p>当访问越界元素时，会使用联合类型替代</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">x[3] &#x3D; &#39;b&#39;      &#x2F;&#x2F; ✅ string可赋值给string | number</span><br><span class="line">x[5].toString() &#x2F;&#x2F; ✅ string | number 都有toString()</span><br><span class="line">x[6] &#x3D; true     &#x2F;&#x2F; ❎ 类型不符合</span><br></pre></td></tr></table></figure>
+<p>❌ ts 3.1版本之后，访问越界元素会报错</p>
+<blockquote>
+<p><strong>枚举类型</strong></p>
+</blockquote>
+<p>默认情况下，<strong>元素值从0开始，也可手动赋值</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">enum Color &#123;</span><br><span class="line">    Red &#x3D; 1,</span><br><span class="line">    Green,</span><br><span class="line">    Blue</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>提供便利：由枚举值得到属性名</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">let c: Color &#x3D; Color.Green</span><br><span class="line">let colorName:string &#x3D; Color[2] </span><br></pre></td></tr></table></figure>
+<blockquote>
+<p><strong>any类型</strong> 任意类型</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">let notSure:any &#x3D; 4</span><br><span class="line">notSure &#x3D; &#96;maybe a string instead&#96;</span><br></pre></td></tr></table></figure>
+<p>对现有代码进行改写时，any类型十分有用，允许你在编译时可选择地包含或移除类型检查。<br>并且当只知道一部分数据的类型时，any 类型也是有用的</p>
+<blockquote>
+<p><strong>void</strong> 无任何类型</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">function xxx():void &#123;</span><br><span class="line">    &#x2F;&#x2F; 无返回值</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>声明一个 void  变量无意义，只能赋给  null | undefined </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">let unusable:void &#x3D; null &#x2F;&#x2F; 无意义</span><br><span class="line">let unusable:void &#x3D; undefined &#x2F;&#x2F; 无意义</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p><strong>null &amp; undefined</strong>  任意类型</p>
+</blockquote>
+<p>默认情况下 null 和 undefined 是所有类型的<strong>子类型</strong><br><strong>子类型可以赋值给父类型</strong>，像下面这个例子，null和undefined赋值给number类型的变量</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">let u:undefined &#x3D; undefined</span><br><span class="line">let n:null &#x3D; undefined</span><br><span class="line"></span><br><span class="line">let num:number &#x3D;3</span><br><span class="line">num &#x3D; null</span><br></pre></td></tr></table></figure>
+<p>常规编译不出错<br>严格编译 <strong>tsc xxx.ts –strictNullChecks</strong> 将会检查null，从而规避一些问题</p>
+<blockquote>
+<p><strong>联合类型</strong>  任意类型</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">let num:number | null &#x3D; 2</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p><strong>never</strong> 那些永不存在的值的类型</p>
+</blockquote>
+<p>是<strong>任意类型的子类型</strong>，可以赋值给任何类型<br><strong>别的类型都不是never的子类型，不可赋值给never</strong><br>常用于<strong>抛出一些异常</strong>或<strong>没有返回值的函数表达式</strong>或<strong>箭头函数表达式的返回值类型</strong></p>
+<p>返回never的函数必须存在无法达到的终点</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">function error(message:string):never &#123;</span><br><span class="line">    throw new Error(message)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function fail () &#123;</span><br><span class="line">    return error(&#39;sth. failed&#39;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function infiniteLoop():never &#123;</span><br><span class="line">    while(true) &#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p><strong>object 非原始类型，除number/string/boolean/numm/symbol/undefined之外的类型</strong></p>
+</blockquote>
+<p>类似object.create() API</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">declare function create(o:object|null):void</span><br><span class="line">create(&#123;prop: 0&#125;) </span><br><span class="line">create(null)</span><br><span class="line">create(42)          ❎</span><br><span class="line">create(false)       ❎</span><br><span class="line">create(undefined)   ❎</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p><strong>类型断言</strong></p>
+</blockquote>
+<p>有时候你会遇到这样的情况，你会比 TypeScript 更了解某个值的详细信息。<br>通常这会发生在你清楚地知道一个实体具有比它现有类型更确切的类型。</p>
+<p>通过类型断言这种方式可以告诉编译器，“相信我，我知道自己在干什么”。<br>类型断言好比其它语言里的类型转换，但是不进行特殊的数据检查和解构。<br>它没有运行时的影响，只是在编译阶段起作用</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">let someValue:any &#x3D; &#39;this is a string&#39;</span><br><span class="line">someValue.length &#x2F;&#x2F; &#x2F;&#x2F; 此时找不到.length</span><br><span class="line"></span><br><span class="line">let strLength:number&#x3D;(&lt;string&gt;someValue).length</span><br><span class="line">let strLength:number&#x3D;(someValue as string).length</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+  <p> — Nov 16, 2020</p>
+  
+
+
+          <div class="row mt-2">
+  
+    <div class="eight columns">
+      <p id="madewith">Made with ❤ and
+        <a class="footer-link icon" href="https://hexo.io" target="_blank" style="text-decoration: none;" rel="noreferrer" aria-label="Hexo.io">
+        <svg class="hexo svg-hov" width="14" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>Hexo.js</title><path d="M12 .007L1.57 6.056V18.05L12 23.995l10.43-6.049V5.952L12 .007zm4.798 17.105l-.939.521-.939-.521V12.94H9.08v4.172l-.94.521-.938-.521V6.89l.939-.521.939.521v4.172h5.84V6.89l.94-.521.938.521v10.222z"/></svg>
+        </a>
+        
+    </div>
+
+    <!-- Sepcial thanks to https://simpleicons.org/ for the icons -->
+    <div class="four columns mb-3 posisi" >
+      
+
+      
+
+      
+
+      
+
+    </div>
+  
+</div>
+
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+  <script src="/js/nanobar.min.js"></script>
+  <script>
+    var options = {
+      classname: 'nanobar',
+      id: 'myNanobar'
+    };
+    var nanobar = new Nanobar(options);
+    nanobar.go(30);
+    nanobar.go(76);
+    nanobar.go(100);
+  </script>
+
+</body>
+
+</html>

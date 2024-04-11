@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <!-- Minima -->
+  <!-- Hexo theme created by @adisaktijrs -->
+
+  <!-- Basic Page Needs
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <meta charset="utf-8">
+
+  
+  <title>JavaScript 内存与性能</title>
+  
+  <link rel="sitemap" href="http://yoursite.comsitemap.xml" />
+  
+  <link rel="canonical" href="http://yoursite.com/2024/04/07/JS%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/">
+  
+  <meta name="description" content="内存泄漏   意外的全局变量：无法被回收 定时器：未被正确关闭，导致引用的外部变量无法被释放 事件监听：没有正确销毁（可能在低版本浏览器中出现） 闭包：导致父级中的变量无法被释放 dom引用：dom元素被删除时，内存中的引用未被正确清空挂起 Performance、Memory运用 查看内存泄漏自动">
+  
+  
+  <meta name="author" content="karen">
+  
+  <meta property="og:image" content="http://yoursite.comundefined">
+  
+  <meta property="og:site_name" content="进阶" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="JavaScript 内存与性能" />
+  
+  <meta property="og:description" content="内存泄漏   意外的全局变量：无法被回收 定时器：未被正确关闭，导致引用的外部变量无法被释放 事件监听：没有正确销毁（可能在低版本浏览器中出现） 闭包：导致父级中的变量无法被释放 dom引用：dom元素被删除时，内存中的引用未被正确清空挂起 Performance、Memory运用 查看内存泄漏自动">
+  
+  <meta property="og:url" content="http://yoursite.com/2024/04/07/JS%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/" />
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="JavaScript 内存与性能">
+  
+  <meta name="twitter:description" content="内存泄漏   意外的全局变量：无法被回收 定时器：未被正确关闭，导致引用的外部变量无法被释放 事件监听：没有正确销毁（可能在低版本浏览器中出现） 闭包：导致父级中的变量无法被释放 dom引用：dom元素被删除时，内存中的引用未被正确清空挂起 Performance、Memory运用 查看内存泄漏自动">
+  
+  
+  <meta name="twitter:image" content="http://yoursite.comundefined">
+  
+  <meta name="twitter:url" content="http://yoursite.com/2024/04/07/JS%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/" />
+
+  <!-- Mobile Specific Metas
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Preload fonts
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link rel="preload" href="../fonts/dm-serif-display-v4-latin-regular.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="../fonts/inter-v2-latin-regular.woff2" as="font" type="font/woff2" crossorigin>
+
+  <!-- CSS
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  
+<link rel="stylesheet" href="/css/normalize.css">
+
+  
+<link rel="stylesheet" href="/css/skeleton.css">
+
+  
+<link rel="stylesheet" href="/css/custom.css">
+
+  
+<link rel="stylesheet" href="/css/prism-dark.css">
+
+  
+<link rel="stylesheet" href="/css/prism-line-numbers.css">
+
+  <!-- User css -->
+  
+  
+<link rel="stylesheet" href="/css/user.css">
+
+  
+
+  <!-- Favicon
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link rel="icon" type="image/png" href="/images/favicon.png">
+
+  <!-- Custom Theme Color Style
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <style>
+  a:not(.icon) {
+    text-decoration-color: #0FA0CE;
+    background-image: linear-gradient(
+      to bottom,
+      rgba(0, 0, 0, 0) 50%,
+      #0FA0CE 50%
+    );
+  }
+  blockquote {
+    border-left: 8px solid #0FA0CE;
+  }
+  .nanobar .bar {
+    background: #0FA0CE;
+  }
+  .button.button-primary:hover,
+  button.button-primary:hover,
+  input[type="submit"].button-primary:hover,
+  input[type="reset"].button-primary:hover,
+  input[type="button"].button-primary:hover,
+  .button.button-primary:focus,
+  button.button-primary:focus,
+  input[type="submit"].button-primary:focus,
+  input[type="reset"].button-primary:focus,
+  input[type="button"].button-primary:focus {
+    background-color: #0FA0CE;
+    border-color: #0FA0CE;
+  }
+  input[type="email"]:focus,
+  input[type="number"]:focus,
+  input[type="search"]:focus,
+  input[type="text"]:focus,
+  input[type="tel"]:focus,
+  input[type="url"]:focus,
+  input[type="password"]:focus,
+  textarea:focus,
+  select:focus {
+    border: 1px solid #0FA0CE;
+  }
+</style>
+
+  <!-- Google Analytics (With Privacy Settings On)
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  
+
+<meta name="generator" content="Hexo 5.3.0"><link rel="alternate" href="/atom.xml" title="进阶" type="application/atom+xml">
+</head>
+
+<body>
+  <div class="container">
+    <div class="row">
+      <div>
+
+        <div class="row">
+  <div class="two columns" style="max-width: 50px">
+    <h1 class="mt-2 mode">
+      <div onclick=setDarkMode(true) id="darkBtn">🌑</div>
+      <div onclick=setDarkMode(false) id="lightBtn" class=hidden>☀️</div>
+      <script >
+        if (localStorage.getItem('preferredTheme') == 'dark') {
+          setDarkMode(true)
+        }
+        function setDarkMode(isDark) {
+          var darkBtn = document.getElementById('darkBtn')
+          var lightBtn = document.getElementById('lightBtn')
+          if (isDark) {
+            lightBtn.style.display = "block"
+            darkBtn.style.display = "none"
+            localStorage.setItem('preferredTheme', 'dark');
+          } else {
+            lightBtn.style.display = "none"
+            darkBtn.style.display = "block"
+            localStorage.removeItem('preferredTheme');
+          }
+          document.body.classList.toggle("darkmode");
+        }
+      </script>
+    </h1>
+  </div>
+
+  <div class="six columns ml-1">
+    <h1 class="mt-2">
+      UP&amp;UP
+    </h1>
+  </div>
+
+  <div class="twelve columns">
+    <div class="row">
+      <div class="nine columns left">
+        <a href="/">Home</a>
+        
+        
+      </div>
+    </div>
+    <hr style="margin-bottom: 2.6rem">
+  </div>
+</div>
+
+        <div class="trans">
+            <h2>JavaScript 内存与性能</h2>
+
+  <blockquote>
+<p>内存泄漏</p>
+</blockquote>
+<ul>
+<li>意外的全局变量：无法被回收</li>
+<li>定时器：未被正确关闭，导致引用的外部变量无法被释放</li>
+<li>事件监听：没有正确销毁（可能在低版本浏览器中出现）</li>
+<li>闭包：导致父级中的变量无法被释放</li>
+<li>dom引用：dom元素被删除时，内存中的引用未被正确清空<h2 id="挂起"><a href="#挂起" class="headerlink" title="挂起"></a>挂起</h2></li>
+<li>Performance、Memory运用<ul>
+<li>查看内存泄漏<h3 id="自动垃圾收集机制，自动找出不再使用的变量释放内存"><a href="#自动垃圾收集机制，自动找出不再使用的变量释放内存" class="headerlink" title="自动垃圾收集机制，自动找出不再使用的变量释放内存"></a>自动垃圾收集机制，自动找出不再使用的变量释放内存</h3></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><h3 id="标记清除，主流垃圾收集算法"><a href="#标记清除，主流垃圾收集算法" class="headerlink" title="标记清除，主流垃圾收集算法"></a>标记清除，主流垃圾收集算法</h3></li>
+</ul>
+<ul>
+<li>给存储在内存中的所有变量加上标记</li>
+<li>去除环境中及被环境中的变量所引用的变量的标记</li>
+<li>剩下标记的变量就被视为准备删除的变量</li>
+</ul>
+<ul>
+<li><h3 id="引用计数，不太常见"><a href="#引用计数，不太常见" class="headerlink" title="引用计数，不太常见"></a>引用计数，不太常见</h3></li>
+</ul>
+<ul>
+<li>如果一个值的引用次数为0时，就会被释放内存</li>
+<li>函数被反复多次调用，就会导致大量内存得不到回收</li>
+<li>循环引用会导致问题，可能会导致内存永远不会被回收 ？</li>
+</ul>
+<blockquote>
+<p>管理内存</p>
+</blockquote>
+<ul>
+<li>为执行中的代码只保存必要的数据</li>
+<li>尽可能少未声明就初始化变量，会变为全局变量</li>
+<li>解除引用：不仅可以消除循环引用，对垃圾回收也有帮助<ul>
+<li>设置为null来释放其引用，让值脱离执行环境</li>
+<li>局部变量会在离开执行环境时自动被解除引用</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p> 尾调用优化</p>
+</blockquote>
+<ul>
+<li>尾调用就是一个出现在另一个函数“结尾”处的函数调用</li>
+<li>在递归问题上可以更好地运用起来<blockquote>
+<p>性能问题</p>
+</blockquote>
+</li>
+<li>let、const都以块为作用域，相比于使用var可能会更早地让垃圾回收程序介入，尽早释放内存</li>
+<li>隐藏类和内嵌缓存来提高性能</li>
+<li>尽量做到及时回收不用的内存</li>
+</ul>
+
+  <p> — Apr 7, 2024</p>
+  
+
+
+          <div class="row mt-2">
+  
+    <div class="eight columns">
+      <p id="madewith">Made with ❤ and
+        <a class="footer-link icon" href="https://hexo.io" target="_blank" style="text-decoration: none;" rel="noreferrer" aria-label="Hexo.io">
+        <svg class="hexo svg-hov" width="14" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>Hexo.js</title><path d="M12 .007L1.57 6.056V18.05L12 23.995l10.43-6.049V5.952L12 .007zm4.798 17.105l-.939.521-.939-.521V12.94H9.08v4.172l-.94.521-.938-.521V6.89l.939-.521.939.521v4.172h5.84V6.89l.94-.521.938.521v10.222z"/></svg>
+        </a>
+        
+    </div>
+
+    <!-- Sepcial thanks to https://simpleicons.org/ for the icons -->
+    <div class="four columns mb-3 posisi" >
+      
+
+      
+
+      
+
+      
+
+    </div>
+  
+</div>
+
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+  <script src="/js/nanobar.min.js"></script>
+  <script>
+    var options = {
+      classname: 'nanobar',
+      id: 'myNanobar'
+    };
+    var nanobar = new Nanobar(options);
+    nanobar.go(30);
+    nanobar.go(76);
+    nanobar.go(100);
+  </script>
+
+</body>
+
+</html>

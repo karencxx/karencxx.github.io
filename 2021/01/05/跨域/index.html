@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <!-- Minima -->
+  <!-- Hexo theme created by @adisaktijrs -->
+
+  <!-- Basic Page Needs
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <meta charset="utf-8">
+
+  
+  <title>跨域</title>
+  
+  <link rel="sitemap" href="http://yoursite.comsitemap.xml" />
+  
+  <link rel="canonical" href="http://yoursite.com/2021/01/05/%E8%B7%A8%E5%9F%9F/">
+  
+  <meta name="description" content="跨域是浏览器基于同源策略的一种安全手段  同源策略     12是一种约定，是浏览器最核心也最基本的安全功能用于隔离潜在恶意文件的安全机制，通常不允许不同源之间的读操作  同源( Sameoriginpolicy )  123协议相同 protocol主机相同 host端口相同 port     u">
+  
+  
+  <meta name="author" content="karen">
+  
+  <meta property="og:image" content="http://yoursite.comundefined">
+  
+  <meta property="og:site_name" content="进阶" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="跨域" />
+  
+  <meta property="og:description" content="跨域是浏览器基于同源策略的一种安全手段  同源策略     12是一种约定，是浏览器最核心也最基本的安全功能用于隔离潜在恶意文件的安全机制，通常不允许不同源之间的读操作  同源( Sameoriginpolicy )  123协议相同 protocol主机相同 host端口相同 port     u">
+  
+  <meta property="og:url" content="http://yoursite.com/2021/01/05/%E8%B7%A8%E5%9F%9F/" />
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="跨域">
+  
+  <meta name="twitter:description" content="跨域是浏览器基于同源策略的一种安全手段  同源策略     12是一种约定，是浏览器最核心也最基本的安全功能用于隔离潜在恶意文件的安全机制，通常不允许不同源之间的读操作  同源( Sameoriginpolicy )  123协议相同 protocol主机相同 host端口相同 port     u">
+  
+  
+  <meta name="twitter:image" content="http://yoursite.comundefined">
+  
+  <meta name="twitter:url" content="http://yoursite.com/2021/01/05/%E8%B7%A8%E5%9F%9F/" />
+
+  <!-- Mobile Specific Metas
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Preload fonts
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link rel="preload" href="../fonts/dm-serif-display-v4-latin-regular.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="../fonts/inter-v2-latin-regular.woff2" as="font" type="font/woff2" crossorigin>
+
+  <!-- CSS
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  
+<link rel="stylesheet" href="/css/normalize.css">
+
+  
+<link rel="stylesheet" href="/css/skeleton.css">
+
+  
+<link rel="stylesheet" href="/css/custom.css">
+
+  
+<link rel="stylesheet" href="/css/prism-dark.css">
+
+  
+<link rel="stylesheet" href="/css/prism-line-numbers.css">
+
+  <!-- User css -->
+  
+  
+<link rel="stylesheet" href="/css/user.css">
+
+  
+
+  <!-- Favicon
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link rel="icon" type="image/png" href="/images/favicon.png">
+
+  <!-- Custom Theme Color Style
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <style>
+  a:not(.icon) {
+    text-decoration-color: #0FA0CE;
+    background-image: linear-gradient(
+      to bottom,
+      rgba(0, 0, 0, 0) 50%,
+      #0FA0CE 50%
+    );
+  }
+  blockquote {
+    border-left: 8px solid #0FA0CE;
+  }
+  .nanobar .bar {
+    background: #0FA0CE;
+  }
+  .button.button-primary:hover,
+  button.button-primary:hover,
+  input[type="submit"].button-primary:hover,
+  input[type="reset"].button-primary:hover,
+  input[type="button"].button-primary:hover,
+  .button.button-primary:focus,
+  button.button-primary:focus,
+  input[type="submit"].button-primary:focus,
+  input[type="reset"].button-primary:focus,
+  input[type="button"].button-primary:focus {
+    background-color: #0FA0CE;
+    border-color: #0FA0CE;
+  }
+  input[type="email"]:focus,
+  input[type="number"]:focus,
+  input[type="search"]:focus,
+  input[type="text"]:focus,
+  input[type="tel"]:focus,
+  input[type="url"]:focus,
+  input[type="password"]:focus,
+  textarea:focus,
+  select:focus {
+    border: 1px solid #0FA0CE;
+  }
+</style>
+
+  <!-- Google Analytics (With Privacy Settings On)
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  
+
+<meta name="generator" content="Hexo 5.3.0"><link rel="alternate" href="/atom.xml" title="进阶" type="application/atom+xml">
+</head>
+
+<body>
+  <div class="container">
+    <div class="row">
+      <div>
+
+        <div class="row">
+  <div class="two columns" style="max-width: 50px">
+    <h1 class="mt-2 mode">
+      <div onclick=setDarkMode(true) id="darkBtn">🌑</div>
+      <div onclick=setDarkMode(false) id="lightBtn" class=hidden>☀️</div>
+      <script >
+        if (localStorage.getItem('preferredTheme') == 'dark') {
+          setDarkMode(true)
+        }
+        function setDarkMode(isDark) {
+          var darkBtn = document.getElementById('darkBtn')
+          var lightBtn = document.getElementById('lightBtn')
+          if (isDark) {
+            lightBtn.style.display = "block"
+            darkBtn.style.display = "none"
+            localStorage.setItem('preferredTheme', 'dark');
+          } else {
+            lightBtn.style.display = "none"
+            darkBtn.style.display = "block"
+            localStorage.removeItem('preferredTheme');
+          }
+          document.body.classList.toggle("darkmode");
+        }
+      </script>
+    </h1>
+  </div>
+
+  <div class="six columns ml-1">
+    <h1 class="mt-2">
+      UP&amp;UP
+    </h1>
+  </div>
+
+  <div class="twelve columns">
+    <div class="row">
+      <div class="nine columns left">
+        <a href="/">Home</a>
+        
+        
+      </div>
+    </div>
+    <hr style="margin-bottom: 2.6rem">
+  </div>
+</div>
+
+        <div class="trans">
+            <h2>跨域</h2>
+
+  <p><strong>跨域</strong>是浏览器基于<strong>同源策略</strong>的一种安全手段</p>
+<blockquote>
+<p><strong>同源策略</strong>   </p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">是一种约定，是浏览器最核心也最基本的安全功能</span><br><span class="line">用于隔离潜在恶意文件的安全机制，通常不允许不同源之间的读操作</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p><strong>同源( Sameoriginpolicy )</strong></p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">协议相同 protocol</span><br><span class="line">主机相同 host</span><br><span class="line">端口相同 port</span><br></pre></td></tr></table></figure>
+
+<table>
+<thead>
+<tr>
+<th>url-1</th>
+<th>url-2</th>
+<th align="center">允许通信</th>
+<th align="center">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>http:<a target="_blank" rel="noopener" href="http://www.example.com/a.js">www.example.com/a.js</a></td>
+<td>http:<a target="_blank" rel="noopener" href="http://www.example.com/lab/b.js">www.example.com/lab/b.js</a></td>
+<td align="center">✅</td>
+<td align="center">同一域名，不同文件路径</td>
+</tr>
+<tr>
+<td>http:<a target="_blank" rel="noopener" href="http://www.example.com:8080/a.js">www.example.com:8080/a.js</a></td>
+<td>http:<a target="_blank" rel="noopener" href="http://www.example.com/c.js">www.example.com/c.js</a></td>
+<td align="center">❎</td>
+<td align="center">同一域名，端口不同</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="http://www.example.com/a.js">http://www.example.com/a.js</a></td>
+<td><a target="_blank" rel="noopener" href="https://www.example.com/c.js">https://www.example.com/c.js</a></td>
+<td align="center">❎</td>
+<td align="center">同一域名，协议不同</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="http://www.example.com/a.js">http://www.example.com/a.js</a></td>
+<td><a target="_blank" rel="noopener" href="https://192.169.2xx.2x/b.js">https://192.169.2xx.2x/b.js</a></td>
+<td align="center">❎</td>
+<td align="center">域名和域名对应相同的ip</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="http://www.example.com/a.js">http://www.example.com/a.js</a></td>
+<td><a target="_blank" rel="noopener" href="http://www.demo.com/c.js">http://www.demo.com/c.js</a></td>
+<td align="center">❎</td>
+<td align="center">主域不同</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="http://www.example.com/a.js">http://www.example.com/a.js</a></td>
+<td><a target="_blank" rel="noopener" href="http://x.example.com/c.js">http://x.example.com/c.js</a></td>
+<td align="center">❎</td>
+<td align="center">子域不同</td>
+</tr>
+</tbody></table>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">www.xxx.com 中 www是顶级域名，xxx.com是二级域名（主域名）</span><br><span class="line">aaa.xxx.com 中 aaa则是分域名（子域）</span><br></pre></td></tr></table></figure>
+<p>注意：跨域是浏览器出于安全性做的限制</p>
+<p>当没有这个限制时，可能你会碰到：</p>
+<ul>
+<li>Cookie劫持，被恶意网站窃取数据</li>
+<li>更易受到XSS、CSRF攻击</li>
+<li>无法隔离潜在恶意文件</li>
+</ul>
+<p><strong>也就是说，非同源的请求就会产生跨域</strong></p>
+<blockquote>
+<p>解决方法</p>
+</blockquote>
+<ul>
+<li>JSONP</li>
+<li>document.domain + iframe</li>
+<li>window.name + iframe</li>
+<li>location.hash + iframe</li>
+<li>postMessage</li>
+<li>CORS</li>
+<li>Nginx代理</li>
+<li>nodejs中间件代理</li>
+<li>webSocket协议</li>
+</ul>
+<blockquote>
+<p><strong>JSONP（JSON with Padding）</strong></p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> *  只支持GET请求 </span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">jsonp</span>(<span class="params">url, callback, success</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">const</span> script = <span class="built_in">document</span>.createElement(<span class="string">&#x27;script&#x27;</span>);</span><br><span class="line">    script.url = url;</span><br><span class="line">    script.async = <span class="literal">true</span>;</span><br><span class="line">    script.type = <span class="string">&#x27;text/javascript&#x27;</span>;</span><br><span class="line">    <span class="built_in">window</span>[callback] = <span class="function"><span class="keyword">function</span> (<span class="params">data</span>) </span>&#123;</span><br><span class="line">        success &amp;&amp; success(data);</span><br><span class="line">    &#125;;</span><br><span class="line">    <span class="built_in">document</span>.body.appendChild(script);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>最终效果</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;script src&#x3D;&#39;https:&#x2F;&#x2F;xxx.xxx.xx?key&#x3D;xxx&amp;callback&#x3D;xxx&#39;&gt;&lt;script&gt;</span><br></pre></td></tr></table></figure>
+<p>优点：兼容性好，可兼容老式浏览器<br>缺点：需要服务端支持且只支持GET请求</p>
+<blockquote>
+<p><strong>CORS</strong>, 跨域资源共享（Cross-origin Resource Sharing）, 是一个系统</p>
+</blockquote>
+<p><strong>在vue项目中，一般关注 CORS / proxy</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">由一系列传输的HTTP头组成</span><br><span class="line">&#x3D;&gt;(HTTP HEADERS)</span><br><span class="line"></span><br><span class="line">！服务端需打开这个限制 ！</span><br><span class="line">Access-Control-Allow-Origin: * | &lt;origin&gt; 指定一个可访问资源的URI</span><br></pre></td></tr></table></figure>
+<p>如果服务端未使用*, 而是指定了一个域，那么为了向客户端表明服务器的返回会根据Origin请求头而有不同, 即对不同源返回不同的内容<br>必须在<strong>Vary</strong>响应头中包含Origin</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Access-Control-Allow-Origin: &lt;origin&gt;</span><br><span class="line">Vary: Origin</span><br></pre></td></tr></table></figure>
+<p><strong>Simple requests（简单请求，不触发CORS预检）</strong></p>
+<p>使用方法： GET / HEAD / POST<br>Content-type值的限制</p>
+<ul>
+<li>text/plain</li>
+<li>multipart/form-data</li>
+<li>application/x-www-form-urlencoded</li>
+</ul>
+<p><strong>Preflighted requests（预检请求）</strong></p>
+<p>基于<strong>OPTIONS</strong>方法进行过滤，发起一个预检请求到服务器，以获知是否允许该实际请求<br>作用：避免跨域请求对服务器的用户数据产生未预期的影响</p>
+<p>OPTIONS请求通过<strong>Access-Control-Request-Method</strong>告知实际请求使用的方法<br>服务端返回响应<strong>Access-Control-Allow-Methods</strong>表示允许客户端使用的方法发起请求</p>
+<p><strong>实现CORS的关键是服务器</strong></p>
+<p>优点：支持所有请求方法<br>缺点：兼容性比JSONP差</p>
+<blockquote>
+<p>网络代理</p>
+</blockquote>
+<p>运行一个通过这个服务与另一个网络终端进行非直接的连接</p>
+<ol>
+<li><p>如果是通过vue-cli搭建工具，可通过<strong>webpack</strong>起一个本地服务器作为请求代理对象<br>但上线时web应用和接口服务器不在一起，还是会跨域</p>
+</li>
+<li><p>服务器实现代理请求转发，以<strong>express</strong>框架为例</p>
+</li>
+<li><p>通过配置<strong>nginx</strong>实现代理</p>
+</li>
+</ol>
+<p>nginx是一个HTTP Server<br>反向代理原理简单概括为:<br><img src="/img/same-site-1.png" alt="图1"></p>
+<p>也可以使用node中间件做代理</p>
+<p>node中间件和Nginx反向代理都利用了服务器对服务器无同源策略限制</p>
+<blockquote>
+<p>PostMessage</p>
+</blockquote>
+<p>是HTML5 XMLHttpRequest Level 2中的API<br>可以实现跨文档通信<br>可与Websocket、Service Work进行通信</p>
+<blockquote>
+<p>Websocket</p>
+</blockquote>
+<p>是HTML5的一个持久化协议<br>实现了浏览器与服务器双向通信<br>是一个长连接，在一个页面建立多个Websocket连接 有可能会导致性能问题</p>
+
+  <p> — Jan 5, 2021</p>
+  
+
+
+          <div class="row mt-2">
+  
+    <div class="eight columns">
+      <p id="madewith">Made with ❤ and
+        <a class="footer-link icon" href="https://hexo.io" target="_blank" style="text-decoration: none;" rel="noreferrer" aria-label="Hexo.io">
+        <svg class="hexo svg-hov" width="14" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>Hexo.js</title><path d="M12 .007L1.57 6.056V18.05L12 23.995l10.43-6.049V5.952L12 .007zm4.798 17.105l-.939.521-.939-.521V12.94H9.08v4.172l-.94.521-.938-.521V6.89l.939-.521.939.521v4.172h5.84V6.89l.94-.521.938.521v10.222z"/></svg>
+        </a>
+        
+    </div>
+
+    <!-- Sepcial thanks to https://simpleicons.org/ for the icons -->
+    <div class="four columns mb-3 posisi" >
+      
+
+      
+
+      
+
+      
+
+    </div>
+  
+</div>
+
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+  <script src="/js/nanobar.min.js"></script>
+  <script>
+    var options = {
+      classname: 'nanobar',
+      id: 'myNanobar'
+    };
+    var nanobar = new Nanobar(options);
+    nanobar.go(30);
+    nanobar.go(76);
+    nanobar.go(100);
+  </script>
+
+</body>
+
+</html>
