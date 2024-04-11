@@ -345,8 +345,6 @@
 <li>div + p 与div相邻的节点p</li>
 <li>div ~ p div后的任何节点p</li>
 </ul>
-<hr>
-<hr>
 <blockquote>
 <h2 id="去除浮动，防止父级高度塌陷"><a href="#去除浮动，防止父级高度塌陷" class="headerlink" title="去除浮动，防止父级高度塌陷"></a>去除浮动，防止父级高度塌陷</h2></blockquote>
 <p><u>为什么会产生浮动</u><br>起初为了实现文字环绕图片这种类似于word上的效果。运用float定义元素在方向上的浮动，改变元素在页面上的位置。（它是css2增加的属性）<br>但加上float属性后，元素被移出正常文档流，然后向左或向右平移直到碰到容器的边框或另一个浮动元素为止。<br><u>带来的问题</u></p>
@@ -417,19 +415,13 @@
 <li>scrollWidth/Height   scrollTop/Left 元素内容宽度的一种度量，包括由于overflow溢出而在屏幕上不可见的内容。</li>
 <li>getComputedStyle() 报告元素的所有 CSS 属性的值</li>
 <li>getBoundingClientRect() 元素的大小及其相对于视口的位置</li>
-<li>scrollTo()<blockquote>
+<li>scrollTo()</li>
+</ul>
+</li>
+</ul>
+<blockquote>
 <p><strong>回流必定触发重绘，反之不一定</strong><br>重绘开销小，回流代价大</p>
 </blockquote>
-</li>
-</ul>
-</li>
-</ul>
-<hr>
-<p>visibility: hidden vs display: none</p>
-<ul>
-<li>hidden / display: none 不占用空间，引发重排重绘</li>
-<li>而visibility: hidden 使元素不可见，但仍占用空间，引发重绘</li>
-</ul>
 <blockquote>
 <h2 id="link与-import区别"><a href="#link与-import区别" class="headerlink" title="link与@import区别"></a>link与@import区别</h2></blockquote>
 <ul>
@@ -498,16 +490,7 @@
 <blockquote>
 <h2 id="CSS域处理器-Sass-Less-Postcss-Stylus"><a href="#CSS域处理器-Sass-Less-Postcss-Stylus" class="headerlink" title="CSS域处理器 Sass / Less / Postcss / Stylus"></a>CSS域处理器 Sass / Less / Postcss / Stylus</h2></blockquote>
 <p><u>原理是将类CSS语言通过工具编译成浏览器可读的真正的CSS</u><br>是一种编程工具。允许开发人员使用编程语言编写可维护、可扩展的CSS，然后再编译成浏览器可读的CSS代码。</p>
-<p>常用的功能点：</p>
-<ul>
-<li>嵌套</li>
-<li>变量</li>
-<li>循环语句</li>
-<li>条件语句</li>
-<li>自动前缀</li>
-<li>单位转换</li>
-<li>mixin复用</li>
-</ul>
+<p>常用的功能点：<br>  嵌套 / 变量 / 循环语句 / 条件语句 / 自动前缀 / 单位转换 /mixin复用</p>
 <p><u>为什么选择使用它</u></p>
 <ul>
 <li>提高效率，使用预处理器提供的功能大大提高编写CSS的效率</li>
@@ -571,30 +554,30 @@
 <blockquote>
 <h2 id="零散知识点"><a href="#零散知识点" class="headerlink" title="零散知识点"></a>零散知识点</h2></blockquote>
 <ul>
-<li><p>在移动端上，当你用overflow-y:scorll属性时，发现滚动的效果很慢很卡顿</p>
-<ul>
+<li>在移动端上，当你用overflow-y:scorll属性时，发现滚动的效果很慢很卡顿<ul>
 <li>这时候可以使用<u>-webkit-overflow-scrolling: touch</u>属性，让滚动条产生滚动回弹的效果，就像ios原生的滚动条一样流畅</li>
 </ul>
 </li>
-<li><p>浏览器通常默认16px</p>
-<ul>
+<li>浏览器通常默认16px<ul>
 <li>Font-size: 62.5%; 16px * 0.625 = 10px; 1rem = 10px; </li>
 <li>设百分比，用具体像素值不能<strong>响应式改变</strong></li>
 </ul>
 </li>
-<li><p>Rotate属性 </p>
-<ul>
+<li>Rotate属性 <ul>
 <li>turn 90deg = 100grad = 0.25turn ≈ 1.570796326794897rad （rad弧度）</li>
 <li>1turn = 顺时针一圈</li>
 </ul>
 </li>
-<li><p>FC 格式化上下文 (formatting context)</p>
-<ul>
+<li>FC 格式化上下文 (formatting context)<ul>
 <li>常见的有： BFC (块级block) / IFC (行级inline) / GFC (网格布局gridLayout)  / FFC (自适应flex)</li>
 </ul>
 </li>
-<li><p>渐变效果用来创建平滑过渡色彩的技术，可以用在背景、边框、文本等多种CSS属性中</p>
-<ul>
+<li>visibility: hidden vs display: none<ul>
+<li>hidden / display: none 不占用空间，引发重排重绘</li>
+<li>而visibility: hidden 使元素不可见，但仍占用空间，引发重绘</li>
+</ul>
+</li>
+<li>渐变效果用来创建平滑过渡色彩的技术，可以用在背景、边框、文本等多种CSS属性中<ul>
 <li>线性渐变linear-gradient 一个点到另一个点的过程中逐渐改变颜色</li>
 <li>径向渐变radial-gradient 从一个圆形区域向外扩散，逐渐改变颜色</li>
 </ul>
