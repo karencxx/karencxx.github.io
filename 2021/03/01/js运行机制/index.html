@@ -17,7 +17,7 @@
   
   <link rel="canonical" href="http://yoursite.com/2021/03/01/js%E8%BF%90%E8%A1%8C%E6%9C%BA%E5%88%B6/">
   
-  <meta name="description" content="看到这个问题，首先想到了什么？单线程？任务队列？    进程 CPU资源分配的最小单位，可独立运行且拥有自己的资源空间的这么个任务程序，包括运行中的程序和程序所使用到的内存和系统资源  进程之间相互独立  但同一进程下各个线程共享程序的内存空间(包括代码段、数据集、堆等)及进程级的资源(如打开文件和">
+  <meta name="description" content="看到这个问题，首先想到了什么？单线程？任务队列？    进程 CPU资源分配的最小单位，可独立运行且拥有自己的资源空间的一个任务程序，包括运行中的程序和程序所使用到的内存和系统资源  进程之间相互独立  但同一进程下各个线程共享程序的内存空间(包括代码段、数据集、堆等)及进程级的资源(如打开文件和信">
   
   
   <meta name="author" content="karen">
@@ -28,14 +28,14 @@
   <meta property="og:type" content="article" />
   <meta property="og:title" content="js运行机制" />
   
-  <meta property="og:description" content="看到这个问题，首先想到了什么？单线程？任务队列？    进程 CPU资源分配的最小单位，可独立运行且拥有自己的资源空间的这么个任务程序，包括运行中的程序和程序所使用到的内存和系统资源  进程之间相互独立  但同一进程下各个线程共享程序的内存空间(包括代码段、数据集、堆等)及进程级的资源(如打开文件和">
+  <meta property="og:description" content="看到这个问题，首先想到了什么？单线程？任务队列？    进程 CPU资源分配的最小单位，可独立运行且拥有自己的资源空间的一个任务程序，包括运行中的程序和程序所使用到的内存和系统资源  进程之间相互独立  但同一进程下各个线程共享程序的内存空间(包括代码段、数据集、堆等)及进程级的资源(如打开文件和信">
   
   <meta property="og:url" content="http://yoursite.com/2021/03/01/js%E8%BF%90%E8%A1%8C%E6%9C%BA%E5%88%B6/" />
 
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="js运行机制">
   
-  <meta name="twitter:description" content="看到这个问题，首先想到了什么？单线程？任务队列？    进程 CPU资源分配的最小单位，可独立运行且拥有自己的资源空间的这么个任务程序，包括运行中的程序和程序所使用到的内存和系统资源  进程之间相互独立  但同一进程下各个线程共享程序的内存空间(包括代码段、数据集、堆等)及进程级的资源(如打开文件和">
+  <meta name="twitter:description" content="看到这个问题，首先想到了什么？单线程？任务队列？    进程 CPU资源分配的最小单位，可独立运行且拥有自己的资源空间的一个任务程序，包括运行中的程序和程序所使用到的内存和系统资源  进程之间相互独立  但同一进程下各个线程共享程序的内存空间(包括代码段、数据集、堆等)及进程级的资源(如打开文件和信">
   
   
   <meta name="twitter:image" content="http://yoursite.comundefined">
@@ -187,7 +187,7 @@
 
 <blockquote>
 <h3 id="进程"><a href="#进程" class="headerlink" title="进程"></a>进程</h3></blockquote>
-<p><strong>CPU资源分配</strong>的最小单位，可<strong>独立运行</strong>且拥有自己的资源空间的这么个任务程序，包括运行中的程序和程序所使用到的内存和系统资源</p>
+<p><strong>CPU资源分配</strong>的最小单位，可<strong>独立运行</strong>且拥有自己的资源空间的一个任务程序，包括运行中的程序和程序所使用到的内存和系统资源</p>
 <ul>
 <li><p>进程之间相互独立</p>
 <ul>
@@ -196,28 +196,22 @@
 </li>
 <li><p>多进程的好处是可以同时干不同的事情，且不受干扰</p>
 </li>
+<li><p>如果进程间需要通信，可以通过<strong>IPC</strong>(进程间通信)来实现</p>
+</li>
 </ul>
 <blockquote>
 <h3 id="线程"><a href="#线程" class="headerlink" title="线程"></a>线程</h3></blockquote>
 <p><strong>CPU调度</strong>的最小单位，即程序执行的最小单位。</p>
 <ul>
-<li>建立在进程基础上的一次程序运行单位，即可以理解为程序中的一个执行流，一个进程可以有多个线程</li>
+<li>建立在进程基础上的一次程序运行单位，即可以理解为程序中的一个执行流，<strong>一个进程可以有多个线程</strong></li>
 </ul>
 <blockquote>
 <h4 id="单线程，就是一个进程中只有一个执行流。反之有多个就叫多线程，允许单个程序创建多个并行执行的线程来完成各自的任务"><a href="#单线程，就是一个进程中只有一个执行流。反之有多个就叫多线程，允许单个程序创建多个并行执行的线程来完成各自的任务" class="headerlink" title="单线程，就是一个进程中只有一个执行流。反之有多个就叫多线程，允许单个程序创建多个并行执行的线程来完成各自的任务"></a>单线程，就是一个进程中只有一个执行流。反之有多个就叫多线程，允许单个程序创建多个<u>并行执行</u>的线程来完成各自的任务</h4></blockquote>
-<ul>
-<li>CPU可以有很多进程，但资源是固定的，进程越多，CPU分出去的资源越多，越卡。</li>
-<li>在运行一个进程时，其他进程处于非运行状态，使用<u>时间片轮转调度</u>算法</li>
-</ul>
+<p><u>CPU可以有很多进程，但资源是固定的，进程越多，CPU分出去的资源越多，越卡。</u><br>在运行一个进程时，其他进程处于非运行状态，使用<u>时间片轮转调度</u>算法</p>
 <p><strong>线程上下文切换比进程上下文切换要快得多</strong></p>
 <blockquote>
 <h2 id="JS为何是单线程"><a href="#JS为何是单线程" class="headerlink" title="JS为何是单线程"></a>JS为何是单线程</h2></blockquote>
-<ul>
-<li>与用途有关<ul>
-<li>js用途主要是<u>与用户互动及操作DOM</u>，如果不是单线程会带来复杂的同步问题</li>
-</ul>
-</li>
-</ul>
+<p>主要与用途有关: js用途主要是<u>与用户互动及操作DOM</u>，如果不是单线程会带来复杂的同步问题</p>
 <blockquote>
 <p>web worker</p>
 </blockquote>
@@ -246,7 +240,7 @@
 <li>该进程也只有一个，用于3D绘制等等</li>
 </ul>
 </li>
-<li>渲染进程 <strong>重点</strong><ul>
+<li>渲染进程（<strong>重点</strong>）<ul>
 <li>即通常所说的浏览器内核(Renderer进程，内部是多线程)</li>
 <li>每个Tab页面都有一个渲染进程，互不影响</li>
 <li>主要作用为页面渲染，脚本执行，事件处理等</li>

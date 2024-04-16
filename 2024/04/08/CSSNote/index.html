@@ -271,10 +271,10 @@
 <ul>
 <li>层叠上下文可以包含在其他层叠上下文中，并且一起创建一个层叠上下文的层级</li>
 <li>每个层叠上下文都完全独立于它的兄弟元素（当处理层叠时只考虑子元素）</li>
-<li>每个层叠上下文都是自包含的（当一个元素的内容发生层叠后，该元素将被作为整体在父级层叠上下文中按顺序进行层叠）<blockquote>
-<h2 id="居中布局"><a href="#居中布局" class="headerlink" title="居中布局"></a>居中布局</h2></blockquote>
-</li>
+<li>每个层叠上下文都是自包含的（当一个元素的内容发生层叠后，该元素将被作为整体在父级层叠上下文中按顺序进行层叠）</li>
 </ul>
+<blockquote>
+<h2 id="居中布局"><a href="#居中布局" class="headerlink" title="居中布局"></a>居中布局</h2></blockquote>
 <ul>
 <li>水平居中<ul>
 <li>行内元素：text-align: center;</li>
@@ -303,18 +303,31 @@
 <li>relative：元素<u>不脱离文档流</u>，在原始位置上不改变页面布局的前提下调整元素位置，不影响其他元素偏移。未添加定位时的位置会多出一块空白</li>
 <li>sticky：元素根据正常文档流进行定位，然后相对他的最近的滚动祖先和块级祖先进行偏移，偏移值不影响任何其他元素位置</li>
 <li>absolute：元素<u>会被移出正常文档流，不预留空间</u>，可设置外边距，不与其他边距合并</li>
-<li>fixed：元素<u>会被移出正常文档流，不预留空间</u>，通过指定元素相对于屏幕视口的位置来指定元素位置，位置随屏幕滚动时不会改动，所固定参照对象是可视窗</li>
+<li>fixed：元素<u>会被移出正常文档流，不预留空间</u>，通过指定元素相对于屏幕视口的位置来指定元素位置，位置随屏幕滚动时不会改动，所固定参照对象是可视窗口</li>
 </ul>
 <ul>
-<li><p>absolute的containing block计算方式跟正常流有什么不同？</p>
+<li>absolute的containing block计算方式跟正常流有什么不同？<ul>
+<li>正常流中，元素的containing block是其最近的块级祖先元素</li>
+<li>但绝对定位absolute可能会是以下几种：<ul>
+<li>position: relative / absolute的祖先元素</li>
+<li>离它最近的包含块containing block，即最近的块级祖先元素</li>
+<li>initial containing block，即viewport（如果都没找到符合的祖先元素）</li>
+</ul>
 </li>
-<li><p>flexbox布局</p>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">display</span>: flex;</span><br><span class="line"><span class="attribute">align-items</span>: center;</span><br><span class="line"><span class="attribute">justify-content</span>: center;</span><br></pre></td></tr></table></figure>
+</ul>
+</li>
+</ul>
+<p><u>viewport是指浏览器中用来显示网页内容的区域，即用户能看到的可视区域。随浏览器窗口大小或缩放操作而改变</u></p>
+<p>可以通过下面的单位或属性来控制网页内容在视口中的呈现方式</p>
+<ul>
+<li>viewport单位: vw / vh</li>
+<li>viewport相关的meta标签: width / initial-scale / minimum-scale / maxinum-scale</li>
+<li>css视口单位: vmin / vmax</li>
+</ul>
 <blockquote>
 <h2 id="css样式优先级机制"><a href="#css样式优先级机制" class="headerlink" title="css样式优先级机制"></a>css样式优先级机制</h2></blockquote>
-</li>
-<li><p>确定样式应用优先级的规则 </p>
-</li>
+<ul>
+<li>确定样式应用优先级的规则 </li>
 </ul>
 <p>!important &gt; 行内样式 &gt; id选择器 &gt; 类选择器 &gt; 标签｜伪类｜属性选择器 &gt; 伪元素 &gt; 继承 &gt; 通配符* &gt; 默认</p>
 <ul>
@@ -323,11 +336,11 @@
 <li><p>指某些属性值可以从父元素传递给子元素。</p>
 </li>
 </ul>
-<p><u>css可继承的属性: </u>字体属性 &amp; 文本属性 &amp; 列表属性 &amp; 表格布局属性 &amp; visibility<br>| 字体系列属性 | font-size / font-weight … |<br>| 文本系列属性 | color / line-height … |<br>| 元素可见性 | visibility |<br>| 表格布局属性 | empty-cells / border-collapse … |<br>| 列表属性 | list-style … |<br>| 光标属性 | cursor |</p>
+<p><u>css可继承的属性: </u>字体属性 &amp; 文本属性 &amp; 列表属性 &amp; 表格布局属性 &amp; 元素可见性<br>| 字体系列属性 | font-size / font-weight … |<br>| 文本系列属性 | color / line-height … |<br>| 元素可见性 | visibility |<br>| 表格布局属性 | empty-cells / border-collapse … |<br>| 列表属性 | list-style … |<br>| 光标属性 | cursor |</p>
 <blockquote>
 <p>font-size继承的是<strong>基于父元素计算后的值</strong></p>
 </blockquote>
-<p><u>不可继承的属性: </u>盒子模型属性 &amp; 定位属性 &amp; 文本属性text-decoration &amp; vertical-align<br>| 显示属性 | display |<br>| 文本属性 | vertical-align / text-decoration |<br>| 盒子模型属性 | width / height / padding / margin / border |<br>| 定位属性 | position / float |<br>| 内容属性 | content |<br>| 页面样式属性 | size … |<br>| 轮廓样式属性 | outline / outline-style … |</p>
+<p><u>不可继承的属性: </u>盒子模型属性 &amp; 定位属性 &amp; 文本属性 &amp; 显示属性<br>| 显示属性 | display |<br>| 文本属性 | vertical-align / text-decoration |<br>| 盒子模型属性 | width / height / padding / margin / border |<br>| 定位属性 | position / float |<br>| 内容属性 | content |<br>| 页面样式属性 | size … |<br>| 轮廓样式属性 | outline / outline-style … |</p>
 <p>继承关键字：</p>
 <ul>
 <li>inhreit: 从父元素继承它的值。如果父元素没有明确定义，则搜DOM树直到找到，无法找到时会使用浏览器默认值</li>
@@ -337,7 +350,7 @@
 </ul>
 <blockquote>
 <h2 id="css选择器，用来选择特定元素以应用样式的的模式"><a href="#css选择器，用来选择特定元素以应用样式的的模式" class="headerlink" title="css选择器，用来选择特定元素以应用样式的的模式"></a>css选择器，用来选择特定元素以应用样式的的模式</h2></blockquote>
-<p>CSS选择器优先级是确定哪个CSS规则应用于元素的机制。当多个规则匹配到用一个元素时，CSS选择器优先决定哪个规则最终生效。</p>
+<p>CSS选择器优先级是确定哪个CSS规则应用于元素的机制。当多个规则匹配到一个元素时，CSS选择器优先决定哪个规则最终生效。</p>
 <p>ID选择器、类选择器、标签选择器、属性选择器、关系选择器(+ &gt; ~  ‘‘ ||)、通配符选择器、伪类选择器</p>
 <p><u>关系选择器(+ &gt; ~  ‘‘ ||)</u></p>
 <ul>
@@ -347,7 +360,7 @@
 </ul>
 <blockquote>
 <h2 id="去除浮动，防止父级高度塌陷"><a href="#去除浮动，防止父级高度塌陷" class="headerlink" title="去除浮动，防止父级高度塌陷"></a>去除浮动，防止父级高度塌陷</h2></blockquote>
-<p><u>为什么会产生浮动</u><br>起初为了实现文字环绕图片这种类似于word上的效果。运用float定义元素在方向上的浮动，改变元素在页面上的位置。（它是css2增加的属性）<br>但加上float属性后，元素被移出正常文档流，然后向左或向右平移直到碰到容器的边框或另一个浮动元素为止。<br><u>带来的问题</u></p>
+<p><u>为什么会产生浮动</u><br>起初为了实现文字环绕图片这种类似于word上的效果。运用float定义元素在方向上的浮动，改变元素在页面上的位置。（是css2增加的属性）<br>但加上float属性后，元素被移出正常文档流，然后向左或向右平移直到碰到容器的边框或另一个浮动元素为止。<br><u>带来的问题</u></p>
 <ul>
 <li><p>破坏父级高度，造成高度塌陷</p>
 </li>
@@ -383,11 +396,11 @@
 </ul>
 <blockquote>
 <h2 id="margin-塌陷现象"><a href="#margin-塌陷现象" class="headerlink" title="margin 塌陷现象"></a>margin 塌陷现象</h2></blockquote>
-<p>当垂直方向上相邻的两个块级元素出现时，它们之间的垂直外边距会重合<br><u>产生所谓的塌陷现象，会导致元素之间的间距比预期要小或完全没有</u></p>
+<p>当垂直方向上相邻的两个块级元素出现时，它们之间的垂直外边距会重合<br><u>产生所谓的塌陷现象，会导致元素之间的间距比预期要小或完全没有</u><br><u>取两者margin间较大的值展示</u>  </p>
 <p>通常发生在：</p>
 <ul>
 <li>相邻兄弟元素的margin塌陷</li>
-<li>父元素和第一个或最后一个子元素margin塌陷<br><u>取两者margin间较大的值展示</u>  </li>
+<li>父元素和第一个或最后一个子元素margin塌陷</li>
 </ul>
 <p>解决方法：</p>
 <ul>
@@ -395,33 +408,6 @@
 <li>创建一个新的BFC（给div包裹一个外层div）防止外边距重叠</li>
 <li>父子元素间可设置border或padding避免相遇</li>
 </ul>
-<blockquote>
-<h2 id="重排重绘"><a href="#重排重绘" class="headerlink" title="重排重绘"></a>重排重绘</h2></blockquote>
-<h3 id="repaint-重绘"><a href="#repaint-重绘" class="headerlink" title="repaint 重绘"></a>repaint 重绘</h3><p>当元素样式改变不影响布局时，浏览器将使用重绘对元素进行更新，此时只需要UI层面的重新绘制，<strong>损耗较少</strong></p>
-<ul>
-<li>只更改样式</li>
-<li>隐藏元素：v-show / visibility: hidden</li>
-</ul>
-<h3 id="reflow-回流-重排"><a href="#reflow-回流-重排" class="headerlink" title="reflow 回流/重排"></a>reflow 回流/重排</h3><p>当元素尺寸、结构或触发某些属性时，浏览器会重新渲染页面，此时浏览器需重新计算，计算后还需重新布局页面</p>
-<ul>
-<li>页面初次渲染</li>
-<li>浏览器窗口大小改变</li>
-<li>元素尺寸、位置、内容改变 （v-if / 删除或添加可见的dom元素）</li>
-<li>元素字体大小改变</li>
-<li>激活css伪类 :hover</li>
-<li>某些属性或调用某些方法<ul>
-<li>document.body.clientWidth / Height / clientTop / Left 元素内部的宽度/高度</li>
-<li>offsetWidth/Height  offsetTop/Left 元素的布局宽度/高度</li>
-<li>scrollWidth/Height   scrollTop/Left 元素内容宽度的一种度量，包括由于overflow溢出而在屏幕上不可见的内容。</li>
-<li>getComputedStyle() 报告元素的所有 CSS 属性的值</li>
-<li>getBoundingClientRect() 元素的大小及其相对于视口的位置</li>
-<li>scrollTo()</li>
-</ul>
-</li>
-</ul>
-<blockquote>
-<p><strong>回流必定触发重绘，反之不一定</strong><br>重绘开销小，回流代价大</p>
-</blockquote>
 <blockquote>
 <h2 id="link与-import区别"><a href="#link与-import区别" class="headerlink" title="link与@import区别"></a>link与@import区别</h2></blockquote>
 <ul>
@@ -521,10 +507,10 @@
 <li>媒体查询</li>
 <li>使用polyfills补丁为旧浏览器提供它所不支持的新的功能<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">  <span class="comment">// trunc:“截断”数字小数部分的函数</span></span><br><span class="line">  <span class="comment">// 如果没有这个函数</span></span><br><span class="line">  <span class="keyword">if</span> (!<span class="built_in">Math</span>.trunc) &#123; </span><br><span class="line">  <span class="built_in">Math</span>.trunc = <span class="function"><span class="keyword">function</span>(<span class="params">number</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> number &lt; <span class="number">0</span> ? <span class="built_in">Math</span>.ceil(number) : <span class="built_in">Math</span>.floor(number);</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
 <li>渐进增强和优雅降级，针对最新浏览器开发，但也逐步向下兼容对旧版浏览器的支持或提供简化体验</li>
-<li>使用CSS Hack，但不太推荐<blockquote>
-<h2 id="响应式设计和自适应设计"><a href="#响应式设计和自适应设计" class="headerlink" title="响应式设计和自适应设计"></a>响应式设计和自适应设计</h2></blockquote>
-</li>
+<li>使用CSS Hack，但不太推荐</li>
 </ul>
+<blockquote>
+<h2 id="响应式设计和自适应设计"><a href="#响应式设计和自适应设计" class="headerlink" title="响应式设计和自适应设计"></a>响应式设计和自适应设计</h2></blockquote>
 <p><u>都是为了优化在各种设备上的用户体验</u></p>
 <ul>
 <li>响应式设计使得网页在任何设备上都能提供舒适的用户体验，可以通过媒体查询或可变的网格系统和布局来实现。</li>
@@ -572,16 +558,12 @@
 <li>常见的有： BFC (块级block) / IFC (行级inline) / GFC (网格布局gridLayout)  / FFC (自适应flex)</li>
 </ul>
 </li>
-<li>visibility: hidden vs display: none<ul>
-<li>hidden / display: none 不占用空间，引发重排重绘</li>
-<li>而visibility: hidden 使元素不可见，但仍占用空间，引发重绘</li>
-</ul>
-</li>
 <li>渐变效果用来创建平滑过渡色彩的技术，可以用在背景、边框、文本等多种CSS属性中<ul>
 <li>线性渐变linear-gradient 一个点到另一个点的过程中逐渐改变颜色</li>
 <li>径向渐变radial-gradient 从一个圆形区域向外扩散，逐渐改变颜色</li>
 </ul>
 </li>
+<li>touch-action用于设置触摸屏用户如何操纵元素的区域 (如浏览器内置的缩放功能)</li>
 </ul>
 <hr>
 <h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><blockquote>

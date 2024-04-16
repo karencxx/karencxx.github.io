@@ -17,7 +17,7 @@
   
   <link rel="canonical" href="http://yoursite.com/2021/01/05/%E8%B7%A8%E5%9F%9F/">
   
-  <meta name="description" content="跨域是浏览器基于同源策略的一种安全手段  同源策略     12是一种约定，是浏览器最核心也最基本的安全功能用于隔离潜在恶意文件的安全机制，通常不允许不同源之间的读操作  同源( Sameoriginpolicy )  123协议相同 protocol主机相同 host端口相同 port     u">
+  <meta name="description" content="跨域是浏览器基于同源策略的一种安全手段，是浏览器出于安全性做的限制  同源策略( Sameoriginpolicy )      是一种约定，是浏览器最核心也最基本的安全功能 用于隔离潜在恶意文件的安全机制，通常不允许不同源之间的读操作   同源   协议相同 protocol 主机相同 host ">
   
   
   <meta name="author" content="karen">
@@ -28,14 +28,14 @@
   <meta property="og:type" content="article" />
   <meta property="og:title" content="跨域" />
   
-  <meta property="og:description" content="跨域是浏览器基于同源策略的一种安全手段  同源策略     12是一种约定，是浏览器最核心也最基本的安全功能用于隔离潜在恶意文件的安全机制，通常不允许不同源之间的读操作  同源( Sameoriginpolicy )  123协议相同 protocol主机相同 host端口相同 port     u">
+  <meta property="og:description" content="跨域是浏览器基于同源策略的一种安全手段，是浏览器出于安全性做的限制  同源策略( Sameoriginpolicy )      是一种约定，是浏览器最核心也最基本的安全功能 用于隔离潜在恶意文件的安全机制，通常不允许不同源之间的读操作   同源   协议相同 protocol 主机相同 host ">
   
   <meta property="og:url" content="http://yoursite.com/2021/01/05/%E8%B7%A8%E5%9F%9F/" />
 
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="跨域">
   
-  <meta name="twitter:description" content="跨域是浏览器基于同源策略的一种安全手段  同源策略     12是一种约定，是浏览器最核心也最基本的安全功能用于隔离潜在恶意文件的安全机制，通常不允许不同源之间的读操作  同源( Sameoriginpolicy )  123协议相同 protocol主机相同 host端口相同 port     u">
+  <meta name="twitter:description" content="跨域是浏览器基于同源策略的一种安全手段，是浏览器出于安全性做的限制  同源策略( Sameoriginpolicy )      是一种约定，是浏览器最核心也最基本的安全功能 用于隔离潜在恶意文件的安全机制，通常不允许不同源之间的读操作   同源   协议相同 protocol 主机相同 host ">
   
   
   <meta name="twitter:image" content="http://yoursite.comundefined">
@@ -182,65 +182,67 @@
         <div class="trans">
             <h2>跨域</h2>
 
-  <p><strong>跨域</strong>是浏览器基于<strong>同源策略</strong>的一种安全手段</p>
+  <p><strong>跨域</strong>是浏览器基于<strong>同源策略</strong>的一种安全手段，是浏览器出于安全性做的限制</p>
 <blockquote>
-<p><strong>同源策略</strong>   </p>
+<p><strong>同源策略</strong>( Sameoriginpolicy )   </p>
 </blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">是一种约定，是浏览器最核心也最基本的安全功能</span><br><span class="line">用于隔离潜在恶意文件的安全机制，通常不允许不同源之间的读操作</span><br></pre></td></tr></table></figure>
+<ul>
+<li>是一种约定，是浏览器最核心也最基本的安全功能</li>
+<li>用于隔离潜在恶意文件的安全机制，通常不允许不同源之间的读操作</li>
+</ul>
 <blockquote>
-<p><strong>同源( Sameoriginpolicy )</strong></p>
+<p><strong>同源</strong></p>
 </blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">协议相同 protocol</span><br><span class="line">主机相同 host</span><br><span class="line">端口相同 port</span><br></pre></td></tr></table></figure>
-
+<ul>
+<li>协议相同 protocol</li>
+<li>主机相同 host</li>
+<li>端口相同 port</li>
+</ul>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="http://www.xxx.com/">www.xxx.com</a> 中 www是顶级域名，xxx.com是二级域名（主域名）<br>aaa.xxx.com 中 aaa则是分域名（子域）</p>
+</blockquote>
 <table>
 <thead>
 <tr>
-<th>url-1</th>
-<th>url-2</th>
-<th align="center">允许通信</th>
-<th align="center">说明</th>
+<th>url-1 url-2</th>
+<th>允许通信</th>
+<th>说明</th>
 </tr>
 </thead>
 <tbody><tr>
-<td>http:<a target="_blank" rel="noopener" href="http://www.example.com/a.js">www.example.com/a.js</a></td>
-<td>http:<a target="_blank" rel="noopener" href="http://www.example.com/lab/b.js">www.example.com/lab/b.js</a></td>
-<td align="center">✅</td>
-<td align="center">同一域名，不同文件路径</td>
+<td>http:<a target="_blank" rel="noopener" href="http://www.example.com/a.js">www.example.com/a.js</a> http:<a target="_blank" rel="noopener" href="http://www.example.com/lab/b.js">www.example.com/lab/b.js</a></td>
+<td>✅</td>
+<td>同一域名，不同文件路径</td>
 </tr>
 <tr>
-<td>http:<a target="_blank" rel="noopener" href="http://www.example.com:8080/a.js">www.example.com:8080/a.js</a></td>
-<td>http:<a target="_blank" rel="noopener" href="http://www.example.com/c.js">www.example.com/c.js</a></td>
-<td align="center">❎</td>
-<td align="center">同一域名，端口不同</td>
+<td>http:<a target="_blank" rel="noopener" href="http://www.example.com:8080/a.js">www.example.com:8080/a.js</a> http:<a target="_blank" rel="noopener" href="http://www.example.com/c.js">www.example.com/c.js</a></td>
+<td>❎</td>
+<td>同一域名，不同端口</td>
 </tr>
 <tr>
-<td><a target="_blank" rel="noopener" href="http://www.example.com/a.js">http://www.example.com/a.js</a></td>
-<td><a target="_blank" rel="noopener" href="https://www.example.com/c.js">https://www.example.com/c.js</a></td>
-<td align="center">❎</td>
-<td align="center">同一域名，协议不同</td>
+<td><a target="_blank" rel="noopener" href="http://www.example.com/a.js">http://www.example.com/a.js</a> <a target="_blank" rel="noopener" href="https://www.example.com/c.js">https://www.example.com/c.js</a></td>
+<td>❎</td>
+<td>同一域名，不同协议</td>
 </tr>
 <tr>
-<td><a target="_blank" rel="noopener" href="http://www.example.com/a.js">http://www.example.com/a.js</a></td>
-<td><a target="_blank" rel="noopener" href="https://192.169.2xx.2x/b.js">https://192.169.2xx.2x/b.js</a></td>
-<td align="center">❎</td>
-<td align="center">域名和域名对应相同的ip</td>
+<td><a target="_blank" rel="noopener" href="http://www.example.com/a.js">http://www.example.com/a.js</a> <a target="_blank" rel="noopener" href="https://192.169.2xx.2x/b.js">https://192.169.2xx.2x/b.js</a></td>
+<td>❎</td>
+<td>域名和域名对应相同的ip</td>
 </tr>
 <tr>
-<td><a target="_blank" rel="noopener" href="http://www.example.com/a.js">http://www.example.com/a.js</a></td>
-<td><a target="_blank" rel="noopener" href="http://www.demo.com/c.js">http://www.demo.com/c.js</a></td>
-<td align="center">❎</td>
-<td align="center">主域不同</td>
+<td><a target="_blank" rel="noopener" href="http://www.example.com/a.js">http://www.example.com/a.js</a> <a target="_blank" rel="noopener" href="http://www.demo.com/c.js">http://www.demo.com/c.js</a></td>
+<td>❎</td>
+<td>主域不同</td>
 </tr>
 <tr>
-<td><a target="_blank" rel="noopener" href="http://www.example.com/a.js">http://www.example.com/a.js</a></td>
-<td><a target="_blank" rel="noopener" href="http://x.example.com/c.js">http://x.example.com/c.js</a></td>
-<td align="center">❎</td>
-<td align="center">子域不同</td>
+<td><a target="_blank" rel="noopener" href="http://www.example.com/a.js">http://www.example.com/a.js</a> <a target="_blank" rel="noopener" href="http://x.example.com/c.js">http://x.example.com/c.js</a></td>
+<td>❎</td>
+<td>子域不同</td>
 </tr>
 </tbody></table>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">www.xxx.com 中 www是顶级域名，xxx.com是二级域名（主域名）</span><br><span class="line">aaa.xxx.com 中 aaa则是分域名（子域）</span><br></pre></td></tr></table></figure>
-<p>注意：跨域是浏览器出于安全性做的限制</p>
-<p>当没有这个限制时，可能你会碰到：</p>
+<blockquote>
+<p><strong>当没有这个限制时，可能你会碰到</strong></p>
+</blockquote>
 <ul>
 <li>Cookie劫持，被恶意网站窃取数据</li>
 <li>更易受到XSS、CSRF攻击</li>
@@ -248,7 +250,7 @@
 </ul>
 <p><strong>也就是说，非同源的请求就会产生跨域</strong></p>
 <blockquote>
-<p>解决方法</p>
+<p><strong>解决方法</strong></p>
 </blockquote>
 <ul>
 <li>JSONP</li>
@@ -269,7 +271,7 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;script src&#x3D;&#39;https:&#x2F;&#x2F;xxx.xxx.xx?key&#x3D;xxx&amp;callback&#x3D;xxx&#39;&gt;&lt;script&gt;</span><br></pre></td></tr></table></figure>
 <p>优点：兼容性好，可兼容老式浏览器<br>缺点：需要服务端支持且只支持GET请求</p>
 <blockquote>
-<p><strong>CORS</strong>, 跨域资源共享（Cross-origin Resource Sharing）, 是一个系统</p>
+<p><strong>CORS</strong>跨域资源共享（Cross-origin Resource Sharing）是一个系统</p>
 </blockquote>
 <p><strong>在vue项目中，一般关注 CORS / proxy</strong></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">由一系列传输的HTTP头组成</span><br><span class="line">&#x3D;&gt;(HTTP HEADERS)</span><br><span class="line"></span><br><span class="line">！服务端需打开这个限制 ！</span><br><span class="line">Access-Control-Allow-Origin: * | &lt;origin&gt; 指定一个可访问资源的URI</span><br></pre></td></tr></table></figure>
@@ -288,7 +290,7 @@
 <p><strong>实现CORS的关键是服务器</strong></p>
 <p>优点：支持所有请求方法<br>缺点：兼容性比JSONP差</p>
 <blockquote>
-<p>网络代理</p>
+<p><strong>网络代理</strong></p>
 </blockquote>
 <p>运行一个通过这个服务与另一个网络终端进行非直接的连接</p>
 <ol>
@@ -303,11 +305,11 @@
 <p>也可以使用node中间件做代理</p>
 <p>node中间件和Nginx反向代理都利用了服务器对服务器无同源策略限制</p>
 <blockquote>
-<p>PostMessage</p>
+<p><strong>PostMessage</strong></p>
 </blockquote>
 <p>是HTML5 XMLHttpRequest Level 2中的API<br>可以实现跨文档通信<br>可与Websocket、Service Work进行通信</p>
 <blockquote>
-<p>Websocket</p>
+<p><strong>Websocket</strong></p>
 </blockquote>
 <p>是HTML5的一个持久化协议<br>实现了浏览器与服务器双向通信<br>是一个长连接，在一个页面建立多个Websocket连接 有可能会导致性能问题</p>
 
