@@ -17,7 +17,7 @@
   
   <link rel="canonical" href="http://yoursite.com/2024/04/11/%E6%B5%8F%E8%A7%88%E5%99%A8Note/">
   
-  <meta name="description" content="开始前，可以先看以下几篇  js运行机制 跨域 前端存储总结 JS内存管理   计算机 核心 CPU(central processing unit) 中央处理器 GPU(graphics processing unit) 图形处理器   架构  用户界面UI，包括浏览器地址栏、工具栏等可见部分。主">
+  <meta name="description" content="开始前，可以先看以下几篇  js运行机制 跨域 前端存储总结 JS内存管理   计算机  CPU(central processing unit) 中央处理器 GPU(graphics processing unit) 图形处理器 体系结构 底部：机器硬件 中间：机器硬件 顶部：应用程序 浏览器架构">
   
   
   <meta name="author" content="karen">
@@ -28,14 +28,14 @@
   <meta property="og:type" content="article" />
   <meta property="og:title" content="BOMNote" />
   
-  <meta property="og:description" content="开始前，可以先看以下几篇  js运行机制 跨域 前端存储总结 JS内存管理   计算机 核心 CPU(central processing unit) 中央处理器 GPU(graphics processing unit) 图形处理器   架构  用户界面UI，包括浏览器地址栏、工具栏等可见部分。主">
+  <meta property="og:description" content="开始前，可以先看以下几篇  js运行机制 跨域 前端存储总结 JS内存管理   计算机  CPU(central processing unit) 中央处理器 GPU(graphics processing unit) 图形处理器 体系结构 底部：机器硬件 中间：机器硬件 顶部：应用程序 浏览器架构">
   
   <meta property="og:url" content="http://yoursite.com/2024/04/11/%E6%B5%8F%E8%A7%88%E5%99%A8Note/" />
 
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="BOMNote">
   
-  <meta name="twitter:description" content="开始前，可以先看以下几篇  js运行机制 跨域 前端存储总结 JS内存管理   计算机 核心 CPU(central processing unit) 中央处理器 GPU(graphics processing unit) 图形处理器   架构  用户界面UI，包括浏览器地址栏、工具栏等可见部分。主">
+  <meta name="twitter:description" content="开始前，可以先看以下几篇  js运行机制 跨域 前端存储总结 JS内存管理   计算机  CPU(central processing unit) 中央处理器 GPU(graphics processing unit) 图形处理器 体系结构 底部：机器硬件 中间：机器硬件 顶部：应用程序 浏览器架构">
   
   
   <meta name="twitter:image" content="http://yoursite.comundefined">
@@ -190,109 +190,65 @@
 <li><a href="/2024/04/07/JS%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86">JS内存管理</a></li>
 </ol>
 <blockquote>
-<h2 id="计算机"><a href="#计算机" class="headerlink" title="计算机"></a>计算机</h2></blockquote>
-<h3 id="核心"><a href="#核心" class="headerlink" title="核心"></a>核心</h3><ul>
+<h3 id="计算机"><a href="#计算机" class="headerlink" title="计算机"></a>计算机</h3></blockquote>
+<ul>
 <li>CPU(central processing unit) 中央处理器</li>
 <li>GPU(graphics processing unit) 图形处理器</li>
+<li>体系结构<ul>
+<li>底部：机器硬件</li>
+<li>中间：机器硬件</li>
+<li>顶部：应用程序<blockquote>
+<h3 id="浏览器架构"><a href="#浏览器架构" class="headerlink" title="浏览器架构"></a>浏览器架构</h3></blockquote>
+</li>
 </ul>
-<blockquote>
-<h2 id="架构"><a href="#架构" class="headerlink" title="架构"></a>架构</h2></blockquote>
+</li>
+</ul>
 <ul>
 <li><p>用户界面UI，包括浏览器地址栏、工具栏等可见部分。主要与用户进行交互，接受用户输入并展示信息。</p>
 </li>
 <li><p>浏览器引擎</p>
 </li>
-<li><p>渲染引擎</p>
-<ul>
-<li>核心是将HTML、CSS和JS三者转成可视化的内容</li>
-<li>每个Tab页面都有一个渲染进程，互不影响</li>
-<li>渲染进程内部包含主线程、工作线程、合成线程和光栅线程</li>
-<li>一些主线程<ol>
-<li>GUI渲染线程，解析HTML、CSS，构建DOM树和CSSOM树</li>
-<li>JS引擎线程，负责解析和执行JS代码，是<strong>单线程</strong></li>
-<li>事件触发线程，用来控制事件循环，只关心异步回调</li>
-<li>异步http线程，XMLHttpRequest用于处理AJAX请求</li>
-<li>定时器线程，setTimeout / setInterval所在的线程</li>
-</ol>
-<ul>
-<li>只管理定时器不关心结果，结果在事件触发线程中</li>
-</ul>
-</li>
-</ul>
-<p><strong>因为JS可以操作DOM，如果JS线程跟GUI线程同时运行，那渲染线程前后获得的元素可能会不一致</strong><br><u>GUI渲染引擎与JS引擎相互斥，当JS引擎执行时GUI会被挂起（可以认为被冻结）等JS引擎空闲时再执行</u></p>
+<li><p>渲染引擎，核心是将HTML、CSS和JS三者转成可视内容</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">GUI渲染线程：解析HTML、CSS，构建DOM树和CSSOM树</span><br><span class="line">JS引擎线程：负责解析和执行JS代码，是单线程</span><br><span class="line">事件触发线程：用来控制事件循环，只关心异步回调</span><br><span class="line">异步http线程：XMLHttpRequest用于处理AJAX请求</span><br><span class="line">定时器线程：管理setTimeout &#x2F; setInterval这两个定时器</span><br><span class="line">    * 只管理定时器不关心结果，结果在事件触发线程中</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">渲染进程内部包含主线程、工作线程、合成线程和光栅线程</span><br><span class="line">每个Tab页面都有一个渲染进程，互不影响</span><br><span class="line">JS可以操作DOM，如果JS线程跟GUI线程同时运行，那渲染线程前后获得的元素可能会不一致</span><br><span class="line">    * GUI渲染引擎与JS引擎互斥</span><br><span class="line">    * 当JS引擎执行时GUI会被挂起（可以认为被冻结）等JS引擎空闲时再执行</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>后端服务层</p>
-<ul>
-<li>网络层，负责处理网络请求和响应</li>
-<li>存储层，浏览器的本地存储机制</li>
-<li>安全层，负责保护用户隐私和安全</li>
-</ul>
-</li>
-<li><p>扩展功能，允许用户安装扩展程序</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">网络层，负责处理网络请求和响应</span><br><span class="line">存储层，浏览器的本地存储机制</span><br><span class="line">安全层，负责保护用户隐私和安全</span><br></pre></td></tr></table></figure></li>
+<li><p>扩展功能，包括允许用户安装的扩展程序</p>
 </li>
 </ul>
-<p><u>chrome多进程架构的优先</u></p>
-<p>通过chrome的任务管理器来查看</p>
 <blockquote>
 <p>新开一个窗口时，打开浏览器的任务管理器能看到什么</p>
 </blockquote>
-<ul>
-<li><p>浏览器主进程</p>
-</li>
-<li><p>GPU进程</p>
-</li>
-<li><p>多个渲染进程</p>
-</li>
-<li><p>网络进程</p>
-</li>
-<li><p>存储进程</p>
-</li>
-<li><p>音频进程</p>
-</li>
-<li><p>多个扩展程序</p>
-<h3 id="多进程架构的好处"><a href="#多进程架构的好处" class="headerlink" title="多进程架构的好处"></a>多进程架构的好处</h3></li>
-<li><p>都由独立的渲染器进程运行，相互不影响</p>
-</li>
-<li><p>安全性和沙箱</p>
-</li>
-</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">浏览器主进程</span><br><span class="line">GPU进程</span><br><span class="line">多个渲染进程</span><br><span class="line">网络进程</span><br><span class="line">存储进程</span><br><span class="line">音频进程</span><br><span class="line">多个扩展程序</span><br></pre></td></tr></table></figure>
 <blockquote>
-<h2 id="重排重绘"><a href="#重排重绘" class="headerlink" title="重排重绘"></a>重排重绘</h2></blockquote>
-<h3 id="repaint-重绘"><a href="#repaint-重绘" class="headerlink" title="repaint 重绘"></a>repaint 重绘</h3><p>当元素样式改变不影响布局时，浏览器将使用重绘对元素进行更新，此时只需要UI层面的重新绘制，<strong>损耗较少</strong></p>
+<p>浏览器多进程架构的好处</p>
+</blockquote>
+<p><u>都由独立的渲染器进程运行，相互不干扰</u><br>安全性增强 / 稳定性提高 / 隐私保护 / 性能优化 / 资源管理</p>
+<blockquote>
+<h3 id="重排重绘"><a href="#重排重绘" class="headerlink" title="重排重绘"></a>重排重绘</h3></blockquote>
+<p><strong>repaint 重绘</strong><br>当元素样式改变不影响布局时，浏览器将使用重绘对元素进行更新，此时只需要UI层面的重新绘制，<strong>损耗较少</strong></p>
 <ul>
 <li>只更改样式</li>
 <li>隐藏元素：v-show / visibility: hidden</li>
 </ul>
-<h3 id="reflow-回流-重排"><a href="#reflow-回流-重排" class="headerlink" title="reflow 回流/重排"></a>reflow 回流/重排</h3><p>当元素尺寸、结构或触发某些属性时，浏览器会重新渲染页面，此时浏览器需重新计算，计算后还需重新布局页面</p>
+<hr>
+<p><strong>reflow 回流/重排</strong><br>当元素尺寸、结构或触发某些属性时，浏览器会重新渲染页面，此时浏览器需重新计算，计算后还需重新布局页面</p>
 <ul>
 <li>页面初次渲染</li>
 <li>浏览器窗口大小改变</li>
 <li>元素尺寸、位置、内容改变 （v-if / 删除或添加可见的dom元素）</li>
 <li>元素字体大小改变</li>
 <li>激活css伪类 :hover</li>
-<li>某些属性或调用某些方法<ul>
-<li>document.body.clientWidth / Height / clientTop / Left 元素内部的宽度/高度</li>
-<li>offsetWidth/Height  offsetTop/Left 元素的布局宽度/高度</li>
-<li>scrollWidth/Height   scrollTop/Left 元素内容宽度的一种度量，包括由于overflow溢出而在屏幕上不可见的内容。</li>
-<li>getComputedStyle() 报告元素的所有 CSS 属性的值</li>
-<li>getBoundingClientRect() 元素的大小及其相对于视口的位置</li>
-<li>scrollTo()</li>
-</ul>
-</li>
-</ul>
+<li>某些属性或调用某些方法<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">document.body.clientWidth &#x2F; Height | clientTop &#x2F; Left 元素内部的宽度&#x2F;高度</span><br><span class="line">offsetWidth&#x2F;Height | offsetTop&#x2F;Left 元素的布局宽度&#x2F;高度</span><br><span class="line">scrollWidth&#x2F;Height | scrollTop&#x2F;Left 元素内容宽度的一种度量，包括由于overflow溢出而在屏幕上不可见的内容。</span><br><span class="line">getComputedStyle() 报告元素的所有CSS属性的值</span><br><span class="line">getBoundingClientRect() 元素的大小及其相对于视口的位置</span><br><span class="line">scrollTo()</span><br></pre></td></tr></table></figure>
 <blockquote>
 <p><strong>回流必定触发重绘，反之不一定</strong><br>重绘开销小，回流代价大</p>
 </blockquote>
-<ul>
-<li>visibility: hidden vs display: none<ul>
-<li>hidden / display: none 不占用空间，引发重排重绘</li>
-<li>而visibility: hidden 使元素不可见，但仍占用空间且位置没有变化，只引发重绘</li>
-</ul>
 </li>
 </ul>
-<p>实践：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">visibility: hidden vs display: none</span><br><span class="line">  hidden &#x2F; display: none 不占用空间，引发重排重绘</span><br><span class="line">  而visibility: hidden 使元素不可见，但仍占用空间且位置没有变化，只引发重绘</span><br></pre></td></tr></table></figure>
 <ul>
-<li>javascript<ul>
+<li>javascript方面<ul>
 <li>避免频繁操作，可统一修改后再更新</li>
 <li>尽量使用class进行样式修改</li>
 <li>减少dom元素的增删修改</li>
@@ -300,7 +256,10 @@
 </li>
 </ul>
 <blockquote>
-<h2 id="从输入URL到展示的过程"><a href="#从输入URL到展示的过程" class="headerlink" title="从输入URL到展示的过程"></a>从输入URL到展示的过程</h2></blockquote>
+<h3 id="在浏览器中输入URL到展示的过程"><a href="#在浏览器中输入URL到展示的过程" class="headerlink" title="在浏览器中输入URL到展示的过程"></a>在浏览器中输入URL到展示的过程</h3></blockquote>
+<p>可以大致描述为：<br>输入URL - 发起URL请求（DNS解析、建立TCP连接、发送请求、服务端处理请求并发送响应）- 浏览器接受响应 - 渲染页面</p>
+<p>这一过程共涉及到3个进程，分别是浏览器进程、网络进程和渲染进程</p>
+<hr>
 <ol>
 <li>处理输入，当在地址栏输入内容时，地址栏先判断是搜索查询还是请求URL，如果是搜索内容，会发送到搜索引擎合成新的带搜索关键字的URL。如果是域名会加上协议（如https）合成完整的url。</li>
 <li>点击回车后，浏览器进程通过IPC把URL传给网络进程，网络进程获取到URL先去找缓存中是否有缓存资源，如果有就拦截请求直接返回资源。<br>没有则进行网络请求DNS返回域名对应的IP地址和端口号。</li>
@@ -318,74 +277,52 @@
 </li>
 <li>提交导航，浏览器重新界面更新状态，包括地址栏、浏览器历史记录、网络安全状态等</li>
 </ol>
-<p>可以大致描述为：<br>输入URL - 发起URL请求（DNS解析、建立TCP连接、发送请求、服务端处理请求并发送响应）- 浏览器接受响应 - 渲染页面<br>这一过程共涉及到3个进程，分别是浏览器进程、网络进程和渲染进程</p>
+<hr>
 <ul>
-<li><p>如果导航为重定向跨站点，则可能不会使用此备用进程，在这种情况下可能需要不同的进程</p>
+<li><strong>beforeunload方法</strong><ul>
+<li>如果导航是从渲染器进程启动的，比如用户单击链接或JS运行window.location，则渲染器进程首先检查beforeunload处理程序。</li>
+<li>然后进行与浏览器进程启动导航相同的步骤。</li>
+</ul>
 </li>
-<li><p><strong>beforeunload</strong><br>如果导航是从渲染器进程启动的，比如用户单击链接或JavaScript运行window.location，则渲染器进程首先检查beforeunload处理程序。然后进行与浏览器进程启动导航相同的步骤。</p>
-</li>
-<li><p><strong>TCP建立连接，客户端和服务端通过3次握手来确保双方能正确识别对方序列号，实现可靠的通信</strong></p>
-<ul>
+<li>TCP建立连接，<strong>客户端和服务端通过3次握手来确保双方能正确识别对方序列号，从而实现可靠的通信</strong><ul>
 <li>客户端发送SYN（同步序列号）包，告诉服务器希望建立连接并指定了一个初识序列号</li>
+</ul>
+<ul>
 <li>服务端确认客户端序列号，发送SYN-ACK包</li>
 <li>客户端接收上述包后，发送ack包确认服务器序列号也发送自己的序列号，表示连接已建立</li>
 </ul>
 </li>
-<li><p><strong>关闭TCP连接中的4次挥手，确保连接正常终止，避免数据丢失或不完整的情况</strong></p>
-<ul>
-<li>客户端发送FIN包，表示完成数据发送并不再需要连接（包含了一个序列号）</li>
+<li>关闭TCP连接中，<strong>通过4次确保连接正常终止，避免数据丢失或不完整的情况</strong><ul>
+<li>客户端发送FIN包，表示完成数据发送并不再需要连接（这个包中也包含了一个序列号）</li>
 <li>服务端回复ACK包确认收到客户端的FIN包</li>
-<li>服务端发送FIN包表示准备好关闭连接了（同样包含了一个序列号）</li>
+<li>服务端发送FIN包表示准备好关闭连接了（同样也包含了一个序列号）</li>
 <li>客户端回复ACK包确认了服务器序列号，表示接受到关闭连接的请求</li>
 </ul>
 </li>
-<li><p><strong>DNS是域名系统，互联网中将域名转换为IP地址的分布式数据库系统</strong></p>
-<blockquote>
-<h2 id="HTTP-HTTPS"><a href="#HTTP-HTTPS" class="headerlink" title="HTTP / HTTPS"></a>HTTP / HTTPS</h2></blockquote>
-</li>
+<li>如果导航为<strong>重定向跨站点</strong>，则可能不会使用此备用进程，在这种情况下可能需要不同的进程</li>
+<li>DNS是域名系统，<strong>互联网中将域名转换为IP地址的分布式数据库系统</strong></li>
 </ul>
-<h3 id="HTTP超文本传输协议，HyperText-Transfer-Protocol"><a href="#HTTP超文本传输协议，HyperText-Transfer-Protocol" class="headerlink" title="HTTP超文本传输协议，HyperText Transfer Protocol"></a>HTTP超文本传输协议，HyperText Transfer Protocol</h3><p>是一种用于传输超媒体文档的协议，在客户端和服务器之间作为请求-响应协议工作。</p>
+<blockquote>
+<h3 id="HTTP-HTTPS"><a href="#HTTP-HTTPS" class="headerlink" title="HTTP / HTTPS"></a>HTTP / HTTPS</h3></blockquote>
+<p><strong>HTTP超文本传输协议，HyperText Transfer Protocol</strong><br>是一种用于传输超媒体文档的协议，在客户端和服务器之间作为请求-响应协议工作</p>
 <ul>
 <li>HTTP不安全，以纯文本传输数据</li>
-<li>HTTP/1.0缺陷   <ul>
-<li>每次请求只能获取一个资源，每个资源都需建立一个新连接，增加了延迟和资源消耗，且无法复用连接</li>
-<li>每个请求中头部信息都需重复发送，导致额外的数据传输，增加网络负载</li>
-<li>默认不支持长链接</li>
-<li>无法有效地管理流量，导致网络阻塞和性能下降</li>
+<li>HTTP/1.0缺陷   <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">每次请求只能获取一个资源，每个资源都需建立一个新连接</span><br><span class="line">    * 增加了延迟和资源消耗，且无法复用连接</span><br><span class="line">每个请求中头部信息都需重复发送，导致额外的数据传输，增加网络负载</span><br><span class="line">默认不支持长连接</span><br><span class="line">无法有效地管理流量，导致网络阻塞和性能下降</span><br></pre></td></tr></table></figure></li>
+<li>HTTP/1.1改进<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">引入长连接（keep-alive），允许客户端和服务端之间的连接在一次请求-响应后保持打开状态</span><br><span class="line">    * 以便后续可以复用连接，减少开销，提高性能</span><br><span class="line">Host头部支持，允许一台服务器承载多个域名对应的网站</span><br><span class="line">缓存控制，如Cache-Control、ETag、Last-Modified等头部字段</span><br><span class="line">分块传输编码，在传输响应时将数据分成多个块进行传输，提高传输效率</span><br><span class="line">支持新的请求方法，如OPTIONS、PATCH、TRACE</span><br></pre></td></tr></table></figure></li>
+<li>HTTP/2、HTTP/3<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">多路复用，允许多个请求同时在单个连接上进行</span><br><span class="line">二进制传输，更加紧凑、高效，减少数据大小</span><br><span class="line">头部压缩，减少数据大小</span><br><span class="line">服务器推送</span><br><span class="line">优化连接管理，减少开销提高性能</span><br><span class="line">安全性增强</span><br></pre></td></tr></table></figure></li>
+<li><em>HTTPS超文本传输安全协议，HyperText Transfer Protocol Secure</em>*</li>
+<li>使用SSL/TLS加密数据<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">客户端向服务端发起HTTPS请求</span><br><span class="line">服务端返回包含数字证书的信息给客户端</span><br><span class="line">客户端检验证书是否合法，生成随机密钥并加密发送给服务端</span><br><span class="line">服务端解密随机密钥</span><br></pre></td></tr></table></figure>
+双方使用<strong>随机密钥</strong>来加密和解密通信过程中的数据<br>用于保护网站敏感数据，如用户登录、支付信息等</li>
 </ul>
-</li>
-<li>HTTP/1.1改进<ul>
-<li>引入长连接（keep-alive），允许客户端和服务端之间的连接在一次请求-响应后保持打开状态，以便后续可以复用连接，减少开销，提高新能</li>
-<li>Host头部支持，允许一台服务器承载多个域名对应的网站</li>
-<li>缓存控制，如Cache-Control、ETag、Last-Modified等头部字段</li>
-<li>分块传输编码，在传输响应时将数据分成多个块进行传输，提高传输效率</li>
-<li>支持新的请求方法，如OPTIONS、PATCH、TRACE</li>
-</ul>
-</li>
-<li>HTTP/2、HTTP/3<ul>
-<li>多路复用，允许多个请求同时在单个连接上进行</li>
-<li>二进制传输，更加紧凑、高效，减少数据大小</li>
-<li>头部压缩，减少数据大小</li>
-<li>服务器推送</li>
-<li>优化连接管理，减少开销提高性能</li>
-<li>安全性增强<h3 id="HTTPS超文本传输安全协议，HyperText-Transfer-Protocol-Secure"><a href="#HTTPS超文本传输安全协议，HyperText-Transfer-Protocol-Secure" class="headerlink" title="HTTPS超文本传输安全协议，HyperText Transfer Protocol Secure"></a>HTTPS超文本传输安全协议，HyperText Transfer Protocol Secure</h3></li>
-</ul>
-</li>
-<li>使用SSL/TLS加密数据</li>
-<li>流程<ul>
-<li>客户端向服务端发起HTTPS请求</li>
-<li>服务端返回包含数字证书的信息给客户端</li>
-<li>客户端检验证书是否合法，生成随机密钥并加密发送给服务端</li>
-<li>服务端解密随机密钥</li>
-</ul>
-</li>
-</ul>
-<p>双方使用这个<strong>随机密钥</strong>来加密和解密通信过程中的数据<br>用于保护网站敏感数据，如用户登录、支付信息等</p>
 <blockquote>
-<h2 id="事件循环机制Event-Loop，用于管理和调度JS代码的执行顺序"><a href="#事件循环机制Event-Loop，用于管理和调度JS代码的执行顺序" class="headerlink" title="事件循环机制Event Loop，用于管理和调度JS代码的执行顺序"></a>事件循环机制Event Loop，用于管理和调度JS代码的执行顺序</h2></blockquote>
-<p>执行过程：<br>执行一个宏任务 -&gt; 执行所有微任务 -&gt; 渲染页面 -&gt; 检查是否需要重新渲染 -&gt; 重复执行上述步骤，直到所有队列都为空</p>
+<h3 id="事件循环机制Event-Loop"><a href="#事件循环机制Event-Loop" class="headerlink" title="事件循环机制Event Loop"></a>事件循环机制Event Loop</h3></blockquote>
+<p><strong>用于管理和调度JS代码的执行顺序</strong></p>
+<hr>
+<p>执行一个宏任务 -&gt; 执行所有微任务 -&gt; 渲染页面 -&gt; 检查是否需要重新渲染 -&gt; 重复执行上述步骤，直到所有队列都为空</p>
+<hr>
 <ul>
-<li>宏任务 macrotask 也被称为 task<ul>
+<li><p><strong>宏任务 macrotask 也被称为task</strong></p>
+<ul>
 <li>主代码块（用户交互事件：点击、滚动等）</li>
 <li>定时器（setTimeout、setInterval）</li>
 <li>解析DOM</li>
@@ -394,51 +331,76 @@
 <li>UI渲染</li>
 </ul>
 </li>
-<li>微任务 microtask 也被称为 jobs<ul>
-<li>promise回调函数 .then() / </li>
+<li><p><strong>微任务 microtask 也被称为jobs</strong></p>
+<ul>
+<li>promise回调函数 .then() </li>
 <li>catch / finally</li>
 <li>Object.observe</li>
 </ul>
-</li>
-<li>new Promise(() =&gt; {}).then()<ul>
+<blockquote>
+<p>new Promise(() =&gt; {}).then()</p>
+</blockquote>
+<ul>
 <li>new Promise(() =&gt; {}) 是一个构造函数，是同步任务</li>
 <li>.then()是异步微任务</li>
 </ul>
 </li>
 </ul>
 <blockquote>
-<h2 id="安全性"><a href="#安全性" class="headerlink" title="安全性"></a>安全性</h2></blockquote>
+<h3 id="安全性"><a href="#安全性" class="headerlink" title="安全性"></a>安全性</h3></blockquote>
 <ul>
-<li>XSS攻击，注入恶意代码<ul>
+<li><strong>XSS攻击，跨站脚本攻击</strong><ul>
+<li>目标是向网页中注入恶意脚本代码，从而在用户浏览页面时执行这些恶意代码</li>
+<li>通常分为三种：<ol>
+<li>存储型XSS攻击，恶意脚本代码存储在网站数据库中，当访问页面时，会从服务端返回并执行</li>
+<li>反射型XSS攻击，将恶意链接发送给用户，用户点击后返回恶意代码并执行</li>
+<li>DOM型XSS攻击，构造特定的URL或其他用户可控制的输入，当访问页面时，代码执行</li>
+</ol>
+</li>
+<li>防御措施：<ul>
 <li>cookie设置httpOnly</li>
-<li>转译页面上的输入内容和输出内容</li>
+<li>对用户输入进行严格过滤，转译页面上的输入内容和输出内容</li>
+<li>限制JavaScript执行的权限</li>
 </ul>
 </li>
-<li>CSRF，跨站请求伪造、防护<ul>
-<li>get不修改数据</li>
-<li>不被第三方网站访问到用户的cookie</li>
-<li>设置白名单，不被第三方网站请求</li>
-<li>请求校验</li>
+</ul>
+</li>
+<li><strong>CSRF(Cross-Site Request Forgery)跨站请求伪造</strong><ul>
+<li>在登录过的网站上进行非预期无感知的操作，比如向目标网站发送恶意请求，从而可以发起类似资金转账、更改账号信息等未授权的操作</li>
+<li>防止攻击的常见方法：<ol>
+<li>使用CSRF Token，随机生成Token，并在服务端检验有效性，确保请求合法</li>
+<li>同源检测</li>
+<li>使用 SameSite Cookie属性，限制Cookie发送，防止跨站点请求</li>
+<li>设置合适的HTTP头部（X-Ruquested-With、Content-Type…）确保请求安全性</li>
+<li>使用双重身份验证，增加攻击者难度</li>
+<li>设置白名单，不被第三方网站请求；不被第三方网站访问到用户的cookie</li>
+</ol>
+</li>
 </ul>
 </li>
 </ul>
 <blockquote>
-<h2 id="存储机制"><a href="#存储机制" class="headerlink" title="存储机制"></a>存储机制</h2></blockquote>
+<h3 id="存储机制"><a href="#存储机制" class="headerlink" title="存储机制"></a>存储机制</h3></blockquote>
 <p>一般主流方案：Cookie、Web Storage、IndexedDB、Cache Storage</p>
-<h3 id="Cookie，通过浏览器在客户端存储少量数据"><a href="#Cookie，通过浏览器在客户端存储少量数据" class="headerlink" title="Cookie，通过浏览器在客户端存储少量数据"></a>Cookie，通过浏览器在客户端存储少量数据</h3><ul>
+<hr>
+<p><strong>Cookie，通过浏览器在客户端存储少量数据</strong></p>
+<ul>
 <li>存储量较小，通常为4kb大小；</li>
 <li>可以被浏览器设置，每次请求都会自动携带，包含在请求头上，不安全</li>
 <li>也可以被服务器设置</li>
-<li>使用场景比较有限，通常用于存储用户信息，登录状态等<h3 id="Web-Storage，在客户端保存键值对数据，限制为4～5MB"><a href="#Web-Storage，在客户端保存键值对数据，限制为4～5MB" class="headerlink" title="Web Storage，在客户端保存键值对数据，限制为4～5MB"></a>Web Storage，在客户端保存键值对数据，限制为4～5MB</h3></li>
-</ul>
-<ul>
-<li>LocalStorage，在浏览器关闭后仍然保存，直到手动删除。使用方便</li>
-<li>SessionStorage，在当前会话结束时被清除</li>
+<li>使用场景比较有限，通常用于存储用户信息，登录状态等</li>
 </ul>
 <hr>
+<p><strong>Web Storage，在客户端保存键值对数据，限制为4～5MB</strong></p>
 <ul>
-<li>需要手动获取放到请求中，可以避免CSRF攻击</li>
-<li>仅能存储字符串类型的数据，不支持复杂数据类型。<ul>
+<li><p>LocalStorage，在浏览器关闭后仍然保存，直到手动删除。使用方便</p>
+</li>
+<li><p>SessionStorage，在当前会话结束时被清除</p>
+</li>
+<li><p>需要手动获取放到请求中，可以避免CSRF攻击</p>
+</li>
+<li><p>仅能存储字符串类型的数据，不支持复杂数据类型。</p>
+<ul>
 <li>大概是考虑到各种安全问题，还得让各个浏览器统一意见，可能还是为了简化实现</li>
 <li>使用 JSON.stringify() 配合 JSON.parse() 解决<ul>
 <li>无法正确转换JS部分属性，无法转换循环引用的对象</li>
@@ -448,19 +410,40 @@
 </li>
 </ul>
 </li>
-<li>存储在客户端，存在一定安全风险</li>
-<li>不适用<u>大量数据</u>和<u>复杂数据</u>的存储<h3 id="IndexedDB，一种高级的客户端存储技术，允许在浏览器中存储大量结构化数据，并支持查询"><a href="#IndexedDB，一种高级的客户端存储技术，允许在浏览器中存储大量结构化数据，并支持查询" class="headerlink" title="IndexedDB，一种高级的客户端存储技术，允许在浏览器中存储大量结构化数据，并支持查询"></a>IndexedDB，一种高级的客户端存储技术，允许在浏览器中存储大量结构化数据，并支持查询</h3></li>
+<li><p>存储在客户端，存在一定安全风险</p>
+</li>
+<li><p>不适用<u>大量数据</u>和<u>复杂数据</u>的存储</p>
+</li>
+</ul>
+<hr>
+<p><strong>IndexedDB，一种高级的客户端存储技术，允许在浏览器中存储大量结构化数据，并支持查询</strong></p>
+<ul>
 <li>存储容量大，支持事务，可高效地处理大量数据</li>
-<li>API相对复杂，不同浏览器兼容性不同<h3 id="Cache-Storage，浏览器提供的一种缓存机制"><a href="#Cache-Storage，浏览器提供的一种缓存机制" class="headerlink" title="Cache Storage，浏览器提供的一种缓存机制"></a>Cache Storage，浏览器提供的一种缓存机制</h3></li>
+<li>API相对复杂，不同浏览器兼容性不同</li>
+</ul>
+<hr>
+<p><strong>Cache Storage，浏览器提供的一种缓存机制</strong></p>
+<ul>
 <li>用于存储<u>请求过的资源</u>，如CSS、JS、图片等，提高页面加载速度，减少网络请求，提升用户体验</li>
 </ul>
 <blockquote>
-<h2 id="兼容性"><a href="#兼容性" class="headerlink" title="兼容性"></a>兼容性</h2></blockquote>
+<h3 id="性能优化"><a href="#性能优化" class="headerlink" title="性能优化"></a>性能优化</h3></blockquote>
+<p>可以考虑采取以下措施提高性能：</p>
+<ul>
+<li>使用局部变量来提高访问速度</li>
+<li>避免使用eval函数，因为它会影响性能</li>
+<li>使用事件委托来减少事件处理程序的数量</li>
+<li>减少DOM操作次数，避免频繁的重绘和重排；使用批量更新</li>
+<li>使用合适的数据结构和算法</li>
+<li>使用异步加载来延迟不必要的资源加载</li>
+<li>缓存重复的计算结果</li>
+<li>使用Web Workers进行多线程处理，提高性能</li>
+</ul>
 <blockquote>
-<h2 id="性能优化"><a href="#性能优化" class="headerlink" title="性能优化"></a>性能优化</h2></blockquote>
-<blockquote>
-<h2 id="跨域"><a href="#跨域" class="headerlink" title="跨域"></a>跨域</h2><p>是浏览器基于同源策略的一种安全手段，是对安全性做的限制<br>同源策略： 是一种约定，用于隔离潜在恶意文件的安全机制，通常不允许不同源之间的读操作<br><strong>同源三要素：协议protocol / 主机host / 端口port 三者相同</strong><br><u>非同源的请求就会产生跨域</u></p>
-</blockquote>
+<h3 id="跨域"><a href="#跨域" class="headerlink" title="跨域"></a>跨域</h3></blockquote>
+<p>是浏览器基于同源策略的一种安全手段，是对安全性做的限制</p>
+<p><u>同源策略： 是一种约定，用于隔离潜在恶意文件的安全机制，通常不允许不同源之间的读操作</u></p>
+<p><strong>同源三要素：协议protocol / 主机host / 端口port 三者相同</strong><br><strong>非同源的请求就会产生跨域</strong></p>
 <p>常见于以下场景：</p>
 <ul>
 <li>ajax跨域请求</li>
@@ -499,8 +482,9 @@
 </ol>
 <p>实际应用中，反向代理服务器更为常见。<br>特别是在构建高可用性、高性能的Web应用时。<br>通过反向代理，可以将请求分发给不同的服务器，实现负载均衡和故障转移；<br>同时，反向代理也可以用于缓存静态内容，提高访问速度；<br>此外，反向代理还可以作为防火墙，过滤恶意请求，增强系统的安全性。</p>
 <blockquote>
-<h2 id="Node的Event-Loop事件循环"><a href="#Node的Event-Loop事件循环" class="headerlink" title="Node的Event Loop事件循环"></a>Node的Event Loop事件循环</h2></blockquote>
-<h3 id="Timers-gt-Pending-callbacks-gt-Idle-Prepare-gt-IO-Poll-gt-Check-gt-Closing-callbacks"><a href="#Timers-gt-Pending-callbacks-gt-Idle-Prepare-gt-IO-Poll-gt-Check-gt-Closing-callbacks" class="headerlink" title="Timers -&gt; Pending callbacks -&gt; Idle/Prepare -&gt; IO Poll -&gt; Check -&gt; Closing callbacks"></a>Timers -&gt; Pending callbacks -&gt; Idle/Prepare -&gt; IO Poll -&gt; Check -&gt; Closing callbacks</h3><ul>
+<h3 id="Node的Event-Loop事件循环"><a href="#Node的Event-Loop事件循环" class="headerlink" title="Node的Event Loop事件循环"></a>Node的Event Loop事件循环</h3><p><strong>Timers -&gt; Pending callbacks -&gt; Idle/Prepare -&gt; IO Poll -&gt; Check -&gt; Closing callbacks</strong></p>
+</blockquote>
+<ul>
 <li><p>Timers 用于存储定时器的回调函数(setInterval、setTimeout)</p>
 </li>
 <li><p>Pending callbacks 执行与操作系统相关的回调函数，比如启动服务器端应用监听端口操作</p>
@@ -532,14 +516,38 @@
 </li>
 </ul>
 <blockquote>
-<h2 id="数据脱敏，用于保护敏感数据的隐私和安全性"><a href="#数据脱敏，用于保护敏感数据的隐私和安全性" class="headerlink" title="数据脱敏，用于保护敏感数据的隐私和安全性"></a>数据脱敏，用于保护敏感数据的隐私和安全性</h2></blockquote>
+<h3 id="数据脱敏，用于保护敏感数据的隐私和安全性"><a href="#数据脱敏，用于保护敏感数据的隐私和安全性" class="headerlink" title="数据脱敏，用于保护敏感数据的隐私和安全性"></a>数据脱敏，用于保护敏感数据的隐私和安全性</h3></blockquote>
 <ul>
 <li>通常用于 非生产环境测试、合规性要求、数据共享</li>
 <li>方法包括 替换敏感数据、部分隐藏、加密、数据掩护、数据删除</li>
 </ul>
 <blockquote>
-<h2 id="总结知识点"><a href="#总结知识点" class="headerlink" title="总结知识点"></a>总结知识点</h2></blockquote>
-<h3 id="常见状态码"><a href="#常见状态码" class="headerlink" title="常见状态码"></a>常见状态码</h3><ul>
+<h3 id="HTTP请求方法"><a href="#HTTP请求方法" class="headerlink" title="HTTP请求方法"></a>HTTP请求方法</h3><p><strong>get / post / options / put / patch / delete / head / trace</strong></p>
+</blockquote>
+<ul>
+<li>get，用于向服务器请求获取数据，如获取网页、图片等<ul>
+<li>请求参数附在URL上，以查询字符串形式发送</li>
+<li>请求长度受限，不修改资源，无副作用</li>
+<li>可被缓存，也可以被书签、历史记录保存</li>
+<li>数据在URL中可见，<u>不适合发送敏感信息</u></li>
+</ul>
+</li>
+<li>post，用于向服务器提交数据，如表单数据、上传文件等操作；更多编码格式<ul>
+<li>请求参数附在请求体中，不会在浏览器历史记录中显示</li>
+<li>不可被浏览器缓存，不会被书签、历史记录保存</li>
+<li>数据不暴露在URL中，适合发送大量数据和敏感信息</li>
+</ul>
+</li>
+<li>head，类似于get，但服务器只返回请求头部信息，通常用于检查资源的元数据，例如文件是否存在、最后修改时间</li>
+<li>options，用于请求服务器告知客户端对指定资源支持的各种请求方法、HTTP头部信息等</li>
+<li>put，用于向服务器发送数据，从而更新指定资源内容。如果资源不存在，则创建一个新资源</li>
+<li>patch，类似于put，但仅传输需要更新的数据部分，非整个资源</li>
+<li>delete，用于请求服务器删除指定的资源</li>
+<li>trace，用于在请求链路中追踪请求的传输路径，常用于诊断和调试</li>
+</ul>
+<blockquote>
+<h3 id="常见状态码"><a href="#常见状态码" class="headerlink" title="常见状态码"></a>常见状态码</h3></blockquote>
+<ul>
 <li>200: 成功，并返回数据</li>
 <li>301: 永久移动，重定向</li>
 <li>304: 资源未修改，可使用缓存</li>
@@ -547,41 +555,46 @@
 <li>404: 资源不存在</li>
 <li>403: 拒绝请求</li>
 <li>500: 服务器错误</li>
-<li>…<h3 id="进程、线程"><a href="#进程、线程" class="headerlink" title="进程、线程"></a>进程、线程</h3><ul>
+<li>…</li>
+</ul>
+<blockquote>
+<h3 id="进程、线程"><a href="#进程、线程" class="headerlink" title="进程、线程"></a>进程、线程</h3></blockquote>
+<ul>
 <li>进程是CPU资源分配等最小单位，是应用程序运行时的实例对象；进程间相互独立不受干扰；可以通过IPC来实现通信</li>
 <li>线程是CPU调度等最小单位，被包裹在进程中，应用程序具体要做的每件事情生成了一个个线程，类似于一个待办列表</li>
 <li>线程上下文切换比进程上下文切换要快得多</li>
-<li>CPU可以有很多进程，但资源是固定的。进程越多，CPU分出去的资源越多就越卡。<h3 id="JS为什么是单线程"><a href="#JS为什么是单线程" class="headerlink" title="JS为什么是单线程"></a>JS为什么是单线程</h3>这是由起初设计的用途和运行环境所决定</li>
+<li>CPU可以有很多进程，但资源是固定的。进程越多，CPU分出去的资源越多就越卡。</li>
+</ul>
+<blockquote>
+<h3 id="JS为什么是单线程"><a href="#JS为什么是单线程" class="headerlink" title="JS为什么是单线程"></a>JS为什么是单线程</h3></blockquote>
+<p>这是由起初设计的用途和运行环境所决定</p>
+<ul>
 <li>起初被设计用于web页面互动及操作DOM，如果是多线程，会带来复杂的并发问题，如死锁（两个线程相互依赖）、同步问题、竞态条件（多个线程访问共享资源引起的不确定性和不可预测的行为）等</li>
 <li>多个js脚本同时修改页面可能会引起页面冲突，单线程保证了脚本顺序执行</li>
 <li>在每个页面中多线程可能会导致页面响应变慢或崩溃</li>
-<li>可以通过事件循环机制，处理异步任务，如网络请求、定时器等<h3 id="web-worker，是HTMl5提供的JS线程"><a href="#web-worker，是HTMl5提供的JS线程" class="headerlink" title="web worker，是HTMl5提供的JS线程"></a>web worker，是HTMl5提供的JS线程</h3></li>
+<li>可以通过事件循环机制，处理异步任务，如网络请求、定时器等</li>
 </ul>
-</li>
-</ul>
+<blockquote>
+<h3 id="web-worker，是HTMl5提供的JS线程"><a href="#web-worker，是HTMl5提供的JS线程" class="headerlink" title="web worker，是HTMl5提供的JS线程"></a>web worker，是HTMl5提供的JS线程</h3></blockquote>
 <ol>
 <li>独立线程，与主线程相互独立，不阻塞主线程。可并行执行多个任务</li>
 <li>无法访问和操作DOM元素</li>
 <li>支持多线程通信</li>
-<li>受同源限制，无法加载本地资源<br>使用场景：需要大量计算、网络请求等耗时的任务<h3 id="移动端浏览器开发"><a href="#移动端浏览器开发" class="headerlink" title="移动端浏览器开发"></a>移动端浏览器开发</h3><h3 id="跨标签页通讯"><a href="#跨标签页通讯" class="headerlink" title="跨标签页通讯"></a>跨标签页通讯</h3></li>
+<li>受同源限制，无法加载本地资源<br>使用场景：需要大量计算、网络请求等耗时的任务</li>
+</ol>
+<blockquote>
+<h3 id="移动端浏览器开发"><a href="#移动端浏览器开发" class="headerlink" title="移动端浏览器开发"></a>移动端浏览器开发</h3></blockquote>
+<blockquote>
+<h3 id="跨标签页通讯"><a href="#跨标签页通讯" class="headerlink" title="跨标签页通讯"></a>跨标签页通讯</h3></blockquote>
+<ol>
 <li>LocalStorage 或 SessionStorage，适用于较小量的数据通讯</li>
 <li>Cookies，在相同域名下的不同路径间共享数据</li>
 <li>window.opener，如果通过window.open()打开的新标签页，可以通过该属性获取父窗口，并在父子窗口间通讯</li>
 <li>Broadcast Channel API</li>
-<li>SharedWorker，特殊的Web Worker，可以被多个标签页共享<h3 id="计算机体系结构"><a href="#计算机体系结构" class="headerlink" title="计算机体系结构"></a>计算机体系结构</h3></li>
+<li>SharedWorker，特殊的Web Worker，可以被多个标签页共享</li>
 </ol>
-<ul>
-<li>底部：机器硬件</li>
-<li>中间：机器硬件</li>
-<li>顶部：应用程序<h3 id="CSRF-Cross-Site-Request-Forgery-跨站请求伪造"><a href="#CSRF-Cross-Site-Request-Forgery-跨站请求伪造" class="headerlink" title="CSRF(Cross-Site Request Forgery)跨站请求伪造"></a>CSRF(Cross-Site Request Forgery)跨站请求伪造</h3>在登录过的网站上进行非预期无感知的操作，比如向目标网站发送恶意请求，从而可以发起类似资金转账、更改账号信息等未授权的操作<br>防止攻击的常见方法：</li>
-</ul>
-<ol>
-<li>使用CSRF Token，随机生成Token，并在服务端检验有效性，确保请求合法</li>
-<li>同源检测</li>
-<li>使用 SameSite Cookie属性，限制Cookie发送，防止跨站点请求</li>
-<li>设置合适的HTTP头部（X-Ruquested-With、Content-Type…）确保请求安全性</li>
-<li>使用双重身份验证，增加攻击者难度<h3 id="setTimeout-0-会立即输出吗"><a href="#setTimeout-0-会立即输出吗" class="headerlink" title="setTimeout(0) 会立即输出吗"></a>setTimeout(0) 会立即输出吗</h3></li>
-</ol>
+<blockquote>
+<h3 id="setTimeout-0-会立即输出吗"><a href="#setTimeout-0-会立即输出吗" class="headerlink" title="setTimeout(0) 会立即输出吗"></a>setTimeout(0) 会立即输出吗</h3></blockquote>
 <ul>
 <li>不会立即执行，而是等待当前执行栈中所有任务执行完才会执行，取决于JS的事件循环机制</li>
 <li>看当时执行的机器状态，可能会先输出也可能后输出</li>
