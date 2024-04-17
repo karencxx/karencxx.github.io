@@ -1,298 +1,920 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html>
 <head>
-
-  <!-- Minima -->
-  <!-- Hexo theme created by @adisaktijrs -->
-
-  <!-- Basic Page Needs
-  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
   <meta charset="utf-8">
-
   
   <title>进阶</title>
-  
-  <link rel="sitemap" href="http://yoursite.comsitemap.xml" />
-  
-  <link rel="canonical" href="http://yoursite.com/page/2/">
-  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="在路上。">
+<meta property="og:type" content="website">
+<meta property="og:title" content="进阶">
+<meta property="og:url" content="http://karencxx.github.io/page/2/index.html">
+<meta property="og:site_name" content="进阶">
+<meta property="og:description" content="在路上。">
+<meta property="og:locale">
+<meta property="article:author" content="karen">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="进阶" type="application/atom+xml">
   
   
-  <meta name="author" content="karen">
-  
-  <meta property="og:image" content="http://yoursite.com/images/thumbnail.jpg">
-  
-  <meta property="og:site_name" content="进阶" />
-  <meta property="og:type" content="article" />
-  <meta property="og:title" content="进阶" />
-  
-  <meta property="og:description" content="在路上。">
-  
-  <meta property="og:url" content="http://yoursite.com/page/2/" />
-
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="进阶">
-  
-  <meta name="twitter:description" content="在路上。">
+    <link rel="icon" href="/favicon.png">
   
   
-  <meta name="twitter:image" content="http://yoursite.com/images/thumbnail.jpg">
-  
-  <meta name="twitter:url" content="http://yoursite.com/page/2/" />
-
-  <!-- Mobile Specific Metas
-  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-
-  <!-- Preload fonts
-  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
-  <link rel="preload" href="../fonts/dm-serif-display-v4-latin-regular.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="preload" href="../fonts/inter-v2-latin-regular.woff2" as="font" type="font/woff2" crossorigin>
-
-  <!-- CSS
-  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
-  
-<link rel="stylesheet" href="/css/normalize.css">
-
-  
-<link rel="stylesheet" href="/css/skeleton.css">
-
-  
-<link rel="stylesheet" href="/css/custom.css">
-
-  
-<link rel="stylesheet" href="/css/prism-dark.css">
-
-  
-<link rel="stylesheet" href="/css/prism-line-numbers.css">
-
-  <!-- User css -->
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
   
   
-<link rel="stylesheet" href="/css/user.css">
+<link rel="stylesheet" href="/css/style.css">
 
   
 
-  <!-- Favicon
-  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
-  <link rel="icon" type="image/png" href="/images/favicon.png">
-
-  <!-- Custom Theme Color Style
-  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
-  <style>
-  a:not(.icon) {
-    text-decoration-color: #0FA0CE;
-    background-image: linear-gradient(
-      to bottom,
-      rgba(0, 0, 0, 0) 50%,
-      #0FA0CE 50%
-    );
-  }
-  blockquote {
-    border-left: 8px solid #0FA0CE;
-  }
-  .nanobar .bar {
-    background: #0FA0CE;
-  }
-  .button.button-primary:hover,
-  button.button-primary:hover,
-  input[type="submit"].button-primary:hover,
-  input[type="reset"].button-primary:hover,
-  input[type="button"].button-primary:hover,
-  .button.button-primary:focus,
-  button.button-primary:focus,
-  input[type="submit"].button-primary:focus,
-  input[type="reset"].button-primary:focus,
-  input[type="button"].button-primary:focus {
-    background-color: #0FA0CE;
-    border-color: #0FA0CE;
-  }
-  input[type="email"]:focus,
-  input[type="number"]:focus,
-  input[type="search"]:focus,
-  input[type="text"]:focus,
-  input[type="tel"]:focus,
-  input[type="url"]:focus,
-  input[type="password"]:focus,
-  textarea:focus,
-  select:focus {
-    border: 1px solid #0FA0CE;
-  }
-</style>
-
-  <!-- Google Analytics (With Privacy Settings On)
-  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
-  
-
-<meta name="generator" content="Hexo 5.3.0"><link rel="alternate" href="/atom.xml" title="进阶" type="application/atom+xml">
-</head>
+<meta name="generator" content="Hexo 5.3.0"></head>
 
 <body>
-  <div class="container">
-    <div class="row">
-      <div>
-
-        <div class="row">
-  <div class="two columns" style="max-width: 50px">
-    <h1 class="mt-2 mode">
-      <div onclick=setDarkMode(true) id="darkBtn">🌑</div>
-      <div onclick=setDarkMode(false) id="lightBtn" class=hidden>☀️</div>
-      <script >
-        if (localStorage.getItem('preferredTheme') == 'dark') {
-          setDarkMode(true)
-        }
-        function setDarkMode(isDark) {
-          var darkBtn = document.getElementById('darkBtn')
-          var lightBtn = document.getElementById('lightBtn')
-          if (isDark) {
-            lightBtn.style.display = "block"
-            darkBtn.style.display = "none"
-            localStorage.setItem('preferredTheme', 'dark');
-          } else {
-            lightBtn.style.display = "none"
-            darkBtn.style.display = "block"
-            localStorage.removeItem('preferredTheme');
-          }
-          document.body.classList.toggle("darkmode");
-        }
-      </script>
-    </h1>
-  </div>
-
-  <div class="six columns ml-1">
-    <h1 class="mt-2">
-      UP&amp;UP
-    </h1>
-  </div>
-
-  <div class="twelve columns">
-    <div class="row">
-      <div class="nine columns left">
-        <a href="/">Home</a>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">进阶</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
         
+          <a class="main-nav-link" href="/">Home</a>
         
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://karencxx.github.io"></form>
       </div>
     </div>
-    <hr style="margin-bottom: 2.6rem">
   </div>
-</div>
-
-        <div class="trans">
-          <div class="row">
-  <div class="column">
-    <!-- Main information, edit it on theme/_config.yml -->
-    <h2 class="mb-2">咸鱼大作战😁</h2>
-    <p></p>
-    <p>L.I.F.E.I.S.G.O.I.N.G.O.N</p>
-  </div>
-</div>
-
-<h3>Recent Posts</h3>
-
-
-<div class="row">
-
-  <div class="three columns left lit">
-    <p class="bottom">Apr 11, 2024</p>
-  </div>
-  <div class="nine columns left mb-3">
-    <a href="/2024/04/11/%E6%B5%8F%E8%A7%88%E5%99%A8Note/" class="">
-      
-        BOMNote
-      
-    </a>
-  </div>
-</div>
-
-<div class="row">
-
-  <div class="three columns left lit">
-    <p class="bottom">Apr 8, 2024</p>
-  </div>
-  <div class="nine columns left mb-3">
-    <a href="/2024/04/08/CSSNote/" class="">
-      
-        CSSNote
-      
-    </a>
-  </div>
-</div>
-
-<div class="row">
-
-  <div class="three columns left lit">
-    <p class="bottom">Apr 7, 2024</p>
-  </div>
-  <div class="nine columns left mb-3">
-    <a href="/2024/04/07/JS%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/" class="">
-      
-        JavaScript 内存与性能
-      
-    </a>
-  </div>
-</div>
-
-<div class="row">
-
-  <div class="three columns left lit">
-    <p class="bottom">Apr 1, 2024</p>
-  </div>
-  <div class="nine columns left mb-3">
-    <a href="/2024/04/01/JSNote/" class="">
-      
-        JSNote
-      
-    </a>
-  </div>
-</div>
-
-
-<h4> <a href="/archives">All Posts</a></h4>
-
-          <div class="row mt-2">
+</header>
+      <div class="outer">
+        <section id="main">
   
-    <div class="eight columns">
-      <p id="madewith">Made with ❤ and
-        <a class="footer-link icon" href="https://hexo.io" target="_blank" style="text-decoration: none;" rel="noreferrer" aria-label="Hexo.io">
-        <svg class="hexo svg-hov" width="14" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>Hexo.js</title><path d="M12 .007L1.57 6.056V18.05L12 23.995l10.43-6.049V5.952L12 .007zm4.798 17.105l-.939.521-.939-.521V12.94H9.08v4.172l-.94.521-.938-.521V6.89l.939-.521.939.521v4.172h5.84V6.89l.94-.521.938.521v10.222z"/></svg>
-        </a>
+    <article id="post-vue-各种形式的组件" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2021/02/19/vue-%E5%90%84%E7%A7%8D%E5%BD%A2%E5%BC%8F%E7%9A%84%E7%BB%84%E4%BB%B6/" class="article-date">
+  <time datetime="2021-02-19T06:10:35.000Z" itemprop="datePublished">2021-02-19</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
         
-    </div>
-
-    <!-- Sepcial thanks to https://simpleicons.org/ for the icons -->
-    <div class="four columns mb-3 posisi" >
-      
-
-      
-
-      
-
-      
-
-    </div>
   
-</div>
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/02/19/vue-%E5%90%84%E7%A7%8D%E5%BD%A2%E5%BC%8F%E7%9A%84%E7%BB%84%E4%BB%B6/">vue-各种形式的组件</a>
+    </h1>
+  
 
-        </div>
-      </div>
-
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>全局注册组件</p>
+</blockquote>
+<p>id命名方式: 字符串 驼峰 首字母大写</p>
+<p>全局组件注册到Vue.options -&gt; Vue.options.components -&gt; 扩展到当前组件的vm.$options.components</p>
+<blockquote>
+<p>局部组件</p>
+</blockquote>
+<p>注册到vm.$options.components</p>
+<blockquote>
+<p>异步组件</p>
+</blockquote>
+<p><strong>应用：减少首屏体积，非首屏组件按需加载</strong></p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">Vue.component(<span class="string">&#x27;async-example&#x27;</span>, <span class="function"><span class="keyword">function</span>(<span class="params">resolve, reject</span>)</span>&#123;</span><br><span class="line">    <span class="comment">// require 告诉 webpack 自动将编译后的代码分割成不同的块</span></span><br><span class="line">    <span class="comment">// 这些块将通过 Ajax 请求自动下载</span></span><br><span class="line">    <span class="built_in">require</span>([<span class="string">&#x27;./my-async-components], resolve)</span></span><br><span class="line"><span class="string">&#125;)</span></span><br></pre></td></tr></table></figure>
+<p>除上面提到的注册方式，还有2种创建方式</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">Vue.component(</span><br><span class="line">    <span class="string">&#x27;async-webpack-example&#x27;</span>,</span><br><span class="line">    () =&gt; <span class="keyword">import</span>(<span class="string">&#x27;./my-async-component&#x27;</span>) <span class="comment">// 返回一个 Promise 对象</span></span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+      
     </div>
+    <footer class="article-footer">
+      <a data-url="http://karencxx.github.io/2021/02/19/vue-%E5%90%84%E7%A7%8D%E5%BD%A2%E5%BC%8F%E7%9A%84%E7%BB%84%E4%BB%B6/" data-id="clv3nb5ff000tdpjfbm784z8m" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-移动端开发技巧" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2021/02/01/%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%BC%80%E5%8F%91%E6%8A%80%E5%B7%A7/" class="article-date">
+  <time datetime="2021-02-01T03:02:15.000Z" itemprop="datePublished">2021-02-01</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/02/01/%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%BC%80%E5%8F%91%E6%8A%80%E5%B7%A7/">移动端开发技巧汇总</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>html</p>
+</blockquote>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 拨打电话 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;tel:10086&quot;</span>&gt;</span>打电话给10086<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- 发送短信 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;sms:10086&quot;</span>&gt;</span>发短信给10086<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- 发送邮件 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;mailto:karen2424@126.com&quot;</span>&gt;</span>发邮件<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- 打开微信 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;weixin://&quot;</span>&gt;</span>打开微信<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- 打开支付宝 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;alipays://&quot;</span>&gt;</span>打开支付宝<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 选择照片或拍摄照片 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;file&quot;</span> <span class="attr">accept</span>=<span class="string">&quot;image/*&quot;</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- 选择视频或拍摄视频 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;file&quot;</span> <span class="attr">accept</span>=<span class="string">&quot;video/*&quot;</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- 多选文件 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;file&quot;</span> <span class="attr">multiple</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 忽略自动识别电话 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">&quot;format-detection&quot;</span> <span class="attr">content</span>=<span class="string">&quot;telephone=no&quot;</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- 忽略自动识别邮箱 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">&quot;format-detection&quot;</span> <span class="attr">content</span>=<span class="string">&quot;email=no&quot;</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- 忽略自动识别电话和邮箱 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">&quot;format-detection&quot;</span> <span class="attr">content</span>=<span class="string">&quot;telephone=no, email=no&quot;</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- 禁止缩放 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">&quot;viewport&quot;</span> <span class="attr">content</span>=<span class="string">&quot;width=device-width, user-scalable=no, initial-scale=1, minimum-scale=1, maximum-scale=1&quot;</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- 禁止页面缓存 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">&quot;Cache-Control&quot;</span> <span class="attr">content</span>=<span class="string">&quot;no-cache&quot;</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- 强制QQ浏览器竖屏 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">&quot;x5-orientation&quot;</span> <span class="attr">content</span>=<span class="string">&quot;portrait&quot;</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- 强制x5内核浏览器全屏 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">&quot;x5-fullscreen&quot;</span> <span class="attr">content</span>=<span class="string">&quot;true&quot;</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- 去除300-350ms click延迟 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">&quot;viewport&quot;</span> <span class="attr">content</span>=<span class="string">&quot;width=device-width&quot;</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 纯数字 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;number&quot;</span> <span class="attr">pattern</span>=<span class="string">&quot;\d*&quot;</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- 纯数字带#和* --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;tel&quot;</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- 禁止大小写纠正 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">autocapitalize</span>=<span class="string">&quot;off&quot;</span> <span class="attr">autocorrect</span>=<span class="string">&quot;off&quot;</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 打开微信 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;weixin://&quot;</span>&gt;</span>打开微信<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- 打开支付宝 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;alipays://&quot;</span>&gt;</span>打开支付宝<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>有些元素的:active可能会无效，而元素的:hover在点击后会一直处于点击状态，需点击其他位置才能解除点击状态。给<body>注册一个空的touchstart事件可将两种状态反转。</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">body</span> <span class="attr">ontouchstart</span>&gt;</span><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>rem单位布局，</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">AutoResponse</span>(<span class="params">width = <span class="number">750</span></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">const</span> target = <span class="built_in">document</span>.documentElement;</span><br><span class="line">    <span class="keyword">if</span> (target.clientWidth &gt;= <span class="number">600</span>) &#123;</span><br><span class="line">        target.style.fontSize = <span class="string">&quot;80px&quot;</span>;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        target.style.fontSize = target.clientWidth / width * <span class="number">100</span> + <span class="string">&quot;px&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">AutoResponse();</span><br><span class="line"><span class="built_in">window</span>.addEventListener(<span class="string">&quot;resize&quot;</span>, <span class="function">() =&gt;</span> AutoResponse());</span><br></pre></td></tr></table></figure>
+<p><strong>一句话搞定</strong></p>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-tag">html</span> &#123;</span><br><span class="line">    <span class="attribute">font-size</span>: <span class="built_in">calc</span>(<span class="number">100vw</span> / <span class="number">7.5</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">@media</span> screen <span class="keyword">and</span> (<span class="attribute">max-width</span>: <span class="number">1024px</span>) &#123;</span><br><span class="line">    <span class="selector-tag">html</span> &#123;</span><br><span class="line">        <span class="attribute">font-size</span>: <span class="built_in">calc</span>(<span class="number">100vw</span> / <span class="number">7.5</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>屏幕旋转样式</p>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="comment">/* 横屏 */</span></span><br><span class="line"><span class="keyword">@media</span> all <span class="keyword">and</span> (<span class="attribute">orientation</span>: landscape) &#123;&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* 竖屏 */</span></span><br><span class="line"><span class="keyword">@media</span> all <span class="keyword">and</span> (<span class="attribute">orientation</span>: portrait) &#123;&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="comment">/* ios滑动流畅 */</span></span><br><span class="line"><span class="selector-tag">body</span> &#123;</span><br><span class="line">    -webkit-<span class="attribute">overflow</span>-scrolling: touch;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.elem</span> &#123;</span><br><span class="line">    <span class="attribute">overflow</span>: auto;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/* 防止一个区域滚完连带下个滚动 滚动传播 */</span></span><br><span class="line"><span class="selector-class">.elem</span> &#123;</span><br><span class="line">    overscroll-behavior: contain;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/* 页面滚动条抖动 */</span></span><br><span class="line"><span class="selector-tag">body</span> &#123;</span><br><span class="line">    <span class="attribute">padding-right</span>: <span class="built_in">calc</span>(<span class="number">100vw</span> - <span class="number">100%</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/* 禁止长按选择文字 */</span></span><br><span class="line">* &#123;</span><br><span class="line">    <span class="comment">/* pointer-events: none; */</span> <span class="comment">/* 微信浏览器还需附加该属性才有效 */</span></span><br><span class="line">    user-select: none; <span class="comment">/* 禁止长按选择文字 */</span></span><br><span class="line">    -webkit-touch-callout: none;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-tag">input</span>,</span><br><span class="line"><span class="selector-tag">textarea</span> &#123;</span><br><span class="line">    user-select: auto;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/* 字体大小保持不变 */</span></span><br><span class="line">* &#123;</span><br><span class="line">    text-size-adjust: <span class="number">100%</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://karencxx.github.io/2021/02/01/%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%BC%80%E5%8F%91%E6%8A%80%E5%B7%A7/" data-id="clv3nb5fu0012dpjfhbjm23vg" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-谈谈这次领养后的感受" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2021/01/29/%E8%B0%88%E8%B0%88%E8%BF%99%E6%AC%A1%E9%A2%86%E5%85%BB%E5%90%8E%E7%9A%84%E6%84%9F%E5%8F%97/" class="article-date">
+  <time datetime="2021-01-29T06:59:02.000Z" itemprop="datePublished">2021-01-29</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/01/29/%E8%B0%88%E8%B0%88%E8%BF%99%E6%AC%A1%E9%A2%86%E5%85%BB%E5%90%8E%E7%9A%84%E6%84%9F%E5%8F%97/">谈谈这次领养后的感受</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>到底找领养人与领养人之间该怎么划分界限</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://karencxx.github.io/2021/01/29/%E8%B0%88%E8%B0%88%E8%BF%99%E6%AC%A1%E9%A2%86%E5%85%BB%E5%90%8E%E7%9A%84%E6%84%9F%E5%8F%97/" data-id="clv3nb5fw0015dpjfa8f4brjn" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-迟到的vue-source-code-记录" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2021/01/21/%E8%BF%9F%E5%88%B0%E7%9A%84vue-source-code-%E8%AE%B0%E5%BD%95/" class="article-date">
+  <time datetime="2021-01-21T08:00:14.000Z" itemprop="datePublished">2021-01-21</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/01/21/%E8%BF%9F%E5%88%B0%E7%9A%84vue-source-code-%E8%AE%B0%E5%BD%95/">迟到的vue source code 记录</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <ul>
+<li>前期准备：需要拉取远程vue代码</li>
+</ul>
+<blockquote>
+<p><strong>package.json</strong></p>
+</blockquote>
+<p>构建后的主文件: dist/vue.runtime.common.js<br>构建入口js: scripts/config.js<br>我们主要看<strong>platform: web</strong> 的目标构建对象 <strong>TARGET: web-full-dev</strong></p>
+<blockquote>
+<p><strong>build.js</strong></p>
+</blockquote>
+<p>过滤构建配置，构建不同用途的vue.js</p>
+<blockquote>
+<p><strong>config.js</strong></p>
+</blockquote>
+<p>找到web-full-dev<br>可得知入口为 web/entry-runtime-with-compiler.js<br>输出文件 dist/vue.js</p>
+<blockquote>
+<p><strong>web/entry-runtime-with-compiler.js</strong></p>
+</blockquote>
+<p>得知Vue 来自 runtime/index =&gt; core/index =&gt; instance/index</p>
+<blockquote>
+<p><strong>core/instance/index.js</strong></p>
+</blockquote>
+<p>一层层剥开后找到的最终奥义，看完有种啊，终于的感觉</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Vue</span> (<span class="params">options</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (process.env.NODE_ENV !== <span class="string">&#x27;production&#x27;</span> &amp;&amp;</span><br><span class="line">    !(<span class="built_in">this</span> <span class="keyword">instanceof</span> Vue)</span><br><span class="line">  ) &#123;</span><br><span class="line">    warn(<span class="string">&#x27;Vue is a constructor and should be called with the `new` keyword&#x27;</span>)</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="built_in">this</span>._init(options)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">    initMixin(Vue)</span><br><span class="line">    stateMixin(Vue)</span><br><span class="line">    eventsMixin(Vue)</span><br><span class="line">    lifecycleMixin(Vue)</span><br><span class="line">    renderMixin(Vue)</span><br></pre></td></tr></table></figure>
+<p>也就是说Vue实际上是一个类，在js中用Function实现，这是为啥需要 new Vue()来初始化了<br>接下来就调用 ①<strong>init</strong>，该方法在initMixin方法中定义</p>
+<blockquote>
+<p><strong>core/instance/init.js</strong></p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">Vue.prototype._init = <span class="function"><span class="keyword">function</span> (<span class="params">options?: <span class="built_in">Object</span></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">const</span> vm: Component = <span class="built_in">this</span></span><br><span class="line">    <span class="comment">// a uid</span></span><br><span class="line">    vm._uid = uid++</span><br><span class="line"></span><br><span class="line">    <span class="keyword">let</span> startTag, endTag</span><br><span class="line">    <span class="comment">/* istanbul ignore if */</span></span><br><span class="line">    <span class="keyword">if</span> (process.env.NODE_ENV !== <span class="string">&#x27;production&#x27;</span> &amp;&amp; config.performance &amp;&amp; mark) &#123;</span><br><span class="line">      startTag = <span class="string">`vue-perf-start:<span class="subst">$&#123;vm._uid&#125;</span>`</span></span><br><span class="line">      endTag = <span class="string">`vue-perf-end:<span class="subst">$&#123;vm._uid&#125;</span>`</span></span><br><span class="line">      mark(startTag)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// a flag to avoid this being observed</span></span><br><span class="line">    vm._isVue = <span class="literal">true</span></span><br><span class="line">    <span class="comment">// merge options</span></span><br><span class="line">    <span class="keyword">if</span> (options &amp;&amp; options._isComponent) &#123;</span><br><span class="line">      <span class="comment">// optimize internal component instantiation</span></span><br><span class="line">      <span class="comment">// since dynamic options merging is pretty slow, and none of the</span></span><br><span class="line">      <span class="comment">// internal component options needs special treatment.</span></span><br><span class="line">      initInternalComponent(vm, options)</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      vm.$options = mergeOptions(</span><br><span class="line">        resolveConstructorOptions(vm.constructor),</span><br><span class="line">        options || &#123;&#125;,</span><br><span class="line">        vm</span><br><span class="line">      )</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">/* istanbul ignore else */</span></span><br><span class="line">    <span class="keyword">if</span> (process.env.NODE_ENV !== <span class="string">&#x27;production&#x27;</span>) &#123;</span><br><span class="line">      initProxy(vm)</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      vm._renderProxy = vm</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// expose real self</span></span><br><span class="line">    vm._self = vm</span><br><span class="line">    initLifecycle(vm)</span><br><span class="line">    initEvents(vm)</span><br><span class="line">    initRender(vm)</span><br><span class="line">    callHook(vm, <span class="string">&#x27;beforeCreate&#x27;</span>)</span><br><span class="line">    initInjections(vm) <span class="comment">// resolve injections before data/props</span></span><br><span class="line">    initState(vm)</span><br><span class="line">    initProvide(vm) <span class="comment">// resolve provide after data/props</span></span><br><span class="line">    callHook(vm, <span class="string">&#x27;created&#x27;</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment">/* istanbul ignore if */</span></span><br><span class="line">    <span class="keyword">if</span> (process.env.NODE_ENV !== <span class="string">&#x27;production&#x27;</span> &amp;&amp; config.performance &amp;&amp; mark) &#123;</span><br><span class="line">      vm._name = formatComponentName(vm, <span class="literal">false</span>)</span><br><span class="line">      mark(endTag)</span><br><span class="line">      measure(<span class="string">`vue <span class="subst">$&#123;vm._name&#125;</span> init`</span>, startTag, endTag)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (vm.$options.el) &#123;</span><br><span class="line">      vm.$mount(vm.$options.el)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+<p>抓几个关键点来看，init方法主要做了<strong>合并配置，初始化生命周期，初始化事件、渲染、data、props、computed、watch</strong>等</p>
+<p><strong>最后，如果检测到有el属性，就调 ②$mount挂载vm</strong></p>
+<p>感觉线索断了？再回到 <strong>entry-runtime-with-compiler</strong>看一眼</p>
+<blockquote>
+<p><strong>web/entry-runtime-with-compiler.js</strong></p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> mount = Vue.prototype.$mount</span><br><span class="line">Vue.prototype.$mount = <span class="function"><span class="keyword">function</span> (<span class="params"></span></span></span><br><span class="line"><span class="function"><span class="params">  el?: string | Element,</span></span></span><br><span class="line"><span class="function"><span class="params">  hydrating?: boolean</span></span></span><br><span class="line"><span class="function"><span class="params"></span>): <span class="title">Component</span> </span>&#123;</span><br><span class="line">  el = el &amp;&amp; query(el)</span><br><span class="line"></span><br><span class="line">  <span class="comment">/* istanbul ignore if */</span></span><br><span class="line">  <span class="keyword">if</span> (el === <span class="built_in">document</span>.body || el === <span class="built_in">document</span>.documentElement) &#123;</span><br><span class="line">    process.env.NODE_ENV !== <span class="string">&#x27;production&#x27;</span> &amp;&amp; warn(</span><br><span class="line">      <span class="string">`Do not mount Vue to &lt;html&gt; or &lt;body&gt; - mount to normal elements instead.`</span></span><br><span class="line">    )</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">this</span></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> options = <span class="built_in">this</span>.$options</span><br><span class="line">  <span class="comment">// resolve template/el and convert to render function</span></span><br><span class="line">  <span class="keyword">if</span> (!options.render) &#123;</span><br><span class="line">    <span class="keyword">let</span> template = options.template</span><br><span class="line">    <span class="keyword">if</span> (template) &#123;</span><br><span class="line">      <span class="keyword">if</span> (<span class="keyword">typeof</span> template === <span class="string">&#x27;string&#x27;</span>) &#123;</span><br><span class="line">        <span class="keyword">if</span> (template.charAt(<span class="number">0</span>) === <span class="string">&#x27;#&#x27;</span>) &#123;</span><br><span class="line">          template = idToTemplate(template)</span><br><span class="line">          <span class="comment">/* istanbul ignore if */</span></span><br><span class="line">          <span class="keyword">if</span> (process.env.NODE_ENV !== <span class="string">&#x27;production&#x27;</span> &amp;&amp; !template) &#123;</span><br><span class="line">            warn(</span><br><span class="line">              <span class="string">`Template element not found or is empty: <span class="subst">$&#123;options.template&#125;</span>`</span>,</span><br><span class="line">              <span class="built_in">this</span></span><br><span class="line">            )</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125; <span class="keyword">else</span> <span class="keyword">if</span> (template.nodeType) &#123;</span><br><span class="line">        template = template.innerHTML</span><br><span class="line">      &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (process.env.NODE_ENV !== <span class="string">&#x27;production&#x27;</span>) &#123;</span><br><span class="line">          warn(<span class="string">&#x27;invalid template option:&#x27;</span> + template, <span class="built_in">this</span>)</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">this</span></span><br><span class="line">      &#125;</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (el) &#123;</span><br><span class="line">      template = getOuterHTML(el)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (template) &#123;</span><br><span class="line">      <span class="comment">/* istanbul ignore if */</span></span><br><span class="line">      <span class="keyword">if</span> (process.env.NODE_ENV !== <span class="string">&#x27;production&#x27;</span> &amp;&amp; config.performance &amp;&amp; mark) &#123;</span><br><span class="line">        mark(<span class="string">&#x27;compile&#x27;</span>)</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">      <span class="keyword">const</span> &#123; render, staticRenderFns &#125; = compileToFunctions(template, &#123;</span><br><span class="line">        outputSourceRange: process.env.NODE_ENV !== <span class="string">&#x27;production&#x27;</span>,</span><br><span class="line">        shouldDecodeNewlines,</span><br><span class="line">        shouldDecodeNewlinesForHref,</span><br><span class="line">        delimiters: options.delimiters,</span><br><span class="line">        comments: options.comments</span><br><span class="line">      &#125;, <span class="built_in">this</span>)</span><br><span class="line">      options.render = render</span><br><span class="line">      options.staticRenderFns = staticRenderFns</span><br><span class="line"></span><br><span class="line">      <span class="comment">/* istanbul ignore if */</span></span><br><span class="line">      <span class="keyword">if</span> (process.env.NODE_ENV !== <span class="string">&#x27;production&#x27;</span> &amp;&amp; config.performance &amp;&amp; mark) &#123;</span><br><span class="line">        mark(<span class="string">&#x27;compile end&#x27;</span>)</span><br><span class="line">        measure(<span class="string">`vue <span class="subst">$&#123;<span class="built_in">this</span>._name&#125;</span> compile`</span>, <span class="string">&#x27;compile&#x27;</span>, <span class="string">&#x27;compile end&#x27;</span>)</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> mount.call(<span class="built_in">this</span>, el, hydrating)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>原来$mount在这里定义<br>先缓存了vue原型上的$mount，再重新定义该方法，传入两个可选参数：el（挂载元素 string | Element） 和 hydrating (ssr时为true)<br>返回类型为Component，调用前面缓存的mount<br><strong>el不可挂载知道html或body元素上</strong></p>
+<p><strong>如果没有render方法，则将template/el转为render function</strong><br>那render方法是怎么来的呢 =&gt;<br><strong>const { render, staticRenderFns } = compileToFunctions()</strong></p>
+<p>compileToFunctions也被赋值给了Vue.compile</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">Vue.compile = compileToFunctions</span><br></pre></td></tr></table></figure>
+<p>也就是说，<strong>③ 先编译compile后 才得到 ④render方法</strong></p>
+<p>来看看compileToFunctions，源码弯弯绕绕的，那这里就不贴了<br>源码做的工作就是将template转为字符串返回给render属性</p>
+<p>上面提到先缓存了vue原型上的$mount，那么这个是在哪里定义的呢？</p>
+<blockquote>
+<p><strong>web/runtime/index.js</strong></p>
+</blockquote>
+<p>之所以这么设计完全是为了复用，因为它是可以被<strong>runtime only</strong>版本的Vue直接使用的。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">Vue.prototype.$mount = <span class="function"><span class="keyword">function</span> (<span class="params"></span></span></span><br><span class="line"><span class="function"><span class="params">  el?: string | Element,</span></span></span><br><span class="line"><span class="function"><span class="params">  hydrating?: boolean</span></span></span><br><span class="line"><span class="function"><span class="params"></span>): <span class="title">Component</span> </span>&#123;</span><br><span class="line">  el = el &amp;&amp; inBrowser ? query(el) : <span class="literal">undefined</span></span><br><span class="line">  <span class="keyword">return</span> mountComponent(<span class="built_in">this</span>, el, hydrating)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>最后实际调用了<strong>mountComponent</strong>，那我们来看一下mountComponent方法</p>
+<blockquote>
+<p><strong>core/instance/lifecycle.js</strong></p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="function"><span class="keyword">function</span> <span class="title">mountComponent</span> (<span class="params"></span></span></span><br><span class="line"><span class="function"><span class="params">  vm: Component,</span></span></span><br><span class="line"><span class="function"><span class="params">  el: ?Element,</span></span></span><br><span class="line"><span class="function"><span class="params">  hydrating?: boolean</span></span></span><br><span class="line"><span class="function"><span class="params"></span>): <span class="title">Component</span> </span>&#123;</span><br><span class="line">  vm.$el = el</span><br><span class="line">  <span class="keyword">if</span> (!vm.$options.render) &#123;</span><br><span class="line">    vm.$options.render = createEmptyVNode</span><br><span class="line">    <span class="keyword">if</span> (process.env.NODE_ENV !== <span class="string">&#x27;production&#x27;</span>) &#123;</span><br><span class="line">      <span class="comment">/* istanbul ignore if */</span></span><br><span class="line">      <span class="keyword">if</span> ((vm.$options.template &amp;&amp; vm.$options.template.charAt(<span class="number">0</span>) !== <span class="string">&#x27;#&#x27;</span>) ||</span><br><span class="line">        vm.$options.el || el) &#123;</span><br><span class="line">        warn(</span><br><span class="line">          <span class="string">&#x27;You are using the runtime-only build of Vue where the template &#x27;</span> +</span><br><span class="line">          <span class="string">&#x27;compiler is not available. Either pre-compile the templates into &#x27;</span> +</span><br><span class="line">          <span class="string">&#x27;render functions, or use the compiler-included build.&#x27;</span>,</span><br><span class="line">          vm</span><br><span class="line">        )</span><br><span class="line">      &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        warn(</span><br><span class="line">          <span class="string">&#x27;Failed to mount component: template or render function not defined.&#x27;</span>,</span><br><span class="line">          vm</span><br><span class="line">        )</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  callHook(vm, <span class="string">&#x27;beforeMount&#x27;</span>)</span><br><span class="line">  <span class="keyword">let</span> updateComponent</span><br><span class="line">  <span class="comment">/* istanbul ignore if */</span></span><br><span class="line">  <span class="keyword">if</span> (process.env.NODE_ENV !== <span class="string">&#x27;production&#x27;</span> &amp;&amp; config.performance &amp;&amp; mark) &#123;</span><br><span class="line">    updateComponent = <span class="function">() =&gt;</span> &#123;</span><br><span class="line">      <span class="keyword">const</span> name = vm._name</span><br><span class="line">      <span class="keyword">const</span> id = vm._uid</span><br><span class="line">      <span class="keyword">const</span> startTag = <span class="string">`vue-perf-start:<span class="subst">$&#123;id&#125;</span>`</span></span><br><span class="line">      <span class="keyword">const</span> endTag = <span class="string">`vue-perf-end:<span class="subst">$&#123;id&#125;</span>`</span></span><br><span class="line"></span><br><span class="line">      mark(startTag)</span><br><span class="line">      <span class="keyword">const</span> vnode = vm._render()</span><br><span class="line">      mark(endTag)</span><br><span class="line">      measure(<span class="string">`vue <span class="subst">$&#123;name&#125;</span> render`</span>, startTag, endTag)</span><br><span class="line"></span><br><span class="line">      mark(startTag)</span><br><span class="line">      vm._update(vnode, hydrating)</span><br><span class="line">      mark(endTag)</span><br><span class="line">      measure(<span class="string">`vue <span class="subst">$&#123;name&#125;</span> patch`</span>, startTag, endTag)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    updateComponent = <span class="function">() =&gt;</span> &#123;</span><br><span class="line">      vm._update(vm._render(), hydrating)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// we set this to vm._watcher inside the watcher&#x27;s constructor</span></span><br><span class="line">  <span class="comment">// since the watcher&#x27;s initial patch may call $forceUpdate (e.g. inside child</span></span><br><span class="line">  <span class="comment">// component&#x27;s mounted hook), which relies on vm._watcher being already defined</span></span><br><span class="line">  <span class="keyword">new</span> Watcher(vm, updateComponent, noop, &#123;</span><br><span class="line">    before () &#123;</span><br><span class="line">      <span class="keyword">if</span> (vm._isMounted &amp;&amp; !vm._isDestroyed) &#123;</span><br><span class="line">        callHook(vm, <span class="string">&#x27;beforeUpdate&#x27;</span>)</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;, <span class="literal">true</span> <span class="comment">/* isRenderWatcher */</span>)</span><br><span class="line">  hydrating = <span class="literal">false</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">// manually mounted instance, call mounted on self</span></span><br><span class="line">  <span class="comment">// mounted is called for render-created child components in its inserted hook</span></span><br><span class="line">  <span class="keyword">if</span> (vm.$vnode == <span class="literal">null</span>) &#123;</span><br><span class="line">    vm._isMounted = <span class="literal">true</span></span><br><span class="line">    callHook(vm, <span class="string">&#x27;mounted&#x27;</span>)</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> vm</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>可以看到 核心逻辑就是 实例化一个watcher，回调updateComponent方法<br>在该方法中调用vm._render()生成并返回VNode，最终调用vm._update更新DOM</p>
+<p>再回到 core/instance/index.js ，看看_render方法</p>
+<blockquote>
+<p><strong>core/instance/render.js</strong></p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">Vue.prototype._render = <span class="function"><span class="keyword">function</span> (<span class="params"></span>): <span class="title">VNode</span> </span>&#123;</span><br><span class="line">    <span class="keyword">const</span> vm: Component = <span class="built_in">this</span></span><br><span class="line">    <span class="keyword">const</span> &#123; render, _parentVnode &#125; = vm.$options</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (_parentVnode) &#123;</span><br><span class="line">      vm.$scopedSlots = normalizeScopedSlots(</span><br><span class="line">        _parentVnode.data.scopedSlots,</span><br><span class="line">        vm.$slots,</span><br><span class="line">        vm.$scopedSlots</span><br><span class="line">      )</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// set parent vnode. this allows render functions to have access</span></span><br><span class="line">    <span class="comment">// to the data on the placeholder node.</span></span><br><span class="line">    vm.$vnode = _parentVnode</span><br><span class="line">    <span class="comment">// render self</span></span><br><span class="line">    <span class="keyword">let</span> vnode</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">      <span class="comment">// There&#x27;s no need to maintain a stack because all render fns are called</span></span><br><span class="line">      <span class="comment">// separately from one another. Nested component&#x27;s render fns are called</span></span><br><span class="line">      <span class="comment">// when parent component is patched.</span></span><br><span class="line">      currentRenderingInstance = vm</span><br><span class="line">      vnode = render.call(vm._renderProxy, vm.$createElement)</span><br><span class="line">    &#125; <span class="keyword">catch</span> (e) &#123;</span><br><span class="line">      handleError(e, vm, <span class="string">`render`</span>)</span><br><span class="line">      <span class="comment">// return error render result,</span></span><br><span class="line">      <span class="comment">// or previous vnode to prevent render error causing blank component</span></span><br><span class="line">      <span class="comment">/* istanbul ignore else */</span></span><br><span class="line">      <span class="keyword">if</span> (process.env.NODE_ENV !== <span class="string">&#x27;production&#x27;</span> &amp;&amp; vm.$options.renderError) &#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">          vnode = vm.$options.renderError.call(vm._renderProxy, vm.$createElement, e)</span><br><span class="line">        &#125; <span class="keyword">catch</span> (e) &#123;</span><br><span class="line">          handleError(e, vm, <span class="string">`renderError`</span>)</span><br><span class="line">          vnode = vm._vnode</span><br><span class="line">        &#125;</span><br><span class="line">      &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        vnode = vm._vnode</span><br><span class="line">      &#125;</span><br><span class="line">    &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">      currentRenderingInstance = <span class="literal">null</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// if the returned array contains only a single node, allow it</span></span><br><span class="line">    <span class="keyword">if</span> (<span class="built_in">Array</span>.isArray(vnode) &amp;&amp; vnode.length === <span class="number">1</span>) &#123;</span><br><span class="line">      vnode = vnode[<span class="number">0</span>]</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// return empty vnode in case the render function errored out</span></span><br><span class="line">    <span class="keyword">if</span> (!(vnode <span class="keyword">instanceof</span> VNode)) &#123;</span><br><span class="line">      <span class="keyword">if</span> (process.env.NODE_ENV !== <span class="string">&#x27;production&#x27;</span> &amp;&amp; <span class="built_in">Array</span>.isArray(vnode)) &#123;</span><br><span class="line">        warn(</span><br><span class="line">          <span class="string">&#x27;Multiple root nodes returned from render function. Render function &#x27;</span> +</span><br><span class="line">          <span class="string">&#x27;should return a single root node.&#x27;</span>,</span><br><span class="line">          vm</span><br><span class="line">        )</span><br><span class="line">      &#125;</span><br><span class="line">      vnode = createEmptyVNode()</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// set parent</span></span><br><span class="line">    vnode.parent = _parentVnode</span><br><span class="line">    <span class="keyword">return</span> vnode</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+<p>看到最后，该方法返回 <strong>⑤VNode</strong><br>来看下VNode，它是对真实DOM的一种抽象描述，用来映射对真实DOM的渲染，并不包含DOM操作，非常地轻量简便</p>
+<blockquote>
+<p><strong>core/vdom/vnode.js</strong></p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="class"><span class="keyword">class</span> <span class="title">VNode</span> </span>&#123;</span><br><span class="line">    tag: string | <span class="keyword">void</span>;</span><br><span class="line">    data: VNodeData | <span class="keyword">void</span>;</span><br><span class="line">    children: ?<span class="built_in">Array</span>&lt;VNode&gt;;</span><br><span class="line">    text: string | <span class="keyword">void</span>;</span><br><span class="line">    elm: Node | <span class="keyword">void</span>;</span><br><span class="line">    ns: string | <span class="keyword">void</span>;</span><br><span class="line">    context: Component | <span class="keyword">void</span>;</span><br><span class="line">    parent: VNode | <span class="keyword">void</span>; <span class="comment">// component placeholder node</span></span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>也就是说，<strong>Vue用Vnode类去描述一个Virtual DOM</strong>，包含了tag,data,children等属性<br>Vue.js 中 Virtual DOM是借鉴了开源库snabbdom的实现</p>
+<p>再回到render方法，发现传参中有一个createElement<br>这个是什么呢？来看一下</p>
+<blockquote>
+<p><strong>core/vdom/create-element.js</strong></p>
+</blockquote>
+<p>这里主要看两个方法<br><strong>normalizationType 表示子节点规范的类型</strong></p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span> (normalizationType === ALWAYS_NORMALIZE) &#123;</span><br><span class="line">    children = normalizeChildren(children)</span><br><span class="line">&#125; <span class="keyword">else</span> <span class="keyword">if</span> (normalizationType === SIMPLE_NORMALIZE) &#123;</span><br><span class="line">    children = simpleNormalizeChildren(children)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>simpleNormalizeChildren<br>理论上编译生成的children都是Vnode<br>当一个函数式组件返回数组而不是根节点时，通过这个方法来扁平化children数组<br>保证只有一层深度<br>因为函数式组件已经规范化他们的子节点了</li>
+<li>这能作为性能优化的一个点</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 1. When the children contains components - because a functional component</span></span><br><span class="line"><span class="comment">// may return an Array instead of a single root. In this case, just a simple</span></span><br><span class="line"><span class="comment">// normalization is needed - if any child is an Array, we flatten the whole</span></span><br><span class="line"><span class="comment">// thing with Array.prototype.concat. It is guaranteed to be only 1-level deep</span></span><br><span class="line"><span class="comment">// because functional components already normalize their own children.</span></span><br><span class="line"><span class="keyword">export</span> <span class="function"><span class="keyword">function</span> <span class="title">simpleNormalizeChildren</span> (<span class="params">children: any</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; children.length; i++) &#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="built_in">Array</span>.isArray(children[i])) &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="built_in">Array</span>.prototype.concat.apply([], children)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> children</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>normalizeChildren<br>当子节点有嵌套数组时，例如 <strong><template>, <slot>, v-for, 用户手写的render函数</strong>，<br>需要下面这个方法来规范化children</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 2. When the children contains constructs that always generated nested Arrays,</span></span><br><span class="line"><span class="comment">// e.g. &lt;template&gt;, &lt;slot&gt;, v-for, or when the children is provided by user</span></span><br><span class="line"><span class="comment">// with hand-written render functions / JSX. In such cases a full normalization</span></span><br><span class="line"><span class="comment">// is needed to cater to all possible types of children values.</span></span><br><span class="line"><span class="keyword">export</span> <span class="function"><span class="keyword">function</span> <span class="title">normalizeChildren</span> (<span class="params">children: any</span>): ?<span class="title">Array</span>&lt;<span class="title">VNode</span>&gt; </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> isPrimitive(children)</span><br><span class="line">    ? [createTextVNode(children)]</span><br><span class="line">    : <span class="built_in">Array</span>.isArray(children)</span><br><span class="line">      ? normalizeArrayChildren(children)</span><br><span class="line">      : <span class="literal">undefined</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">normalizeArrayChildren</span> (<span class="params">children: any, nestedIndex?: string</span>): <span class="title">Array</span>&lt;<span class="title">VNode</span>&gt; </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> res = []</span><br><span class="line">  <span class="keyword">let</span> i, c, lastIndex, last</span><br><span class="line">  <span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; children.length; i++) &#123;</span><br><span class="line">    c = children[i]</span><br><span class="line">    <span class="keyword">if</span> (isUndef(c) || <span class="keyword">typeof</span> c === <span class="string">&#x27;boolean&#x27;</span>) <span class="keyword">continue</span></span><br><span class="line">    lastIndex = res.length - <span class="number">1</span></span><br><span class="line">    last = res[lastIndex]</span><br><span class="line">    <span class="comment">//  nested</span></span><br><span class="line">    <span class="keyword">if</span> (<span class="built_in">Array</span>.isArray(c)) &#123;</span><br><span class="line">      <span class="keyword">if</span> (c.length &gt; <span class="number">0</span>) &#123;</span><br><span class="line">        c = normalizeArrayChildren(c, <span class="string">`<span class="subst">$&#123;nestedIndex || <span class="string">&#x27;&#x27;</span>&#125;</span>_<span class="subst">$&#123;i&#125;</span>`</span>)</span><br><span class="line">        <span class="comment">// merge adjacent text nodes</span></span><br><span class="line">        <span class="keyword">if</span> (isTextNode(c[<span class="number">0</span>]) &amp;&amp; isTextNode(last)) &#123;</span><br><span class="line">          res[lastIndex] = createTextVNode(last.text + (c[<span class="number">0</span>]: any).text)</span><br><span class="line">          c.shift()</span><br><span class="line">        &#125;</span><br><span class="line">        res.push.apply(res, c)</span><br><span class="line">      &#125;</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (isPrimitive(c)) &#123;</span><br><span class="line">      <span class="keyword">if</span> (isTextNode(last)) &#123;</span><br><span class="line">        <span class="comment">// merge adjacent text nodes</span></span><br><span class="line">        <span class="comment">// this is necessary for SSR hydration because text nodes are</span></span><br><span class="line">        <span class="comment">// essentially merged when rendered to HTML strings</span></span><br><span class="line">        res[lastIndex] = createTextVNode(last.text + c)</span><br><span class="line">      &#125; <span class="keyword">else</span> <span class="keyword">if</span> (c !== <span class="string">&#x27;&#x27;</span>) &#123;</span><br><span class="line">        <span class="comment">// convert primitive to vnode</span></span><br><span class="line">        res.push(createTextVNode(c))</span><br><span class="line">      &#125;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="keyword">if</span> (isTextNode(c) &amp;&amp; isTextNode(last)) &#123;</span><br><span class="line">        <span class="comment">// merge adjacent text nodes</span></span><br><span class="line">        res[lastIndex] = createTextVNode(last.text + c.text)</span><br><span class="line">      &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="comment">// default key for nested array children (likely generated by v-for)</span></span><br><span class="line">        <span class="keyword">if</span> (isTrue(children._isVList) &amp;&amp;</span><br><span class="line">          isDef(c.tag) &amp;&amp;</span><br><span class="line">          isUndef(c.key) &amp;&amp;</span><br><span class="line">          isDef(nestedIndex)) &#123;</span><br><span class="line">          c.key = <span class="string">`__vlist<span class="subst">$&#123;nestedIndex&#125;</span>_<span class="subst">$&#123;i&#125;</span>__`</span></span><br><span class="line">        &#125;</span><br><span class="line">        res.push(c)</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> res</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>normalizeArrayChildren主要逻辑就是遍历children，规范化每个节点<br>单个节点的类型如果是数组，递归调用normalizeArrayChildren<br>如果是基础类型，调用createTextVNode转为VNode<br>如果存在两个连续的textNode，则合并这两个节点<br>如果有嵌套数组节点，则用nestedIndex更新节点key<br>最后返回一个类型为VNode的数组</p>
+<p>那么，规范化完children后就去实例化VNode</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> vnode, ns</span><br><span class="line"><span class="keyword">if</span> (<span class="keyword">typeof</span> tag === <span class="string">&#x27;string&#x27;</span>) &#123;</span><br><span class="line">    <span class="keyword">let</span> Ctor</span><br><span class="line">    ns = (context.$vnode &amp;&amp; context.$vnode.ns) || config.getTagNamespace(tag)</span><br><span class="line">    <span class="keyword">if</span> (config.isReservedTag(tag)) &#123;</span><br><span class="line">        <span class="comment">// platform built-in elements</span></span><br><span class="line">        <span class="keyword">if</span> (process.env.NODE_ENV !== <span class="string">&#x27;production&#x27;</span> &amp;&amp; isDef(data) &amp;&amp; isDef(data.nativeOn)) &#123;</span><br><span class="line">            warn(</span><br><span class="line">                <span class="string">`The .native modifier for v-on is only valid on components but it was used on &lt;<span class="subst">$&#123;tag&#125;</span>&gt;.`</span>,</span><br><span class="line">                context</span><br><span class="line">            )</span><br><span class="line">        &#125;</span><br><span class="line">        vnode = <span class="keyword">new</span> VNode(</span><br><span class="line">            config.parsePlatformTagName(tag), data, children,</span><br><span class="line">            <span class="literal">undefined</span>, <span class="literal">undefined</span>, context</span><br><span class="line">        )</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> ((!data || !data.pre) &amp;&amp; isDef(Ctor = resolveAsset(context.$options, <span class="string">&#x27;components&#x27;</span>, tag))) &#123;</span><br><span class="line">        <span class="comment">// component</span></span><br><span class="line">        vnode = createComponent(Ctor, data, context, children, tag)</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="comment">// unknown or unlisted namespaced elements</span></span><br><span class="line">        <span class="comment">// check at runtime because it may get assigned a namespace when its</span></span><br><span class="line">        <span class="comment">// parent normalizes children</span></span><br><span class="line">        vnode = <span class="keyword">new</span> VNode(</span><br><span class="line">            tag, data, children,</span><br><span class="line">            <span class="literal">undefined</span>, <span class="literal">undefined</span>, context</span><br><span class="line">        )</span><br><span class="line">    &#125;</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="comment">// direct component options / constructor</span></span><br><span class="line">    vnode = createComponent(tag, data, context, children)</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">if</span> (<span class="built_in">Array</span>.isArray(vnode)) &#123;</span><br><span class="line">    <span class="keyword">return</span> vnode</span><br><span class="line">&#125; <span class="keyword">else</span> <span class="keyword">if</span> (isDef(vnode)) &#123;</span><br><span class="line">    <span class="keyword">if</span> (isDef(ns)) applyNS(vnode, ns)</span><br><span class="line">    <span class="keyword">if</span> (isDef(data)) registerDeepBindings(data)</span><br><span class="line">        <span class="keyword">return</span> vnode</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> createEmptyVNode()</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>接下来再看看之前提到的vm._update方法</p>
+<blockquote>
+<p><strong>core/instance/lifecycle.js</strong></p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">Vue.prototype._update = <span class="function"><span class="keyword">function</span> (<span class="params">vnode: VNode, hydrating?: boolean</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">const</span> vm: Component = <span class="built_in">this</span></span><br><span class="line">    <span class="keyword">const</span> prevEl = vm.$el</span><br><span class="line">    <span class="keyword">const</span> prevVnode = vm._vnode</span><br><span class="line">    <span class="keyword">const</span> restoreActiveInstance = setActiveInstance(vm)</span><br><span class="line">    vm._vnode = vnode</span><br><span class="line">    <span class="comment">// Vue.prototype.__patch__ is injected in entry points</span></span><br><span class="line">    <span class="comment">// based on the rendering backend used.</span></span><br><span class="line">    <span class="keyword">if</span> (!prevVnode) &#123;</span><br><span class="line">      <span class="comment">// initial render</span></span><br><span class="line">      vm.$el = vm.__patch__(vm.$el, vnode, hydrating, <span class="literal">false</span> <span class="comment">/* removeOnly */</span>)</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="comment">// updates</span></span><br><span class="line">      vm.$el = vm.__patch__(prevVnode, vnode)</span><br><span class="line">    &#125;</span><br><span class="line">    restoreActiveInstance()</span><br><span class="line">    <span class="comment">// update __vue__ reference</span></span><br><span class="line">    <span class="keyword">if</span> (prevEl) &#123;</span><br><span class="line">      prevEl.__vue__ = <span class="literal">null</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (vm.$el) &#123;</span><br><span class="line">      vm.$el.__vue__ = vm</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// if parent is an HOC, update its $el as well</span></span><br><span class="line">    <span class="keyword">if</span> (vm.$vnode &amp;&amp; vm.$parent &amp;&amp; vm.$vnode === vm.$parent._vnode) &#123;</span><br><span class="line">      vm.$parent.$el = vm.$el</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// updated hook is called by the scheduler to ensure that children are</span></span><br><span class="line">    <span class="comment">// updated in a parent&#x27;s updated hook.</span></span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+<p>可以看到初始化渲染的关键就在patch函数<br>那我们来找下patch的具体实现</p>
+<blockquote>
+<p><strong>platforms/web/runtime/patch.js</strong></p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// the directive module should be applied last, after all</span></span><br><span class="line"><span class="comment">// built-in modules have been applied.</span></span><br><span class="line"><span class="keyword">const</span> modules = platformModules.concat(baseModules)</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> patch: <span class="built_in">Function</span> = createPatchFunction(&#123; nodeOps, modules &#125;)</span><br></pre></td></tr></table></figure>
+<p>createPatchFunction方法包含<strong>nodeOps</strong>和<strong>modules</strong><br>其中，<strong>nodeOps</strong>封装了一系列<strong>DOM</strong>操作的方法<br><strong>modules</strong>定义了一些模块的<strong>钩子函数</strong>的实现<br>看下<strong>createPatchFunction</strong>的具体实现⬇️</p>
+<blockquote>
+<p><strong>core/vdom/patch.js</strong></p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="function"><span class="keyword">function</span> <span class="title">createPatchFunction</span> (<span class="params">backend</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> i, j</span><br><span class="line">  <span class="keyword">const</span> cbs = &#123;&#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> &#123; modules, nodeOps &#125; = backend</span><br><span class="line"></span><br><span class="line">  <span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; hooks.length; ++i) &#123;</span><br><span class="line">    cbs[hooks[i]] = []</span><br><span class="line">    <span class="keyword">for</span> (j = <span class="number">0</span>; j &lt; modules.length; ++j) &#123;</span><br><span class="line">      <span class="keyword">if</span> (isDef(modules[j][hooks[i]])) &#123;</span><br><span class="line">        cbs[hooks[i]].push(modules[j][hooks[i]])</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  ... <span class="comment">//  一些辅助函数定义</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> <span class="title">patch</span> (<span class="params">oldVnode, vnode, hydrating, removeOnly</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (isUndef(vnode)) &#123;</span><br><span class="line">      <span class="keyword">if</span> (isDef(oldVnode)) invokeDestroyHook(oldVnode)</span><br><span class="line">      <span class="keyword">return</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">let</span> isInitialPatch = <span class="literal">false</span></span><br><span class="line">    <span class="keyword">const</span> insertedVnodeQueue = []</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (isUndef(oldVnode)) &#123;</span><br><span class="line">      <span class="comment">// empty mount (likely as component), create new root element</span></span><br><span class="line">      isInitialPatch = <span class="literal">true</span></span><br><span class="line">      createElm(vnode, insertedVnodeQueue)</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="keyword">const</span> isRealElement = isDef(oldVnode.nodeType)</span><br><span class="line">      <span class="keyword">if</span> (!isRealElement &amp;&amp; sameVnode(oldVnode, vnode)) &#123;</span><br><span class="line">        <span class="comment">// patch existing root node</span></span><br><span class="line">        patchVnode(oldVnode, vnode, insertedVnodeQueue, <span class="literal">null</span>, <span class="literal">null</span>, removeOnly)</span><br><span class="line">      &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (isRealElement) &#123;</span><br><span class="line">          <span class="comment">// mounting to a real element</span></span><br><span class="line">          <span class="comment">// check if this is server-rendered content and if we can perform</span></span><br><span class="line">          <span class="comment">// a successful hydration.</span></span><br><span class="line">          <span class="keyword">if</span> (oldVnode.nodeType === <span class="number">1</span> &amp;&amp; oldVnode.hasAttribute(SSR_ATTR)) &#123;</span><br><span class="line">            oldVnode.removeAttribute(SSR_ATTR)</span><br><span class="line">            hydrating = <span class="literal">true</span></span><br><span class="line">          &#125;</span><br><span class="line">          <span class="keyword">if</span> (isTrue(hydrating)) &#123;</span><br><span class="line">            <span class="keyword">if</span> (hydrate(oldVnode, vnode, insertedVnodeQueue)) &#123;</span><br><span class="line">              invokeInsertHook(vnode, insertedVnodeQueue, <span class="literal">true</span>)</span><br><span class="line">              <span class="keyword">return</span> oldVnode</span><br><span class="line">            &#125; <span class="keyword">else</span> <span class="keyword">if</span> (process.env.NODE_ENV !== <span class="string">&#x27;production&#x27;</span>) &#123;</span><br><span class="line">              warn(</span><br><span class="line">                <span class="string">&#x27;The client-side rendered virtual DOM tree is not matching &#x27;</span> +</span><br><span class="line">                <span class="string">&#x27;server-rendered content. This is likely caused by incorrect &#x27;</span> +</span><br><span class="line">                <span class="string">&#x27;HTML markup, for example nesting block-level elements inside &#x27;</span> +</span><br><span class="line">                <span class="string">&#x27;&lt;p&gt;, or missing &lt;tbody&gt;. Bailing hydration and performing &#x27;</span> +</span><br><span class="line">                <span class="string">&#x27;full client-side render.&#x27;</span></span><br><span class="line">              )</span><br><span class="line">            &#125;</span><br><span class="line">          &#125;</span><br><span class="line">          <span class="comment">// either not server-rendered, or hydration failed.</span></span><br><span class="line">          <span class="comment">// create an empty node and replace it</span></span><br><span class="line">          oldVnode = emptyNodeAt(oldVnode)</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// replacing existing element</span></span><br><span class="line">        <span class="keyword">const</span> oldElm = oldVnode.elm</span><br><span class="line">        <span class="keyword">const</span> parentElm = nodeOps.parentNode(oldElm)</span><br><span class="line"></span><br><span class="line">        <span class="comment">// create new node</span></span><br><span class="line">        createElm(</span><br><span class="line">          vnode,</span><br><span class="line">          insertedVnodeQueue,</span><br><span class="line">          <span class="comment">// extremely rare edge case: do not insert if old element is in a</span></span><br><span class="line">          <span class="comment">// leaving transition. Only happens when combining transition +</span></span><br><span class="line">          <span class="comment">// keep-alive + HOCs. (#4590)</span></span><br><span class="line">          oldElm._leaveCb ? <span class="literal">null</span> : parentElm,</span><br><span class="line">          nodeOps.nextSibling(oldElm)</span><br><span class="line">        )</span><br><span class="line"></span><br><span class="line">        <span class="comment">// update parent placeholder node element, recursively</span></span><br><span class="line">        <span class="keyword">if</span> (isDef(vnode.parent)) &#123;</span><br><span class="line">          <span class="keyword">let</span> ancestor = vnode.parent</span><br><span class="line">          <span class="keyword">const</span> patchable = isPatchable(vnode)</span><br><span class="line">          <span class="keyword">while</span> (ancestor) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; cbs.destroy.length; ++i) &#123;</span><br><span class="line">              cbs.destroy[i](ancestor)</span><br><span class="line">            &#125;</span><br><span class="line">            ancestor.elm = vnode.elm</span><br><span class="line">            <span class="keyword">if</span> (patchable) &#123;</span><br><span class="line">              <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; cbs.create.length; ++i) &#123;</span><br><span class="line">                cbs.create[i](emptyNode, ancestor)</span><br><span class="line">              &#125;</span><br><span class="line">              <span class="comment">// #6513</span></span><br><span class="line">              <span class="comment">// invoke insert hooks that may have been merged by create hooks.</span></span><br><span class="line">              <span class="comment">// e.g. for directives that uses the &quot;inserted&quot; hook.</span></span><br><span class="line">              <span class="keyword">const</span> insert = ancestor.data.hook.insert</span><br><span class="line">              <span class="keyword">if</span> (insert.merged) &#123;</span><br><span class="line">                <span class="comment">// start at index 1 to avoid re-invoking component mounted hook</span></span><br><span class="line">                <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">1</span>; i &lt; insert.fns.length; i++) &#123;</span><br><span class="line">                  insert.fns[i]()</span><br><span class="line">                &#125;</span><br><span class="line">              &#125;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">              registerRef(ancestor)</span><br><span class="line">            &#125;</span><br><span class="line">            ancestor = ancestor.parent</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// destroy old node</span></span><br><span class="line">        <span class="keyword">if</span> (isDef(parentElm)) &#123;</span><br><span class="line">          removeVnodes([oldVnode], <span class="number">0</span>, <span class="number">0</span>)</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (isDef(oldVnode.tag)) &#123;</span><br><span class="line">          invokeDestroyHook(oldVnode)</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    invokeInsertHook(vnode, insertedVnodeQueue, isInitialPatch)</span><br><span class="line">    <span class="keyword">return</span> vnode.elm</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>函数最终返回一个patch 方法，即**vm.<strong>patch</strong>**调用的就是该方法<br>看到这里，可以看到patch主要逻辑相同，差异在入参，通过createPatchFunction先传入不同平台的参数，再赋给patch，这样patch对外是无差别的，这种编程技巧非常值得学习</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://karencxx.github.io/2021/01/21/%E8%BF%9F%E5%88%B0%E7%9A%84vue-source-code-%E8%AE%B0%E5%BD%95/" data-id="clv3nb5fx0017dpjf3dyvd0ma" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E8%AF%BB%E7%82%B9%E6%BA%90%E7%A0%81/" rel="tag">读点源码</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-项目构建部署二三事" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2021/01/19/%E9%A1%B9%E7%9B%AE%E6%9E%84%E5%BB%BA%E9%83%A8%E7%BD%B2%E4%BA%8C%E4%B8%89%E4%BA%8B/" class="article-date">
+  <time datetime="2021-01-19T11:07:27.000Z" itemprop="datePublished">2021-01-19</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/01/19/%E9%A1%B9%E7%9B%AE%E6%9E%84%E5%BB%BA%E9%83%A8%E7%BD%B2%E4%BA%8C%E4%B8%89%E4%BA%8B/">项目构建部署二三事</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><strong>今天的重点：vue-cli 构建部署</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">运行命令 vue-cli-service build</span><br></pre></td></tr></table></figure>
+<p><strong>–target</strong>  指定不同的构建目标，默认为应用模式</p>
+<blockquote>
+<p>应用模式</p>
+</blockquote>
+<ul>
+<li><strong>index.html</strong> 会带有注入的资源和 resource hint</li>
+<li>第三方库会被分到一个独立包以便更好的缓存</li>
+<li>小于 4kb 的静态资源会被内联在 JavaScript 中</li>
+<li><strong>public</strong> 中的静态资源会被复制到输出目录中，如dist</li>
+</ul>
+<p>打包后的文件结构</p>
+<blockquote>
+<p>库模式 –target lib</p>
+</blockquote>
+<p>打包后如下图<br><img src="/img/lib-structure.png" alt="图1"></p>
+<ul>
+<li>dist/lib.common.js：一个给打包器用的CommonJS包 (不幸的是，webpack目前还并没有支持ES modules输出格式的包)</li>
+<li>dist/lib.umd.js：一个直接给浏览器或AMD loader使用的UMD包</li>
+<li>dist/lib.umd.min.js：压缩后的UMD构建版本</li>
+<li>dist/lib.css：提取出来的CSS文件 (可以通过在 vue.config.js 中设置 css: { extract: false } 强制内联)</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">部署， 这里举了几个我当前项目中运用到的情况</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p><strong>本地预览</strong><br>在本地预览生产环境构建最简单的方式就是使用一个Node.js静态文件服务器，例如serve</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">npm install -g serve</span><br><span class="line"></span><br><span class="line"># -s 参数的意思是将其架设在SPA模式下</span><br><span class="line">serve -s dist</span><br></pre></td></tr></table></figure>
+<p>使用<strong>mode: history</strong>的router是无法搭配简单的静态文件服务器的，例如/goods/:id这样的路由将会返回404<br>上面提到的-s 模式正是解决了这个问题</p>
+<blockquote>
+<p>deploy.sh</p>
+</blockquote>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">!/bin/bash</span></span><br><span class="line">git_url: xxx</span><br><span class="line">source_dir=dist</span><br><span class="line">dest=&quot;.deploy/master&quot;</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 当发生错误时中止脚本</span></span><br><span class="line">set -e</span><br><span class="line"></span><br><span class="line">if [ ! -d $dest ]; then</span><br><span class="line">    git clone $git_url $dest --depth=1</span><br><span class="line">fi</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 记录现在的目录位置</span></span><br><span class="line">cur=`pwd`</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 进入git目录</span></span><br><span class="line">cd $dest</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> git checkout .</span></span><br><span class="line">git add .</span><br><span class="line">git stash</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> reset为线上最新版本</span></span><br><span class="line">git pull origin master</span><br><span class="line">git reset --hard origin/master</span><br><span class="line">    </span><br><span class="line"><span class="meta">#</span><span class="bash"> 然后再pull一下</span></span><br><span class="line">git pull origin master</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 回到原来的目录</span></span><br><span class="line">echo ---back</span><br><span class="line">cd $cur</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 构建</span></span><br><span class="line">echo +++run build script</span><br><span class="line">npm run build</span><br><span class="line">echo ---build end</span><br><span class="line"></span><br><span class="line">echo +++cpCode start</span><br><span class="line"><span class="meta">#</span><span class="bash"> 复制代码 , --exclude排除不需要传输的文件模式</span></span><br><span class="line">rsync -r --delete --exclude=&#x27;.git&#x27; $source_dir/. $dest</span><br><span class="line">echo ---cpCode end</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> <span class="built_in">cd</span> 到构建输出的目录下</span></span><br><span class="line">cd $dest</span><br><span class="line"></span><br><span class="line">echo +++commit start</span><br><span class="line"><span class="meta">#</span><span class="bash"> 部署到自定义域名</span></span><br><span class="line">git add .</span><br><span class="line">git commit -m &quot;commit in `date &#x27;+%Y-%m-%d %H:%M:%S&#x27;`&quot;</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 部署到远程git</span></span><br><span class="line">git push origin master</span><br><span class="line">echo ---commit end</span><br><span class="line"></span><br><span class="line">cd -</span><br></pre></td></tr></table></figure>
+<p>deploy.sh做的事情是构建完自动部署提交到远程git</p>
+<blockquote>
+<p>docker</p>
+</blockquote>
+<blockquote>
+<p>参考文档：<a target="_blank" rel="noopener" href="https://cli.vuejs.org/zh/guide/build-targets.html">https://cli.vuejs.org/zh/guide/build-targets.html</a></p>
+</blockquote>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://karencxx.github.io/2021/01/19/%E9%A1%B9%E7%9B%AE%E6%9E%84%E5%BB%BA%E9%83%A8%E7%BD%B2%E4%BA%8C%E4%B8%89%E4%BA%8B/" data-id="clv3nb5g1001cdpjfhbzzc42x" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-ready-for-2021" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2021/01/13/ready-for-2021/" class="article-date">
+  <time datetime="2021-01-13T02:49:15.000Z" itemprop="datePublished">2021-01-13</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/01/13/ready-for-2021/">ready for 2021</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://karencxx.github.io/2021/01/13/ready-for-2021/" data-id="clv3nb5f8000ldpjfacrehbe5" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-理解js中的this" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2021/01/11/%E7%90%86%E8%A7%A3js%E4%B8%AD%E7%9A%84this/" class="article-date">
+  <time datetime="2021-01-11T07:22:30.000Z" itemprop="datePublished">2021-01-11</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/js/">js</a>
+  </div>
 
   </div>
-  <script src="/js/nanobar.min.js"></script>
-  <script>
-    var options = {
-      classname: 'nanobar',
-      id: 'myNanobar'
-    };
-    var nanobar = new Nanobar(options);
-    nanobar.go(30);
-    nanobar.go(76);
-    nanobar.go(100);
-  </script>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/01/11/%E7%90%86%E8%A7%A3js%E4%B8%AD%E7%9A%84this/">javascript中的this作用域</a>
+    </h1>
+  
 
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>对于<strong>this</strong>作用域，是每次面试基本必问的，对其理解模糊的话很容易栽倒在它的陷阱里</p>
+<blockquote>
+<p>首先了解下执行上下文</p>
+</blockquote>
+<p><strong>执行该行代码时的环境（或范围），简单点就是谁调用了函数</strong></p>
+<blockquote>
+<p>大概有一下四种情况<br>全局环境下或普通函数中直接调用</p>
+</blockquote>
+<ul>
+<li><strong>默认情况下，执行上下文指向全局</strong></li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="built_in">this</span>.a = <span class="number">1</span></span><br><span class="line"><span class="keyword">var</span> b = <span class="number">2</span> </span><br><span class="line">c = <span class="number">1</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">this</span> === <span class="built_in">window</span>) <span class="comment">// true</span></span><br><span class="line"><span class="comment">// a,b,c都能在全局上下文中找到</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="built_in">this</span> === <span class="built_in">window</span>) <span class="comment">// true</span></span><br><span class="line">&#125;</span><br><span class="line">foo()</span><br></pre></td></tr></table></figure>
+<p>这里可以看成<strong>window.foo()</strong> ，即this === window</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">buy</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="built_in">this</span>.name)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> name = <span class="string">&#x27;nanjing&#x27;</span></span><br><span class="line"><span class="keyword">var</span> obj1 = &#123;<span class="attr">name</span>: <span class="string">&#x27;da&#x27;</span>, <span class="attr">buy</span>: buy&#125;</span><br><span class="line"><span class="keyword">var</span> obj2 = &#123;<span class="attr">name</span>: <span class="string">&#x27;baozi&#x27;</span>, <span class="attr">buy</span>: buy&#125;</span><br><span class="line"></span><br><span class="line">buy()</span><br><span class="line">obj1.buy()</span><br><span class="line">obj2.buy()</span><br></pre></td></tr></table></figure>
+<p>obj1.buy()从字面上来理解就是obj1调用了函数，即<strong>当前函数中的this指向obj1</strong></p>
+<ul>
+<li><strong>严格模式下，this指向undefined</strong><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line"><span class="meta">    &#x27;use strict&#x27;</span>;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="built_in">this</span> === <span class="built_in">window</span>) <span class="comment">// false</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li><strong>显式绑定</strong><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">bike</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="built_in">this</span>.name)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> name = <span class="string">&#x27;nanjing&#x27;</span></span><br><span class="line"><span class="keyword">var</span> obj1 = &#123;<span class="attr">name</span>: <span class="string">&#x27;da&#x27;</span>, <span class="attr">bike</span>: bike&#125;</span><br><span class="line"><span class="keyword">var</span> obj2 = &#123;<span class="attr">name</span>: <span class="string">&#x27;baozi&#x27;</span>, <span class="attr">bike</span>: bike&#125;</span><br><span class="line"></span><br><span class="line">bike() <span class="comment">// nanjing</span></span><br><span class="line">obj1.bike() <span class="comment">// da</span></span><br><span class="line">obj2.bike() <span class="comment">// baozi</span></span><br></pre></td></tr></table></figure>
+bike虽然是个普通函数，单独输出时他的this指向了全局对象，<br>但在obj1，obj2中，他作为属性的值，由于是obj1，obj2去调用了bike方法，this显然就指向了obj1，obj2</li>
+</ul>
+<p>如果我们稍作修改，</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">...</span><br><span class="line"><span class="keyword">var</span> obj3 = &#123;<span class="attr">name</span>: <span class="string">&#x27;来了&#x27;</span>, <span class="attr">bike</span>: bike&#125;</span><br><span class="line"><span class="keyword">var</span> obj4 = obj3.bike</span><br><span class="line">obj4() <span class="comment">// nanjing</span></span><br></pre></td></tr></table></figure>
+<p>此时又变成了window去调用了o()，怎么理解呢？<br>当将obj3.bike赋值给obj4时，其实obj4只存储了指向bike函数的指针<br>而bike函数是存储在全局对象中的，this指向全局，因此执行obj4()就等于直接调用bike()</p>
+<ul>
+<li><strong>使用apply、call、bind手动修改指向</strong><br>apply / call / bind这三者的区别<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> person = &#123; <span class="attr">name</span>: <span class="string">&#x27;Lydia&#x27;</span> &#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">sayHi</span>(<span class="params">age</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="string">`<span class="subst">$&#123;<span class="built_in">this</span>.name&#125;</span> is <span class="subst">$&#123;age&#125;</span>`</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(sayHi.call(person, <span class="number">21</span>));</span><br><span class="line"><span class="built_in">console</span>.log(sayHi.bind(person, <span class="number">21</span>));</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">bike</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="built_in">this</span>.name)</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> name = <span class="string">&#x27;ninja&#x27;</span></span><br><span class="line"><span class="keyword">var</span> obj = &#123; <span class="attr">name</span>: <span class="string">&#x27;baozi&#x27;</span> &#125;</span><br><span class="line"></span><br><span class="line">bike() <span class="comment">// ninja</span></span><br><span class="line">bike.call(obj) <span class="comment">// baozi</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> obj1 = &#123; <span class="attr">name</span>: <span class="string">&#x27;dabaozi&#x27;</span> &#125;</span><br><span class="line"><span class="keyword">var</span> originalBikeFun = bike</span><br><span class="line">bike = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    originalBikeFun.call(obj1)</span><br><span class="line">&#125;</span><br><span class="line">bike() <span class="comment">// dabaozi</span></span><br></pre></td></tr></table></figure></li>
+<li><strong>作为构造函数，使用new</strong><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">bunny</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> name = <span class="string">&#x27;ninja&#x27;</span></span><br><span class="line">    <span class="built_in">this</span>.maker = <span class="string">&#x27;huasan&#x27;</span></span><br><span class="line">    <span class="built_in">console</span>.log(<span class="built_in">this</span>.name + <span class="string">&#x27;_&#x27;</span> + maker)</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> name = <span class="string">&#x27;feisi&#x27;</span></span><br><span class="line"><span class="keyword">var</span> maker = <span class="string">&#x27;tuzi&#x27;</span></span><br><span class="line"><span class="keyword">var</span> obj = <span class="keyword">new</span> bunny()</span><br><span class="line"><span class="built_in">console</span>.log(obj.maker, <span class="string">&#x27;obj.maker&#x27;</span>)</span><br></pre></td></tr></table></figure></li>
+</ul>
+<p><strong>ES6箭头函数是个特例，他会捕获其所在上下文的this值，白话点说就是他看的是周边的this指向哪里</strong></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://karencxx.github.io/2021/01/11/%E7%90%86%E8%A7%A3js%E4%B8%AD%E7%9A%84this/" data-id="clv3nb5fs0010dpjf1kx8dzvm" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-谈谈在使用v-for时key的作用" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2021/01/07/%E8%B0%88%E8%B0%88%E5%9C%A8%E4%BD%BF%E7%94%A8v-for%E6%97%B6key%E7%9A%84%E4%BD%9C%E7%94%A8/" class="article-date">
+  <time datetime="2021-01-07T06:41:46.000Z" itemprop="datePublished">2021-01-07</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/01/07/%E8%B0%88%E8%B0%88%E5%9C%A8%E4%BD%BF%E7%94%A8v-for%E6%97%B6key%E7%9A%84%E4%BD%9C%E7%94%A8/">说说使用v-for时key的作用</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>通常我们在用v-for指令渲染列表时，如果没有定义 <strong>v-bind:key</strong>，那么会得到错误提示，<br>可能你会不以为然地加上就万事大吉了<br>但，在某些情况下还是要小心为妙</p>
+<p>先来看一下vue官方文档</p>
+<blockquote>
+<p>当 Vue 正在更新使用 v-for 渲染的元素列表时，它默认使用 <strong>“就地更新”</strong>的策略。<br>如果数据项的顺序被改变，Vue 将<strong>不会移动</strong>DOM元素来匹配数据项的顺序，而是就地更新每个元素，并且确保它们在每个索引位置正确渲染。</p>
+</blockquote>
+<p><strong>即当不使用key时，vue更倾向于复用DOM，尝试改变数据层面而不是去操作DOM层面</strong><br>但文档上提出来这个模式的使用范围：</p>
+<blockquote>
+<p>这个默认的模式是高效的，但是只适用于<strong>不依赖子组件状态或临时DOM状态</strong>的列表渲染输出。</p>
+</blockquote>
+<p>我们来看个例子，</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">test-comp</span> <span class="attr">:data</span>=<span class="string">&quot;item&quot;</span> <span class="attr">v-for</span>=<span class="string">&quot;(item,index) in itemsArray&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">test-comp</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">button</span> @<span class="attr">click</span>=<span class="string">&quot;handle&quot;</span>&gt;</span>unshift first<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>子组件 test-comp</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span>&#123;&#123; data.word &#125;&#125; - &#123;&#123; data.id &#125;&#125; - &#123;&#123; data.date &#125;&#125;<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;text&quot;</span> <span class="attr">placeholder</span>=<span class="string">&quot;请填写&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>文档中提到了<strong>临时DOM状态</strong>，这个例子里我们看子组件里的input输入框，该输入框没有绑定Vue实例中的任何数据，也就是说他是独立于当前应用程序的状态<br>如果我们在框中输入内容，那么这个内容将会被暂时存储在临时DOM状态中</p>
+</blockquote>
+<p><img src="/img/vue-for-key.png" alt="图1"></p>
+<blockquote>
+<p>更改itemsArray数组元素顺序</p>
+</blockquote>
+<p>我们随便输入一些到输入框中，我们通过底下的unshift first 按钮去改变顺序，在数据头部增加一组ID为11的数据<br><img src="/img/vue-for-key2.png" alt="图2"><br><strong>可以看到input输入框不会随着数组顺序的改变而变化</strong><br>为何？这就是上面说的就地更新，改变数组元素顺序并没有移动DOM元素，而是数据发生变化。</p>
+<p>于是，我们把key属性加上</p>
+<blockquote>
+<p>使用 key 时，它会基于key的变化重新排列元素顺序，并且会移除key不存在的元素</p>
+</blockquote>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">test-comp</span> <span class="attr">:data</span>=<span class="string">&quot;item&quot;</span> <span class="attr">v-for</span>=<span class="string">&quot;(item,index) in itemsArray&quot;</span> <span class="attr">:key</span>=<span class="string">&quot;index&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">test-comp</span>&gt;</span></span><br><span class="line">    ...</span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>但结果并没有变化<br><strong>由于这里的key值只是采用了当前项的索引，当数组数据改变时，index并没有变化，只是传入的item发生了改变，所以输入框的内容还是不会改变</strong></p>
+<p>我们改用数据项的id作为key值</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">test-comp</span> <span class="attr">:data</span>=<span class="string">&quot;item&quot;</span> <span class="attr">v-for</span>=<span class="string">&quot;(item,index) in itemsArray&quot;</span> <span class="attr">:key</span>=<span class="string">&quot;item.id&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">test-comp</span>&gt;</span></span><br><span class="line">    ...</span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p><img src="/img/vue-for-key3.png" alt="图3"><br><strong>id是每项数据的唯一标识，能够确保每项的key是独特唯一的，vue能正确跟踪key变化而重新排列元素顺序</strong></p>
+<p>也就是说，我们应该尽可能地使用节点数据的<strong>唯一ID</strong><br>这样做Vue可以更准确地跟踪每个节点的身份并更新组件状态，并且能够重用和重新排列现有元素</p>
+<blockquote>
+<p><strong>注意</strong>: 不要使用<strong>对象</strong>或<strong>数组</strong>之类的<strong>非基本类型值</strong>作为v-for的key。<br>接受的值为：number | string | boolean (2.4.2 新增) | symbol (2.5.12 新增)<br>重复的 key 会造成渲染错误</p>
+</blockquote>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://karencxx.github.io/2021/01/07/%E8%B0%88%E8%B0%88%E5%9C%A8%E4%BD%BF%E7%94%A8v-for%E6%97%B6key%E7%9A%84%E4%BD%9C%E7%94%A8/" data-id="clv3nb5ft0011dpjf0mhw7kxh" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="what-跨域" class="article article-type-what" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2021/01/05/%E8%B7%A8%E5%9F%9F/" class="article-date">
+  <time datetime="2021-01-05T06:03:25.000Z" itemprop="datePublished">2021-01-05</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/01/05/%E8%B7%A8%E5%9F%9F/">跨域</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><strong>跨域</strong>是浏览器基于<strong>同源策略</strong>的一种安全手段，是浏览器出于安全性做的限制</p>
+<blockquote>
+<p><strong>同源策略</strong>( Sameoriginpolicy )   </p>
+</blockquote>
+<ul>
+<li>是一种约定，是浏览器最核心也最基本的安全功能</li>
+<li>用于隔离潜在恶意文件的安全机制，通常不允许不同源之间的读操作</li>
+</ul>
+<blockquote>
+<p><strong>同源</strong></p>
+</blockquote>
+<ul>
+<li>协议相同 protocol</li>
+<li>主机相同 host</li>
+<li>端口相同 port</li>
+</ul>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="http://www.xxx.com/">www.xxx.com</a> 中 www是顶级域名，xxx.com是二级域名（主域名）<br>aaa.xxx.com 中 aaa则是分域名（子域）</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>url-1 url-2</th>
+<th>允许通信</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>http:<a target="_blank" rel="noopener" href="http://www.example.com/a.js">www.example.com/a.js</a> http:<a target="_blank" rel="noopener" href="http://www.example.com/lab/b.js">www.example.com/lab/b.js</a></td>
+<td>✅</td>
+<td>同一域名，不同文件路径</td>
+</tr>
+<tr>
+<td>http:<a target="_blank" rel="noopener" href="http://www.example.com:8080/a.js">www.example.com:8080/a.js</a> http:<a target="_blank" rel="noopener" href="http://www.example.com/c.js">www.example.com/c.js</a></td>
+<td>❎</td>
+<td>同一域名，不同端口</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="http://www.example.com/a.js">http://www.example.com/a.js</a> <a target="_blank" rel="noopener" href="https://www.example.com/c.js">https://www.example.com/c.js</a></td>
+<td>❎</td>
+<td>同一域名，不同协议</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="http://www.example.com/a.js">http://www.example.com/a.js</a> <a target="_blank" rel="noopener" href="https://192.169.2xx.2x/b.js">https://192.169.2xx.2x/b.js</a></td>
+<td>❎</td>
+<td>域名和域名对应相同的ip</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="http://www.example.com/a.js">http://www.example.com/a.js</a> <a target="_blank" rel="noopener" href="http://www.demo.com/c.js">http://www.demo.com/c.js</a></td>
+<td>❎</td>
+<td>主域不同</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="http://www.example.com/a.js">http://www.example.com/a.js</a> <a target="_blank" rel="noopener" href="http://x.example.com/c.js">http://x.example.com/c.js</a></td>
+<td>❎</td>
+<td>子域不同</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p><strong>当没有这个限制时，可能你会碰到</strong></p>
+</blockquote>
+<ul>
+<li>Cookie劫持，被恶意网站窃取数据</li>
+<li>更易受到XSS、CSRF攻击</li>
+<li>无法隔离潜在恶意文件</li>
+</ul>
+<p><strong>也就是说，非同源的请求就会产生跨域</strong></p>
+<blockquote>
+<p><strong>解决方法</strong></p>
+</blockquote>
+<ul>
+<li>JSONP</li>
+<li>document.domain + iframe</li>
+<li>window.name + iframe</li>
+<li>location.hash + iframe</li>
+<li>postMessage</li>
+<li>CORS</li>
+<li>Nginx代理</li>
+<li>nodejs中间件代理</li>
+<li>webSocket协议</li>
+</ul>
+<blockquote>
+<p><strong>JSONP（JSON with Padding）</strong></p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> *  只支持GET请求 </span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">jsonp</span>(<span class="params">url, callback, success</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">const</span> script = <span class="built_in">document</span>.createElement(<span class="string">&#x27;script&#x27;</span>);</span><br><span class="line">    script.url = url;</span><br><span class="line">    script.async = <span class="literal">true</span>;</span><br><span class="line">    script.type = <span class="string">&#x27;text/javascript&#x27;</span>;</span><br><span class="line">    <span class="built_in">window</span>[callback] = <span class="function"><span class="keyword">function</span> (<span class="params">data</span>) </span>&#123;</span><br><span class="line">        success &amp;&amp; success(data);</span><br><span class="line">    &#125;;</span><br><span class="line">    <span class="built_in">document</span>.body.appendChild(script);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>最终效果</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;script src&#x3D;&#39;https:&#x2F;&#x2F;xxx.xxx.xx?key&#x3D;xxx&amp;callback&#x3D;xxx&#39;&gt;&lt;script&gt;</span><br></pre></td></tr></table></figure>
+<p>优点：兼容性好，可兼容老式浏览器<br>缺点：需要服务端支持且只支持GET请求</p>
+<blockquote>
+<p><strong>CORS</strong>跨域资源共享（Cross-origin Resource Sharing）是一个系统</p>
+</blockquote>
+<p><strong>在vue项目中，一般关注 CORS / proxy</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">由一系列传输的HTTP头组成</span><br><span class="line">&#x3D;&gt;(HTTP HEADERS)</span><br><span class="line"></span><br><span class="line">！服务端需打开这个限制 ！</span><br><span class="line">Access-Control-Allow-Origin: * | &lt;origin&gt; 指定一个可访问资源的URI</span><br></pre></td></tr></table></figure>
+<p>如果服务端未使用*, 而是指定了一个域，那么为了向客户端表明服务器的返回会根据Origin请求头而有不同, 即对不同源返回不同的内容<br>必须在<strong>Vary</strong>响应头中包含Origin</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Access-Control-Allow-Origin: &lt;origin&gt;</span><br><span class="line">Vary: Origin</span><br></pre></td></tr></table></figure>
+<p><strong>Simple requests（简单请求，不触发CORS预检）</strong></p>
+<p>使用方法： GET / HEAD / POST<br>Content-type值的限制</p>
+<ul>
+<li>text/plain</li>
+<li>multipart/form-data</li>
+<li>application/x-www-form-urlencoded</li>
+</ul>
+<p><strong>Preflighted requests（预检请求）</strong></p>
+<p>基于<strong>OPTIONS</strong>方法进行过滤，发起一个预检请求到服务器，以获知是否允许该实际请求<br>作用：避免跨域请求对服务器的用户数据产生未预期的影响</p>
+<p>OPTIONS请求通过<strong>Access-Control-Request-Method</strong>告知实际请求使用的方法<br>服务端返回响应<strong>Access-Control-Allow-Methods</strong>表示允许客户端使用的方法发起请求</p>
+<p><strong>实现CORS的关键是服务器</strong></p>
+<p>优点：支持所有请求方法<br>缺点：兼容性比JSONP差</p>
+<blockquote>
+<p><strong>网络代理</strong></p>
+</blockquote>
+<p>运行一个通过这个服务与另一个网络终端进行非直接的连接</p>
+<ol>
+<li><p>如果是通过vue-cli搭建工具，可通过<strong>webpack</strong>起一个本地服务器作为请求代理对象<br>但上线时web应用和接口服务器不在一起，还是会跨域</p>
+</li>
+<li><p>服务器实现代理请求转发，以<strong>express</strong>框架为例</p>
+</li>
+<li><p>通过配置<strong>nginx</strong>实现代理</p>
+</li>
+</ol>
+<p>nginx是一个HTTP Server<br>反向代理原理简单概括为:<br><img src="/img/same-site-1.png" alt="图1"></p>
+<p>也可以使用node中间件做代理</p>
+<p>node中间件和Nginx反向代理都利用了服务器对服务器无同源策略限制</p>
+<blockquote>
+<p><strong>PostMessage</strong></p>
+</blockquote>
+<p>是HTML5 XMLHttpRequest Level 2中的API<br>可以实现跨文档通信<br>可与Websocket、Service Work进行通信</p>
+<blockquote>
+<p><strong>Websocket</strong></p>
+</blockquote>
+<p>是HTML5的一个持久化协议<br>实现了浏览器与服务器双向通信<br>是一个长连接，在一个页面建立多个Websocket连接 有可能会导致性能问题</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://karencxx.github.io/2021/01/05/%E8%B7%A8%E5%9F%9F/" data-id="clv3nb5fv0013dpjfcr4c2oec" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%B5%8F%E8%A7%88%E5%99%A8/" rel="tag">浏览器</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-ts" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/11/19/ts/" class="article-date">
+  <time datetime="2020-11-19T08:01:01.000Z" itemprop="datePublished">2020-11-19</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/11/19/ts/">ts</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://karencxx.github.io/2020/11/19/ts/" data-id="clv3nb5fd000qdpjf0fz309nu" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+
+
+  <nav id="page-nav">
+    <a class="extend prev" rel="prev" href="/">&amp;laquo; __(&#39;prev&#39;)</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/3/">__(&#39;next&#39;) &amp;raquo;</a>
+  </nav>
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/js/">js</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%A4%8D%E4%B9%A0/" rel="tag">复习</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%A4%8D%E4%B9%A0-CSS/" rel="tag">复习, CSS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%B5%8F%E8%A7%88%E5%99%A8/" rel="tag">浏览器</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AF%BB%E7%82%B9%E6%BA%90%E7%A0%81/" rel="tag">读点源码</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%9A%8F%E7%AC%94%E5%86%99/" rel="tag">随笔写</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/%E5%A4%8D%E4%B9%A0/" style="font-size: 20px;">复习</a> <a href="/tags/%E5%A4%8D%E4%B9%A0-CSS/" style="font-size: 10px;">复习, CSS</a> <a href="/tags/%E6%B5%8F%E8%A7%88%E5%99%A8/" style="font-size: 10px;">浏览器</a> <a href="/tags/%E8%AF%BB%E7%82%B9%E6%BA%90%E7%A0%81/" style="font-size: 10px;">读点源码</a> <a href="/tags/%E9%9A%8F%E7%AC%94%E5%86%99/" style="font-size: 10px;">随笔写</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/04/">April 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/03/">March 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/02/">February 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/01/">January 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/11/">November 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">January 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">December 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/11/">November 2017</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2024/04/11/BOMNote/">BOMNote</a>
+          </li>
+        
+          <li>
+            <a href="/2024/04/08/CSSNote/">CSSNote</a>
+          </li>
+        
+          <li>
+            <a href="/2024/04/07/JS%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/">JavaScript 内存与性能</a>
+          </li>
+        
+          <li>
+            <a href="/2024/04/01/JSNote/">JSNote</a>
+          </li>
+        
+          <li>
+            <a href="/2021/03/29/%E8%BF%9F%E6%9D%A5%E7%9A%84%E6%B3%A8%E6%84%8F%E7%82%B9-%E5%86%B7%E7%9F%A5%E8%AF%86/">记录：注意点&amp;冷知识</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2024 karen<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+  </div>
 </body>
-
 </html>

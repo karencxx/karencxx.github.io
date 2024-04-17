@@ -1,188 +1,96 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html>
 <head>
-
-  <!-- Minima -->
-  <!-- Hexo theme created by @adisaktijrs -->
-
-  <!-- Basic Page Needs
-  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
   <meta charset="utf-8">
-
   
-  <title>前端存储总结</title>
+  <title>前端存储总结 | 进阶</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="一般的主流方案有三个：  Cookie Web Storage IndexedDB   Cookie  1994年被发明，并不是为了在 浏览中存放数据，是为了解决 HTTP协议无状态特性 的问题 HTTP协议无状态特性：用户两次HTTP请求，服务器并不能知道请求来自同一个用户现在仍在部分领域有价值，但不再适合作为前端本地存储的方案去使用  Cookie安全问题  每次请求都会发送Cookie，因为">
+<meta property="og:type" content="article">
+<meta property="og:title" content="前端存储总结">
+<meta property="og:url" content="http://karencxx.github.io/2021/03/11/%E5%89%8D%E7%AB%AF%E5%AD%98%E5%82%A8%E6%80%BB%E7%BB%93/index.html">
+<meta property="og:site_name" content="进阶">
+<meta property="og:description" content="一般的主流方案有三个：  Cookie Web Storage IndexedDB   Cookie  1994年被发明，并不是为了在 浏览中存放数据，是为了解决 HTTP协议无状态特性 的问题 HTTP协议无状态特性：用户两次HTTP请求，服务器并不能知道请求来自同一个用户现在仍在部分领域有价值，但不再适合作为前端本地存储的方案去使用  Cookie安全问题  每次请求都会发送Cookie，因为">
+<meta property="og:locale">
+<meta property="og:image" content="http://karencxx.github.io/img/store-1.png">
+<meta property="article:published_time" content="2021-03-11T09:15:09.000Z">
+<meta property="article:modified_time" content="2024-04-15T07:40:12.530Z">
+<meta property="article:author" content="karen">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://karencxx.github.io/img/store-1.png">
   
-  <link rel="sitemap" href="http://yoursite.comsitemap.xml" />
-  
-  <link rel="canonical" href="http://yoursite.com/2021/03/11/%E5%89%8D%E7%AB%AF%E5%AD%98%E5%82%A8%E6%80%BB%E7%BB%93/">
-  
-  <meta name="description" content="一般的主流方案有三个：  Cookie Web Storage IndexedDB   Cookie  1994年被发明，并不是为了在 浏览中存放数据，是为了解决 HTTP协议无状态特性 的问题 HTTP协议无状态特性：用户两次HTTP请求，服务器并不能知道请求来自同一个用户现在仍在部分领域有价值，">
-  
-  
-  <meta name="author" content="karen">
-  
-  <meta property="og:image" content="http://yoursite.comundefined">
-  
-  <meta property="og:site_name" content="进阶" />
-  <meta property="og:type" content="article" />
-  <meta property="og:title" content="前端存储总结" />
-  
-  <meta property="og:description" content="一般的主流方案有三个：  Cookie Web Storage IndexedDB   Cookie  1994年被发明，并不是为了在 浏览中存放数据，是为了解决 HTTP协议无状态特性 的问题 HTTP协议无状态特性：用户两次HTTP请求，服务器并不能知道请求来自同一个用户现在仍在部分领域有价值，">
-  
-  <meta property="og:url" content="http://yoursite.com/2021/03/11/%E5%89%8D%E7%AB%AF%E5%AD%98%E5%82%A8%E6%80%BB%E7%BB%93/" />
-
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="前端存储总结">
-  
-  <meta name="twitter:description" content="一般的主流方案有三个：  Cookie Web Storage IndexedDB   Cookie  1994年被发明，并不是为了在 浏览中存放数据，是为了解决 HTTP协议无状态特性 的问题 HTTP协议无状态特性：用户两次HTTP请求，服务器并不能知道请求来自同一个用户现在仍在部分领域有价值，">
+    <link rel="alternate" href="/atom.xml" title="进阶" type="application/atom+xml">
   
   
-  <meta name="twitter:image" content="http://yoursite.comundefined">
-  
-  <meta name="twitter:url" content="http://yoursite.com/2021/03/11/%E5%89%8D%E7%AB%AF%E5%AD%98%E5%82%A8%E6%80%BB%E7%BB%93/" />
-
-  <!-- Mobile Specific Metas
-  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-
-  <!-- Preload fonts
-  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
-  <link rel="preload" href="../fonts/dm-serif-display-v4-latin-regular.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="preload" href="../fonts/inter-v2-latin-regular.woff2" as="font" type="font/woff2" crossorigin>
-
-  <!-- CSS
-  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
-  
-<link rel="stylesheet" href="/css/normalize.css">
-
-  
-<link rel="stylesheet" href="/css/skeleton.css">
-
-  
-<link rel="stylesheet" href="/css/custom.css">
-
-  
-<link rel="stylesheet" href="/css/prism-dark.css">
-
-  
-<link rel="stylesheet" href="/css/prism-line-numbers.css">
-
-  <!-- User css -->
+    <link rel="icon" href="/favicon.png">
   
   
-<link rel="stylesheet" href="/css/user.css">
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
 
   
 
-  <!-- Favicon
-  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
-  <link rel="icon" type="image/png" href="/images/favicon.png">
-
-  <!-- Custom Theme Color Style
-  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
-  <style>
-  a:not(.icon) {
-    text-decoration-color: #0FA0CE;
-    background-image: linear-gradient(
-      to bottom,
-      rgba(0, 0, 0, 0) 50%,
-      #0FA0CE 50%
-    );
-  }
-  blockquote {
-    border-left: 8px solid #0FA0CE;
-  }
-  .nanobar .bar {
-    background: #0FA0CE;
-  }
-  .button.button-primary:hover,
-  button.button-primary:hover,
-  input[type="submit"].button-primary:hover,
-  input[type="reset"].button-primary:hover,
-  input[type="button"].button-primary:hover,
-  .button.button-primary:focus,
-  button.button-primary:focus,
-  input[type="submit"].button-primary:focus,
-  input[type="reset"].button-primary:focus,
-  input[type="button"].button-primary:focus {
-    background-color: #0FA0CE;
-    border-color: #0FA0CE;
-  }
-  input[type="email"]:focus,
-  input[type="number"]:focus,
-  input[type="search"]:focus,
-  input[type="text"]:focus,
-  input[type="tel"]:focus,
-  input[type="url"]:focus,
-  input[type="password"]:focus,
-  textarea:focus,
-  select:focus {
-    border: 1px solid #0FA0CE;
-  }
-</style>
-
-  <!-- Google Analytics (With Privacy Settings On)
-  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
-  
-
-<meta name="generator" content="Hexo 5.3.0"><link rel="alternate" href="/atom.xml" title="进阶" type="application/atom+xml">
-</head>
+<meta name="generator" content="Hexo 5.3.0"></head>
 
 <body>
-  <div class="container">
-    <div class="row">
-      <div>
-
-        <div class="row">
-  <div class="two columns" style="max-width: 50px">
-    <h1 class="mt-2 mode">
-      <div onclick=setDarkMode(true) id="darkBtn">🌑</div>
-      <div onclick=setDarkMode(false) id="lightBtn" class=hidden>☀️</div>
-      <script >
-        if (localStorage.getItem('preferredTheme') == 'dark') {
-          setDarkMode(true)
-        }
-        function setDarkMode(isDark) {
-          var darkBtn = document.getElementById('darkBtn')
-          var lightBtn = document.getElementById('lightBtn')
-          if (isDark) {
-            lightBtn.style.display = "block"
-            darkBtn.style.display = "none"
-            localStorage.setItem('preferredTheme', 'dark');
-          } else {
-            lightBtn.style.display = "none"
-            darkBtn.style.display = "block"
-            localStorage.removeItem('preferredTheme');
-          }
-          document.body.classList.toggle("darkmode");
-        }
-      </script>
-    </h1>
-  </div>
-
-  <div class="six columns ml-1">
-    <h1 class="mt-2">
-      UP&amp;UP
-    </h1>
-  </div>
-
-  <div class="twelve columns">
-    <div class="row">
-      <div class="nine columns left">
-        <a href="/">Home</a>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">进阶</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
         
+          <a class="main-nav-link" href="/">Home</a>
         
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://karencxx.github.io"></form>
       </div>
     </div>
-    <hr style="margin-bottom: 2.6rem">
   </div>
-</div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-前端存储总结" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2021/03/11/%E5%89%8D%E7%AB%AF%E5%AD%98%E5%82%A8%E6%80%BB%E7%BB%93/" class="article-date">
+  <time datetime="2021-03-11T09:15:09.000Z" itemprop="datePublished">2021-03-11</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      前端存储总结
+    </h1>
+  
 
-        <div class="trans">
-            <h2>前端存储总结</h2>
-
-  <p>一般的主流方案有三个：</p>
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>一般的主流方案有三个：</p>
 <ul>
 <li>Cookie</li>
 <li>Web Storage</li>
@@ -210,7 +118,7 @@
 </ul>
 <p>常用的有在广告中，跨站标记用户、跟踪用户行为<br>例如你打开了两个页面，但能看到同样的广告</p>
 <p><strong>Cookie 执行同源策略</strong>，这里就衍生了第三方Cookie<br>例如访问 a 时，设置了 b 的 Cookie ，那么对 a 来说就是 第三方Cookie<br>第三方Cookie有一个重要特性：<strong>Cookie可以被服务端通过请求头来要求浏览器设置</strong></p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Set-Cookie: userId=123</span><br></pre></td></tr></table></figure>
+<figure class="highlight"><table><tr><td class="code"><pre><span class="line">Set-Cookie: userId=123</span><br></pre></td></tr></table></figure>
 <p>画图描述<br>当用户处于 abc.com 时，浏览器会向 taobao.com/some-ads 发起一个 HTTP 请求<br>当淘宝服务器返回广告内容时，会顺带一个 Set-Cookie 的 HTTP 请求头，告诉浏览器设置一个源为 taobao.com 的 Cookie，里面存上当前用户的 ID 等信息<br>这个 Cookie 相对于 abc.com 而言就是第三方 Cookie，因为它属于 taobao.com<br>而当用户访问 xyz.com 时，由于 xyz.com 上也嵌入了淘宝的广告，因此用户的浏览器也会向 taobao.com/some-ads 发起请求<br>有意思的来了，发请求时，浏览器发现本地已有 taobao.com 的 Cookie（此前访问 abc.com 时设置的），因此，浏览器会将这个 Cookie 发送过去<br>淘宝服务器根据发过来的 Cookie，发现当前访问 xyz.com 的用户和之前访问 abc.com 的用户是同一个，因此会返回相同的广告</p>
 <p>综上，Cookie 两个特点：<strong>可以被浏览器设置</strong>、<strong>浏览器每次请求会自动带上</strong></p>
 <ul>
@@ -257,59 +165,156 @@
 <p>  但 JSON.stringify() 本身存在一些问题，即无法正确转换JS部分属性，无法转换循环引用的对象<br>  undefined, Function, RegExp(转换后变成了空对象）, Date(转换后变成了字符串)</p>
 <p>  Symbol 无法被转换，<br>  但由于 Symbol 本身的定义（全局唯一性）就决定了它不应该被转换，否则即使转换回来，也不会是原来的Symbol</p>
 <p>  Function 比较特殊，可以先调用 .toString() 转换为字符串储存，需要时再 eval 转回来</p>
-  <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> demo = <span class="built_in">JSON</span>.stringify(&#123;</span><br><span class="line">    a: <span class="literal">undefined</span>,</span><br><span class="line">    b: <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;&#125;,</span><br><span class="line">    c: <span class="regexp">/abc/</span>,</span><br><span class="line">    d: <span class="keyword">new</span> <span class="built_in">Date</span>()</span><br><span class="line">&#125;);</span><br><span class="line"><span class="built_in">console</span>.log(demo) <span class="comment">// &quot;&#123;&quot;c&quot;:&#123;&#125;,&quot;d&quot;:&quot;2021-03-11T12:09:26.243Z&quot;&#125;&quot;</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">JSON</span>.parse(demo)) <span class="comment">// &#123;&quot;c&quot;: &#123;&#125;, &quot;d&quot;: &quot;2021-03-11T12:09:26.243Z&quot;&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> demo2 = &#123;<span class="attr">key</span>: <span class="string">&#x27;1&#x27;</span>&#125;</span><br><span class="line">demo2[key2] = demo2</span><br><span class="line"><span class="built_in">JSON</span>.stringify(demo2)  <span class="comment">// Uncaught TypeError: Converting circular structure to JSON</span></span><br></pre></td></tr></table></figure>
+  <figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> demo = <span class="built_in">JSON</span>.stringify(&#123;</span><br><span class="line">    a: <span class="literal">undefined</span>,</span><br><span class="line">    b: <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;&#125;,</span><br><span class="line">    c: <span class="regexp">/abc/</span>,</span><br><span class="line">    d: <span class="keyword">new</span> <span class="built_in">Date</span>()</span><br><span class="line">&#125;);</span><br><span class="line"><span class="built_in">console</span>.log(demo) <span class="comment">// &quot;&#123;&quot;c&quot;:&#123;&#125;,&quot;d&quot;:&quot;2021-03-11T12:09:26.243Z&quot;&#125;&quot;</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">JSON</span>.parse(demo)) <span class="comment">// &#123;&quot;c&quot;: &#123;&#125;, &quot;d&quot;: &quot;2021-03-11T12:09:26.243Z&quot;&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> demo2 = &#123;<span class="attr">key</span>: <span class="string">&#x27;1&#x27;</span>&#125;</span><br><span class="line">demo2[key2] = demo2</span><br><span class="line"><span class="built_in">JSON</span>.stringify(demo2)  <span class="comment">// Uncaught TypeError: Converting circular structure to JSON</span></span><br></pre></td></tr></table></figure>
 <h4 id="总结：大部分场景下-LocalStorage-可以替代-Cookie-，但最多支持4～5MB，只支持字符串"><a href="#总结：大部分场景下-LocalStorage-可以替代-Cookie-，但最多支持4～5MB，只支持字符串" class="headerlink" title="总结：大部分场景下 LocalStorage 可以替代 Cookie ，但最多支持4～5MB，只支持字符串"></a>总结：大部分场景下 LocalStorage 可以替代 Cookie ，但最多支持4～5MB，只支持字符串</h4><p>不适用 大量数据 和 复杂数据 的存储</p>
 </li>
 </ul>
 </li>
 </ul>
 
-  <p> — Mar 11, 2021</p>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://karencxx.github.io/2021/03/11/%E5%89%8D%E7%AB%AF%E5%AD%98%E5%82%A8%E6%80%BB%E7%BB%93/" data-id="clv3nb5fr000zdpjfeyzkf6yo" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
   
-
-
-          <div class="row mt-2">
+    
+<nav id="article-nav">
   
-    <div class="eight columns">
-      <p id="madewith">Made with ❤ and
-        <a class="footer-link icon" href="https://hexo.io" target="_blank" style="text-decoration: none;" rel="noreferrer" aria-label="Hexo.io">
-        <svg class="hexo svg-hov" width="14" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>Hexo.js</title><path d="M12 .007L1.57 6.056V18.05L12 23.995l10.43-6.049V5.952L12 .007zm4.798 17.105l-.939.521-.939-.521V12.94H9.08v4.172l-.94.521-.938-.521V6.89l.939-.521.939.521v4.172h5.84V6.89l.94-.521.938.521v10.222z"/></svg>
-        </a>
+    <a href="/2021/03/29/%E8%BF%9F%E6%9D%A5%E7%9A%84%E6%B3%A8%E6%84%8F%E7%82%B9-%E5%86%B7%E7%9F%A5%E8%AF%86/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
         
-    </div>
-
-    <!-- Sepcial thanks to https://simpleicons.org/ for the icons -->
-    <div class="four columns mb-3 posisi" >
-      
-
-      
-
-      
-
-      
-
-    </div>
-  
-</div>
-
-        </div>
+          记录：注意点&amp;冷知识
+        
       </div>
+    </a>
+  
+  
+    <a href="/2021/03/08/snabbdom%E6%B5%85%E8%AF%BB%E6%BA%90%E7%A0%81/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">snabbdom浅读源码</div>
+    </a>
+  
+</nav>
 
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/js/">js</a></li></ul>
     </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%A4%8D%E4%B9%A0/" rel="tag">复习</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%A4%8D%E4%B9%A0-CSS/" rel="tag">复习, CSS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%B5%8F%E8%A7%88%E5%99%A8/" rel="tag">浏览器</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AF%BB%E7%82%B9%E6%BA%90%E7%A0%81/" rel="tag">读点源码</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%9A%8F%E7%AC%94%E5%86%99/" rel="tag">随笔写</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/%E5%A4%8D%E4%B9%A0/" style="font-size: 20px;">复习</a> <a href="/tags/%E5%A4%8D%E4%B9%A0-CSS/" style="font-size: 10px;">复习, CSS</a> <a href="/tags/%E6%B5%8F%E8%A7%88%E5%99%A8/" style="font-size: 10px;">浏览器</a> <a href="/tags/%E8%AF%BB%E7%82%B9%E6%BA%90%E7%A0%81/" style="font-size: 10px;">读点源码</a> <a href="/tags/%E9%9A%8F%E7%AC%94%E5%86%99/" style="font-size: 10px;">随笔写</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/04/">April 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/03/">March 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/02/">February 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/01/">January 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/11/">November 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">January 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">December 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/11/">November 2017</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2024/04/11/BOMNote/">BOMNote</a>
+          </li>
+        
+          <li>
+            <a href="/2024/04/08/CSSNote/">CSSNote</a>
+          </li>
+        
+          <li>
+            <a href="/2024/04/07/JS%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/">JavaScript 内存与性能</a>
+          </li>
+        
+          <li>
+            <a href="/2024/04/01/JSNote/">JSNote</a>
+          </li>
+        
+          <li>
+            <a href="/2021/03/29/%E8%BF%9F%E6%9D%A5%E7%9A%84%E6%B3%A8%E6%84%8F%E7%82%B9-%E5%86%B7%E7%9F%A5%E8%AF%86/">记录：注意点&amp;冷知识</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2024 karen<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
 
   </div>
-  <script src="/js/nanobar.min.js"></script>
-  <script>
-    var options = {
-      classname: 'nanobar',
-      id: 'myNanobar'
-    };
-    var nanobar = new Nanobar(options);
-    nanobar.go(30);
-    nanobar.go(76);
-    nanobar.go(100);
-  </script>
-
 </body>
-
 </html>
