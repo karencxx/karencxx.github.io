@@ -5,19 +5,20 @@
   
   <title>说说使用v-for时key的作用 | 进阶</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="通常我们在用v-for指令渲染列表时，如果没有定义 v-bind:key，那么会得到错误提示，可能你会不以为然地加上就万事大吉了但，在某些情况下还是要小心为妙 先来看一下vue官方文档  当 Vue 正在更新使用 v-for 渲染的元素列表时，它默认使用 “就地更新”的策略。如果数据项的顺序被改变，Vue 将不会移动DOM元素来匹配数据项的顺序，而是就地更新每个元素，并且确保它们在每个索引位置正确">
+  <meta name="description" content="通常我们在用v-for指令渲染列表时，如果没有定义 v-bind:key，那么会得到错误提示，可能你会不以为然地加上就万事大吉了但，在某些情况下还是要小心为妙 先来看一下vue官方文档 当 Vue 正在更新使用 v-for 渲染的元素列表时，它默认使用 “就地更新” 的策略。如果数据项的顺序被改变，Vue 将 不会移动 DOM元素来匹配数据项的顺序而是就地更新每个元素，并且确保它们在每个索引位置正">
 <meta property="og:type" content="article">
 <meta property="og:title" content="说说使用v-for时key的作用">
 <meta property="og:url" content="http://karencxx.github.io/2021/01/07/%E8%B0%88%E8%B0%88%E5%9C%A8%E4%BD%BF%E7%94%A8v-for%E6%97%B6key%E7%9A%84%E4%BD%9C%E7%94%A8/index.html">
 <meta property="og:site_name" content="进阶">
-<meta property="og:description" content="通常我们在用v-for指令渲染列表时，如果没有定义 v-bind:key，那么会得到错误提示，可能你会不以为然地加上就万事大吉了但，在某些情况下还是要小心为妙 先来看一下vue官方文档  当 Vue 正在更新使用 v-for 渲染的元素列表时，它默认使用 “就地更新”的策略。如果数据项的顺序被改变，Vue 将不会移动DOM元素来匹配数据项的顺序，而是就地更新每个元素，并且确保它们在每个索引位置正确">
+<meta property="og:description" content="通常我们在用v-for指令渲染列表时，如果没有定义 v-bind:key，那么会得到错误提示，可能你会不以为然地加上就万事大吉了但，在某些情况下还是要小心为妙 先来看一下vue官方文档 当 Vue 正在更新使用 v-for 渲染的元素列表时，它默认使用 “就地更新” 的策略。如果数据项的顺序被改变，Vue 将 不会移动 DOM元素来匹配数据项的顺序而是就地更新每个元素，并且确保它们在每个索引位置正">
 <meta property="og:locale">
 <meta property="og:image" content="http://karencxx.github.io/img/vue-for-key.png">
 <meta property="og:image" content="http://karencxx.github.io/img/vue-for-key2.png">
 <meta property="og:image" content="http://karencxx.github.io/img/vue-for-key3.png">
 <meta property="article:published_time" content="2021-01-07T06:41:46.000Z">
-<meta property="article:modified_time" content="2021-06-24T03:18:17.410Z">
+<meta property="article:modified_time" content="2024-04-23T11:47:30.229Z">
 <meta property="article:author" content="karen">
+<meta property="article:tag" content="v-for">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http://karencxx.github.io/img/vue-for-key.png">
   
@@ -76,6 +77,10 @@
   <time datetime="2021-01-07T06:41:46.000Z" itemprop="datePublished">2021-01-07</time>
 </a>
     
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/vue/">vue</a>
+  </div>
+
   </div>
   <div class="article-inner">
     
@@ -94,45 +99,39 @@
       
         <p>通常我们在用v-for指令渲染列表时，如果没有定义 <strong>v-bind:key</strong>，那么会得到错误提示，<br>可能你会不以为然地加上就万事大吉了<br>但，在某些情况下还是要小心为妙</p>
 <p>先来看一下vue官方文档</p>
-<blockquote>
-<p>当 Vue 正在更新使用 v-for 渲染的元素列表时，它默认使用 <strong>“就地更新”</strong>的策略。<br>如果数据项的顺序被改变，Vue 将<strong>不会移动</strong>DOM元素来匹配数据项的顺序，而是就地更新每个元素，并且确保它们在每个索引位置正确渲染。</p>
-</blockquote>
-<p><strong>即当不使用key时，vue更倾向于复用DOM，尝试改变数据层面而不是去操作DOM层面</strong><br>但文档上提出来这个模式的使用范围：</p>
-<blockquote>
-<p>这个默认的模式是高效的，但是只适用于<strong>不依赖子组件状态或临时DOM状态</strong>的列表渲染输出。</p>
-</blockquote>
-<p>我们来看个例子，</p>
-<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">test-comp</span> <span class="attr">:data</span>=<span class="string">&quot;item&quot;</span> <span class="attr">v-for</span>=<span class="string">&quot;(item,index) in itemsArray&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">test-comp</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">button</span> @<span class="attr">click</span>=<span class="string">&quot;handle&quot;</span>&gt;</span>unshift first<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<p>子组件 test-comp</p>
-<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span>&#123;&#123; data.word &#125;&#125; - &#123;&#123; data.id &#125;&#125; - &#123;&#123; data.date &#125;&#125;<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;text&quot;</span> <span class="attr">placeholder</span>=<span class="string">&quot;请填写&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>文档中提到了<strong>临时DOM状态</strong>，这个例子里我们看子组件里的input输入框，该输入框没有绑定Vue实例中的任何数据，也就是说他是独立于当前应用程序的状态<br>如果我们在框中输入内容，那么这个内容将会被暂时存储在临时DOM状态中</p>
-</blockquote>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">当 Vue 正在更新使用 v-for 渲染的元素列表时，它默认使用 “就地更新” 的策略。</span><br><span class="line">如果数据项的顺序被改变，Vue 将 不会移动 DOM元素来匹配数据项的顺序</span><br><span class="line">而是就地更新每个元素，并且确保它们在每个索引位置正确渲染。</span><br></pre></td></tr></table></figure>
+<p><strong>即当不使用key时，vue更倾向于 复用DOM，尝试改变 数据层面 而不是 去操作DOM层面</strong><br>但文档上提出来这个模式的使用范围：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">这个默认的模式是高效的，但是只适用于 不依赖子组件状态或临时DOM状态 的列表渲染输出。</span><br></pre></td></tr></table></figure>
+<p>我们来看个例子</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">test-comp</span> <span class="attr">:data</span>=<span class="string">&quot;item&quot;</span> <span class="attr">v-for</span>=<span class="string">&quot;(item,index) in itemsArray&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">test-comp</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">button</span> @<span class="attr">click</span>=<span class="string">&quot;handle&quot;</span>&gt;</span>unshift first<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- 子组件 test-comp --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span>&#123;&#123; data.word &#125;&#125; - &#123;&#123; data.id &#125;&#125; - &#123;&#123; data.date &#125;&#125;<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;text&quot;</span> <span class="attr">placeholder</span>=<span class="string">&quot;请填写&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>文档中提到了<strong>临时DOM状态</strong>，这个例子里我们看子组件里的input输入框<br>该输入框没有绑定 Vue实例 中的任何数据，也就是说他是 <strong>独立于当前应用程序的状态</strong><br>如果我们在框中输入内容，那么这个内容将会被暂时存储在 临时DOM状态中</p>
 <p><img src="/img/vue-for-key.png" alt="图1"></p>
-<blockquote>
-<p>更改itemsArray数组元素顺序</p>
-</blockquote>
-<p>我们随便输入一些到输入框中，我们通过底下的unshift first 按钮去改变顺序，在数据头部增加一组ID为11的数据<br><img src="/img/vue-for-key2.png" alt="图2"><br><strong>可以看到input输入框不会随着数组顺序的改变而变化</strong><br>为何？这就是上面说的就地更新，改变数组元素顺序并没有移动DOM元素，而是数据发生变化。</p>
-<p>于是，我们把key属性加上</p>
-<blockquote>
-<p>使用 key 时，它会基于key的变化重新排列元素顺序，并且会移除key不存在的元素</p>
-</blockquote>
+<h3 id="更改itemsArray数组元素顺序"><a href="#更改itemsArray数组元素顺序" class="headerlink" title="更改itemsArray数组元素顺序"></a>更改itemsArray数组元素顺序</h3><p>我们随便输入一些到输入框中，我们通过底下的unshift first 按钮去改变顺序，在数据头部增加一组ID为11的数据<br><img src="/img/vue-for-key2.png" alt="图2"><br><strong>可以看到input输入框不会随着数组顺序的改变而变化</strong><br>为何？这就是上面说的 <u>就地更新</u>，改变数组元素顺序并没有移动DOM元素，而是数据发生变化。</p>
+<p>于是，我们把key属性加上<br><strong>使用 key 时，它会基于key的变化重新排列元素顺序，并且会移除 key不存在 的元素</strong></p>
 <figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">test-comp</span> <span class="attr">:data</span>=<span class="string">&quot;item&quot;</span> <span class="attr">v-for</span>=<span class="string">&quot;(item,index) in itemsArray&quot;</span> <span class="attr">:key</span>=<span class="string">&quot;index&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">test-comp</span>&gt;</span></span><br><span class="line">    ...</span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<p>但结果并没有变化<br><strong>由于这里的key值只是采用了当前项的索引，当数组数据改变时，index并没有变化，只是传入的item发生了改变，所以输入框的内容还是不会改变</strong></p>
+<p>但结果并没有变化<br><strong>由于这里的key值只是采用了当前项的索引</strong><br><strong>当数组数据改变时，index并没有变化，只是传入的item发生了改变，所以输入框的内容还是不会改变</strong></p>
 <p>我们改用数据项的id作为key值</p>
 <figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">test-comp</span> <span class="attr">:data</span>=<span class="string">&quot;item&quot;</span> <span class="attr">v-for</span>=<span class="string">&quot;(item,index) in itemsArray&quot;</span> <span class="attr">:key</span>=<span class="string">&quot;item.id&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">test-comp</span>&gt;</span></span><br><span class="line">    ...</span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<p><img src="/img/vue-for-key3.png" alt="图3"><br><strong>id是每项数据的唯一标识，能够确保每项的key是独特唯一的，vue能正确跟踪key变化而重新排列元素顺序</strong></p>
-<p>也就是说，我们应该尽可能地使用节点数据的<strong>唯一ID</strong><br>这样做Vue可以更准确地跟踪每个节点的身份并更新组件状态，并且能够重用和重新排列现有元素</p>
-<blockquote>
-<p><strong>注意</strong>: 不要使用<strong>对象</strong>或<strong>数组</strong>之类的<strong>非基本类型值</strong>作为v-for的key。<br>接受的值为：number | string | boolean (2.4.2 新增) | symbol (2.5.12 新增)<br>重复的 key 会造成渲染错误</p>
-</blockquote>
+<p><img src="/img/vue-for-key3.png" alt="图3"></p>
+<p><strong>id 是每项数据的唯一标识，能够确保每项的key是独特唯一的，vue能正确跟踪key变化而重新排列元素顺序</strong></p>
+<p>也就是说，我们应该尽可能地使用节点数据的 <strong>唯一ID</strong><br>这样做Vue可以更准确地跟踪 <strong>每个节点的身份并更新组件状态</strong>，并且能够 重用 和 重新排列 现有元素</p>
+<p><strong>注意</strong>: </p>
+<ul>
+<li>不要使用 <strong>对象</strong> 或 <strong>数组</strong> 之类的 <strong>非基本类型值</strong> 作为 v-for的key<ul>
+<li> 接受的值为：number | string | boolean (2.4.2 新增) | symbol (2.5.12 新增)</li>
+</ul>
+</li>
+<li><strong>重复的 key 会造成渲染错误</strong></li>
+</ul>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://karencxx.github.io/2021/01/07/%E8%B0%88%E8%B0%88%E5%9C%A8%E4%BD%BF%E7%94%A8v-for%E6%97%B6key%E7%9A%84%E4%BD%9C%E7%94%A8/" data-id="clv3nb5ft0011dpjf0mhw7kxh" class="article-share-link">Share</a>
+      <a data-url="http://karencxx.github.io/2021/01/07/%E8%B0%88%E8%B0%88%E5%9C%A8%E4%BD%BF%E7%94%A8v-for%E6%97%B6key%E7%9A%84%E4%BD%9C%E7%94%A8/" data-id="clvdj5bu2001p90fu7qv9fvh2" class="article-share-link">Share</a>
       
       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/v-for/" rel="tag">v-for</a></li></ul>
+
     </footer>
   </div>
   
@@ -167,7 +166,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Categories</h3>
     <div class="widget">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/js/">js</a></li></ul>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/BOM/">BOM</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/CSS/">CSS</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/JS/">JS</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/express/">express</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/snabbdom/">snabbdom</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/vue/">vue</a></li></ul>
     </div>
   </div>
 
@@ -177,7 +176,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%A4%8D%E4%B9%A0/" rel="tag">复习</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%A4%8D%E4%B9%A0-CSS/" rel="tag">复习, CSS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%B5%8F%E8%A7%88%E5%99%A8/" rel="tag">浏览器</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AF%BB%E7%82%B9%E6%BA%90%E7%A0%81/" rel="tag">读点源码</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%9A%8F%E7%AC%94%E5%86%99/" rel="tag">随笔写</a></li></ul>
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/" rel="tag">hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/js-this/" rel="tag">js-this</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/source-code/" rel="tag">source code</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/typescript/" rel="tag">typescript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/v-for/" rel="tag">v-for</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vue-router/" rel="tag">vue-router</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vuex%E6%8E%A2%E7%A9%B6/" rel="tag">vuex探究</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/webpack/" rel="tag">webpack</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%89%8D%E7%AB%AF%E5%AD%98%E5%82%A8/" rel="tag">前端存储</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%A4%8D%E4%B9%A0/" rel="tag">复习</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%AE%9A%E6%97%B6%E5%99%A8/" rel="tag">定时器</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%BC%80%E5%8F%91%E6%8A%80%E5%B7%A7/" rel="tag">开发技巧</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/" rel="tag">性能优化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%83%A8%E7%BD%B2/" rel="tag">部署</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%9A%8F%E7%AC%94%E5%86%99/" rel="tag">随笔写</a></li></ul>
     </div>
   </div>
 
@@ -187,7 +186,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/%E5%A4%8D%E4%B9%A0/" style="font-size: 20px;">复习</a> <a href="/tags/%E5%A4%8D%E4%B9%A0-CSS/" style="font-size: 10px;">复习, CSS</a> <a href="/tags/%E6%B5%8F%E8%A7%88%E5%99%A8/" style="font-size: 10px;">浏览器</a> <a href="/tags/%E8%AF%BB%E7%82%B9%E6%BA%90%E7%A0%81/" style="font-size: 10px;">读点源码</a> <a href="/tags/%E9%9A%8F%E7%AC%94%E5%86%99/" style="font-size: 10px;">随笔写</a>
+      <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/js-this/" style="font-size: 10px;">js-this</a> <a href="/tags/source-code/" style="font-size: 15px;">source code</a> <a href="/tags/typescript/" style="font-size: 10px;">typescript</a> <a href="/tags/v-for/" style="font-size: 10px;">v-for</a> <a href="/tags/vue-router/" style="font-size: 10px;">vue-router</a> <a href="/tags/vuex%E6%8E%A2%E7%A9%B6/" style="font-size: 10px;">vuex探究</a> <a href="/tags/webpack/" style="font-size: 10px;">webpack</a> <a href="/tags/%E5%89%8D%E7%AB%AF%E5%AD%98%E5%82%A8/" style="font-size: 10px;">前端存储</a> <a href="/tags/%E5%A4%8D%E4%B9%A0/" style="font-size: 20px;">复习</a> <a href="/tags/%E5%AE%9A%E6%97%B6%E5%99%A8/" style="font-size: 10px;">定时器</a> <a href="/tags/%E5%BC%80%E5%8F%91%E6%8A%80%E5%B7%A7/" style="font-size: 15px;">开发技巧</a> <a href="/tags/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/" style="font-size: 10px;">性能优化</a> <a href="/tags/%E9%83%A8%E7%BD%B2/" style="font-size: 10px;">部署</a> <a href="/tags/%E9%9A%8F%E7%AC%94%E5%86%99/" style="font-size: 10px;">随笔写</a>
     </div>
   </div>
 
@@ -209,6 +208,10 @@
       <ul>
         
           <li>
+            <a href="/2024/04/24/ReviewNote/">ReviewNote</a>
+          </li>
+        
+          <li>
             <a href="/2024/04/11/BOMNote/">BOMNote</a>
           </li>
         
@@ -222,10 +225,6 @@
         
           <li>
             <a href="/2024/04/01/JSNote/">JSNote</a>
-          </li>
-        
-          <li>
-            <a href="/2021/03/29/%E8%BF%9F%E6%9D%A5%E7%9A%84%E6%B3%A8%E6%84%8F%E7%82%B9-%E5%86%B7%E7%9F%A5%E8%AF%86/">记录：注意点&amp;冷知识</a>
           </li>
         
       </ul>

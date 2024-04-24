@@ -5,16 +5,17 @@
   
   <title>在note上添加上vue-router | 进阶</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="把note项目改造了一下，采用路由的方式单页面应用 记录一下在src下新建文件夹router在main.js中import router from &amp;#x27;.&#x2F;router&amp;#x27;import Vue from &amp;#x27;vue&amp;#x27;Vue.use(router)new Vue(&amp;#123;	router&amp;#125;) 之前的写法import router from &#39;.&#x2F;">
+  <meta name="description" content="把note项目改造了一下，采用路由的方式单页面应用 记录一下 在src下新建文件夹router, &#x2F;&#x2F; main.jsimport router from &amp;#x27;.&#x2F;router&amp;#x27;import Vue from &amp;#x27;vue&amp;#x27;Vue.use(router)new Vue(&amp;#123;router&amp;#125;) 之前的写法 import router from &amp;#x">
 <meta property="og:type" content="article">
 <meta property="og:title" content="在note上添加上vue-router">
 <meta property="og:url" content="http://karencxx.github.io/2017/12/13/vue-router/index.html">
 <meta property="og:site_name" content="进阶">
-<meta property="og:description" content="把note项目改造了一下，采用路由的方式单页面应用 记录一下在src下新建文件夹router在main.js中import router from &amp;#x27;.&#x2F;router&amp;#x27;import Vue from &amp;#x27;vue&amp;#x27;Vue.use(router)new Vue(&amp;#123;	router&amp;#125;) 之前的写法import router from &#39;.&#x2F;">
+<meta property="og:description" content="把note项目改造了一下，采用路由的方式单页面应用 记录一下 在src下新建文件夹router, &#x2F;&#x2F; main.jsimport router from &amp;#x27;.&#x2F;router&amp;#x27;import Vue from &amp;#x27;vue&amp;#x27;Vue.use(router)new Vue(&amp;#123;router&amp;#125;) 之前的写法 import router from &amp;#x">
 <meta property="og:locale">
 <meta property="article:published_time" content="2017-12-13T07:18:24.000Z">
-<meta property="article:modified_time" content="2017-12-14T03:26:12.000Z">
+<meta property="article:modified_time" content="2024-04-23T12:04:54.141Z">
 <meta property="article:author" content="karen">
+<meta property="article:tag" content="vue-router">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternate" href="/atom.xml" title="进阶" type="application/atom+xml">
@@ -72,6 +73,10 @@
   <time datetime="2017-12-13T07:18:24.000Z" itemprop="datePublished">2017-12-13</time>
 </a>
     
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/vue/">vue</a>
+  </div>
+
   </div>
   <div class="article-inner">
     
@@ -89,56 +94,31 @@
     <div class="article-entry" itemprop="articleBody">
       
         <p>把note项目改造了一下，采用路由的方式<br>单页面应用</p>
-<h3 id="记录一下"><a href="#记录一下" class="headerlink" title="记录一下"></a>记录一下</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">在src下新建文件夹router</span><br><span class="line"></span><br><span class="line">在main.js中</span><br><span class="line">import router from <span class="string">&#x27;./router&#x27;</span></span><br><span class="line">import Vue from <span class="string">&#x27;vue&#x27;</span></span><br><span class="line"></span><br><span class="line">Vue.use(router)</span><br><span class="line"></span><br><span class="line">new Vue(&#123;</span><br><span class="line">	router</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-<h3 id="之前的写法"><a href="#之前的写法" class="headerlink" title="之前的写法"></a>之前的写法</h3><pre><code>import router from &#39;./router&#39;
-import Vue from &#39;vue&#39;
-
-Vue.use(router)
-
-new Vue(&#123;
-    store, //vuex
-    el: &#39;#app&#39;,
-    router,
-    template: &#39;&lt;App/&gt;&#39;,
-    components: &#123; App &#125; //import App from &#39;./App&#39;
-&#125;)
-</code></pre>
-<h3 id="现在的写法"><a href="#现在的写法" class="headerlink" title="现在的写法"></a>现在的写法</h3><pre><code>new Vue(&#123;
-    store, //vuex
-    el: &#39;#app&#39;,
-    router,
-    ...App
-&#125;)
-</code></pre>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">app.vue</span><br><span class="line"></span><br><span class="line">&lt;router-view&gt;&lt;/router-view&gt;</span><br></pre></td></tr></table></figure>
-<h3 id="路由文件-router-index-js"><a href="#路由文件-router-index-js" class="headerlink" title="路由文件 router/index.js"></a>路由文件 router/index.js</h3><pre><code>import Router from &#39;vue-router&#39;
-import Index from &#39;@/views/Index&#39;
-
-Vue.use(Router)
-
-export default new Router(&#123;
-    routes: [
-    &#123;
-        path: &#39;/index&#39;,
-        name: &#39;index&#39;,
-        component: Index
-    &#125;,&#123;
-        
-    &#125;]
-&#125;)
-</code></pre>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">配置完router后，发现url为 http://localhost:8080/<span class="comment">#/</span></span><br><span class="line">在此就要了解一下 vue-router 是默认<span class="built_in">hash</span>模式的，</span><br><span class="line">也就是说当url改变时，页面不会重新加载，相当于锚点跳转</span><br><span class="line">如果不想要这种<span class="built_in">hash</span>模式，可以采用history.pushState API完成跳转</span><br></pre></td></tr></table></figure>
-<h3 id="vue2-0-路由选择-Modes"><a href="#vue2-0-路由选择-Modes" class="headerlink" title="vue2.0 路由选择 Modes"></a>vue2.0 路由选择 Modes</h3><pre><code><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">new Router(&#123;</span><br><span class="line">	<span class="built_in">history</span>: <span class="literal">true</span>,</span><br><span class="line">	routes:[]</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-</code></pre>
-<h3 id="但需要注意的是，这种情况需要后端的支持，比如locahost-8080-login-id这种就会找不到"><a href="#但需要注意的是，这种情况需要后端的支持，比如locahost-8080-login-id这种就会找不到" class="headerlink" title="但需要注意的是，这种情况需要后端的支持，比如locahost:8080/login/:id这种就会找不到"></a>但需要注意的是，这种情况需要后端的支持，比如locahost:8080/login/:id这种就会找不到</h3><pre><code>暂时处理方法可以是 定义一个routes * 当所有找不到的path时 都指向404.vue
-</code></pre>
+<p><strong>记录一下</strong></p>
+<p>在src下新建文件夹router,</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// main.js</span></span><br><span class="line"><span class="keyword">import</span> router <span class="keyword">from</span> <span class="string">&#x27;./router&#x27;</span></span><br><span class="line"><span class="keyword">import</span> Vue <span class="keyword">from</span> <span class="string">&#x27;vue&#x27;</span></span><br><span class="line"></span><br><span class="line">Vue.use(router)</span><br><span class="line"></span><br><span class="line"><span class="keyword">new</span> Vue(&#123;</span><br><span class="line">router</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p><strong>之前的写法</strong></p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> router <span class="keyword">from</span> <span class="string">&#x27;./router&#x27;</span></span><br><span class="line"><span class="keyword">import</span> Vue <span class="keyword">from</span> <span class="string">&#x27;vue&#x27;</span></span><br><span class="line"></span><br><span class="line">Vue.use(router)</span><br><span class="line"></span><br><span class="line"><span class="keyword">new</span> Vue(&#123;</span><br><span class="line">	store, <span class="comment">//vuex</span></span><br><span class="line">	el: <span class="string">&#x27;#app&#x27;</span>,</span><br><span class="line">	router,</span><br><span class="line">	template: <span class="string">&#x27;&lt;App/&gt;&#x27;</span>,</span><br><span class="line">	components: &#123; App &#125; <span class="comment">//import App from &#x27;./App&#x27;</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p><strong>现在的写法</strong></p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">new</span> Vue(&#123;</span><br><span class="line">	store, <span class="comment">//vuex</span></span><br><span class="line">	el: <span class="string">&#x27;#app&#x27;</span>,</span><br><span class="line">	router,</span><br><span class="line">	...App</span><br><span class="line">&#125;)</span><br><span class="line">&lt;!-- app.vue --&gt;</span><br><span class="line">&lt;router-view&gt;&lt;/router-view&gt;</span><br></pre></td></tr></table></figure>
+<p><strong>路由文件 router/index.js</strong></p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> Router <span class="keyword">from</span> <span class="string">&#x27;vue-router&#x27;</span></span><br><span class="line"><span class="keyword">import</span> Index <span class="keyword">from</span> <span class="string">&#x27;@/views/Index&#x27;</span></span><br><span class="line"></span><br><span class="line">Vue.use(Router)</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">new</span> Router(&#123;</span><br><span class="line">	routes: [</span><br><span class="line">	&#123;</span><br><span class="line">		path: <span class="string">&#x27;/index&#x27;</span>,</span><br><span class="line">		name: <span class="string">&#x27;index&#x27;</span>,</span><br><span class="line">		component: Index</span><br><span class="line">	&#125;,&#123;&#125;</span><br><span class="line">	]</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p>配置完router后，发现url为 <a target="_blank" rel="noopener" href="http://localhost:8080/#/">http://localhost:8080/#/</a><br>在此就要了解一下 vue-router 是默认hash模式的，<br>也就是说当url改变时，页面不会重新加载，相当于锚点跳转<br>如果不想要这种hash模式，可以采用 <strong>history.pushState API</strong> 完成跳转</p>
+<p><strong>vue2.0 路由选择 Modes</strong></p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">new</span> Router(&#123;</span><br><span class="line">	history: <span class="literal">true</span>,</span><br><span class="line">	routes:[]</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p><strong>⚠️但需要注意的是，这种情况需要后端的支持，比如locahost:8080/login/:id这种就会找不到</strong></p>
+<ul>
+<li>暂时处理方法可以是 定义一个routes * 当所有找不到的path时都指向 404.vue</li>
+</ul>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://karencxx.github.io/2017/12/13/vue-router/" data-id="clv3nb5fz0019dpjf3sbh3krb" class="article-share-link">Share</a>
+      <a data-url="http://karencxx.github.io/2017/12/13/vue-router/" data-id="clvdj5btn000z90fu9xjq0wd8" class="article-share-link">Share</a>
       
       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/vue-router/" rel="tag">vue-router</a></li></ul>
+
     </footer>
   </div>
   
@@ -173,7 +153,7 @@ export default new Router(&#123;
   <div class="widget-wrap">
     <h3 class="widget-title">Categories</h3>
     <div class="widget">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/js/">js</a></li></ul>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/BOM/">BOM</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/CSS/">CSS</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/JS/">JS</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/express/">express</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/snabbdom/">snabbdom</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/vue/">vue</a></li></ul>
     </div>
   </div>
 
@@ -183,7 +163,7 @@ export default new Router(&#123;
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%A4%8D%E4%B9%A0/" rel="tag">复习</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%A4%8D%E4%B9%A0-CSS/" rel="tag">复习, CSS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%B5%8F%E8%A7%88%E5%99%A8/" rel="tag">浏览器</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AF%BB%E7%82%B9%E6%BA%90%E7%A0%81/" rel="tag">读点源码</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%9A%8F%E7%AC%94%E5%86%99/" rel="tag">随笔写</a></li></ul>
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/" rel="tag">hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/js-this/" rel="tag">js-this</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/source-code/" rel="tag">source code</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/typescript/" rel="tag">typescript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/v-for/" rel="tag">v-for</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vue-router/" rel="tag">vue-router</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vuex%E6%8E%A2%E7%A9%B6/" rel="tag">vuex探究</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/webpack/" rel="tag">webpack</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%89%8D%E7%AB%AF%E5%AD%98%E5%82%A8/" rel="tag">前端存储</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%A4%8D%E4%B9%A0/" rel="tag">复习</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%AE%9A%E6%97%B6%E5%99%A8/" rel="tag">定时器</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%BC%80%E5%8F%91%E6%8A%80%E5%B7%A7/" rel="tag">开发技巧</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/" rel="tag">性能优化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%83%A8%E7%BD%B2/" rel="tag">部署</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%9A%8F%E7%AC%94%E5%86%99/" rel="tag">随笔写</a></li></ul>
     </div>
   </div>
 
@@ -193,7 +173,7 @@ export default new Router(&#123;
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/%E5%A4%8D%E4%B9%A0/" style="font-size: 20px;">复习</a> <a href="/tags/%E5%A4%8D%E4%B9%A0-CSS/" style="font-size: 10px;">复习, CSS</a> <a href="/tags/%E6%B5%8F%E8%A7%88%E5%99%A8/" style="font-size: 10px;">浏览器</a> <a href="/tags/%E8%AF%BB%E7%82%B9%E6%BA%90%E7%A0%81/" style="font-size: 10px;">读点源码</a> <a href="/tags/%E9%9A%8F%E7%AC%94%E5%86%99/" style="font-size: 10px;">随笔写</a>
+      <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/js-this/" style="font-size: 10px;">js-this</a> <a href="/tags/source-code/" style="font-size: 15px;">source code</a> <a href="/tags/typescript/" style="font-size: 10px;">typescript</a> <a href="/tags/v-for/" style="font-size: 10px;">v-for</a> <a href="/tags/vue-router/" style="font-size: 10px;">vue-router</a> <a href="/tags/vuex%E6%8E%A2%E7%A9%B6/" style="font-size: 10px;">vuex探究</a> <a href="/tags/webpack/" style="font-size: 10px;">webpack</a> <a href="/tags/%E5%89%8D%E7%AB%AF%E5%AD%98%E5%82%A8/" style="font-size: 10px;">前端存储</a> <a href="/tags/%E5%A4%8D%E4%B9%A0/" style="font-size: 20px;">复习</a> <a href="/tags/%E5%AE%9A%E6%97%B6%E5%99%A8/" style="font-size: 10px;">定时器</a> <a href="/tags/%E5%BC%80%E5%8F%91%E6%8A%80%E5%B7%A7/" style="font-size: 15px;">开发技巧</a> <a href="/tags/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/" style="font-size: 10px;">性能优化</a> <a href="/tags/%E9%83%A8%E7%BD%B2/" style="font-size: 10px;">部署</a> <a href="/tags/%E9%9A%8F%E7%AC%94%E5%86%99/" style="font-size: 10px;">随笔写</a>
     </div>
   </div>
 
@@ -215,6 +195,10 @@ export default new Router(&#123;
       <ul>
         
           <li>
+            <a href="/2024/04/24/ReviewNote/">ReviewNote</a>
+          </li>
+        
+          <li>
             <a href="/2024/04/11/BOMNote/">BOMNote</a>
           </li>
         
@@ -228,10 +212,6 @@ export default new Router(&#123;
         
           <li>
             <a href="/2024/04/01/JSNote/">JSNote</a>
-          </li>
-        
-          <li>
-            <a href="/2021/03/29/%E8%BF%9F%E6%9D%A5%E7%9A%84%E6%B3%A8%E6%84%8F%E7%82%B9-%E5%86%B7%E7%9F%A5%E8%AF%86/">记录：注意点&amp;冷知识</a>
           </li>
         
       </ul>

@@ -5,17 +5,17 @@
   
   <title>vue项目构建 | 进阶</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="###记录一下  前提: node和npm环境 安装vue-cli脚手架 npm init webpack [project name]初始化项目，整个项目是基于webpack，项目信息具体步骤如下图  或者  vue init webpack [project name] 安装项目依赖 进入项目所在文件夹，执行npm install 运行项目 npm run dev 热部署项目其中的“run”对">
+  <meta name="description" content="记录一下前提: node和npm环境 安装 vue-cli 脚手架 npm init webpack [project name] 初始化项目，整个项目是基于webpack，项目信息具体步骤如下图 或者  vue init webpack [project name] 安装项目依赖 进入项目所在文件夹，执行npm install 运行项目 npm run dev 热部署项目其中的“run”对应的是">
 <meta property="og:type" content="article">
 <meta property="og:title" content="vue项目构建">
 <meta property="og:url" content="http://karencxx.github.io/2017/11/27/vue%E9%A1%B9%E7%9B%AE%E6%9E%84%E5%BB%BA/index.html">
 <meta property="og:site_name" content="进阶">
-<meta property="og:description" content="###记录一下  前提: node和npm环境 安装vue-cli脚手架 npm init webpack [project name]初始化项目，整个项目是基于webpack，项目信息具体步骤如下图  或者  vue init webpack [project name] 安装项目依赖 进入项目所在文件夹，执行npm install 运行项目 npm run dev 热部署项目其中的“run”对">
+<meta property="og:description" content="记录一下前提: node和npm环境 安装 vue-cli 脚手架 npm init webpack [project name] 初始化项目，整个项目是基于webpack，项目信息具体步骤如下图 或者  vue init webpack [project name] 安装项目依赖 进入项目所在文件夹，执行npm install 运行项目 npm run dev 热部署项目其中的“run”对应的是">
 <meta property="og:locale">
 <meta property="og:image" content="http://karencxx.github.io/img/vue-init.png">
 <meta property="og:image" content="http://karencxx.github.io/img/vue-structure.png">
 <meta property="article:published_time" content="2017-11-27T06:15:37.000Z">
-<meta property="article:modified_time" content="2017-12-21T09:37:09.000Z">
+<meta property="article:modified_time" content="2024-04-23T11:49:34.990Z">
 <meta property="article:author" content="karen">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http://karencxx.github.io/img/vue-init.png">
@@ -75,6 +75,10 @@
   <time datetime="2017-11-27T06:15:37.000Z" itemprop="datePublished">2017-11-27</time>
 </a>
     
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/vue/">vue</a>
+  </div>
+
   </div>
   <div class="article-inner">
     
@@ -91,24 +95,22 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>###记录一下</p>
-<hr>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">前提: node和npm环境</span><br></pre></td></tr></table></figure>
-<p>安装vue-cli脚手架</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">npm init webpack [project name]</span><br><span class="line">初始化项目，整个项目是基于webpack，项目信息具体步骤如下图</span><br></pre></td></tr></table></figure>
-<p><img src="/img/vue-init.png" alt="vue init project"></p>
+        <h3 id="记录一下"><a href="#记录一下" class="headerlink" title="记录一下"></a>记录一下</h3><p><strong>前提: node和npm环境</strong></p>
+<p>安装 vue-cli 脚手架</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">npm init webpack [project name]</span><br></pre></td></tr></table></figure>
+<p>初始化项目，整个项目是基于webpack，项目信息具体步骤如下图<br><img src="/img/vue-init.png" alt="vue init project"></p>
 <p>或者 </p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">vue init webpack [project name]</span><br></pre></td></tr></table></figure>
 <p>安装项目依赖</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">进入项目所在文件夹，执行npm install</span><br></pre></td></tr></table></figure>
 <p>运行项目</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">npm run dev 热部署项目</span><br><span class="line"></span><br><span class="line">其中的“run”对应的是package.json文件中，scripts字段中的dev，也就是 node build/dev-server.js命令的一个快捷方式。</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">npm run dev 热部署项目</span><br><span class="line">其中的“run”对应的是package.json文件中，scripts字段中的dev，也就是 node build/dev-server.js命令的一个快捷方式。</span><br></pre></td></tr></table></figure>
 <p>项目文件结构<br><img src="/img/vue-structure.png" alt="vue project structure"></p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://karencxx.github.io/2017/11/27/vue%E9%A1%B9%E7%9B%AE%E6%9E%84%E5%BB%BA/" data-id="clv3nb5fk000vdpjf1po8bht2" class="article-share-link">Share</a>
+      <a data-url="http://karencxx.github.io/2017/11/27/vue%E9%A1%B9%E7%9B%AE%E6%9E%84%E5%BB%BA/" data-id="clvdj5btt001790fu2i687x1d" class="article-share-link">Share</a>
       
       
     </footer>
@@ -127,7 +129,7 @@
     </a>
   
   
-    <a href="/2017/11/23/1123-2/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2017/11/23/Express/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Older</strong>
       <div class="article-nav-title">Express</div>
     </a>
@@ -145,7 +147,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Categories</h3>
     <div class="widget">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/js/">js</a></li></ul>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/BOM/">BOM</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/CSS/">CSS</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/JS/">JS</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/express/">express</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/snabbdom/">snabbdom</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/vue/">vue</a></li></ul>
     </div>
   </div>
 
@@ -155,7 +157,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%A4%8D%E4%B9%A0/" rel="tag">复习</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%A4%8D%E4%B9%A0-CSS/" rel="tag">复习, CSS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%B5%8F%E8%A7%88%E5%99%A8/" rel="tag">浏览器</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AF%BB%E7%82%B9%E6%BA%90%E7%A0%81/" rel="tag">读点源码</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%9A%8F%E7%AC%94%E5%86%99/" rel="tag">随笔写</a></li></ul>
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/" rel="tag">hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/js-this/" rel="tag">js-this</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/source-code/" rel="tag">source code</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/typescript/" rel="tag">typescript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/v-for/" rel="tag">v-for</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vue-router/" rel="tag">vue-router</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vuex%E6%8E%A2%E7%A9%B6/" rel="tag">vuex探究</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/webpack/" rel="tag">webpack</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%89%8D%E7%AB%AF%E5%AD%98%E5%82%A8/" rel="tag">前端存储</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%A4%8D%E4%B9%A0/" rel="tag">复习</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%AE%9A%E6%97%B6%E5%99%A8/" rel="tag">定时器</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%BC%80%E5%8F%91%E6%8A%80%E5%B7%A7/" rel="tag">开发技巧</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/" rel="tag">性能优化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%83%A8%E7%BD%B2/" rel="tag">部署</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%9A%8F%E7%AC%94%E5%86%99/" rel="tag">随笔写</a></li></ul>
     </div>
   </div>
 
@@ -165,7 +167,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/%E5%A4%8D%E4%B9%A0/" style="font-size: 20px;">复习</a> <a href="/tags/%E5%A4%8D%E4%B9%A0-CSS/" style="font-size: 10px;">复习, CSS</a> <a href="/tags/%E6%B5%8F%E8%A7%88%E5%99%A8/" style="font-size: 10px;">浏览器</a> <a href="/tags/%E8%AF%BB%E7%82%B9%E6%BA%90%E7%A0%81/" style="font-size: 10px;">读点源码</a> <a href="/tags/%E9%9A%8F%E7%AC%94%E5%86%99/" style="font-size: 10px;">随笔写</a>
+      <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/js-this/" style="font-size: 10px;">js-this</a> <a href="/tags/source-code/" style="font-size: 15px;">source code</a> <a href="/tags/typescript/" style="font-size: 10px;">typescript</a> <a href="/tags/v-for/" style="font-size: 10px;">v-for</a> <a href="/tags/vue-router/" style="font-size: 10px;">vue-router</a> <a href="/tags/vuex%E6%8E%A2%E7%A9%B6/" style="font-size: 10px;">vuex探究</a> <a href="/tags/webpack/" style="font-size: 10px;">webpack</a> <a href="/tags/%E5%89%8D%E7%AB%AF%E5%AD%98%E5%82%A8/" style="font-size: 10px;">前端存储</a> <a href="/tags/%E5%A4%8D%E4%B9%A0/" style="font-size: 20px;">复习</a> <a href="/tags/%E5%AE%9A%E6%97%B6%E5%99%A8/" style="font-size: 10px;">定时器</a> <a href="/tags/%E5%BC%80%E5%8F%91%E6%8A%80%E5%B7%A7/" style="font-size: 15px;">开发技巧</a> <a href="/tags/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/" style="font-size: 10px;">性能优化</a> <a href="/tags/%E9%83%A8%E7%BD%B2/" style="font-size: 10px;">部署</a> <a href="/tags/%E9%9A%8F%E7%AC%94%E5%86%99/" style="font-size: 10px;">随笔写</a>
     </div>
   </div>
 
@@ -187,6 +189,10 @@
       <ul>
         
           <li>
+            <a href="/2024/04/24/ReviewNote/">ReviewNote</a>
+          </li>
+        
+          <li>
             <a href="/2024/04/11/BOMNote/">BOMNote</a>
           </li>
         
@@ -200,10 +206,6 @@
         
           <li>
             <a href="/2024/04/01/JSNote/">JSNote</a>
-          </li>
-        
-          <li>
-            <a href="/2021/03/29/%E8%BF%9F%E6%9D%A5%E7%9A%84%E6%B3%A8%E6%84%8F%E7%82%B9-%E5%86%B7%E7%9F%A5%E8%AF%86/">记录：注意点&amp;冷知识</a>
           </li>
         
       </ul>

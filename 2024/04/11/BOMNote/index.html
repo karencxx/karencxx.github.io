@@ -5,16 +5,16 @@
   
   <title>BOMNote | 进阶</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="开始前，可以先看以下几篇  js运行机制 跨域 前端存储总结 JS内存管理   计算机  CPU(central processing unit) 中央处理器dd GPU(graphics processing unit) 图形处理器  体系结构  底部：机器硬件 中间：机器硬件 顶部：应用程序   浏览器架构  用户界面UI，包括浏览器地址栏、工具栏等可见部分。主要与用户进行交互，接受用户输入并">
+  <meta name="description" content="开始前，可以先看以下几篇  js运行机制 跨域 前端存储总结 JS内存管理   计算机  CPU(central processing unit) 中央处理器dd GPU(graphics processing unit) 图形处理器  体系结构  底部：机器硬件 中间：机器硬件 顶部：应用程序   BOM  核心对象：window，表示浏览器的一个实例，是ECMAScript规定的Global对">
 <meta property="og:type" content="article">
 <meta property="og:title" content="BOMNote">
 <meta property="og:url" content="http://karencxx.github.io/2024/04/11/BOMNote/index.html">
 <meta property="og:site_name" content="进阶">
-<meta property="og:description" content="开始前，可以先看以下几篇  js运行机制 跨域 前端存储总结 JS内存管理   计算机  CPU(central processing unit) 中央处理器dd GPU(graphics processing unit) 图形处理器  体系结构  底部：机器硬件 中间：机器硬件 顶部：应用程序   浏览器架构  用户界面UI，包括浏览器地址栏、工具栏等可见部分。主要与用户进行交互，接受用户输入并">
+<meta property="og:description" content="开始前，可以先看以下几篇  js运行机制 跨域 前端存储总结 JS内存管理   计算机  CPU(central processing unit) 中央处理器dd GPU(graphics processing unit) 图形处理器  体系结构  底部：机器硬件 中间：机器硬件 顶部：应用程序   BOM  核心对象：window，表示浏览器的一个实例，是ECMAScript规定的Global对">
 <meta property="og:locale">
 <meta property="og:image" content="http://karencxx.github.io/img/RendererProcess.jpeg">
 <meta property="article:published_time" content="2024-04-11T13:28:04.000Z">
-<meta property="article:modified_time" content="2024-04-17T08:28:47.448Z">
+<meta property="article:modified_time" content="2024-04-24T07:57:39.400Z">
 <meta property="article:author" content="karen">
 <meta property="article:tag" content="复习">
 <meta name="twitter:card" content="summary">
@@ -111,6 +111,57 @@
 <li>顶部：应用程序</li>
 </ul>
 <blockquote>
+<h3 id="BOM"><a href="#BOM" class="headerlink" title="BOM"></a>BOM</h3></blockquote>
+<ul>
+<li>核心对象：window，表示浏览器的一个实例，是ECMAScript规定的Global对象</li>
+<li>在全局作用域中声明的变量、函数都会变成window对象的属性和方法</li>
+<li>全局变量不能被delete删除，定义在window上的属性可以被delete</li>
+<li>通过查询window对象，可知道某个未声明的变量是否存在</li>
+</ul>
+<hr>
+<p><strong>框架&lt;frames&gt;&lt;/frames&gt;</strong></p>
+<ul>
+<li>每个框架都有自己的window对象，存在frames集合中</li>
+<li>确定窗口位置 screenLeft / screenTop / moveTo() / moveBy()</li>
+<li>窗口大小 innerHeight / innerWidth / outerWidth / outerHeight<ul>
+<li>不同浏览器会有区别 inner返回视图区大小，outer可能返回浏览器窗口本身大小</li>
+<li>document.(documentElement / body).clientWidth / clientHeight</li>
+</ul>
+</li>
+<li>调整浏览器窗口大小 resizeTo() resizeBy()</li>
+<li>对话框 alert() confirm() prompt()</li>
+</ul>
+<hr>
+<p><strong>导航</strong></p>
+<ul>
+<li>window.open(URL，窗口目标，一个特性字符串，是否取代浏览器当前页布尔值)<ul>
+<li>例：URL，_self / _blank，’height=400,width=400’</li>
+</ul>
+</li>
+<li>var wroxwin = window.open(…)，通过wroxwin == null判断窗口是否</li>
+</ul>
+<hr>
+<p><strong>location</strong></p>
+<ul>
+<li>location.search / host / hash / href / pathname / port / hostname</li>
+<li>location.assign() 打开新URL并生成一条记录</li>
+<li>location.replace() 替换当前页面，不会生成新记录，不能回到前一个页面</li>
+<li>location.reload() 重新加载（可能从缓存中） 传入true表示从服务器重新加载</li>
+</ul>
+<hr>
+<p><strong>screen对象</strong></p>
+<ul>
+<li>窗口外部显示器信息 screen.height / width</li>
+</ul>
+<hr>
+<p><strong>history</strong></p>
+<ul>
+<li>history.go(整数值) 负数表示后退，正数表示前进</li>
+<li>history.back() history.forward()</li>
+</ul>
+<p><strong>navigator，检测显示网页的浏览器类型</strong></p>
+<hr>
+<blockquote>
 <h3 id="浏览器架构"><a href="#浏览器架构" class="headerlink" title="浏览器架构"></a>浏览器架构</h3></blockquote>
 <ul>
 <li><p>用户界面UI，包括浏览器地址栏、工具栏等可见部分。主要与用户进行交互，接受用户输入并展示信息。</p>
@@ -133,7 +184,7 @@
 <blockquote>
 <p>浏览器多进程架构的好处</p>
 </blockquote>
-<p><u>都由独立的渲染器进程运行，相互不干扰</u><br>安全性增强 / 稳定性提高 / 隐私保护 / 性能优化 / 资源管理</p>
+<p><u>都由独立的渲染器进程运行，相互不干扰</u><br>安全性增强 / 稳定性提高 / 隐私保护 / 性能有所优化 / 资源管理</p>
 <blockquote>
 <h3 id="重排重绘"><a href="#重排重绘" class="headerlink" title="重排重绘"></a>重排重绘</h3></blockquote>
 <p><strong>repaint 重绘</strong><br>当元素样式改变不影响布局时，浏览器将使用重绘对元素进行更新，此时只需要UI层面的重新绘制，<strong>损耗较少</strong></p>
@@ -166,31 +217,33 @@
 </ul>
 <blockquote>
 <h3 id="在浏览器中输入URL到展示的过程"><a href="#在浏览器中输入URL到展示的过程" class="headerlink" title="在浏览器中输入URL到展示的过程"></a>在浏览器中输入URL到展示的过程</h3></blockquote>
-<p>可以大致描述为：<br>输入URL - 发起URL请求（DNS解析、建立TCP连接、发送请求、服务端处理请求并发送响应）- 浏览器接受响应 - 渲染页面</p>
+<p>可以大致描述为：<br>输入URL - 发起URL请求（DNS解析、建立TCP连接、发送请求、服务端处理请求并发送响应）- 浏览器接收响应 - 渲染页面</p>
 <p>这一过程共涉及到3个进程，分别是浏览器进程、网络进程和渲染进程</p>
 <hr>
 <ol>
 <li>处理输入，当在地址栏输入内容时，地址栏先判断是搜索查询还是请求URL，如果是搜索内容，会发送到搜索引擎合成新的带搜索关键字的URL。如果是域名会加上协议（如https）合成完整的url。</li>
-<li>点击回车后，浏览器进程通过IPC把URL传给网络进程，网络进程获取到URL先去找缓存中是否有缓存资源，如果有就拦截请求直接返回资源。<br>没有则进行网络请求DNS返回域名对应的IP地址和端口号。</li>
+<li>点击回车后，浏览器进程通过IPC把URL传给网络进程，网络进程获取到URL先去找缓存中是否有缓存资源，如果有就拦截请求直接返回资源。没有则请求DNS返回域名对应的IP地址和端口号。</li>
 <li>建立TCP连接，连接建立后浏览器端构建请求行、请求头、请求正文等数据包，向服务器发送请求</li>
 <li>服务端收到请求信息后处理构建响应数据发送回浏览器的网络进程（这一步后断开TCP连接）</li>
-<li>网络进程接收到响应数据后进行解析，比如检查状态码、响应处理</li>
-<li>UI线程通知渲染进程开始渲染页面<ol>
+<li>网络进程接收到响应数据后进行解析，比如检查状态码、响应处理（重定向在这一步发生，获取URL重新来过）</li>
+<li>UI线程通知渲染进程开始渲染页面，渲染过程：<ol>
 <li>解析HTML转换为DOM树（就算编写错误也会被HTML规范优雅地处理掉）</li>
-<li>加载子资源，包括图像、CSS和JS等外部资源(script标签会暂停HTMl文档的解析，还必须加载、解析和执行JS代码后再恢复HTMl文档的解析)</li>
-<li>解析CSS构建CSSOM树（CSS对象模型）并确定每个dom节点的计算样式</li>
+<li>加载子资源，包括图像、CSS和JS等外部资源<ul>
+<li>script标签会暂停HTMl文档的解析，必须加载、解析和执行JS代码后再恢复HTMl文档的解析</li>
+</ul>
+</li>
+<li>解析CSS创建CSSOM树（CSS对象模型）并确定每个dom节点的计算样式</li>
 <li>主线程遍历DOM树和CSSOM树创建布局树</li>
 <li>主线程遍历布局树来创建绘制记录和图层树（绘制记录有点像canvas规定了先画什么）</li>
 <li>确定绘制顺序后，开始合成显示在屏幕上<br><img src="/img/RendererProcess.jpeg" alt="图1"></li>
 </ol>
 </li>
-<li>提交导航，浏览器重新界面更新状态，包括地址栏、浏览器历史记录、网络安全状态等</li>
+<li>提交导航，更新浏览器界面状态，包括地址栏、浏览器历史记录、网络安全状态等</li>
 </ol>
 <hr>
 <ul>
 <li><strong>beforeunload方法</strong><ul>
-<li>如果导航是从渲染器进程启动的，比如用户单击链接或JS运行window.location，则渲染器进程首先检查beforeunload处理程序。</li>
-<li>然后进行与浏览器进程启动导航相同的步骤。</li>
+<li>如果导航是从渲染器进程启动的，比如用户单击链接或JS运行window.location，则渲染器进程首先检查beforeunload处理程序。然后进行与浏览器进程启动导航相同的步骤。</li>
 </ul>
 </li>
 <li>TCP建立连接，<strong>客户端和服务端通过3次握手来确保双方能正确识别对方序列号，从而实现可靠的通信</strong><ul>
@@ -201,7 +254,7 @@
 <li>客户端接收上述包后，发送ack包确认服务器序列号也发送自己的序列号，表示连接已建立</li>
 </ul>
 </li>
-<li>关闭TCP连接中，<strong>通过4次确保连接正常终止，避免数据丢失或不完整的情况</strong><ul>
+<li>关闭TCP连接，<strong>通过4次挥手确保连接正常终止，避免数据丢失或不完整的情况</strong><ul>
 <li>客户端发送FIN包，表示完成数据发送并不再需要连接（这个包中也包含了一个序列号）</li>
 <li>服务端回复ACK包确认收到客户端的FIN包</li>
 <li>服务端发送FIN包表示准备好关闭连接了（同样也包含了一个序列号）</li>
@@ -226,12 +279,9 @@
 <blockquote>
 <h3 id="事件循环机制Event-Loop"><a href="#事件循环机制Event-Loop" class="headerlink" title="事件循环机制Event Loop"></a>事件循环机制Event Loop</h3></blockquote>
 <p><strong>用于管理和调度JS代码的执行顺序</strong></p>
-<hr>
-<p>执行一个宏任务 -&gt; 执行所有微任务 -&gt; 渲染页面 -&gt; 检查是否需要重新渲染 -&gt; 重复执行上述步骤，直到所有队列都为空</p>
-<hr>
+<figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">执行一个宏任务 -&gt; 执行所有微任务 -&gt; 渲染页面 -&gt; 检查是否需要重新渲染 -&gt; 重复执行上述步骤，直到所有队列都为空</span><br></pre></td></tr></table></figure>
 <ul>
-<li><p><strong>宏任务 macrotask 也被称为task</strong></p>
-<ul>
+<li><strong>宏任务 macrotask 也被称为task</strong><ul>
 <li>主代码块（用户交互事件：点击、滚动等）</li>
 <li>定时器（setTimeout、setInterval）</li>
 <li>解析DOM</li>
@@ -240,21 +290,14 @@
 <li>UI渲染</li>
 </ul>
 </li>
-<li><p><strong>微任务 microtask 也被称为jobs</strong></p>
-<ul>
-<li>promise回调函数 .then() </li>
+<li><strong>微任务 microtask 也被称为jobs</strong><ul>
+<li>promise回调函数 .then(..) </li>
 <li>catch / finally</li>
 <li>Object.observe</li>
 </ul>
-<blockquote>
-<p>new Promise(() =&gt; {}).then()</p>
-</blockquote>
-<ul>
-<li>new Promise(() =&gt; {}) 是一个构造函数，是同步任务</li>
-<li>.then()是异步微任务</li>
-</ul>
 </li>
 </ul>
+<figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">new Promise(() =&gt; &#123;&#125;).then()</span><br><span class="line"><span class="bullet">*</span> new Promise(() =&gt; &#123;&#125;) 是一个 构造函数，是 同步任务</span><br><span class="line"><span class="bullet">*</span> 而.then()是 异步微任务</span><br></pre></td></tr></table></figure>
 <blockquote>
 <h3 id="安全性"><a href="#安全性" class="headerlink" title="安全性"></a>安全性</h3></blockquote>
 <ul>
@@ -302,30 +345,12 @@
 <hr>
 <p><strong>Web Storage，在客户端保存键值对数据，限制为4～5MB</strong></p>
 <ul>
-<li><p>LocalStorage，在浏览器关闭后仍然保存，直到手动删除。使用方便</p>
-</li>
-<li><p>SessionStorage，在当前会话结束时被清除</p>
-</li>
-<li><p>需要手动获取放到请求中，可以避免CSRF攻击</p>
-</li>
-<li><p>仅能存储字符串类型的数据，不支持复杂数据类型。</p>
-<ul>
-<li>大概是考虑到各种安全问题，还得让各个浏览器统一意见，可能还是为了简化实现</li>
-<li>使用 JSON.stringify() 配合 JSON.parse() 解决<ul>
-<li>无法正确转换JS部分属性，无法转换循环引用的对象</li>
-<li>undefined, Function, RegExp（转换后变成了空对象）, Date(转换后变成了字符串)</li>
-<li>Function 比较特殊，可以先调用 .toString() 转换为字符串储存，需要时再 eval 转回来</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p>存储在客户端，存在一定安全风险</p>
-</li>
-<li><p>不适用<u>大量数据</u>和<u>复杂数据</u>的存储</p>
+<li>LocalStorage，在浏览器关闭后仍然保存，直到手动删除。使用方便</li>
+<li>SessionStorage，在当前会话结束时即被清除<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">需要手动获取放到请求中，可以避免CSRF攻击</span><br><span class="line">仅能存储字符串类型的数据，不支持复杂数据类型。</span><br><span class="line">  * 大概是考虑到各种安全问题，还得让各个浏览器统一意见，可能还是为了简化实现</span><br><span class="line">  * 使用 JSON.stringify() 配合 JSON.parse() 解决</span><br><span class="line">    * 无法正确转换JS部分属性，无法转换循环引用的对象</span><br><span class="line">    * undefined, Function, RegExp（转换后变成了空对象）, Date(转换后变成了字符串)</span><br><span class="line">    * Function 比较特殊，可以先调用 .toString() 转换为字符串储存，需要时再 eval 转回来</span><br><span class="line">存储在客户端，存在一定安全风险</span><br><span class="line">不适用大量数据和复杂数据的存储</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
 <hr>
-<p><strong>IndexedDB，一种高级的客户端存储技术，允许在浏览器中存储大量结构化数据，并支持查询</strong></p>
+<p><strong>IndexedDB，一种高级的客户端存储技术，允许在浏览器中存储大量结构化数据并支持查询</strong></p>
 <ul>
 <li>存储容量大，支持事务，可高效地处理大量数据</li>
 <li>API相对复杂，不同浏览器兼容性不同</li>
@@ -333,7 +358,8 @@
 <hr>
 <p><strong>Cache Storage，浏览器提供的一种缓存机制</strong></p>
 <ul>
-<li>用于存储<u>请求过的资源</u>，如CSS、JS、图片等，提高页面加载速度，减少网络请求，提升用户体验</li>
+<li>用于存储<u>请求过的资源</u>，如CSS、JS、图片等</li>
+<li>提高页面加载速度，减少网络请求，提升用户体验</li>
 </ul>
 <blockquote>
 <h3 id="性能优化"><a href="#性能优化" class="headerlink" title="性能优化"></a>性能优化</h3></blockquote>
@@ -342,7 +368,7 @@
 <li>使用局部变量来提高访问速度</li>
 <li>避免使用eval函数，因为它会影响性能</li>
 <li>使用事件委托来减少事件处理程序的数量</li>
-<li>减少DOM操作次数，避免频繁的重绘和重排；使用批量更新</li>
+<li>减少DOM操作次数，避免频繁的重绘和重排；可使用批量更新</li>
 <li>使用合适的数据结构和算法</li>
 <li>使用异步加载来延迟不必要的资源加载</li>
 <li>缓存重复的计算结果</li>
@@ -352,7 +378,7 @@
 <h3 id="跨域"><a href="#跨域" class="headerlink" title="跨域"></a>跨域</h3></blockquote>
 <p>是浏览器基于同源策略的一种安全手段，是对安全性做的限制</p>
 <p><u>同源策略： 是一种约定，用于隔离潜在恶意文件的安全机制，通常不允许不同源之间的读操作</u></p>
-<p><strong>同源三要素：协议protocol / 主机host / 端口port 三者相同</strong><br><strong>非同源的请求就会产生跨域</strong></p>
+<p><strong>同源三要素：协议protocol / 主机host / 端口port 相同</strong><br><strong>非同源的请求就会产生跨域</strong></p>
 <p>常见于以下场景：</p>
 <ul>
 <li>ajax跨域请求</li>
@@ -368,26 +394,26 @@
 </li>
 <li>CORS（Cross-Origin Resource Sharing）服务端设置响应头Access-Control-Allow-Origin: * | <code>&lt;origin&gt;</code>，允许指定的域名访问资源<ul>
 <li>支持所有请求方法，但兼容性比JSONP差</li>
-<li>实现关键是服务端</li>
+<li>实现关键在服务端</li>
 </ul>
 </li>
 <li>代理服务器，在服务端设置代理服务器，由代理服务器转发请求，实现跨域访问。（node中间件）</li>
 <li>反向代理，将需要访问的资源部署在同一域名下，通过反向代理将请求转发到真实的资源地址。（Nginx）<ul>
-<li>node中间件和Nginx反向代理都利用了服务器对服务器无同源策略</li>
+<li>node中间件和Nginx反向代理都利用了<strong>服务器对服务器无同源策略</strong></li>
 </ul>
 </li>
 <li>iframe嵌套通信，document.domain + iframe / window.name + iframe / location.hash + iframe</li>
-<li>基于OPTIONS方法进行过滤，发送一个预检请求到服务器，是否允许该实际请求</li>
-<li>postMessage，HTML5 XMLHttpRequest Level 2中的API，可以实现跨文档通信</li>
-<li>webSocket，是HTML5的一个持久化协议，不受同源策略限制，可以建立跨域连接，可与postMessage配合使用。它是一个长连接long poll</li>
+<li>基于OPTIONS方法进行过滤，发送一个预检请求到服务器，是否允许其实际请求</li>
+<li>postMessage，是HTML5 XMLHttpRequest Level 2中的API，可以实现跨文档通信</li>
+<li>webSocket，是HTML5的一个持久化协议，不受同源策略限制，可以建立跨域连接，可与postMessage配合使用。是一个长连接long poll</li>
 </ol>
 <p>代理服务器 与 反向代理服务器 区别：</p>
 <ol>
 <li>代理服务器位于客户端和原始服务端间，而反向代理服务器位于客户端和多个原始服务器间</li>
-<li>代理服务器主要用于隐藏客户端的真实 IP 地址、提高访问速度、过滤内容等</li>
+<li>代理服务器主要用于隐藏客户端的真实IP地址、提高访问速度、过滤内容等</li>
 <li>反向代理服务器主要用于负载均衡、安全性、隐藏服务器架构等方面</li>
-<li>代理服务器的配置由客户端控制，客户端需要手动配置代理服务器的地址和端口</li>
-<li>反向代理服务器的配置由服务端控制，客户端无需感知或配置反向代理服务器的存在</li>
+<li>代理服务器的配置由客户端控制，需手动配置代理服务器的地址和端口</li>
+<li>反向代理服务器的配置由服务端控制，客户端无需感知反向代理服务器的存在</li>
 </ol>
 <p>实际应用中，反向代理服务器更为常见。<br>特别是在构建高可用性、高性能的Web应用时。<br>通过反向代理，可以将请求分发给不同的服务器，实现负载均衡和故障转移；<br>同时，反向代理也可以用于缓存静态内容，提高访问速度；<br>此外，反向代理还可以作为防火墙，过滤恶意请求，增强系统的安全性。</p>
 <blockquote>
@@ -402,14 +428,16 @@
 </li>
 <li><p>IO Poll 存储I/O操作的回调函数队列，例如文件读写操作</p>
 <ul>
-<li>如果事件队列中无回调函数，但Check阶段或Timers队列中有需执行的回调函数<br>  那么事件循环会移至Check阶段或Closing callbacks并从Timers进入下一次循环<br>  否则会在IO Poll阶段停留一段时间以等待新的回调函数进入    </li>
+<li>如果事件队列中无回调函数，但 Check阶段 或T imers队列 中有需执行的回调函数<ul>
+<li>那么事件循环会移至 Check阶段 或 Closing callbacks 并从 Timers 进入下一次循环</li>
+<li>否则会在IO Poll阶段停留一段时间以等待新的回调函数进入    </li>
+</ul>
+</li>
 </ul>
 </li>
 <li><p>Check 存储setImmediate API 的回调函数</p>
 </li>
 <li><p>Closing callbacks 执行与关闭事件相关回调函数，比如关闭数据库连接</p>
-</li>
-<li><p>nextTick microtasks</p>
 </li>
 <li><p>Node适合<u>I/O密集型任务，不适合CPU密集型任务</u>，因为主线程一旦阻塞，就会卡程序</p>
 </li>
@@ -496,23 +524,32 @@
 <blockquote>
 <h3 id="跨标签页通讯"><a href="#跨标签页通讯" class="headerlink" title="跨标签页通讯"></a>跨标签页通讯</h3></blockquote>
 <ol>
-<li>LocalStorage 或 SessionStorage，适用于较小量的数据通讯</li>
+<li>设置同域下共享的 LocalStorage 或 SessionStorage，适用于较小量的数据通讯</li>
 <li>Cookies，在相同域名下的不同路径间共享数据</li>
 <li>window.opener，如果通过window.open()打开的新标签页，可以通过该属性获取父窗口，并在父子窗口间通讯</li>
-<li>Broadcast Channel API</li>
+<li>postMessage</li>
+<li>借助服务端或中间层实现</li>
 <li>SharedWorker，特殊的Web Worker，可以被多个标签页共享</li>
 </ol>
 <blockquote>
 <h3 id="setTimeout-0-会立即输出吗"><a href="#setTimeout-0-会立即输出吗" class="headerlink" title="setTimeout(0) 会立即输出吗"></a>setTimeout(0) 会立即输出吗</h3></blockquote>
 <ul>
 <li>不会立即执行，而是等待当前执行栈中所有任务执行完才会执行，取决于JS的事件循环机制</li>
-<li>看当时执行的机器状态，可能会先输出也可能后输出</li>
+<li>看当时执行的机器状态，可能会先输出也可能后输出<blockquote>
+<h3 id="超时调用setTimeout-间歇调用setInterval"><a href="#超时调用setTimeout-间歇调用setInterval" class="headerlink" title="超时调用setTimeout() 间歇调用setInterval()"></a>超时调用setTimeout() 间歇调用setInterval()</h3></blockquote>
+</li>
+<li>返回一个数值ID作为唯一标识符，可用来取消<ul>
+<li>clearTimeout() clearInterval()</li>
+<li>clearInterval() 更需要被取消，不加干涉时，setInterval会一直执行</li>
+<li>一般建议使用setTimeout来模拟setInterval，因为后一个setInterval可能在前一个setInterval结束前就启动了</li>
+</ul>
+</li>
 </ul>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://karencxx.github.io/2024/04/11/BOMNote/" data-id="clv3nb5eq0006dpjfgp847vle" class="article-share-link">Share</a>
+      <a data-url="http://karencxx.github.io/2024/04/11/BOMNote/" data-id="clvdj5bsy000190fu8yatc5a6" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%A4%8D%E4%B9%A0/" rel="tag">复习</a></li></ul>
@@ -522,6 +559,15 @@
   
     
 <nav id="article-nav">
+  
+    <a href="/2024/04/24/ReviewNote/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          ReviewNote
+        
+      </div>
+    </a>
   
   
     <a href="/2024/04/08/CSSNote/" id="article-nav-older" class="article-nav-link-wrap">
@@ -542,7 +588,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Categories</h3>
     <div class="widget">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/js/">js</a></li></ul>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/BOM/">BOM</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/CSS/">CSS</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/JS/">JS</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/express/">express</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/snabbdom/">snabbdom</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/vue/">vue</a></li></ul>
     </div>
   </div>
 
@@ -552,7 +598,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%A4%8D%E4%B9%A0/" rel="tag">复习</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%A4%8D%E4%B9%A0-CSS/" rel="tag">复习, CSS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%B5%8F%E8%A7%88%E5%99%A8/" rel="tag">浏览器</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AF%BB%E7%82%B9%E6%BA%90%E7%A0%81/" rel="tag">读点源码</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%9A%8F%E7%AC%94%E5%86%99/" rel="tag">随笔写</a></li></ul>
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/" rel="tag">hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/js-this/" rel="tag">js-this</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/source-code/" rel="tag">source code</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/typescript/" rel="tag">typescript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/v-for/" rel="tag">v-for</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vue-router/" rel="tag">vue-router</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vuex%E6%8E%A2%E7%A9%B6/" rel="tag">vuex探究</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/webpack/" rel="tag">webpack</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%89%8D%E7%AB%AF%E5%AD%98%E5%82%A8/" rel="tag">前端存储</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%A4%8D%E4%B9%A0/" rel="tag">复习</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%AE%9A%E6%97%B6%E5%99%A8/" rel="tag">定时器</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%BC%80%E5%8F%91%E6%8A%80%E5%B7%A7/" rel="tag">开发技巧</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/" rel="tag">性能优化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%83%A8%E7%BD%B2/" rel="tag">部署</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%9A%8F%E7%AC%94%E5%86%99/" rel="tag">随笔写</a></li></ul>
     </div>
   </div>
 
@@ -562,7 +608,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/%E5%A4%8D%E4%B9%A0/" style="font-size: 20px;">复习</a> <a href="/tags/%E5%A4%8D%E4%B9%A0-CSS/" style="font-size: 10px;">复习, CSS</a> <a href="/tags/%E6%B5%8F%E8%A7%88%E5%99%A8/" style="font-size: 10px;">浏览器</a> <a href="/tags/%E8%AF%BB%E7%82%B9%E6%BA%90%E7%A0%81/" style="font-size: 10px;">读点源码</a> <a href="/tags/%E9%9A%8F%E7%AC%94%E5%86%99/" style="font-size: 10px;">随笔写</a>
+      <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/js-this/" style="font-size: 10px;">js-this</a> <a href="/tags/source-code/" style="font-size: 15px;">source code</a> <a href="/tags/typescript/" style="font-size: 10px;">typescript</a> <a href="/tags/v-for/" style="font-size: 10px;">v-for</a> <a href="/tags/vue-router/" style="font-size: 10px;">vue-router</a> <a href="/tags/vuex%E6%8E%A2%E7%A9%B6/" style="font-size: 10px;">vuex探究</a> <a href="/tags/webpack/" style="font-size: 10px;">webpack</a> <a href="/tags/%E5%89%8D%E7%AB%AF%E5%AD%98%E5%82%A8/" style="font-size: 10px;">前端存储</a> <a href="/tags/%E5%A4%8D%E4%B9%A0/" style="font-size: 20px;">复习</a> <a href="/tags/%E5%AE%9A%E6%97%B6%E5%99%A8/" style="font-size: 10px;">定时器</a> <a href="/tags/%E5%BC%80%E5%8F%91%E6%8A%80%E5%B7%A7/" style="font-size: 15px;">开发技巧</a> <a href="/tags/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/" style="font-size: 10px;">性能优化</a> <a href="/tags/%E9%83%A8%E7%BD%B2/" style="font-size: 10px;">部署</a> <a href="/tags/%E9%9A%8F%E7%AC%94%E5%86%99/" style="font-size: 10px;">随笔写</a>
     </div>
   </div>
 
@@ -584,6 +630,10 @@
       <ul>
         
           <li>
+            <a href="/2024/04/24/ReviewNote/">ReviewNote</a>
+          </li>
+        
+          <li>
             <a href="/2024/04/11/BOMNote/">BOMNote</a>
           </li>
         
@@ -597,10 +647,6 @@
         
           <li>
             <a href="/2024/04/01/JSNote/">JSNote</a>
-          </li>
-        
-          <li>
-            <a href="/2021/03/29/%E8%BF%9F%E6%9D%A5%E7%9A%84%E6%B3%A8%E6%84%8F%E7%82%B9-%E5%86%B7%E7%9F%A5%E8%AF%86/">记录：注意点&amp;冷知识</a>
           </li>
         
       </ul>

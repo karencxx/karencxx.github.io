@@ -66,99 +66,6 @@
       <div class="outer">
         <section id="main">
   
-    <article id="post-ts-md" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2020/11/16/ts-md/" class="article-date">
-  <time datetime="2020-11-16T02:36:12.000Z" itemprop="datePublished">2020-11-16</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/11/16/ts-md/">ts-基础类型</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <blockquote>
-<p><strong>常见类型</strong></p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">let a:number &#x3D; 1</span><br><span class="line">let hex:number &#x3D; 0x14</span><br><span class="line">let b:string &#x3D; &#39;b&#39;</span><br><span class="line">let c:boolean &#x3D; false</span><br><span class="line">let d:number[] &#x3D; [1,2,3]</span><br><span class="line">let e:Array&lt;String&gt; &#x3D; [&#39;1&#39;,&#39;2&#39;,&#39;3&#39;]</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<blockquote>
-<p><strong>元祖类型 Tuple</strong> </p>
-</blockquote>
-<p>表示一个已知元素数量和类型数组，各元素类型不必相同</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">let x:[number, string]   </span><br><span class="line">x &#x3D; [2, &#39;a&#39;] ✅</span><br><span class="line">x &#x3D; [&#39;a&#39;, 3] ❎</span><br></pre></td></tr></table></figure>
-<p>当访问越界元素时，会使用联合类型替代</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">x[3] &#x3D; &#39;b&#39;      &#x2F;&#x2F; ✅ string可赋值给string | number</span><br><span class="line">x[5].toString() &#x2F;&#x2F; ✅ string | number 都有toString()</span><br><span class="line">x[6] &#x3D; true     &#x2F;&#x2F; ❎ 类型不符合</span><br></pre></td></tr></table></figure>
-<p>❌ ts 3.1版本之后，访问越界元素会报错</p>
-<blockquote>
-<p><strong>枚举类型</strong></p>
-</blockquote>
-<p>默认情况下，<strong>元素值从0开始，也可手动赋值</strong></p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">enum Color &#123;</span><br><span class="line">    Red &#x3D; 1,</span><br><span class="line">    Green,</span><br><span class="line">    Blue</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>提供便利：由枚举值得到属性名</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">let c: Color &#x3D; Color.Green</span><br><span class="line">let colorName:string &#x3D; Color[2] </span><br></pre></td></tr></table></figure>
-<blockquote>
-<p><strong>any类型</strong> 任意类型</p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">let notSure:any &#x3D; 4</span><br><span class="line">notSure &#x3D; &#96;maybe a string instead&#96;</span><br></pre></td></tr></table></figure>
-<p>对现有代码进行改写时，any类型十分有用，允许你在编译时可选择地包含或移除类型检查。<br>并且当只知道一部分数据的类型时，any 类型也是有用的</p>
-<blockquote>
-<p><strong>void</strong> 无任何类型</p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">function xxx():void &#123;</span><br><span class="line">    &#x2F;&#x2F; 无返回值</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>声明一个 void  变量无意义，只能赋给  null | undefined </p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">let unusable:void &#x3D; null &#x2F;&#x2F; 无意义</span><br><span class="line">let unusable:void &#x3D; undefined &#x2F;&#x2F; 无意义</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p><strong>null &amp; undefined</strong>  任意类型</p>
-</blockquote>
-<p>默认情况下 null 和 undefined 是所有类型的<strong>子类型</strong><br><strong>子类型可以赋值给父类型</strong>，像下面这个例子，null和undefined赋值给number类型的变量</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">let u:undefined &#x3D; undefined</span><br><span class="line">let n:null &#x3D; undefined</span><br><span class="line"></span><br><span class="line">let num:number &#x3D;3</span><br><span class="line">num &#x3D; null</span><br></pre></td></tr></table></figure>
-<p>常规编译不出错<br>严格编译 <strong>tsc xxx.ts –strictNullChecks</strong> 将会检查null，从而规避一些问题</p>
-<blockquote>
-<p><strong>联合类型</strong>  任意类型</p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">let num:number | null &#x3D; 2</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p><strong>never</strong> 那些永不存在的值的类型</p>
-</blockquote>
-<p>是<strong>任意类型的子类型</strong>，可以赋值给任何类型<br><strong>别的类型都不是never的子类型，不可赋值给never</strong><br>常用于<strong>抛出一些异常</strong>或<strong>没有返回值的函数表达式</strong>或<strong>箭头函数表达式的返回值类型</strong></p>
-<p>返回never的函数必须存在无法达到的终点</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">function error(message:string):never &#123;</span><br><span class="line">    throw new Error(message)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function fail () &#123;</span><br><span class="line">    return error(&#39;sth. failed&#39;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function infiniteLoop():never &#123;</span><br><span class="line">    while(true) &#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p><strong>object 非原始类型，除number/string/boolean/numm/symbol/undefined之外的类型</strong></p>
-</blockquote>
-<p>类似object.create() API</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">declare function create(o:object|null):void</span><br><span class="line">create(&#123;prop: 0&#125;) </span><br><span class="line">create(null)</span><br><span class="line">create(42)          ❎</span><br><span class="line">create(false)       ❎</span><br><span class="line">create(undefined)   ❎</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p><strong>类型断言</strong></p>
-</blockquote>
-<p>有时候你会遇到这样的情况，你会比 TypeScript 更了解某个值的详细信息。<br>通常这会发生在你清楚地知道一个实体具有比它现有类型更确切的类型。</p>
-<p>通过类型断言这种方式可以告诉编译器，“相信我，我知道自己在干什么”。<br>类型断言好比其它语言里的类型转换，但是不进行特殊的数据检查和解构。<br>它没有运行时的影响，只是在编译阶段起作用</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">let someValue:any &#x3D; &#39;this is a string&#39;</span><br><span class="line">someValue.length &#x2F;&#x2F; &#x2F;&#x2F; 此时找不到.length</span><br><span class="line"></span><br><span class="line">let strLength:number&#x3D;(&lt;string&gt;someValue).length</span><br><span class="line">let strLength:number&#x3D;(someValue as string).length</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://karencxx.github.io/2020/11/16/ts-md/" data-id="clv3nb5fb000odpjf9qq17ah8" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
     <article id="post-webpack探路" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2018/01/12/webpack%E6%8E%A2%E8%B7%AF/" class="article-date">
@@ -181,22 +88,23 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>###webpack初步理解</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">mkdir webpack-eg</span><br><span class="line"><span class="built_in">cd</span> webpack-eg</span><br><span class="line">npm init</span><br><span class="line"></span><br><span class="line">npm start</span><br></pre></td></tr></table></figure>
-<p>###提交二<br>#关键词</p>
+        <h3 id="webpack初步理解"><a href="#webpack初步理解" class="headerlink" title="webpack初步理解"></a>webpack初步理解</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">mkdir webpack-eg</span><br><span class="line"><span class="built_in">cd</span> webpack-eg</span><br><span class="line">npm init</span><br><span class="line"></span><br><span class="line">npm start</span><br></pre></td></tr></table></figure>
+<h3 id="提交二"><a href="#提交二" class="headerlink" title="提交二"></a>提交二</h3><p>关键词</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">webpack-dev-server 代理</span><br><span class="line">source-map</span><br><span class="line">部署上线 webpack-prod.config.js</span><br><span class="line">分离app.js 和 第三方库</span><br><span class="line">vendor: [] &#x2F; filename: &#39;[name].js&#39;</span><br><span class="line">uglifyJs CommonsChunkPlugin</span><br><span class="line">babel-loader</span><br><span class="line">npm run build</span><br></pre></td></tr></table></figure>
-<p>###提交三<br>#关键词</p>
+<h3 id="提交三"><a href="#提交三" class="headerlink" title="提交三"></a>提交三</h3><p>关键词</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">生成多页面</span><br><span class="line">多入口</span><br><span class="line">templates	index.html &#x2F; mobile.html</span><br><span class="line">生成hash名称的script 来防止缓存</span><br><span class="line">output filename: [name].[hash].js </span><br></pre></td></tr></table></figure>
-<p>###提交四<br>#关键词</p>
+<h3 id="提交四"><a href="#提交四" class="headerlink" title="提交四"></a>提交四</h3><p>关键词</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">start命令指定 webpack.dev.js</span><br><span class="line">区分生产环境和开发环境 </span><br><span class="line">保留通用配置 webpack.common.js</span><br><span class="line">webpack-merge</span><br></pre></td></tr></table></figure>
 <p>具体代码移步–<a target="_blank" rel="noopener" href="https://github.com/karencxx/webpack-demo.git">https://github.com/karencxx/webpack-demo.git</a></p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://karencxx.github.io/2018/01/12/webpack%E6%8E%A2%E8%B7%AF/" data-id="clv3nb5fl000xdpjfajs27aid" class="article-share-link">Share</a>
+      <a data-url="http://karencxx.github.io/2018/01/12/webpack%E6%8E%A2%E8%B7%AF/" data-id="clvdj5btv001a90fubwcn741p" class="article-share-link">Share</a>
       
       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/webpack/" rel="tag">webpack</a></li></ul>
+
     </footer>
   </div>
   
@@ -210,6 +118,10 @@
   <time datetime="2017-12-13T07:18:24.000Z" itemprop="datePublished">2017-12-13</time>
 </a>
     
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/vue/">vue</a>
+  </div>
+
   </div>
   <div class="article-inner">
     
@@ -227,56 +139,31 @@
     <div class="article-entry" itemprop="articleBody">
       
         <p>把note项目改造了一下，采用路由的方式<br>单页面应用</p>
-<h3 id="记录一下"><a href="#记录一下" class="headerlink" title="记录一下"></a>记录一下</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">在src下新建文件夹router</span><br><span class="line"></span><br><span class="line">在main.js中</span><br><span class="line">import router from <span class="string">&#x27;./router&#x27;</span></span><br><span class="line">import Vue from <span class="string">&#x27;vue&#x27;</span></span><br><span class="line"></span><br><span class="line">Vue.use(router)</span><br><span class="line"></span><br><span class="line">new Vue(&#123;</span><br><span class="line">	router</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-<h3 id="之前的写法"><a href="#之前的写法" class="headerlink" title="之前的写法"></a>之前的写法</h3><pre><code>import router from &#39;./router&#39;
-import Vue from &#39;vue&#39;
-
-Vue.use(router)
-
-new Vue(&#123;
-    store, //vuex
-    el: &#39;#app&#39;,
-    router,
-    template: &#39;&lt;App/&gt;&#39;,
-    components: &#123; App &#125; //import App from &#39;./App&#39;
-&#125;)
-</code></pre>
-<h3 id="现在的写法"><a href="#现在的写法" class="headerlink" title="现在的写法"></a>现在的写法</h3><pre><code>new Vue(&#123;
-    store, //vuex
-    el: &#39;#app&#39;,
-    router,
-    ...App
-&#125;)
-</code></pre>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">app.vue</span><br><span class="line"></span><br><span class="line">&lt;router-view&gt;&lt;/router-view&gt;</span><br></pre></td></tr></table></figure>
-<h3 id="路由文件-router-index-js"><a href="#路由文件-router-index-js" class="headerlink" title="路由文件 router/index.js"></a>路由文件 router/index.js</h3><pre><code>import Router from &#39;vue-router&#39;
-import Index from &#39;@/views/Index&#39;
-
-Vue.use(Router)
-
-export default new Router(&#123;
-    routes: [
-    &#123;
-        path: &#39;/index&#39;,
-        name: &#39;index&#39;,
-        component: Index
-    &#125;,&#123;
-        
-    &#125;]
-&#125;)
-</code></pre>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">配置完router后，发现url为 http://localhost:8080/<span class="comment">#/</span></span><br><span class="line">在此就要了解一下 vue-router 是默认<span class="built_in">hash</span>模式的，</span><br><span class="line">也就是说当url改变时，页面不会重新加载，相当于锚点跳转</span><br><span class="line">如果不想要这种<span class="built_in">hash</span>模式，可以采用history.pushState API完成跳转</span><br></pre></td></tr></table></figure>
-<h3 id="vue2-0-路由选择-Modes"><a href="#vue2-0-路由选择-Modes" class="headerlink" title="vue2.0 路由选择 Modes"></a>vue2.0 路由选择 Modes</h3><pre><code><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">new Router(&#123;</span><br><span class="line">	<span class="built_in">history</span>: <span class="literal">true</span>,</span><br><span class="line">	routes:[]</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-</code></pre>
-<h3 id="但需要注意的是，这种情况需要后端的支持，比如locahost-8080-login-id这种就会找不到"><a href="#但需要注意的是，这种情况需要后端的支持，比如locahost-8080-login-id这种就会找不到" class="headerlink" title="但需要注意的是，这种情况需要后端的支持，比如locahost:8080/login/:id这种就会找不到"></a>但需要注意的是，这种情况需要后端的支持，比如locahost:8080/login/:id这种就会找不到</h3><pre><code>暂时处理方法可以是 定义一个routes * 当所有找不到的path时 都指向404.vue
-</code></pre>
+<p><strong>记录一下</strong></p>
+<p>在src下新建文件夹router,</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// main.js</span></span><br><span class="line"><span class="keyword">import</span> router <span class="keyword">from</span> <span class="string">&#x27;./router&#x27;</span></span><br><span class="line"><span class="keyword">import</span> Vue <span class="keyword">from</span> <span class="string">&#x27;vue&#x27;</span></span><br><span class="line"></span><br><span class="line">Vue.use(router)</span><br><span class="line"></span><br><span class="line"><span class="keyword">new</span> Vue(&#123;</span><br><span class="line">router</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p><strong>之前的写法</strong></p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> router <span class="keyword">from</span> <span class="string">&#x27;./router&#x27;</span></span><br><span class="line"><span class="keyword">import</span> Vue <span class="keyword">from</span> <span class="string">&#x27;vue&#x27;</span></span><br><span class="line"></span><br><span class="line">Vue.use(router)</span><br><span class="line"></span><br><span class="line"><span class="keyword">new</span> Vue(&#123;</span><br><span class="line">	store, <span class="comment">//vuex</span></span><br><span class="line">	el: <span class="string">&#x27;#app&#x27;</span>,</span><br><span class="line">	router,</span><br><span class="line">	template: <span class="string">&#x27;&lt;App/&gt;&#x27;</span>,</span><br><span class="line">	components: &#123; App &#125; <span class="comment">//import App from &#x27;./App&#x27;</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p><strong>现在的写法</strong></p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">new</span> Vue(&#123;</span><br><span class="line">	store, <span class="comment">//vuex</span></span><br><span class="line">	el: <span class="string">&#x27;#app&#x27;</span>,</span><br><span class="line">	router,</span><br><span class="line">	...App</span><br><span class="line">&#125;)</span><br><span class="line">&lt;!-- app.vue --&gt;</span><br><span class="line">&lt;router-view&gt;&lt;/router-view&gt;</span><br></pre></td></tr></table></figure>
+<p><strong>路由文件 router/index.js</strong></p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> Router <span class="keyword">from</span> <span class="string">&#x27;vue-router&#x27;</span></span><br><span class="line"><span class="keyword">import</span> Index <span class="keyword">from</span> <span class="string">&#x27;@/views/Index&#x27;</span></span><br><span class="line"></span><br><span class="line">Vue.use(Router)</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">new</span> Router(&#123;</span><br><span class="line">	routes: [</span><br><span class="line">	&#123;</span><br><span class="line">		path: <span class="string">&#x27;/index&#x27;</span>,</span><br><span class="line">		name: <span class="string">&#x27;index&#x27;</span>,</span><br><span class="line">		component: Index</span><br><span class="line">	&#125;,&#123;&#125;</span><br><span class="line">	]</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p>配置完router后，发现url为 <a target="_blank" rel="noopener" href="http://localhost:8080/#/">http://localhost:8080/#/</a><br>在此就要了解一下 vue-router 是默认hash模式的，<br>也就是说当url改变时，页面不会重新加载，相当于锚点跳转<br>如果不想要这种hash模式，可以采用 <strong>history.pushState API</strong> 完成跳转</p>
+<p><strong>vue2.0 路由选择 Modes</strong></p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">new</span> Router(&#123;</span><br><span class="line">	history: <span class="literal">true</span>,</span><br><span class="line">	routes:[]</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p><strong>⚠️但需要注意的是，这种情况需要后端的支持，比如locahost:8080/login/:id这种就会找不到</strong></p>
+<ul>
+<li>暂时处理方法可以是 定义一个routes * 当所有找不到的path时都指向 404.vue</li>
+</ul>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://karencxx.github.io/2017/12/13/vue-router/" data-id="clv3nb5fz0019dpjf3sbh3krb" class="article-share-link">Share</a>
+      <a data-url="http://karencxx.github.io/2017/12/13/vue-router/" data-id="clvdj5btn000z90fu9xjq0wd8" class="article-share-link">Share</a>
       
       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/vue-router/" rel="tag">vue-router</a></li></ul>
+
     </footer>
   </div>
   
@@ -290,6 +177,10 @@ export default new Router(&#123;
   <time datetime="2017-11-28T10:12:34.000Z" itemprop="datePublished">2017-11-28</time>
 </a>
     
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/vue/">vue</a>
+  </div>
+
   </div>
   <div class="article-inner">
     
@@ -306,19 +197,17 @@ export default new Router(&#123;
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>vuex探究</p>
-<p>最近研究了下vue+vuex,正好看到了国外的一篇文章(如何构建一个笔记的单页应用),就着练手了下,也从中发现了一些问题并解决了。<br>–国外文章地址：<a target="_blank" rel="noopener" href="https://coligo.io/learn-vuex-by-building-notes-app/">https://coligo.io/learn-vuex-by-building-notes-app/</a><br>在此记录下。</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">具体安装操作什么的就不一一详细说明了。</span><br></pre></td></tr></table></figure>
-<h3 id="那篇文章的vue版本应该是1-0，而本地项目安装的版本为2-0，所以练习的过程中碰到了一些问题。"><a href="#那篇文章的vue版本应该是1-0，而本地项目安装的版本为2-0，所以练习的过程中碰到了一些问题。" class="headerlink" title="那篇文章的vue版本应该是1.0，而本地项目安装的版本为2.0，所以练习的过程中碰到了一些问题。"></a>那篇文章的vue版本应该是1.0，而本地项目安装的版本为2.0，所以练习的过程中碰到了一些问题。</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">2.0使用了mapActions,mapGetters</span><br><span class="line">dispatch =&gt; commit</span><br></pre></td></tr></table></figure>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">import &#123; addNote, deleteNote, toggleFavorite &#125; from <span class="string">&#x27;../vuex/actions&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">export</span> default &#123;</span><br><span class="line">  vuex: &#123;</span><br><span class="line">    getters: &#123;</span><br><span class="line">      activeNote: state =&gt; state.activeNote</span><br><span class="line">    &#125;,</span><br><span class="line">    actions: &#123;</span><br><span class="line">      addNote,</span><br><span class="line">      deleteNote,</span><br><span class="line">      toggleFavorite</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+        <p>最近研究了下 vue+vuex<br>正好看到了国外的一篇文章(如何构建一个笔记的单页应用)，就着练手了下<br>也从中发现了一些问题并解决了<br>国外文章地址：<a target="_blank" rel="noopener" href="https://coligo.io/learn-vuex-by-building-notes-app/">https://coligo.io/learn-vuex-by-building-notes-app/</a><br>在此记录下，具体安装操作什么的就不一一详细说明了。</p>
+<h3 id="那篇文章的vue版本应该是1-0，而本地项目安装的版本为2-0，所以练习的过程中碰到了一些问题。"><a href="#那篇文章的vue版本应该是1-0，而本地项目安装的版本为2-0，所以练习的过程中碰到了一些问题。" class="headerlink" title="那篇文章的vue版本应该是1.0，而本地项目安装的版本为2.0，所以练习的过程中碰到了一些问题。"></a>那篇文章的vue版本应该是1.0，而本地项目安装的版本为2.0，所以练习的过程中碰到了一些问题。</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">2.0使用了mapActions, mapGetters</span><br><span class="line">dispatch &#x3D;&gt; commit</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; addNote, deleteNote, toggleFavorite &#125; <span class="keyword">from</span> <span class="string">&#x27;../vuex/actions&#x27;</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">  vuex: &#123;</span><br><span class="line">    getters: &#123;</span><br><span class="line">      activeNote: <span class="function"><span class="params">state</span> =&gt;</span> state.activeNote</span><br><span class="line">    &#125;,</span><br><span class="line">    actions: &#123;</span><br><span class="line">      addNote,</span><br><span class="line">      deleteNote,</span><br><span class="line">      toggleFavorite</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>需要改成</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">import &#123; mapActions, mapGetters &#125; from <span class="string">&#x27;vuex&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">export</span> default &#123;</span><br><span class="line">	methods: &#123;</span><br><span class="line">		...mapActions([<span class="string">&#x27;editNote&#x27;</span>, <span class="string">&#x27;editContent&#x27;</span>])</span><br><span class="line">	&#125;,</span><br><span class="line">	computed: &#123;</span><br><span class="line">		...mapGetters([<span class="string">&#x27;activeNoteText&#x27;</span>, <span class="string">&#x27;activeNoteContent&#x27;</span>])</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; mapActions, mapGetters &#125; <span class="keyword">from</span> <span class="string">&#x27;vuex&#x27;</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">	methods: &#123;</span><br><span class="line">		...mapActions([<span class="string">&#x27;editNote&#x27;</span>, <span class="string">&#x27;editContent&#x27;</span>])</span><br><span class="line">	&#125;,</span><br><span class="line">	computed: &#123;</span><br><span class="line">		...mapGetters([<span class="string">&#x27;activeNoteText&#x27;</span>, <span class="string">&#x27;activeNoteContent&#x27;</span>])</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>actions.js的引入</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">import * as actions from <span class="string">&#x27;./actions&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">export</span> default new Vuex.Store(&#123; actions&#125;)</span><br><span class="line"></span><br><span class="line">就不需要</span><br><span class="line">	import &#123; addNote, deleteNote, toggleFavorite &#125; from <span class="string">&#x27;../vuex/actions&#x27;</span></span><br><span class="line"></span><br><span class="line">在main.js注入store</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> * <span class="keyword">as</span> actions <span class="keyword">from</span> <span class="string">&#x27;./actions&#x27;</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">new</span> Vuex.Store(&#123; actions&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 就不需要</span></span><br><span class="line"><span class="comment">// import &#123; addNote, deleteNote, toggleFavorite &#125; from &#x27;../vuex/actions&#x27;</span></span><br><span class="line"><span class="comment">// 在main.js注入store</span></span><br></pre></td></tr></table></figure>
 
 <p>还有个数据绑定的小问题</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">&lt;input <span class="built_in">type</span>=<span class="string">&quot;text&quot;</span> @input=<span class="string">&quot;editNote&quot;</span> v-model=<span class="string">&quot;activeNoteText&quot;</span>&gt;</span><br><span class="line">这时候会报一个错：Computed property <span class="string">&quot;activeNoteText&quot;</span> was assigned to but it has no setter.</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<p>stackoverflow上有段解释 (<a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/46106037/vuex-computed-property-name-was-assigned-to-but-it-has-no-setter">https://stackoverflow.com/questions/46106037/vuex-computed-property-name-was-assigned-to-but-it-has-no-setter</a>)</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;text&quot;</span> @<span class="attr">input</span>=<span class="string">&quot;editNote&quot;</span> <span class="attr">v-model</span>=<span class="string">&quot;activeNoteText&quot;</span>&gt;</span>	</span><br></pre></td></tr></table></figure>
+<p>这时候会报一个错：Computed property “activeNoteText” was assigned to but it has no setter.<br>stackoverflow上有段解释 (<a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/46106037/vuex-computed-property-name-was-assigned-to-but-it-has-no-setter">https://stackoverflow.com/questions/46106037/vuex-computed-property-name-was-assigned-to-but-it-has-no-setter</a>)</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">If you<span class="string">&#x27;re going to v-model a computed, it needs a setter. Whatever you want it to do with the updated value (probably write it to the $store, considering that&#x27;</span>s what your getter pulls it from) you <span class="keyword">do</span> <span class="keyword">in</span> the setter.</span><br><span class="line"></span><br><span class="line">If writing it back to the store happens via form submission, you don<span class="string">&#x27;t want to v-model, you just want to set :value.</span></span><br></pre></td></tr></table></figure>
 
 <p>具体代码在 <a target="_blank" rel="noopener" href="https://github.com/karencxx/vue.git">https://github.com/karencxx/vue.git</a></p>
@@ -326,9 +215,11 @@ export default new Router(&#123;
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://karencxx.github.io/2017/11/28/vuex/" data-id="clv3nb5fj000udpjf5m4neq31" class="article-share-link">Share</a>
+      <a data-url="http://karencxx.github.io/2017/11/28/vuex/" data-id="clvdj5bts001590fu84tx2o81" class="article-share-link">Share</a>
       
       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/vuex%E6%8E%A2%E7%A9%B6/" rel="tag">vuex探究</a></li></ul>
+
     </footer>
   </div>
   
@@ -342,6 +233,10 @@ export default new Router(&#123;
   <time datetime="2017-11-27T06:15:37.000Z" itemprop="datePublished">2017-11-27</time>
 </a>
     
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/vue/">vue</a>
+  </div>
+
   </div>
   <div class="article-inner">
     
@@ -358,24 +253,22 @@ export default new Router(&#123;
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>###记录一下</p>
-<hr>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">前提: node和npm环境</span><br></pre></td></tr></table></figure>
-<p>安装vue-cli脚手架</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">npm init webpack [project name]</span><br><span class="line">初始化项目，整个项目是基于webpack，项目信息具体步骤如下图</span><br></pre></td></tr></table></figure>
-<p><img src="/img/vue-init.png" alt="vue init project"></p>
+        <h3 id="记录一下"><a href="#记录一下" class="headerlink" title="记录一下"></a>记录一下</h3><p><strong>前提: node和npm环境</strong></p>
+<p>安装 vue-cli 脚手架</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">npm init webpack [project name]</span><br></pre></td></tr></table></figure>
+<p>初始化项目，整个项目是基于webpack，项目信息具体步骤如下图<br><img src="/img/vue-init.png" alt="vue init project"></p>
 <p>或者 </p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">vue init webpack [project name]</span><br></pre></td></tr></table></figure>
 <p>安装项目依赖</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">进入项目所在文件夹，执行npm install</span><br></pre></td></tr></table></figure>
 <p>运行项目</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">npm run dev 热部署项目</span><br><span class="line"></span><br><span class="line">其中的“run”对应的是package.json文件中，scripts字段中的dev，也就是 node build/dev-server.js命令的一个快捷方式。</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">npm run dev 热部署项目</span><br><span class="line">其中的“run”对应的是package.json文件中，scripts字段中的dev，也就是 node build/dev-server.js命令的一个快捷方式。</span><br></pre></td></tr></table></figure>
 <p>项目文件结构<br><img src="/img/vue-structure.png" alt="vue project structure"></p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://karencxx.github.io/2017/11/27/vue%E9%A1%B9%E7%9B%AE%E6%9E%84%E5%BB%BA/" data-id="clv3nb5fk000vdpjf1po8bht2" class="article-share-link">Share</a>
+      <a data-url="http://karencxx.github.io/2017/11/27/vue%E9%A1%B9%E7%9B%AE%E6%9E%84%E5%BB%BA/" data-id="clvdj5btt001790fu2i687x1d" class="article-share-link">Share</a>
       
       
     </footer>
@@ -385,12 +278,16 @@ export default new Router(&#123;
 
 
   
-    <article id="post-1123-2" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-Express" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2017/11/23/1123-2/" class="article-date">
+    <a href="/2017/11/23/Express/" class="article-date">
   <time datetime="2017-11-23T03:21:38.000Z" itemprop="datePublished">2017-11-23</time>
 </a>
     
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/express/">express</a>
+  </div>
+
   </div>
   <div class="article-inner">
     
@@ -399,7 +296,7 @@ export default new Router(&#123;
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2017/11/23/1123-2/">Express</a>
+      <a class="article-title" href="/2017/11/23/Express/">Express</a>
     </h1>
   
 
@@ -407,28 +304,33 @@ export default new Router(&#123;
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>Express 路由</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">路由,Routing是由一个URI和一个特定的HTTP方法组成的，涉及到应用如何相应客户端对某个网站节点的访问。</span><br></pre></td></tr></table></figure>
-<p>结构组成:</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">app.METHOD(PATH, HANDLER)</span><br><span class="line">app是一个express实例；METHOD是某个HTTP请求方式中的一个；PATH是服务器端的路径;HANDLER是当路由匹配到时需要执行的函数</span><br></pre></td></tr></table></figure>
+        <h3 id="Express-路由"><a href="#Express-路由" class="headerlink" title="Express 路由"></a>Express 路由</h3><p>Routing是 由一个URI 和 一个特定的HTTP方法 组成的，涉及到应用如何相应客户端对某个网站节点的访问。</p>
+<p>结构组成: <strong>app.METHOD(PATH, HANDLER)</strong></p>
+<ul>
+<li>app是一个express实例</li>
+<li>METHOD是某个HTTP请求方式中的一个</li>
+<li>PATH是服务器端的路径</li>
+<li>HANDLER是当路由匹配到时需要执行的函数</li>
+</ul>
+<h3 id="Express-托管静态文件"><a href="#Express-托管静态文件" class="headerlink" title="Express 托管静态文件"></a>Express 托管静态文件</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">通过内置的express.static可以方便地托管静态文件，例如图片，css，JavaScript文件等</span><br></pre></td></tr></table></figure>
+<p>将静态资源文件所在的目录座位参数传递给express.static中间件就可以提供静态资源文件的访问了。</p>
+<p>例如：<br>在public目录放置了静态资源，设置app.use(express.static(‘public’))<br>就可以通过localhost:3000/images/xxx.png访问了<br>还可以指定一个挂载前缀，app.use(‘/static’, express.static(‘public’))<br>访问路径为localhost:3000/static/images/xxx.png</p>
+<p><u>文件路径是相对路径，即存放静态文件的目录名不会出现在url中</u></p>
+<p><strong>在express中404并不是一个error</strong> (404相对来说只是功能未完全实现)<br>因此错误处理器中间件捕获不到404，需要单独拎出来处理</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">app.use(<span class="function"><span class="keyword">function</span>(<span class="params">req, res, next</span>)</span>&#123;</span><br><span class="line">	res.status(<span class="number">404</span>).send(<span class="string">&#x27;404 not find&#x27;</span>)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p>设置错误处理器,多一个err参数</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">app.use(<span class="function"><span class="keyword">function</span>(<span class="params">err, req, res, next</span>)</span>&#123;</span><br><span class="line">	res.status(<span class="number">500</span>).send(<span class="string">&#x27;error&#x27;</span>+ err.stack)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p>字符串模式的路由路径<br>?、+、*、()是正则表达式的子集</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">/ab?cd -- 匹配abcd、acd</span><br><span class="line">/ab+cd -- 匹配abcd、abbcd、abbbcd等</span><br><span class="line">/ab*cd -- 匹配abcd、abxcd、abjfkjfcd等</span><br><span class="line">/ab(cd)?e -- 匹配abe、abcde</span><br></pre></td></tr></table></figure>
+<p><strong>app.route() 创建路由路径的链式路由句柄</strong></p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">app.route(<span class="string">&#x27;/test&#x27;</span>).get(<span class="keyword">function</span>(req, res)&#123;</span><br><span class="line">	res.send(<span class="string">&#x27;test a&#x27;</span>)</span><br><span class="line">&#125;)</span><br><span class="line">.post(<span class="keyword">function</span>(req, res)&#123;</span><br><span class="line">	res.send(<span class="string">&#x27;test b&#x27;</span>)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p><strong>可用express.Router类创建模块化、可挂载的路由句柄</strong></p>
+<p>参考 <a target="_blank" rel="noopener" href="http://www.expressjs.com.cn/starter/installing.html">http://www.expressjs.com.cn/starter/installing.html</a></p>
 
-<p>Express 托管静态文件</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">通过内置的express.static可以方便地托管静态文件，例如图片，css，JavaScript文件等</span><br></pre></td></tr></table></figure>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">将静态资源文件所在的目录座位参数传递给express.static中间件就可以提供静态资源文件的访问了。</span><br><span class="line">例如：在public目录放置了静态资源，设置app.use(express.static(<span class="string">&#x27;public&#x27;</span>))，就可以通过localhost:3000/images/xxx.png访问了</span><br><span class="line"></span><br><span class="line">还可以指定一个挂载前缀，app.use(<span class="string">&#x27;/static&#x27;</span>, express.static(<span class="string">&#x27;public&#x27;</span>)),访问路径为localhost:3000/static/images/xxx.png</span><br></pre></td></tr></table></figure>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">* 文件路径是相对路径，即存放静态文件的目录名不会出现在url中</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">在express中404并不是一个error,因此错误处理器中间件捕获不到404，需要单独拎出来处理</span><br><span class="line">(404相对来说只是功能未完全实现)</span><br><span class="line">app.use(<span class="keyword">function</span>(req, res, next)&#123;</span><br><span class="line">	res.status(404).send(<span class="string">&#x27;404 not find&#x27;</span>)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">设置错误处理器,多一个err参数</span><br><span class="line">app.use(<span class="keyword">function</span>(err, req, res, next)&#123;</span><br><span class="line">	res.status(500).send(<span class="string">&#x27;error&#x27;</span>+ err.stack)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">字符串模式的路由路径</span><br><span class="line">?、+、*、()是正则表达式的子集</span><br><span class="line"></span><br><span class="line">/ab?<span class="built_in">cd</span> -- 匹配abcd、acd</span><br><span class="line">/ab+<span class="built_in">cd</span> -- 匹配abcd、abbcd、abbbcd等</span><br><span class="line">/ab*<span class="built_in">cd</span> -- 匹配abcd、abxcd、abjfkjfcd等</span><br><span class="line">/ab(<span class="built_in">cd</span>)?e -- 匹配abe、abcde</span><br></pre></td></tr></table></figure>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">app.route() 创建路由路径的链式路由句柄。</span><br><span class="line"></span><br><span class="line">app.route(<span class="string">&#x27;/test&#x27;</span>)</span><br><span class="line">	.get(<span class="keyword">function</span>(req, res)&#123;</span><br><span class="line">		res.send(<span class="string">&#x27;test a&#x27;</span>)</span><br><span class="line">	&#125;)</span><br><span class="line">	.post(<span class="keyword">function</span>(req, res)&#123;</span><br><span class="line">		res.send(<span class="string">&#x27;test b&#x27;</span>)</span><br><span class="line">	&#125;)</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">可用express.Router类创建模块化、可挂载的路由句柄。</span><br></pre></td></tr></table></figure>
-<p>参考</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">http://www.expressjs.com.cn/starter/installing.html</span><br></pre></td></tr></table></figure>
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://karencxx.github.io/2017/11/23/1123-2/" data-id="clv3nb5em0003dpjf1lvd94ub" class="article-share-link">Share</a>
+      <a data-url="http://karencxx.github.io/2017/11/23/Express/" data-id="clvdj5bt4000490fu4653hqnf" class="article-share-link">Share</a>
       
       
     </footer>
@@ -438,12 +340,16 @@ export default new Router(&#123;
 
 
   
-    <article id="post-1123" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-ExpressNote" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2017/11/23/1123/" class="article-date">
+    <a href="/2017/11/23/ExpressNote/" class="article-date">
   <time datetime="2017-11-23T02:57:57.000Z" itemprop="datePublished">2017-11-23</time>
 </a>
     
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/express/">express</a>
+  </div>
+
   </div>
   <div class="article-inner">
     
@@ -452,7 +358,7 @@ export default new Router(&#123;
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2017/11/23/1123/">1123</a>
+      <a class="article-title" href="/2017/11/23/ExpressNote/">Express安装记录</a>
     </h1>
   
 
@@ -460,22 +366,24 @@ export default new Router(&#123;
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>Express安装记录</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">前提 -- node环境</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">mkdir myapp -- 创建工作目录</span><br><span class="line">cd myapp -- 进入</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">npm init -- 初始化package.json，依次enter键就好了，但注意entry point所指向的文件(在此命名为app.js)</span><br></pre></td></tr></table></figure>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">npm install express --save --安装express</span><br><span class="line">npm install express -- 临时安装</span><br></pre></td></tr></table></figure>
-<p>入门第一步 – hello world</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">cd myapp -- 进入myapp目录，创建app.js</span><br></pre></td></tr></table></figure>
-<p>输入代码</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">var express &#x3D; require(&#39;express&#39;)</span><br><span class="line">var app &#x3D; express()</span><br><span class="line"></span><br><span class="line">app.get(&#39;&#x2F;&#39;, function(req, res)&#123;</span><br><span class="line">	res.send(&#39;Hello World&#39;)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">var server &#x3D; app.listen(3000, function()&#123;</span><br><span class="line">	var host &#x3D; server.address().address</span><br><span class="line">	var host &#x3D; server.address().port</span><br><span class="line">	console.log(&#39;Example app listening at http:&#x2F;&#x2F;%s:%s&#39;, host, port)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">* 代码解释: 启动一个服务并监听从3000端口进入的所有连接服务。他将对所有(&#x2F;)URL或路由返回&#39;Hello World&#39;的字符串</span><br><span class="line">			对其他路径返回404</span><br></pre></td></tr></table></figure>
-<p>启动应用</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">node app.js</span><br></pre></td></tr></table></figure>
+        <p><strong>前提 node环境</strong></p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">mkdir myapp -- 创建工作目录</span><br><span class="line"><span class="built_in">cd</span> myapp -- 进入</span><br><span class="line"></span><br><span class="line">npm init <span class="comment"># 初始化package.json，依次enter键就好了，但注意entry point所指向的文件(在此命名为app.js)</span></span><br><span class="line">npm install express --save <span class="comment"># 安装express</span></span><br><span class="line">npm install express <span class="comment">#-- 临时安装</span></span><br></pre></td></tr></table></figure>
+<p><strong>入门第一步 hello world</strong></p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">cd</span> myapp <span class="comment"># 进入myapp目录，创建app.js</span></span><br></pre></td></tr></table></figure>
+<p><strong>输入代码</strong></p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> express = <span class="built_in">require</span>(<span class="string">&#x27;express&#x27;</span>)</span><br><span class="line"><span class="keyword">var</span> app = express()</span><br><span class="line"></span><br><span class="line">app.get(<span class="string">&#x27;/&#x27;</span>, <span class="function"><span class="keyword">function</span>(<span class="params">req, res</span>)</span>&#123;</span><br><span class="line">	res.send(<span class="string">&#x27;Hello World&#x27;</span>)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> server = app.listen(<span class="number">3000</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">	<span class="keyword">var</span> host = server.address().address</span><br><span class="line">	<span class="keyword">var</span> host = server.address().port</span><br><span class="line">	<span class="built_in">console</span>.log(<span class="string">&#x27;Example app listening at http://%s:%s&#x27;</span>, host, port)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p>代码解释: </p>
+<ul>
+<li>启动一个服务并监听从3000端口进入的所有连接服务-</li>
+<li>将对所有URL为 (/) 路由返回’Hello World’的字符串</li>
+<li>对其他路径返回404</li>
+</ul>
+<p><strong>启动应用</strong></p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">node app.js</span><br></pre></td></tr></table></figure>
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://karencxx.github.io/2017/11/23/1123/" data-id="clv3nb5eo0005dpjf98t0diyw" class="article-share-link">Share</a>
+      <a data-url="http://karencxx.github.io/2017/11/23/ExpressNote/" data-id="clvdj5bt3000390fucaec2yhh" class="article-share-link">Share</a>
       
       
     </footer>
@@ -511,7 +419,7 @@ export default new Router(&#123;
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://karencxx.github.io/2017/11/21/1121/" data-id="clv3nb5fc000pdpjf90lo13by" class="article-share-link">Share</a>
+      <a data-url="http://karencxx.github.io/2017/11/21/1121/" data-id="clvdj5bsu000090fu64bq7lh0" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E9%9A%8F%E7%AC%94%E5%86%99/" rel="tag">随笔写</a></li></ul>
@@ -549,7 +457,7 @@ export default new Router(&#123;
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://karencxx.github.io/2017/11/17/create-a-plugin/" data-id="clv3nb5f0000edpjf2lgxe6s6" class="article-share-link">Share</a>
+      <a data-url="http://karencxx.github.io/2017/11/17/create-a-plugin/" data-id="clvdj5btm000x90fugwe2hi6k" class="article-share-link">Share</a>
       
       
     </footer>
@@ -559,10 +467,10 @@ export default new Router(&#123;
 
 
   
-    <article id="post-1116" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-my-first-article" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2017/11/16/1116/" class="article-date">
-  <time datetime="2017-11-16T03:13:03.000Z" itemprop="datePublished">2017-11-16</time>
+    <a href="/2017/11/15/my-first-article/" class="article-date">
+  <time datetime="2017-11-15T06:23:45.000Z" itemprop="datePublished">2017-11-15</time>
 </a>
     
   </div>
@@ -573,7 +481,7 @@ export default new Router(&#123;
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2017/11/16/1116/">1116</a>
+      <a class="article-title" href="/2017/11/15/my-first-article/">搭建步骤</a>
     </h1>
   
 
@@ -581,14 +489,81 @@ export default new Router(&#123;
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>了解</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">Dubbo 分布式服务框架 远程服务调用</span><br><span class="line">Zookeeper 选举机制 paxos算法</span><br></pre></td></tr></table></figure>
-<p>最近小目标</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">1.JS、ES6、css3</span><br><span class="line">2.插件编写</span><br><span class="line">3.css sprite雪碧图 </span><br></pre></td></tr></table></figure>
+        <p>记录一下:)</p>
+<ol>
+<li>前提：本地 node git 环境</li>
+<li>安装hexo – 打开终端，输入 sudo npm install -g hexo </li>
+<li>初始化hexo – 本地目录下创建名为hexo的文件夹，终端定位到该目录下，执行命令：nexo init</li>
+<li>安装依赖 – npm install</li>
+<li>生成静态页面 – hexo generate</li>
+<li>开启服务 – hexo server 本地监听 localhost:4000</li>
+<li>远程创建repository – your_user_name.github.io (与github用户名一致)</li>
+<li>安装git部署器 – npm install hexo-deployer-git –save</li>
+<li>修改配置文件 – 打开_config.yml 在文件末尾修改<pre><code> deploy
+ type: git 
+ repo: 你的repository地址 
+       如 https://github.com/xxx/xxx.github.io.git
+ branch: master
+</code></pre>
+</li>
+<li>部署 – hexo deploy</li>
+<li>效果 – 打开网站 <a target="_blank" rel="noopener" href="https://xxx.github.io/">https://xxx.github.io</a></li>
+<li>发表文章 – hexo new ‘文章名’</li>
+<li>编辑完，重新生成并部署 – hexo clean hexo g hexo d</li>
+<li>hexo在hexo目录下执行<br>hexo命令缩写     <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">hexo g(generate) </span><br><span class="line">hexo d(deploy) </span><br><span class="line">hexo s(server) </span><br><span class="line">hexo n(new)</span><br></pre></td></tr></table></figure></li>
+</ol>
+
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://karencxx.github.io/2017/11/16/1116/" data-id="clv3nb5eh0001dpjf5huiaatb" class="article-share-link">Share</a>
+      <a data-url="http://karencxx.github.io/2017/11/15/my-first-article/" data-id="clvdj5bth000m90fu3irweyrx" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/hexo/" rel="tag">hexo</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-hello-world" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/11/15/hello-world/" class="article-date">
+  <time datetime="2017-11-15T03:44:22.000Z" itemprop="datePublished">2017-11-15</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/11/15/hello-world/">Hello World</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
+<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/deployment.html">Deployment</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://karencxx.github.io/2017/11/15/hello-world/" data-id="clvdj5btd000g90fu7pj9dg1h" class="article-share-link">Share</a>
       
       
     </footer>
@@ -601,7 +576,7 @@ export default new Router(&#123;
 
 
   <nav id="page-nav">
-    <a class="extend prev" rel="prev" href="/page/2/">&amp;laquo; __(&#39;prev&#39;)</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/4/">__(&#39;next&#39;) &amp;raquo;</a>
+    <a class="extend prev" rel="prev" href="/page/2/">&amp;laquo; __(&#39;prev&#39;)</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span>
   </nav>
 </section>
         
@@ -611,7 +586,7 @@ export default new Router(&#123;
   <div class="widget-wrap">
     <h3 class="widget-title">Categories</h3>
     <div class="widget">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/js/">js</a></li></ul>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/BOM/">BOM</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/CSS/">CSS</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/JS/">JS</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/express/">express</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/snabbdom/">snabbdom</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/vue/">vue</a></li></ul>
     </div>
   </div>
 
@@ -621,7 +596,7 @@ export default new Router(&#123;
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%A4%8D%E4%B9%A0/" rel="tag">复习</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%A4%8D%E4%B9%A0-CSS/" rel="tag">复习, CSS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%B5%8F%E8%A7%88%E5%99%A8/" rel="tag">浏览器</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AF%BB%E7%82%B9%E6%BA%90%E7%A0%81/" rel="tag">读点源码</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%9A%8F%E7%AC%94%E5%86%99/" rel="tag">随笔写</a></li></ul>
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/" rel="tag">hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/js-this/" rel="tag">js-this</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/source-code/" rel="tag">source code</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/typescript/" rel="tag">typescript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/v-for/" rel="tag">v-for</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vue-router/" rel="tag">vue-router</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vuex%E6%8E%A2%E7%A9%B6/" rel="tag">vuex探究</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/webpack/" rel="tag">webpack</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%89%8D%E7%AB%AF%E5%AD%98%E5%82%A8/" rel="tag">前端存储</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%A4%8D%E4%B9%A0/" rel="tag">复习</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%AE%9A%E6%97%B6%E5%99%A8/" rel="tag">定时器</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%BC%80%E5%8F%91%E6%8A%80%E5%B7%A7/" rel="tag">开发技巧</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/" rel="tag">性能优化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%83%A8%E7%BD%B2/" rel="tag">部署</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%9A%8F%E7%AC%94%E5%86%99/" rel="tag">随笔写</a></li></ul>
     </div>
   </div>
 
@@ -631,7 +606,7 @@ export default new Router(&#123;
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/%E5%A4%8D%E4%B9%A0/" style="font-size: 20px;">复习</a> <a href="/tags/%E5%A4%8D%E4%B9%A0-CSS/" style="font-size: 10px;">复习, CSS</a> <a href="/tags/%E6%B5%8F%E8%A7%88%E5%99%A8/" style="font-size: 10px;">浏览器</a> <a href="/tags/%E8%AF%BB%E7%82%B9%E6%BA%90%E7%A0%81/" style="font-size: 10px;">读点源码</a> <a href="/tags/%E9%9A%8F%E7%AC%94%E5%86%99/" style="font-size: 10px;">随笔写</a>
+      <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/js-this/" style="font-size: 10px;">js-this</a> <a href="/tags/source-code/" style="font-size: 15px;">source code</a> <a href="/tags/typescript/" style="font-size: 10px;">typescript</a> <a href="/tags/v-for/" style="font-size: 10px;">v-for</a> <a href="/tags/vue-router/" style="font-size: 10px;">vue-router</a> <a href="/tags/vuex%E6%8E%A2%E7%A9%B6/" style="font-size: 10px;">vuex探究</a> <a href="/tags/webpack/" style="font-size: 10px;">webpack</a> <a href="/tags/%E5%89%8D%E7%AB%AF%E5%AD%98%E5%82%A8/" style="font-size: 10px;">前端存储</a> <a href="/tags/%E5%A4%8D%E4%B9%A0/" style="font-size: 20px;">复习</a> <a href="/tags/%E5%AE%9A%E6%97%B6%E5%99%A8/" style="font-size: 10px;">定时器</a> <a href="/tags/%E5%BC%80%E5%8F%91%E6%8A%80%E5%B7%A7/" style="font-size: 15px;">开发技巧</a> <a href="/tags/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/" style="font-size: 10px;">性能优化</a> <a href="/tags/%E9%83%A8%E7%BD%B2/" style="font-size: 10px;">部署</a> <a href="/tags/%E9%9A%8F%E7%AC%94%E5%86%99/" style="font-size: 10px;">随笔写</a>
     </div>
   </div>
 
@@ -653,6 +628,10 @@ export default new Router(&#123;
       <ul>
         
           <li>
+            <a href="/2024/04/24/ReviewNote/">ReviewNote</a>
+          </li>
+        
+          <li>
             <a href="/2024/04/11/BOMNote/">BOMNote</a>
           </li>
         
@@ -666,10 +645,6 @@ export default new Router(&#123;
         
           <li>
             <a href="/2024/04/01/JSNote/">JSNote</a>
-          </li>
-        
-          <li>
-            <a href="/2021/03/29/%E8%BF%9F%E6%9D%A5%E7%9A%84%E6%B3%A8%E6%84%8F%E7%82%B9-%E5%86%B7%E7%9F%A5%E8%AF%86/">记录：注意点&amp;冷知识</a>
           </li>
         
       </ul>

@@ -5,17 +5,18 @@
   
   <title>项目构建部署二三事 | 进阶</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="今天的重点：vue-cli 构建部署 运行命令 vue-cli-service build –target  指定不同的构建目标，默认为应用模式  应用模式   index.html 会带有注入的资源和 resource hint 第三方库会被分到一个独立包以便更好的缓存 小于 4kb 的静态资源会被内联在 JavaScript 中 public 中的静态资源会被复制到输出目录中，如dist  打">
+  <meta name="description" content="今天的重点：vue-cli 构建部署运行命令 vue-cli-service build –target  指定不同的构建目标，默认为应用模式 应用模式 index.html 会带有注入的资源和 resource hint 第三方库 会被分到一个独立包以便更好地缓存 小于 4kb 的 静态资源 会被 内联 在 JavaScript 中 public 中的 静态资源 会被复制到输出目录中，如 dis">
 <meta property="og:type" content="article">
 <meta property="og:title" content="项目构建部署二三事">
 <meta property="og:url" content="http://karencxx.github.io/2021/01/19/%E9%A1%B9%E7%9B%AE%E6%9E%84%E5%BB%BA%E9%83%A8%E7%BD%B2%E4%BA%8C%E4%B8%89%E4%BA%8B/index.html">
 <meta property="og:site_name" content="进阶">
-<meta property="og:description" content="今天的重点：vue-cli 构建部署 运行命令 vue-cli-service build –target  指定不同的构建目标，默认为应用模式  应用模式   index.html 会带有注入的资源和 resource hint 第三方库会被分到一个独立包以便更好的缓存 小于 4kb 的静态资源会被内联在 JavaScript 中 public 中的静态资源会被复制到输出目录中，如dist  打">
+<meta property="og:description" content="今天的重点：vue-cli 构建部署运行命令 vue-cli-service build –target  指定不同的构建目标，默认为应用模式 应用模式 index.html 会带有注入的资源和 resource hint 第三方库 会被分到一个独立包以便更好地缓存 小于 4kb 的 静态资源 会被 内联 在 JavaScript 中 public 中的 静态资源 会被复制到输出目录中，如 dis">
 <meta property="og:locale">
 <meta property="og:image" content="http://karencxx.github.io/img/lib-structure.png">
 <meta property="article:published_time" content="2021-01-19T11:07:27.000Z">
-<meta property="article:modified_time" content="2021-02-03T08:13:01.732Z">
+<meta property="article:modified_time" content="2024-04-23T11:54:41.186Z">
 <meta property="article:author" content="karen">
+<meta property="article:tag" content="部署">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http://karencxx.github.io/img/lib-structure.png">
   
@@ -74,6 +75,10 @@
   <time datetime="2021-01-19T11:07:27.000Z" itemprop="datePublished">2021-01-19</time>
 </a>
     
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/vue/">vue</a>
+  </div>
+
   </div>
   <div class="article-inner">
     
@@ -90,53 +95,38 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p><strong>今天的重点：vue-cli 构建部署</strong></p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">运行命令 vue-cli-service build</span><br></pre></td></tr></table></figure>
+        <p>今天的重点：<strong>vue-cli 构建部署</strong><br>运行命令</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">vue-cli-service build</span><br></pre></td></tr></table></figure>
 <p><strong>–target</strong>  指定不同的构建目标，默认为应用模式</p>
-<blockquote>
-<p>应用模式</p>
-</blockquote>
-<ul>
+<h3 id="应用模式"><a href="#应用模式" class="headerlink" title="应用模式"></a>应用模式</h3><ul>
 <li><strong>index.html</strong> 会带有注入的资源和 resource hint</li>
-<li>第三方库会被分到一个独立包以便更好的缓存</li>
-<li>小于 4kb 的静态资源会被内联在 JavaScript 中</li>
-<li><strong>public</strong> 中的静态资源会被复制到输出目录中，如dist</li>
+<li>第三方库 会被分到一个独立包以便更好地缓存</li>
+<li>小于 4kb 的 静态资源 会被 内联 在 JavaScript 中</li>
+<li><strong>public</strong> 中的 静态资源 会被复制到输出目录中，如 dist</li>
 </ul>
 <p>打包后的文件结构</p>
-<blockquote>
-<p>库模式 –target lib</p>
-</blockquote>
-<p>打包后如下图<br><img src="/img/lib-structure.png" alt="图1"></p>
+<h3 id="库模式-–target-lib"><a href="#库模式-–target-lib" class="headerlink" title="库模式 –target lib"></a>库模式 –target lib</h3><p>打包后如下图<br><img src="/img/lib-structure.png" alt="图1"></p>
 <ul>
 <li>dist/lib.common.js：一个给打包器用的CommonJS包 (不幸的是，webpack目前还并没有支持ES modules输出格式的包)</li>
 <li>dist/lib.umd.js：一个直接给浏览器或AMD loader使用的UMD包</li>
 <li>dist/lib.umd.min.js：压缩后的UMD构建版本</li>
 <li>dist/lib.css：提取出来的CSS文件 (可以通过在 vue.config.js 中设置 css: { extract: false } 强制内联)</li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">部署， 这里举了几个我当前项目中运用到的情况</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p><strong>本地预览</strong><br>在本地预览生产环境构建最简单的方式就是使用一个Node.js静态文件服务器，例如serve</p>
-</blockquote>
+<h3 id="部署，-这里举了几个我当前项目中运用到的情况"><a href="#部署，-这里举了几个我当前项目中运用到的情况" class="headerlink" title="部署， 这里举了几个我当前项目中运用到的情况"></a>部署， 这里举了几个我当前项目中运用到的情况</h3><p><strong>本地预览</strong><br>在本地预览生产环境构建最简单的方式就是使用一个Node.js静态文件服务器，例如serve</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">npm install -g serve</span><br><span class="line"></span><br><span class="line"># -s 参数的意思是将其架设在SPA模式下</span><br><span class="line">serve -s dist</span><br></pre></td></tr></table></figure>
-<p>使用<strong>mode: history</strong>的router是无法搭配简单的静态文件服务器的，例如/goods/:id这样的路由将会返回404<br>上面提到的-s 模式正是解决了这个问题</p>
-<blockquote>
-<p>deploy.sh</p>
-</blockquote>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">!/bin/bash</span></span><br><span class="line">git_url: xxx</span><br><span class="line">source_dir=dist</span><br><span class="line">dest=&quot;.deploy/master&quot;</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 当发生错误时中止脚本</span></span><br><span class="line">set -e</span><br><span class="line"></span><br><span class="line">if [ ! -d $dest ]; then</span><br><span class="line">    git clone $git_url $dest --depth=1</span><br><span class="line">fi</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 记录现在的目录位置</span></span><br><span class="line">cur=`pwd`</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 进入git目录</span></span><br><span class="line">cd $dest</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> git checkout .</span></span><br><span class="line">git add .</span><br><span class="line">git stash</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> reset为线上最新版本</span></span><br><span class="line">git pull origin master</span><br><span class="line">git reset --hard origin/master</span><br><span class="line">    </span><br><span class="line"><span class="meta">#</span><span class="bash"> 然后再pull一下</span></span><br><span class="line">git pull origin master</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 回到原来的目录</span></span><br><span class="line">echo ---back</span><br><span class="line">cd $cur</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 构建</span></span><br><span class="line">echo +++run build script</span><br><span class="line">npm run build</span><br><span class="line">echo ---build end</span><br><span class="line"></span><br><span class="line">echo +++cpCode start</span><br><span class="line"><span class="meta">#</span><span class="bash"> 复制代码 , --exclude排除不需要传输的文件模式</span></span><br><span class="line">rsync -r --delete --exclude=&#x27;.git&#x27; $source_dir/. $dest</span><br><span class="line">echo ---cpCode end</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> <span class="built_in">cd</span> 到构建输出的目录下</span></span><br><span class="line">cd $dest</span><br><span class="line"></span><br><span class="line">echo +++commit start</span><br><span class="line"><span class="meta">#</span><span class="bash"> 部署到自定义域名</span></span><br><span class="line">git add .</span><br><span class="line">git commit -m &quot;commit in `date &#x27;+%Y-%m-%d %H:%M:%S&#x27;`&quot;</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 部署到远程git</span></span><br><span class="line">git push origin master</span><br><span class="line">echo ---commit end</span><br><span class="line"></span><br><span class="line">cd -</span><br></pre></td></tr></table></figure>
-<p>deploy.sh做的事情是构建完自动部署提交到远程git</p>
-<blockquote>
-<p>docker</p>
-</blockquote>
-<blockquote>
-<p>参考文档：<a target="_blank" rel="noopener" href="https://cli.vuejs.org/zh/guide/build-targets.html">https://cli.vuejs.org/zh/guide/build-targets.html</a></p>
-</blockquote>
+<p>使用 <strong>mode: history</strong> 的 router 是无法搭配简单的静态文件服务器的，例如 /goods/:id 这样的路由将会返回404<br>上面提到的 -s 模式正是解决了这个问题</p>
+<h3 id="deploy-sh"><a href="#deploy-sh" class="headerlink" title="deploy.sh"></a>deploy.sh</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">!/bin/bash</span></span><br><span class="line">git_url: xxx</span><br><span class="line">source_dir=dist</span><br><span class="line">dest=&quot;.deploy/master&quot;</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 当发生错误时中止脚本</span></span><br><span class="line">set -e</span><br><span class="line"></span><br><span class="line">if [ ! -d $dest ]; then</span><br><span class="line">    git clone $git_url $dest --depth=1</span><br><span class="line">fi</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 记录现在的目录位置</span></span><br><span class="line">cur=`pwd`</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 进入git目录</span></span><br><span class="line">cd $dest</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> git checkout .</span></span><br><span class="line">git add .</span><br><span class="line">git stash</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> reset为线上最新版本</span></span><br><span class="line">git pull origin master</span><br><span class="line">git reset --hard origin/master</span><br><span class="line">    </span><br><span class="line"><span class="meta">#</span><span class="bash"> 然后再pull一下</span></span><br><span class="line">git pull origin master</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 回到原来的目录</span></span><br><span class="line">echo ---back</span><br><span class="line">cd $cur</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 构建</span></span><br><span class="line">echo +++run build script</span><br><span class="line">npm run build</span><br><span class="line">echo ---build end</span><br><span class="line"></span><br><span class="line">echo +++cpCode start</span><br><span class="line"><span class="meta">#</span><span class="bash"> 复制代码 , --exclude排除不需要传输的文件模式</span></span><br><span class="line">rsync -r --delete --exclude=&#x27;.git&#x27; $source_dir/. $dest</span><br><span class="line">echo ---cpCode end</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> <span class="built_in">cd</span> 到构建输出的目录下</span></span><br><span class="line">cd $dest</span><br><span class="line"></span><br><span class="line">echo +++commit start</span><br><span class="line"><span class="meta">#</span><span class="bash"> 部署到自定义域名</span></span><br><span class="line">git add .</span><br><span class="line">git commit -m &quot;commit in `date &#x27;+%Y-%m-%d %H:%M:%S&#x27;`&quot;</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 部署到远程git</span></span><br><span class="line">git push origin master</span><br><span class="line">echo ---commit end</span><br><span class="line"></span><br><span class="line">cd -</span><br></pre></td></tr></table></figure>
+<p>deploy.sh 做的事情是 构建完自动部署提交到远程git</p>
+<h3 id="docker"><a href="#docker" class="headerlink" title="docker"></a>docker</h3><p>参考文档：<a target="_blank" rel="noopener" href="https://cli.vuejs.org/zh/guide/build-targets.html">https://cli.vuejs.org/zh/guide/build-targets.html</a></p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://karencxx.github.io/2021/01/19/%E9%A1%B9%E7%9B%AE%E6%9E%84%E5%BB%BA%E9%83%A8%E7%BD%B2%E4%BA%8C%E4%B8%89%E4%BA%8B/" data-id="clv3nb5g1001cdpjfhbzzc42x" class="article-share-link">Share</a>
+      <a data-url="http://karencxx.github.io/2021/01/19/%E9%A1%B9%E7%9B%AE%E6%9E%84%E5%BB%BA%E9%83%A8%E7%BD%B2%E4%BA%8C%E4%B8%89%E4%BA%8B/" data-id="clvdj5bua002590fubanhfrey" class="article-share-link">Share</a>
       
       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E9%83%A8%E7%BD%B2/" rel="tag">部署</a></li></ul>
+
     </footer>
   </div>
   
@@ -153,9 +143,9 @@
     </a>
   
   
-    <a href="/2021/01/13/ready-for-2021/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2021/01/11/%E7%90%86%E8%A7%A3js%E4%B8%AD%E7%9A%84this/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">ready for 2021</div>
+      <div class="article-nav-title">javascript中的this作用域</div>
     </a>
   
 </nav>
@@ -171,7 +161,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Categories</h3>
     <div class="widget">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/js/">js</a></li></ul>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/BOM/">BOM</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/CSS/">CSS</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/JS/">JS</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/express/">express</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/snabbdom/">snabbdom</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/vue/">vue</a></li></ul>
     </div>
   </div>
 
@@ -181,7 +171,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%A4%8D%E4%B9%A0/" rel="tag">复习</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%A4%8D%E4%B9%A0-CSS/" rel="tag">复习, CSS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%B5%8F%E8%A7%88%E5%99%A8/" rel="tag">浏览器</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AF%BB%E7%82%B9%E6%BA%90%E7%A0%81/" rel="tag">读点源码</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%9A%8F%E7%AC%94%E5%86%99/" rel="tag">随笔写</a></li></ul>
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/" rel="tag">hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/js-this/" rel="tag">js-this</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/source-code/" rel="tag">source code</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/typescript/" rel="tag">typescript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/v-for/" rel="tag">v-for</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vue-router/" rel="tag">vue-router</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vuex%E6%8E%A2%E7%A9%B6/" rel="tag">vuex探究</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/webpack/" rel="tag">webpack</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%89%8D%E7%AB%AF%E5%AD%98%E5%82%A8/" rel="tag">前端存储</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%A4%8D%E4%B9%A0/" rel="tag">复习</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%AE%9A%E6%97%B6%E5%99%A8/" rel="tag">定时器</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%BC%80%E5%8F%91%E6%8A%80%E5%B7%A7/" rel="tag">开发技巧</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/" rel="tag">性能优化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%83%A8%E7%BD%B2/" rel="tag">部署</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%9A%8F%E7%AC%94%E5%86%99/" rel="tag">随笔写</a></li></ul>
     </div>
   </div>
 
@@ -191,7 +181,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/%E5%A4%8D%E4%B9%A0/" style="font-size: 20px;">复习</a> <a href="/tags/%E5%A4%8D%E4%B9%A0-CSS/" style="font-size: 10px;">复习, CSS</a> <a href="/tags/%E6%B5%8F%E8%A7%88%E5%99%A8/" style="font-size: 10px;">浏览器</a> <a href="/tags/%E8%AF%BB%E7%82%B9%E6%BA%90%E7%A0%81/" style="font-size: 10px;">读点源码</a> <a href="/tags/%E9%9A%8F%E7%AC%94%E5%86%99/" style="font-size: 10px;">随笔写</a>
+      <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/js-this/" style="font-size: 10px;">js-this</a> <a href="/tags/source-code/" style="font-size: 15px;">source code</a> <a href="/tags/typescript/" style="font-size: 10px;">typescript</a> <a href="/tags/v-for/" style="font-size: 10px;">v-for</a> <a href="/tags/vue-router/" style="font-size: 10px;">vue-router</a> <a href="/tags/vuex%E6%8E%A2%E7%A9%B6/" style="font-size: 10px;">vuex探究</a> <a href="/tags/webpack/" style="font-size: 10px;">webpack</a> <a href="/tags/%E5%89%8D%E7%AB%AF%E5%AD%98%E5%82%A8/" style="font-size: 10px;">前端存储</a> <a href="/tags/%E5%A4%8D%E4%B9%A0/" style="font-size: 20px;">复习</a> <a href="/tags/%E5%AE%9A%E6%97%B6%E5%99%A8/" style="font-size: 10px;">定时器</a> <a href="/tags/%E5%BC%80%E5%8F%91%E6%8A%80%E5%B7%A7/" style="font-size: 15px;">开发技巧</a> <a href="/tags/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/" style="font-size: 10px;">性能优化</a> <a href="/tags/%E9%83%A8%E7%BD%B2/" style="font-size: 10px;">部署</a> <a href="/tags/%E9%9A%8F%E7%AC%94%E5%86%99/" style="font-size: 10px;">随笔写</a>
     </div>
   </div>
 
@@ -213,6 +203,10 @@
       <ul>
         
           <li>
+            <a href="/2024/04/24/ReviewNote/">ReviewNote</a>
+          </li>
+        
+          <li>
             <a href="/2024/04/11/BOMNote/">BOMNote</a>
           </li>
         
@@ -226,10 +220,6 @@
         
           <li>
             <a href="/2024/04/01/JSNote/">JSNote</a>
-          </li>
-        
-          <li>
-            <a href="/2021/03/29/%E8%BF%9F%E6%9D%A5%E7%9A%84%E6%B3%A8%E6%84%8F%E7%82%B9-%E5%86%B7%E7%9F%A5%E8%AF%86/">记录：注意点&amp;冷知识</a>
           </li>
         
       </ul>
