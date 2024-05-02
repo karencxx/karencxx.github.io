@@ -72,6 +72,10 @@
   <time datetime="2024-04-24T07:47:47.000Z" itemprop="datePublished">2024-04-24</time>
 </a>
     
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/vue/">vue</a>
+  </div>
+
   </div>
   <div class="article-inner">
     
@@ -80,7 +84,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2024/04/24/ReviewNote/">ReviewNote</a>
+      <a class="article-title" href="/2024/04/24/ReviewNote/">Vue-ReviewNote</a>
     </h1>
   
 
@@ -88,14 +92,87 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <blockquote>
-<h2 id="vue"><a href="#vue" class="headerlink" title="vue"></a>vue</h2></blockquote>
-<h3 id="1-生命周期"><a href="#1-生命周期" class="headerlink" title="1. 生命周期**"></a>1. 生命周期**</h3><p><strong>nextTick</strong></p>
-
+        <h3 id="Vue-js-使用-Flow-做静态类型检查"><a href="#Vue-js-使用-Flow-做静态类型检查" class="headerlink" title="Vue.js 使用 Flow 做静态类型检查"></a>Vue.js 使用 Flow 做静态类型检查</h3><ul>
+<li>Flow 是 facebook 的 JavaScript 静态类型检查工具<ul>
+<li>类型检查分成 2 种方式：<ul>
+<li>类型推断：通过变量的使用上下文来推断出变量类型，然后根据这些推断来检查类型</li>
+<li>类型注释：事先注释好的类型 如x:number，Flow会基于这些注释来判断</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p><strong>Vue 实际上是一个类，在JS中用 Function 实现。这就是需要用 <u>new Vue(..)</u> 来初始化的原因</strong></p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Vue</span> (<span class="params">options</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (process.env.NODE_ENV !== <span class="string">&#x27;production&#x27;</span> &amp;&amp;</span><br><span class="line">    !(<span class="built_in">this</span> <span class="keyword">instanceof</span> Vue)</span><br><span class="line">  ) &#123;</span><br><span class="line">    warn(<span class="string">&#x27;Vue is a constructor and should be called with the `new` keyword&#x27;</span>)</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="built_in">this</span>._init(options)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="核心思想"><a href="#核心思想" class="headerlink" title="核心思想"></a>核心思想</h3><ol>
+<li>数据驱动：视图是由数据驱动生成，不直接操作DOM，而是通过修改数据来实现。</li>
+<li>组件化</li>
+</ol>
+<h3 id="Virtual-DOM"><a href="#Virtual-DOM" class="headerlink" title="Virtual DOM"></a>Virtual DOM</h3><p><strong>用原生JS对象去描述一个DOM节点</strong><br>借鉴了Snabbdom.js<br>作用：</p>
+<ul>
+<li>维护视图和状态的关系，可以跟踪状态变化</li>
+<li>复杂视图情况下提升渲染性能</li>
+<li>可以跨平台渲染</li>
+</ul>
+<p>在Vue中，VNode是对 <strong>真实DOM</strong> 的抽象描述，有几个关键属性：标签名tag、数据data、子节点children、键值text、上下文环境context等</p>
+<p>除了数据结构等定义外，要映射到 真实的DOM节点 上实际上还需要几个步骤：</p>
+<ol>
+<li>create 创建Virtual DOM树</li>
+<li>diff</li>
+<li>patch 用于渲染对比VNode变成真实DOM</li>
+</ol>
+<h3 id="生命周期"><a href="#生命周期" class="headerlink" title="生命周期"></a>生命周期</h3><ul>
+<li>钩子函数 LIFECYCLE_HOOKS</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="string">&#x27;beforeCreate&#x27;</span>,</span><br><span class="line"><span class="string">&#x27;created&#x27;</span>,</span><br><span class="line"><span class="string">&#x27;beforeMount&#x27;</span>,</span><br><span class="line"><span class="string">&#x27;mounted&#x27;</span>,</span><br><span class="line"><span class="string">&#x27;beforeUpdate&#x27;</span>,</span><br><span class="line"><span class="string">&#x27;updated&#x27;</span>,</span><br><span class="line"><span class="string">&#x27;beforeDestroy&#x27;</span>,</span><br><span class="line"><span class="string">&#x27;destroyed&#x27;</span>,</span><br><span class="line"><span class="string">&#x27;activated&#x27;</span>,</span><br><span class="line"><span class="string">&#x27;deactivated&#x27;</span>,</span><br><span class="line"><span class="string">&#x27;errorCaptured&#x27;</span>,</span><br><span class="line"><span class="string">&#x27;serverPrefetch&#x27;</span></span><br></pre></td></tr></table></figure>
+<ol>
+<li>init初始化<ul>
+<li>合并配置</li>
+<li>初始化生命周期</li>
+<li>初始化事件中心</li>
+<li>初始化渲染</li>
+<li>初始化 data、props、computed、watcher</li>
+</ul>
+</li>
+<li>$mount挂载vm</li>
+<li>先编译compile</li>
+<li>render</li>
+<li>VNode</li>
+</ol>
+<h3 id="数据响应，数据劫持"><a href="#数据响应，数据劫持" class="headerlink" title="数据响应，数据劫持"></a>数据响应，数据劫持</h3><p>两部分组成：观察者(watcher) 和 依赖收集器(Dep)</p>
+<ul>
+<li>Vue 2.0响应 是基于ES5 的 Object.defineProperty 实现<ul>
+<li>设置data后，遍历所有属性，利用defineProperty <strong>重写</strong> 属性的 <strong>get 与 set 方法</strong>，从而完成监听数据的改变</li>
+<li>无法监听数组变化</li>
+<li>无法处理属性也为对象的情况</li>
+</ul>
+</li>
+<li>Vue 3.0响应 是基于ES6 的 Proxy 实现</li>
+<li>Proxy 对象用于创建 <strong>一个对象的代理</strong>，从而实现基本操作的拦截和自定义，如属性查找、赋值、枚举、函数调用等<ul>
+<li>new Proxy(target, handler)</li>
+</ul>
+</li>
+<li>优点<ul>
+<li>不需要深度遍历监听</li>
+<li>对象、数组变化都能监听得到</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> data = &#123;&#125;</span><br><span class="line"><span class="keyword">const</span> vm = <span class="keyword">new</span> <span class="built_in">Proxy</span>(data, &#123;</span><br><span class="line">    get (target, key) &#123;</span><br><span class="line">        <span class="keyword">return</span> target[key]</span><br><span class="line">    &#125;,</span><br><span class="line">    set (target, key, value) &#123;</span><br><span class="line">        target[key] = value</span><br><span class="line">        <span class="comment">// update view</span></span><br><span class="line">        <span class="built_in">document</span>.querySelector(<span class="string">&#x27;#vm&#x27;</span>).textContent = target[key]</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<h4 id="观察者模式"><a href="#观察者模式" class="headerlink" title="观察者模式"></a>观察者模式</h4><ul>
+<li>被观察者 subject、观察者 observe</li>
+<li>是一对多的关系，是耦合的，适合在组件内部操作</li>
+</ul>
+<h4 id="发布订阅模式"><a href="#发布订阅模式" class="headerlink" title="发布订阅模式"></a>发布订阅模式</h4><ul>
+<li>订阅者 subscriber、发布者 publisher</li>
+<li>消息中心 Dep，接到指令后会根据事件类型给对应的订阅者发送消息</li>
+<li>添加消息中心，所有消息均通过消息中心，发布者与订阅者不直接相关，实现了两者解耦。更适合消息类型复杂情况</li>
+</ul>
+<h3 id="nextTick"><a href="#nextTick" class="headerlink" title="nextTick"></a>nextTick</h3>
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://karencxx.github.io/2024/04/24/ReviewNote/" data-id="clvdj5btc000e90fu7cuh0afx" class="article-share-link">Share</a>
+      <a data-url="http://karencxx.github.io/2024/04/24/ReviewNote/" data-id="clvp2dqvi000a0pfu14h23uxb" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%A4%8D%E4%B9%A0/" rel="tag">复习</a></li></ul>
@@ -587,7 +664,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://karencxx.github.io/2024/04/11/BOMNote/" data-id="clvdj5bsy000190fu8yatc5a6" class="article-share-link">Share</a>
+      <a data-url="http://karencxx.github.io/2024/04/11/BOMNote/" data-id="clvp2dqv600010pfu54o4d3l6" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%A4%8D%E4%B9%A0/" rel="tag">复习</a></li></ul>
@@ -1010,6 +1087,9 @@
 </ul>
 <hr>
 <h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><blockquote>
+<p>css 雪碧图</p>
+</blockquote>
+<blockquote>
 <p>用纯css画一个三角形</p>
 </blockquote>
 <p>即元素宽高都设为0，设置边框样式<br>如果是正三角，就设底边框颜色，其他边框设为透明</p>
@@ -1026,7 +1106,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://karencxx.github.io/2024/04/08/CSSNote/" data-id="clvdj5bt6000690fudxx7fi2y" class="article-share-link">Share</a>
+      <a data-url="http://karencxx.github.io/2024/04/08/CSSNote/" data-id="clvp2dqvb00040pfu0yqq28s3" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%A4%8D%E4%B9%A0/" rel="tag">复习</a></li></ul>
@@ -1167,7 +1247,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://karencxx.github.io/2024/04/07/JS%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/" data-id="clvdj5bt9000a90fu9ks7chil" class="article-share-link">Share</a>
+      <a data-url="http://karencxx.github.io/2024/04/07/JS%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/" data-id="clvp2dqvg00090pfubd519y8w" class="article-share-link">Share</a>
       
       
     </footer>
@@ -1671,6 +1751,12 @@
 <li>/ pattern / flags (g i m)</li>
 <li>实例属性：global ignoreCase lastIndex multiline source</li>
 <li>实例方法：exec(..)</li>
+<li><strong>RegExp对象是有状态，当用全局检索g 或者 粘性检索y 会将上次成功匹配后的位置记录在 lastIndex 属性中</strong><ul>
+<li>如果在一个RegExp对象上调用exec，它将从lastIndex开始，直到最后一个匹配结束</li>
+<li>当找不到更多的匹配项时，lastIndex将自动重置为0</li>
+<li>这里会产生一个问题：多次调用exec不总是返回相同的值（可以手动设置lastIndex = 0来解决）</li>
+</ul>
+</li>
 </ul>
 <figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 常用的一些正则</span></span><br><span class="line">/^<span class="number">1</span>\d&#123;<span class="number">10</span>&#125;$/ <span class="comment">// 以1开头的手机号码</span></span><br><span class="line">/^\d&#123;<span class="number">4</span>&#125;-\d&#123;<span class="number">2</span>&#125;-\d&#123;<span class="number">2</span>&#125;$/ <span class="comment">// 匹配日期，YYYY-MM-DD</span></span><br><span class="line">/^[a-zA-Z0-9_]&#123;<span class="number">4</span>,<span class="number">16</span>&#125;$/ <span class="comment">// 匹配用户名</span></span><br><span class="line">/^\(https?|ftp):\/\/[^\s/$.?#].[^\s]*$/ <span class="comment">// 匹配URL</span></span><br></pre></td></tr></table></figure>
 <h3 id="Function"><a href="#Function" class="headerlink" title="Function"></a>Function</h3><ul>
@@ -1778,7 +1864,7 @@
 </ul>
 </li>
 <li>访问器属性<ul>
-<li>getter(..)方法(取值时调用) setter(..)方法(设值时调用) enumerable configurable</li>
+<li>getter(..)方法(取值时调用) setter(..)方法(设值时调用) 与对象数据属性value 会冲突，不能同时定义</li>
 <li>get(..) set(val)  这两个是关键字</li>
 </ul>
 </li>
@@ -2132,11 +2218,38 @@
 <li><strong>利用现有库和框架避免重复造轮子</strong>；还要编写清晰的文档和注释帮助其他开发者更易理解和复用</li>
 <li><strong>测试</strong>，利用单元测试来验证代码正确性和稳定性</li>
 </ul>
+<p><strong>剩余参数</strong></p>
+<ul>
+<li>语法允许我们将一个不定数量的参数表示为一个数组</li>
+<li>以减少由参数引起的样板代码<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span>(<span class="params">a, b, ...theArgs</span>) </span>&#123;</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// theArgs 表示收集该函数的第三个参数和所有后续参数</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<p><strong>和 arguments对象的区别</strong><br>主要有三个：</p>
+<ul>
+<li>剩余参数只包含 那些没有 <strong>对应形参的实参</strong> ，而 arguments 对象包含了 传给函数的所有实参</li>
+<li>arguments对象只是一个类数组对象，而剩余参数是 <strong>真正的Array实例</strong><ul>
+<li>即能在它上面直接使用所有的数组方法，比如 sort，map，forEach或pop</li>
+</ul>
+</li>
+<li>arguments对象还有一些附加的属性（如callee属性）</li>
+</ul>
+<p><strong>形参、实参</strong></p>
+<ul>
+<li>形参（Parameters）：形式参数是在 函数或方法的定义中声明的变量。<ul>
+<li>它们在函数或方法内部被用作占位符，用来表示在函数调用时将要传递给函数的值。</li>
+<li>形参是函数或方法签名的一部分，它们指定了函数或方法期望接收的数据类型和数量。</li>
+</ul>
+</li>
+<li>实参（Arguments）：实际参数是在函数或方法调用时传递给函数或方法的值。<ul>
+<li>它们是实际要传递给函数或方法的数据。</li>
+<li>当函数或方法被调用时，实参被传递给形参，并且在函数或方法的执行过程中，实参的值将被使用。</li>
+</ul>
+</li>
+</ul>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://karencxx.github.io/2024/04/01/JSNote/" data-id="clvdj5bt8000990fua8711f2x" class="article-share-link">Share</a>
+      <a data-url="http://karencxx.github.io/2024/04/01/JSNote/" data-id="clvp2dqvl000d0pfug61xddp8" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%A4%8D%E4%B9%A0/" rel="tag">复习</a></li></ul>
@@ -2188,7 +2301,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://karencxx.github.io/2021/03/29/%E8%BF%9F%E6%9D%A5%E7%9A%84%E6%B3%A8%E6%84%8F%E7%82%B9-%E5%86%B7%E7%9F%A5%E8%AF%86/" data-id="clvdj5bu9002290fud6podxsb" class="article-share-link">Share</a>
+      <a data-url="http://karencxx.github.io/2021/03/29/%E8%BF%9F%E6%9D%A5%E7%9A%84%E6%B3%A8%E6%84%8F%E7%82%B9-%E5%86%B7%E7%9F%A5%E8%AF%86/" data-id="clvp2dqwt001y0pfuajsg4xt5" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%AE%9A%E6%97%B6%E5%99%A8/" rel="tag">定时器</a></li></ul>
@@ -2311,7 +2424,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://karencxx.github.io/2021/03/11/%E5%89%8D%E7%AB%AF%E5%AD%98%E5%82%A8%E6%80%BB%E7%BB%93/" data-id="clvdj5btw001d90fu1gc3d9iy" class="article-share-link">Share</a>
+      <a data-url="http://karencxx.github.io/2021/03/11/%E5%89%8D%E7%AB%AF%E5%AD%98%E5%82%A8%E6%80%BB%E7%BB%93/" data-id="clvp2dqwf001e0pfu3i6fe5sy" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%89%8D%E7%AB%AF%E5%AD%98%E5%82%A8/" rel="tag">前端存储</a></li></ul>
@@ -2351,7 +2464,7 @@
       
         <h2 id="h-ts"><a href="#h-ts" class="headerlink" title="h.ts"></a>h.ts</h2><p><strong>用于生成vnode</strong></p>
 <figure class="highlight typescript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="function"><span class="keyword">function</span> <span class="title">h</span> (<span class="params">sel: <span class="built_in">string</span></span>): <span class="title">VNode</span></span></span><br><span class="line"><span class="function"><span class="title">export</span> <span class="function"><span class="keyword">function</span> <span class="title">h</span> (<span class="params">sel: <span class="built_in">string</span>, data: VNodeData | <span class="literal">null</span></span>): <span class="title">VNode</span></span></span></span><br><span class="line"><span class="function"><span class="function"><span class="title">export</span> <span class="function"><span class="keyword">function</span> <span class="title">h</span> (<span class="params">sel: <span class="built_in">string</span>, children: VNodeChildren</span>): <span class="title">VNode</span></span></span></span></span><br><span class="line"><span class="function"><span class="function"><span class="function"><span class="title">export</span> <span class="function"><span class="keyword">function</span> <span class="title">h</span> (<span class="params">sel: <span class="built_in">string</span>, data: VNodeData | <span class="literal">null</span>, children: VNodeChildren</span>): <span class="title">VNode</span></span></span></span></span></span><br><span class="line"><span class="function"><span class="function"><span class="function"><span class="function"><span class="title">export</span> <span class="function"><span class="keyword">function</span> <span class="title">h</span> (<span class="params">sel: <span class="built_in">any</span>, b?: <span class="built_in">any</span>, c?: <span class="built_in">any</span></span>): <span class="title">VNode</span> </span>&#123;</span></span></span></span></span><br><span class="line"><span class="function"><span class="function"><span class="function"><span class="function">  <span class="title">let</span> <span class="title">data</span>: <span class="title">VNodeData</span> = </span>&#123;&#125;</span></span></span></span><br><span class="line"><span class="function"><span class="function"><span class="function">  <span class="title">let</span> <span class="title">children</span>: <span class="title">any</span></span></span></span></span><br><span class="line"><span class="function"><span class="function"><span class="function">  <span class="title">let</span> <span class="title">text</span>: <span class="title">any</span></span></span></span></span><br><span class="line"><span class="function"><span class="function"><span class="function">  <span class="title">let</span> <span class="title">i</span>: <span class="title">number</span></span></span></span></span><br><span class="line"><span class="function"><span class="function"><span class="function">  <span class="title">if</span> (<span class="params">c !== <span class="literal">undefined</span></span>) </span>&#123;</span></span></span><br><span class="line"><span class="function"><span class="function">    <span class="title">if</span> (<span class="params">b !== <span class="literal">null</span></span>) </span>&#123;</span></span><br><span class="line"><span class="function">      <span class="title">data</span> = <span class="title">b</span></span></span><br><span class="line"><span class="function">    &#125;</span></span><br><span class="line"><span class="function">    <span class="title">if</span> (<span class="params">is.array(c)</span>) </span>&#123;</span><br><span class="line">      children = c</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (is.primitive(c)) &#123;</span><br><span class="line">      text = c</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (c &amp;&amp; c.sel) &#123;</span><br><span class="line">      children = [c]</span><br><span class="line">    &#125;</span><br><span class="line">  &#125; <span class="keyword">else</span> <span class="keyword">if</span> (b !== <span class="literal">undefined</span> &amp;&amp; b !== <span class="literal">null</span>) &#123;</span><br><span class="line">    <span class="keyword">if</span> (is.array(b)) &#123;</span><br><span class="line">      children = b</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (is.primitive(b)) &#123;</span><br><span class="line">      text = b</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (b &amp;&amp; b.sel) &#123;</span><br><span class="line">      children = [b]</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123; data = b &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">if</span> (children !== <span class="literal">undefined</span>) &#123;</span><br><span class="line">    <span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; children.length; ++i) &#123;</span><br><span class="line">      <span class="keyword">if</span> (is.primitive(children[i])) children[i] = vnode(<span class="literal">undefined</span>, <span class="literal">undefined</span>, <span class="literal">undefined</span>, children[i], <span class="literal">undefined</span>)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">if</span> (</span><br><span class="line">    sel[<span class="number">0</span>] === <span class="string">&#x27;s&#x27;</span> &amp;&amp; sel[<span class="number">1</span>] === <span class="string">&#x27;v&#x27;</span> &amp;&amp; sel[<span class="number">2</span>] === <span class="string">&#x27;g&#x27;</span> &amp;&amp;</span><br><span class="line">    (sel.length === <span class="number">3</span> || sel[<span class="number">3</span>] === <span class="string">&#x27;.&#x27;</span> || sel[<span class="number">3</span>] === <span class="string">&#x27;#&#x27;</span>)</span><br><span class="line">  ) &#123;</span><br><span class="line">    addNS(data, children, sel)</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> vnode(sel, data, children, text, <span class="literal">undefined</span>)</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<h2 id="init-ts"><a href="#init-ts" class="headerlink" title="init.ts"></a>init.ts</h2><p><strong>patch 用于渲染对比VNode变成真实DOM</strong></p>
+<h2 id="init-ts"><a href="#init-ts" class="headerlink" title="init.ts"></a>init.ts</h2><p><strong>patch 用于渲染对比VNode变成真实DOM</strong><br>patch (oldVnode, newVnode)</p>
 <figure class="highlight typescript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="function"><span class="keyword">function</span> <span class="title">init</span> (<span class="params">modules: <span class="built_in">Array</span>&lt;Partial&lt;Module&gt;&gt;, domApi?: DOMAPI</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> i: <span class="built_in">number</span></span><br><span class="line">  <span class="keyword">let</span> j: <span class="built_in">number</span></span><br><span class="line">  <span class="keyword">const</span> cbs: ModuleHooks = &#123;</span><br><span class="line">    create: [],</span><br><span class="line">    update: [],</span><br><span class="line">    remove: [],</span><br><span class="line">    destroy: [],</span><br><span class="line">    pre: [],</span><br><span class="line">    post: []</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> api: DOMAPI = domApi !== <span class="literal">undefined</span> ? domApi : htmlDomApi</span><br><span class="line"></span><br><span class="line">  <span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; hooks.length; ++i) &#123;</span><br><span class="line">    cbs[hooks[i]] = []</span><br><span class="line">    <span class="keyword">for</span> (j = <span class="number">0</span>; j &lt; modules.length; ++j) &#123;</span><br><span class="line">      <span class="keyword">const</span> hook = modules[j][hooks[i]]</span><br><span class="line">      <span class="keyword">if</span> (hook !== <span class="literal">undefined</span>) &#123;</span><br><span class="line">        (cbs[hooks[i]] <span class="keyword">as</span> <span class="built_in">any</span>[]).push(hook)</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> <span class="title">patch</span> (<span class="params">oldVnode: VNode | Element, vnode: VNode</span>): <span class="title">VNode</span> </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> i: <span class="built_in">number</span>, <span class="attr">elm</span>: Node, <span class="attr">parent</span>: Node</span><br><span class="line">    <span class="keyword">const</span> insertedVnodeQueue: VNodeQueue = []</span><br><span class="line">    <span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; cbs.pre.length; ++i) cbs.pre[i]()</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (!isVnode(oldVnode)) &#123;</span><br><span class="line">      oldVnode = emptyNodeAt(oldVnode)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (sameVnode(oldVnode, vnode)) &#123;</span><br><span class="line">      patchVnode(oldVnode, vnode, insertedVnodeQueue)</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      elm = oldVnode.elm!</span><br><span class="line">      parent = api.parentNode(elm) <span class="keyword">as</span> Node</span><br><span class="line"></span><br><span class="line">      createElm(vnode, insertedVnodeQueue)</span><br><span class="line"></span><br><span class="line">      <span class="keyword">if</span> (parent !== <span class="literal">null</span>) &#123;</span><br><span class="line">        api.insertBefore(parent, vnode.elm!, api.nextSibling(elm))</span><br><span class="line">        removeVnodes(parent, [oldVnode], <span class="number">0</span>, <span class="number">0</span>)</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; insertedVnodeQueue.length; ++i) &#123;</span><br><span class="line">      insertedVnodeQueue[i].data!.hook!.insert!(insertedVnodeQueue[i])</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; cbs.post.length; ++i) cbs.post[i]()</span><br><span class="line">    <span class="keyword">return</span> vnode</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <ol>
 <li>调用pre钩子函数</li>
@@ -2377,16 +2490,23 @@
 </ol>
 <p><strong>updateChildren diff 核心</strong></p>
 <figure class="highlight typescript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">updateChildren</span> (<span class="params">parentElm: Node,</span></span></span><br><span class="line"><span class="function"><span class="params">    oldCh: VNode[],</span></span></span><br><span class="line"><span class="function"><span class="params">    newCh: VNode[],</span></span></span><br><span class="line"><span class="function"><span class="params">    insertedVnodeQueue: VNodeQueue</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> oldStartIdx = <span class="number">0</span></span><br><span class="line">    <span class="keyword">let</span> newStartIdx = <span class="number">0</span></span><br><span class="line">    <span class="keyword">let</span> oldEndIdx = oldCh.length - <span class="number">1</span></span><br><span class="line">    <span class="keyword">let</span> oldStartVnode = oldCh[<span class="number">0</span>]</span><br><span class="line">    <span class="keyword">let</span> oldEndVnode = oldCh[oldEndIdx]</span><br><span class="line">    <span class="keyword">let</span> newEndIdx = newCh.length - <span class="number">1</span></span><br><span class="line">    <span class="keyword">let</span> newStartVnode = newCh[<span class="number">0</span>]</span><br><span class="line">    <span class="keyword">let</span> newEndVnode = newCh[newEndIdx]</span><br><span class="line">    <span class="keyword">let</span> oldKeyToIdx: KeyToIndexMap | <span class="literal">undefined</span></span><br><span class="line">    <span class="keyword">let</span> idxInOld: <span class="built_in">number</span></span><br><span class="line">    <span class="keyword">let</span> elmToMove: VNode</span><br><span class="line">    <span class="keyword">let</span> before: <span class="built_in">any</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span> (oldStartIdx &lt;= oldEndIdx &amp;&amp; newStartIdx &lt;= newEndIdx) &#123;</span><br><span class="line">      <span class="keyword">if</span> (oldStartVnode == <span class="literal">null</span>) &#123;</span><br><span class="line">        oldStartVnode = oldCh[++oldStartIdx] <span class="comment">// Vnode might have been moved left</span></span><br><span class="line">      &#125; <span class="keyword">else</span> <span class="keyword">if</span> (oldEndVnode == <span class="literal">null</span>) &#123;</span><br><span class="line">        oldEndVnode = oldCh[--oldEndIdx]</span><br><span class="line">      &#125; <span class="keyword">else</span> <span class="keyword">if</span> (newStartVnode == <span class="literal">null</span>) &#123;</span><br><span class="line">        newStartVnode = newCh[++newStartIdx]</span><br><span class="line">      &#125; <span class="keyword">else</span> <span class="keyword">if</span> (newEndVnode == <span class="literal">null</span>) &#123;</span><br><span class="line">        newEndVnode = newCh[--newEndIdx]</span><br><span class="line">      &#125; <span class="keyword">else</span> <span class="keyword">if</span> (sameVnode(oldStartVnode, newStartVnode)) &#123;</span><br><span class="line">        patchVnode(oldStartVnode, newStartVnode, insertedVnodeQueue)</span><br><span class="line">        oldStartVnode = oldCh[++oldStartIdx]</span><br><span class="line">        newStartVnode = newCh[++newStartIdx]</span><br><span class="line">      &#125; <span class="keyword">else</span> <span class="keyword">if</span> (sameVnode(oldEndVnode, newEndVnode)) &#123;</span><br><span class="line">        patchVnode(oldEndVnode, newEndVnode, insertedVnodeQueue)</span><br><span class="line">        oldEndVnode = oldCh[--oldEndIdx]</span><br><span class="line">        newEndVnode = newCh[--newEndIdx]</span><br><span class="line">      &#125; <span class="keyword">else</span> <span class="keyword">if</span> (sameVnode(oldStartVnode, newEndVnode)) &#123; <span class="comment">// Vnode moved right</span></span><br><span class="line">        patchVnode(oldStartVnode, newEndVnode, insertedVnodeQueue)</span><br><span class="line">        api.insertBefore(parentElm, oldStartVnode.elm!, api.nextSibling(oldEndVnode.elm!))</span><br><span class="line">        oldStartVnode = oldCh[++oldStartIdx]</span><br><span class="line">        newEndVnode = newCh[--newEndIdx]</span><br><span class="line">      &#125; <span class="keyword">else</span> <span class="keyword">if</span> (sameVnode(oldEndVnode, newStartVnode)) &#123; <span class="comment">// Vnode moved left</span></span><br><span class="line">        patchVnode(oldEndVnode, newStartVnode, insertedVnodeQueue)</span><br><span class="line">        api.insertBefore(parentElm, oldEndVnode.elm!, oldStartVnode.elm!)</span><br><span class="line">        oldEndVnode = oldCh[--oldEndIdx]</span><br><span class="line">        newStartVnode = newCh[++newStartIdx]</span><br><span class="line">      &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (oldKeyToIdx === <span class="literal">undefined</span>) &#123;</span><br><span class="line">          oldKeyToIdx = createKeyToOldIdx(oldCh, oldStartIdx, oldEndIdx)</span><br><span class="line">        &#125;</span><br><span class="line">        idxInOld = oldKeyToIdx[newStartVnode.key <span class="keyword">as</span> <span class="built_in">string</span>]</span><br><span class="line">        <span class="keyword">if</span> (isUndef(idxInOld)) &#123; <span class="comment">// New element</span></span><br><span class="line">          api.insertBefore(parentElm, createElm(newStartVnode, insertedVnodeQueue), oldStartVnode.elm!)</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">          elmToMove = oldCh[idxInOld]</span><br><span class="line">          <span class="keyword">if</span> (elmToMove.sel !== newStartVnode.sel) &#123;</span><br><span class="line">            api.insertBefore(parentElm, createElm(newStartVnode, insertedVnodeQueue), oldStartVnode.elm!)</span><br><span class="line">          &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            patchVnode(elmToMove, newStartVnode, insertedVnodeQueue)</span><br><span class="line">            oldCh[idxInOld] = <span class="literal">undefined</span> <span class="keyword">as</span> <span class="built_in">any</span></span><br><span class="line">            api.insertBefore(parentElm, elmToMove.elm!, oldStartVnode.elm!)</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        newStartVnode = newCh[++newStartIdx]</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (oldStartIdx &lt;= oldEndIdx || newStartIdx &lt;= newEndIdx) &#123;</span><br><span class="line">      <span class="keyword">if</span> (oldStartIdx &gt; oldEndIdx) &#123;</span><br><span class="line">        before = newCh[newEndIdx + <span class="number">1</span>] == <span class="literal">null</span> ? <span class="literal">null</span> : newCh[newEndIdx + <span class="number">1</span>].elm</span><br><span class="line">        addVnodes(parentElm, before, newCh, newStartIdx, newEndIdx, insertedVnodeQueue)</span><br><span class="line">      &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        removeVnodes(parentElm, oldCh, oldStartIdx, oldEndIdx)</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
-<p>四个索引</p>
 <ul>
+<li>DOM操作时很少会跨级别操作节点</li>
+<li>只比较同级别节点</li>
+</ul>
+<p>四个索引</p>
+<ol>
 <li>oldStartIdx</li>
 <li>oldEndIdx</li>
 <li>newStartIdx</li>
 <li>newEndIdx</li>
-</ul>
+</ol>
+<p>排列组合有 13/24/14/23 四种情况<br>除上述情况外常规下可以使用 <strong>key</strong> 去对比</p>
 <hr>
+<p><strong>createElm 函数，创建真实DOM</strong></p>
+<figure class="highlight typescript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">createElm</span> (<span class="params">vnode: VNode, insertedVnodeQueue: VNodeQueue</span>): <span class="title">Node</span> </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> i: <span class="built_in">any</span></span><br><span class="line">  <span class="keyword">let</span> data = vnode.data</span><br><span class="line">  <span class="keyword">if</span> (data !== <span class="literal">undefined</span>) &#123;</span><br><span class="line">    <span class="keyword">const</span> init = data.hook?.init</span><br><span class="line">    <span class="keyword">if</span> (isDef(init)) &#123;</span><br><span class="line">      init(vnode)</span><br><span class="line">      data = vnode.data</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">const</span> children = vnode.children</span><br><span class="line">  <span class="keyword">const</span> sel = vnode.sel</span><br><span class="line">  <span class="keyword">if</span> (sel === <span class="string">&#x27;!&#x27;</span>) &#123;</span><br><span class="line">    <span class="keyword">if</span> (isUndef(vnode.text)) &#123;</span><br><span class="line">      vnode.text = <span class="string">&#x27;&#x27;</span></span><br><span class="line">    &#125;</span><br><span class="line">    vnode.elm = api.createComment(vnode.text!)</span><br><span class="line">  &#125; <span class="keyword">else</span> <span class="keyword">if</span> (sel !== <span class="literal">undefined</span>) &#123;</span><br><span class="line">    <span class="comment">// Parse selector</span></span><br><span class="line">    <span class="keyword">const</span> hashIdx = sel.indexOf(<span class="string">&#x27;#&#x27;</span>)</span><br><span class="line">    <span class="keyword">const</span> dotIdx = sel.indexOf(<span class="string">&#x27;.&#x27;</span>, hashIdx)</span><br><span class="line">    <span class="keyword">const</span> hash = hashIdx &gt; <span class="number">0</span> ? hashIdx : sel.length</span><br><span class="line">    <span class="keyword">const</span> dot = dotIdx &gt; <span class="number">0</span> ? dotIdx : sel.length</span><br><span class="line">    <span class="keyword">const</span> tag = hashIdx !== -<span class="number">1</span> || dotIdx !== -<span class="number">1</span> ? sel.slice(<span class="number">0</span>, <span class="built_in">Math</span>.min(hash, dot)) : sel</span><br><span class="line">    <span class="keyword">const</span> elm = vnode.elm = isDef(data) &amp;&amp; isDef(i = data.ns)</span><br><span class="line">      ? api.createElementNS(i, tag, data)</span><br><span class="line">      : api.createElement(tag, data)</span><br><span class="line">    <span class="keyword">if</span> (hash &lt; dot) elm.setAttribute(<span class="string">&#x27;id&#x27;</span>, sel.slice(hash + <span class="number">1</span>, dot))</span><br><span class="line">    <span class="keyword">if</span> (dotIdx &gt; <span class="number">0</span>) elm.setAttribute(<span class="string">&#x27;class&#x27;</span>, sel.slice(dot + <span class="number">1</span>).replace(<span class="regexp">/\./g</span>, <span class="string">&#x27; &#x27;</span>))</span><br><span class="line">    <span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; cbs.create.length; ++i) cbs.create[i](emptyNode, vnode)</span><br><span class="line">    <span class="keyword">if</span> (is.array(children)) &#123;</span><br><span class="line">      <span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; children.length; ++i) &#123;</span><br><span class="line">        <span class="keyword">const</span> ch = children[i]</span><br><span class="line">        <span class="keyword">if</span> (ch != <span class="literal">null</span>) &#123;</span><br><span class="line">          api.appendChild(elm, createElm(ch <span class="keyword">as</span> VNode, insertedVnodeQueue))</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (is.primitive(vnode.text)) &#123;</span><br><span class="line">      api.appendChild(elm, api.createTextNode(vnode.text))</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">const</span> hook = vnode.data!.hook</span><br><span class="line">    <span class="keyword">if</span> (isDef(hook)) &#123;</span><br><span class="line">      hook.create?.(emptyNode, vnode)</span><br><span class="line">      <span class="keyword">if</span> (hook.insert) &#123;</span><br><span class="line">        insertedVnodeQueue.push(vnode)</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    vnode.elm = api.createTextNode(vnode.text!)</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> vnode.elm</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h2 id="vnode-ts"><a href="#vnode-ts" class="headerlink" title="vnode.ts"></a>vnode.ts</h2><p><strong>vnode 定义</strong></p>
-<figure class="highlight typescript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="function"><span class="keyword">function</span> <span class="title">vnode</span> (<span class="params">sel: <span class="built_in">string</span> | <span class="literal">undefined</span>,</span></span></span><br><span class="line"><span class="function"><span class="params">  data: <span class="built_in">any</span> | <span class="literal">undefined</span>,</span></span></span><br><span class="line"><span class="function"><span class="params">  children: <span class="built_in">Array</span>&lt;VNode | <span class="built_in">string</span>&gt; | <span class="literal">undefined</span>,</span></span></span><br><span class="line"><span class="function"><span class="params">  text: <span class="built_in">string</span> | <span class="literal">undefined</span>,</span></span></span><br><span class="line"><span class="function"><span class="params">  elm: Element | Text | <span class="literal">undefined</span></span>): <span class="title">VNode</span> </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> key = data === <span class="literal">undefined</span> ? <span class="literal">undefined</span> : data.key</span><br><span class="line">  <span class="keyword">return</span> &#123; sel, data, children, text, elm, key &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight typescript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="function"><span class="keyword">function</span> <span class="title">vnode</span> (<span class="params"></span></span></span><br><span class="line"><span class="function"><span class="params">  sel: <span class="built_in">string</span> | <span class="literal">undefined</span>,</span></span></span><br><span class="line"><span class="function"><span class="params">  data: <span class="built_in">any</span> | <span class="literal">undefined</span>,</span></span></span><br><span class="line"><span class="function"><span class="params">  children: <span class="built_in">Array</span>&lt;VNode | <span class="built_in">string</span>&gt; | <span class="literal">undefined</span>,</span></span></span><br><span class="line"><span class="function"><span class="params">  text: <span class="built_in">string</span> | <span class="literal">undefined</span>,</span></span></span><br><span class="line"><span class="function"><span class="params">  elm: Element | Text | <span class="literal">undefined</span></span>): <span class="title">VNode</span> </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> key = data === <span class="literal">undefined</span> ? <span class="literal">undefined</span> : data.key</span><br><span class="line">  <span class="keyword">return</span> &#123; sel, data, children, text, elm, key &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h2 id="hooks-ts"><a href="#hooks-ts" class="headerlink" title="hooks.ts"></a>hooks.ts</h2><p><strong>定义各种钩子类型</strong></p>
 <figure class="highlight typescript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">interface</span> Hooks &#123;</span><br><span class="line">  pre?: PreHook</span><br><span class="line">  init?: InitHook</span><br><span class="line">  create?: CreateHook</span><br><span class="line">  insert?: InsertHook</span><br><span class="line">  prepatch?: PrePatchHook</span><br><span class="line">  update?: UpdateHook</span><br><span class="line">  postpatch?: PostPatchHook</span><br><span class="line">  destroy?: DestroyHook</span><br><span class="line">  remove?: RemoveHook</span><br><span class="line">  post?: PostHook</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 <h2 id="thunk-ts"><a href="#thunk-ts" class="headerlink" title="thunk.ts"></a>thunk.ts</h2><p><strong>优化处理，对复杂视图不可变化的处理</strong></p>
@@ -2396,7 +2516,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://karencxx.github.io/2021/03/08/snabbdom%E6%B5%85%E8%AF%BB%E6%BA%90%E7%A0%81/" data-id="clvdj5btk000r90fu5vbxeyyr" class="article-share-link">Share</a>
+      <a data-url="http://karencxx.github.io/2021/03/08/snabbdom%E6%B5%85%E8%AF%BB%E6%BA%90%E7%A0%81/" data-id="clvp2dqvx000w0pfu60kag9r2" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/source-code/" rel="tag">source code</a></li></ul>
@@ -2602,7 +2722,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://karencxx.github.io/2021/03/01/js%E8%BF%90%E8%A1%8C%E6%9C%BA%E5%88%B6/" data-id="clvdj5btj000q90fu420g1l4z" class="article-share-link">Share</a>
+      <a data-url="http://karencxx.github.io/2021/03/01/js%E8%BF%90%E8%A1%8C%E6%9C%BA%E5%88%B6/" data-id="clvp2dqvv000r0pfue01i12eo" class="article-share-link">Share</a>
       
       
     </footer>
@@ -2670,7 +2790,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://karencxx.github.io/2021/02/25/chrome-devTools%E7%9A%84%E6%AD%A6%E5%8A%9F%E7%A7%98%E7%AC%88/" data-id="clvdj5btg000k90fuat723hef" class="article-share-link">Share</a>
+      <a data-url="http://karencxx.github.io/2021/02/25/chrome-devTools%E7%9A%84%E6%AD%A6%E5%8A%9F%E7%A7%98%E7%AC%88/" data-id="clvp2dqvn000f0pfu34q4guc1" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%BC%80%E5%8F%91%E6%8A%80%E5%B7%A7/" rel="tag">开发技巧</a></li></ul>
@@ -2737,7 +2857,7 @@
       <ul>
         
           <li>
-            <a href="/2024/04/24/ReviewNote/">ReviewNote</a>
+            <a href="/2024/04/24/ReviewNote/">Vue-ReviewNote</a>
           </li>
         
           <li>

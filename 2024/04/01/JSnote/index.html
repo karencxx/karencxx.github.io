@@ -13,7 +13,7 @@
 <meta property="og:description" content="开始前，可以先看以下几篇  理解js中的this    JS，专为与网页交互而设计的脚本语言 诞生于1995年，由三部分组成：  ECMAScript：核心语言，由ECMA-262定义 与web浏览器无依赖关系，web浏览器只是宿主环境之一，其他宿主包括Node 组成部分：语法 &#x2F; 类型 &#x2F; 语句 &#x2F; 关键字 &#x2F; 保留字 &#x2F; 操作符 &#x2F; 对象    DOM(Domcument Object Mod">
 <meta property="og:locale">
 <meta property="article:published_time" content="2024-04-01T04:08:38.000Z">
-<meta property="article:modified_time" content="2024-04-23T14:12:37.785Z">
+<meta property="article:modified_time" content="2024-04-29T07:28:02.163Z">
 <meta property="article:author" content="karen">
 <meta property="article:tag" content="复习">
 <meta name="twitter:card" content="summary">
@@ -561,6 +561,12 @@
 <li>/ pattern / flags (g i m)</li>
 <li>实例属性：global ignoreCase lastIndex multiline source</li>
 <li>实例方法：exec(..)</li>
+<li><strong>RegExp对象是有状态，当用全局检索g 或者 粘性检索y 会将上次成功匹配后的位置记录在 lastIndex 属性中</strong><ul>
+<li>如果在一个RegExp对象上调用exec，它将从lastIndex开始，直到最后一个匹配结束</li>
+<li>当找不到更多的匹配项时，lastIndex将自动重置为0</li>
+<li>这里会产生一个问题：多次调用exec不总是返回相同的值（可以手动设置lastIndex = 0来解决）</li>
+</ul>
+</li>
 </ul>
 <figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 常用的一些正则</span></span><br><span class="line">/^<span class="number">1</span>\d&#123;<span class="number">10</span>&#125;$/ <span class="comment">// 以1开头的手机号码</span></span><br><span class="line">/^\d&#123;<span class="number">4</span>&#125;-\d&#123;<span class="number">2</span>&#125;-\d&#123;<span class="number">2</span>&#125;$/ <span class="comment">// 匹配日期，YYYY-MM-DD</span></span><br><span class="line">/^[a-zA-Z0-9_]&#123;<span class="number">4</span>,<span class="number">16</span>&#125;$/ <span class="comment">// 匹配用户名</span></span><br><span class="line">/^\(https?|ftp):\/\/[^\s/$.?#].[^\s]*$/ <span class="comment">// 匹配URL</span></span><br></pre></td></tr></table></figure>
 <h3 id="Function"><a href="#Function" class="headerlink" title="Function"></a>Function</h3><ul>
@@ -668,7 +674,7 @@
 </ul>
 </li>
 <li>访问器属性<ul>
-<li>getter(..)方法(取值时调用) setter(..)方法(设值时调用) enumerable configurable</li>
+<li>getter(..)方法(取值时调用) setter(..)方法(设值时调用) 与对象数据属性value 会冲突，不能同时定义</li>
 <li>get(..) set(val)  这两个是关键字</li>
 </ul>
 </li>
@@ -1022,11 +1028,38 @@
 <li><strong>利用现有库和框架避免重复造轮子</strong>；还要编写清晰的文档和注释帮助其他开发者更易理解和复用</li>
 <li><strong>测试</strong>，利用单元测试来验证代码正确性和稳定性</li>
 </ul>
+<p><strong>剩余参数</strong></p>
+<ul>
+<li>语法允许我们将一个不定数量的参数表示为一个数组</li>
+<li>以减少由参数引起的样板代码<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span>(<span class="params">a, b, ...theArgs</span>) </span>&#123;</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// theArgs 表示收集该函数的第三个参数和所有后续参数</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<p><strong>和 arguments对象的区别</strong><br>主要有三个：</p>
+<ul>
+<li>剩余参数只包含 那些没有 <strong>对应形参的实参</strong> ，而 arguments 对象包含了 传给函数的所有实参</li>
+<li>arguments对象只是一个类数组对象，而剩余参数是 <strong>真正的Array实例</strong><ul>
+<li>即能在它上面直接使用所有的数组方法，比如 sort，map，forEach或pop</li>
+</ul>
+</li>
+<li>arguments对象还有一些附加的属性（如callee属性）</li>
+</ul>
+<p><strong>形参、实参</strong></p>
+<ul>
+<li>形参（Parameters）：形式参数是在 函数或方法的定义中声明的变量。<ul>
+<li>它们在函数或方法内部被用作占位符，用来表示在函数调用时将要传递给函数的值。</li>
+<li>形参是函数或方法签名的一部分，它们指定了函数或方法期望接收的数据类型和数量。</li>
+</ul>
+</li>
+<li>实参（Arguments）：实际参数是在函数或方法调用时传递给函数或方法的值。<ul>
+<li>它们是实际要传递给函数或方法的数据。</li>
+<li>当函数或方法被调用时，实参被传递给形参，并且在函数或方法的执行过程中，实参的值将被使用。</li>
+</ul>
+</li>
+</ul>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://karencxx.github.io/2024/04/01/JSNote/" data-id="clvdj5bt8000990fua8711f2x" class="article-share-link">Share</a>
+      <a data-url="http://karencxx.github.io/2024/04/01/JSNote/" data-id="clvp2dqvl000d0pfug61xddp8" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%A4%8D%E4%B9%A0/" rel="tag">复习</a></li></ul>
@@ -1107,7 +1140,7 @@
       <ul>
         
           <li>
-            <a href="/2024/04/24/ReviewNote/">ReviewNote</a>
+            <a href="/2024/04/24/ReviewNote/">Vue-ReviewNote</a>
           </li>
         
           <li>
