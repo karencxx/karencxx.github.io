@@ -5,16 +5,16 @@
   
   <title>BOMNote | 进阶</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="开始前，可以先看以下几篇  js运行机制 跨域 前端存储总结 JS内存管理   计算机  CPU(central processing unit) 中央处理器dd GPU(graphics processing unit) 图形处理器  体系结构  底部：机器硬件 中间：机器硬件 顶部：应用程序   BOM  核心对象：window，表示浏览器的一个实例，是ECMAScript规定的Global对">
+  <meta name="description" content="开始前，可以先看以下几篇  js运行机制 跨域 前端存储总结 JS内存管理   计算机  CPU(central processing unit) 中央处理器 GPU(graphics processing unit) 图形处理器  体系结构  底部：机器硬件 中间：机器硬件 顶部：应用程序   BOM  核心对象：window，表示浏览器的一个实例，是ECMAScript规定的Global对象">
 <meta property="og:type" content="article">
 <meta property="og:title" content="BOMNote">
 <meta property="og:url" content="http://karencxx.github.io/2024/04/11/BOMNote/index.html">
 <meta property="og:site_name" content="进阶">
-<meta property="og:description" content="开始前，可以先看以下几篇  js运行机制 跨域 前端存储总结 JS内存管理   计算机  CPU(central processing unit) 中央处理器dd GPU(graphics processing unit) 图形处理器  体系结构  底部：机器硬件 中间：机器硬件 顶部：应用程序   BOM  核心对象：window，表示浏览器的一个实例，是ECMAScript规定的Global对">
+<meta property="og:description" content="开始前，可以先看以下几篇  js运行机制 跨域 前端存储总结 JS内存管理   计算机  CPU(central processing unit) 中央处理器 GPU(graphics processing unit) 图形处理器  体系结构  底部：机器硬件 中间：机器硬件 顶部：应用程序   BOM  核心对象：window，表示浏览器的一个实例，是ECMAScript规定的Global对象">
 <meta property="og:locale">
 <meta property="og:image" content="http://karencxx.github.io/img/RendererProcess.jpeg">
 <meta property="article:published_time" content="2024-04-11T13:28:04.000Z">
-<meta property="article:modified_time" content="2024-04-24T07:57:39.400Z">
+<meta property="article:modified_time" content="2024-05-16T15:13:20.961Z">
 <meta property="article:author" content="karen">
 <meta property="article:tag" content="复习">
 <meta name="twitter:card" content="summary">
@@ -101,7 +101,7 @@
 <blockquote>
 <h3 id="计算机"><a href="#计算机" class="headerlink" title="计算机"></a>计算机</h3></blockquote>
 <ul>
-<li>CPU(central processing unit) 中央处理器dd</li>
+<li>CPU(central processing unit) 中央处理器</li>
 <li>GPU(graphics processing unit) 图形处理器</li>
 </ul>
 <p><strong>体系结构</strong></p>
@@ -115,7 +115,7 @@
 <ul>
 <li>核心对象：window，表示浏览器的一个实例，是ECMAScript规定的Global对象</li>
 <li>在全局作用域中声明的变量、函数都会变成window对象的属性和方法</li>
-<li>全局变量不能被delete删除，定义在window上的属性可以被delete</li>
+<li>全局变量(使用var、let或const关键字声明)不能被delete删除，定义在window上的属性可以被delete</li>
 <li>通过查询window对象，可知道某个未声明的变量是否存在</li>
 </ul>
 <hr>
@@ -124,7 +124,7 @@
 <li>每个框架都有自己的window对象，存在frames集合中</li>
 <li>确定窗口位置 screenLeft / screenTop / moveTo() / moveBy()</li>
 <li>窗口大小 innerHeight / innerWidth / outerWidth / outerHeight<ul>
-<li>不同浏览器会有区别 inner返回视图区大小，outer可能返回浏览器窗口本身大小</li>
+<li>不同浏览器会有区别。inner返回视图区大小；outer可能返回浏览器窗口本身大小</li>
 <li>document.(documentElement / body).clientWidth / clientHeight</li>
 </ul>
 </li>
@@ -549,7 +549,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://karencxx.github.io/2024/04/11/BOMNote/" data-id="clvp2dqv600010pfu54o4d3l6" class="article-share-link">Share</a>
+      <a data-url="http://karencxx.github.io/2024/04/11/BOMNote/" data-id="clwf3tq960000sifu4c5lcqrs" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%A4%8D%E4%B9%A0/" rel="tag">复习</a></li></ul>
@@ -564,7 +564,7 @@
       <strong class="article-nav-caption">Newer</strong>
       <div class="article-nav-title">
         
-          Vue-ReviewNote
+          (no title)
         
       </div>
     </a>
@@ -630,7 +630,7 @@
       <ul>
         
           <li>
-            <a href="/2024/04/24/ReviewNote/">Vue-ReviewNote</a>
+            <a href="/2024/04/24/ReviewNote/">(no title)</a>
           </li>
         
           <li>

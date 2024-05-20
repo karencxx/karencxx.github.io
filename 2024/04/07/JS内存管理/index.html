@@ -13,7 +13,7 @@
 <meta property="og:description" content="V8，Google开发的JS引擎V8将内存分为：   新生代，存放生命周期较短的对象，采用Scavenge算法垃圾回收 老生代，存放生命周期较短的对象，采用标记清除和标记整理等算法垃圾回收  垃圾回收机制，负责管理和释放不再被引用的内存 Scavenge算法 将内存空间一分为二，分为From空间 跟 To空间；From空间存放活对象 当From空间被占满时，启动垃圾回收，将存活的对象复制到To空">
 <meta property="og:locale">
 <meta property="article:published_time" content="2024-04-07T06:28:26.000Z">
-<meta property="article:modified_time" content="2024-04-16T08:38:38.063Z">
+<meta property="article:modified_time" content="2024-05-09T07:10:14.593Z">
 <meta property="article:author" content="karen">
 <meta name="twitter:card" content="summary">
   
@@ -101,15 +101,15 @@
 <li>当From空间被占满时，启动垃圾回收，将存活的对象复制到To空间，进行内存整理，From空间和To空间互换</li>
 </ul>
 </li>
-<li>标记清除，主流垃圾收集算法</li>
-</ol>
-<ul>
+<li>标记清除，主流垃圾收集算法<ul>
 <li>给存储在内存中的所有变量加上标记</li>
 <li>去除环境中及被环境中的变量所引用的变量的标记</li>
 <li>剩下标记的变量就被视为准备删除的变量</li>
 </ul>
+</li>
+</ol>
 <p><u>会产生内存碎片，导致内存空间不连续性</u></p>
-<ol start="3">
+<ol>
 <li>标记整理，标记清除改进版<ul>
 <li>清理不再被引用对象之后，会对存活的对象进行整理，移动内存空间一端，减少内存碎片产生</li>
 </ul>
@@ -195,7 +195,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://karencxx.github.io/2024/04/07/JS%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/" data-id="clvp2dqvg00090pfubd519y8w" class="article-share-link">Share</a>
+      <a data-url="http://karencxx.github.io/2024/04/07/JS%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/" data-id="clwf3tq9o0006sifucxlfayo8" class="article-share-link">Share</a>
       
       
     </footer>
@@ -274,7 +274,7 @@
       <ul>
         
           <li>
-            <a href="/2024/04/24/ReviewNote/">Vue-ReviewNote</a>
+            <a href="/2024/04/24/ReviewNote/">(no title)</a>
           </li>
         
           <li>
