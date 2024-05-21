@@ -13,7 +13,7 @@
 <meta property="og:description" content="Vue.js 使用 Flow 做静态类型检查 Flow 是 facebook 的 JavaScript 静态类型检查工具 类型检查分成 2 种方式： 类型推断：通过变量的使用上下文来推断出变量类型，然后根据这些推断来检查类型 类型注释：事先注释好的类型 如x:number，Flow会基于这些注释来判断      Vue 实际上是一个类，在JS中用 Function 实现。这就是需要用 new Vu">
 <meta property="og:locale">
 <meta property="article:published_time" content="2024-04-24T07:47:47.000Z">
-<meta property="article:modified_time" content="2024-05-20T15:09:05.368Z">
+<meta property="article:modified_time" content="2024-05-20T16:10:21.829Z">
 <meta property="article:author" content="karen">
 <meta property="article:tag" content="复习">
 <meta name="twitter:card" content="summary">
@@ -99,8 +99,8 @@
 <li>数据驱动视图：不直接操作DOM，而是通过修改数据来实现</li>
 <li>组件化</li>
 </ol>
-<h3 id="Virtual-DOM"><a href="#Virtual-DOM" class="headerlink" title="Virtual DOM"></a>Virtual DOM</h3><p><strong>是一个虚拟DOM树，用原生JS对象去描述一个DOM节点</strong>。借鉴了Snabbdom.js<br>Vue使用 Virtual DOM 来渲染组件，并且通过 <strong>diff算法</strong> 来比较 Virtual DOM 树的差异，从而减少操作 实际DOM</p>
-<p>在Vue中，VNode是对 <strong>真实DOM</strong> 的抽象描述，有几个关键属性：标签名tag、数据data、子节点children、键值text、上下文环境context等<br>通过与真实 DOM 进行比较，可以找出<strong>需要更新的部分</strong>，从而减少了 DOM 操作次数，提高了性能</p>
+<h3 id="Virtual-DOM，是一种优化手段"><a href="#Virtual-DOM，是一种优化手段" class="headerlink" title="Virtual DOM，是一种优化手段"></a>Virtual DOM，是一种优化手段</h3><p><strong>是一个虚拟DOM树，用原生JS对象去描述一个DOM节点</strong>。借鉴了Snabbdom.js<br>Vue使用 Virtual DOM 来渲染组件，并且通过 <strong>diff算法</strong> 来比较 Virtual DOM 树的差异，从而减少操作 实际DOM</p>
+<p>在Vue中，VNode是对 <strong>真实DOM</strong> 的抽象描述，有几个关键属性：标签名tag、数据data、子节点children、键值text、上下文环境context等<br>通过与真实 DOM 进行比较，可以找出<strong>需要更新的部分</strong>，从而最小化减少了 DOM 操作次数，提高了性能<br>diff算法复杂度o(n)</p>
 <p>作用：</p>
 <ul>
 <li>维护视图和状态的关系，可以跟踪状态变化</li>
@@ -121,8 +121,8 @@
 <li>init初始化<ul>
 <li>合并配置</li>
 <li>初始化生命周期、事件中心、渲染，往vm上挂载各种属性</li>
-<li>调用钩子函数 beforeCreate，实例刚创建</li>
-<li>初始化注入和初始化data、props、methos、computed、watch等属性（initState）</li>
+<li>调用钩子函数 beforeCreate，此时实例刚创建</li>
+<li>初始化注入和初始化data、props、methods、computed、watch等属性（initState）</li>
 <li>创建完成，调用钩子函数 created，但此时还未生成真实DOM（添加顺序是先父后子）</li>
 <li>进行元素挂载，$el \ vm.$mount()</li>
 <li>compile编译得到render方法（其实就是template转为 字符串 返回给 render属性）</li>
@@ -331,7 +331,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://karencxx.github.io/2024/04/24/ReviewNote/" data-id="clwf3tqad000jsifuf6d53rkz" class="article-share-link">Share</a>
+      <a data-url="http://karencxx.github.io/2024/04/24/ReviewNote/" data-id="clwghziol000kdgfu4gkd6eb6" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%A4%8D%E4%B9%A0/" rel="tag">复习</a></li></ul>

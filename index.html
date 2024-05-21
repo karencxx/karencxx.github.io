@@ -98,8 +98,8 @@
 <li>数据驱动视图：不直接操作DOM，而是通过修改数据来实现</li>
 <li>组件化</li>
 </ol>
-<h3 id="Virtual-DOM"><a href="#Virtual-DOM" class="headerlink" title="Virtual DOM"></a>Virtual DOM</h3><p><strong>是一个虚拟DOM树，用原生JS对象去描述一个DOM节点</strong>。借鉴了Snabbdom.js<br>Vue使用 Virtual DOM 来渲染组件，并且通过 <strong>diff算法</strong> 来比较 Virtual DOM 树的差异，从而减少操作 实际DOM</p>
-<p>在Vue中，VNode是对 <strong>真实DOM</strong> 的抽象描述，有几个关键属性：标签名tag、数据data、子节点children、键值text、上下文环境context等<br>通过与真实 DOM 进行比较，可以找出<strong>需要更新的部分</strong>，从而减少了 DOM 操作次数，提高了性能</p>
+<h3 id="Virtual-DOM，是一种优化手段"><a href="#Virtual-DOM，是一种优化手段" class="headerlink" title="Virtual DOM，是一种优化手段"></a>Virtual DOM，是一种优化手段</h3><p><strong>是一个虚拟DOM树，用原生JS对象去描述一个DOM节点</strong>。借鉴了Snabbdom.js<br>Vue使用 Virtual DOM 来渲染组件，并且通过 <strong>diff算法</strong> 来比较 Virtual DOM 树的差异，从而减少操作 实际DOM</p>
+<p>在Vue中，VNode是对 <strong>真实DOM</strong> 的抽象描述，有几个关键属性：标签名tag、数据data、子节点children、键值text、上下文环境context等<br>通过与真实 DOM 进行比较，可以找出<strong>需要更新的部分</strong>，从而最小化减少了 DOM 操作次数，提高了性能<br>diff算法复杂度o(n)</p>
 <p>作用：</p>
 <ul>
 <li>维护视图和状态的关系，可以跟踪状态变化</li>
@@ -120,8 +120,8 @@
 <li>init初始化<ul>
 <li>合并配置</li>
 <li>初始化生命周期、事件中心、渲染，往vm上挂载各种属性</li>
-<li>调用钩子函数 beforeCreate，实例刚创建</li>
-<li>初始化注入和初始化data、props、methos、computed、watch等属性（initState）</li>
+<li>调用钩子函数 beforeCreate，此时实例刚创建</li>
+<li>初始化注入和初始化data、props、methods、computed、watch等属性（initState）</li>
 <li>创建完成，调用钩子函数 created，但此时还未生成真实DOM（添加顺序是先父后子）</li>
 <li>进行元素挂载，$el \ vm.$mount()</li>
 <li>compile编译得到render方法（其实就是template转为 字符串 返回给 render属性）</li>
@@ -330,7 +330,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://karencxx.github.io/2024/04/24/ReviewNote/" data-id="clwf3tqad000jsifuf6d53rkz" class="article-share-link">Share</a>
+      <a data-url="http://karencxx.github.io/2024/04/24/ReviewNote/" data-id="clwghziol000kdgfu4gkd6eb6" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%A4%8D%E4%B9%A0/" rel="tag">复习</a></li></ul>
@@ -822,7 +822,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://karencxx.github.io/2024/04/11/BOMNote/" data-id="clwf3tq960000sifu4c5lcqrs" class="article-share-link">Share</a>
+      <a data-url="http://karencxx.github.io/2024/04/11/BOMNote/" data-id="clwghzio50001dgfu1dvmbo52" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%A4%8D%E4%B9%A0/" rel="tag">复习</a></li></ul>
@@ -1264,7 +1264,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://karencxx.github.io/2024/04/08/CSSNote/" data-id="clwf3tq9k0003sifu7e6yc8y5" class="article-share-link">Share</a>
+      <a data-url="http://karencxx.github.io/2024/04/08/CSSNote/" data-id="clwghzio90004dgfuddaw0aco" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%A4%8D%E4%B9%A0/" rel="tag">复习</a></li></ul>
@@ -1405,7 +1405,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://karencxx.github.io/2024/04/07/JS%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/" data-id="clwf3tq9o0006sifucxlfayo8" class="article-share-link">Share</a>
+      <a data-url="http://karencxx.github.io/2024/04/07/JS%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/" data-id="clwghzioe000adgfuhmz98zfi" class="article-share-link">Share</a>
       
       
     </footer>
@@ -2470,7 +2470,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://karencxx.github.io/2024/04/01/JSNote/" data-id="clwf3tq9t0009sifu0yz3exsa" class="article-share-link">Share</a>
+      <a data-url="http://karencxx.github.io/2024/04/01/JSNote/" data-id="clwghziod0009dgfuah3591b6" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%A4%8D%E4%B9%A0/" rel="tag">复习</a></li></ul>
@@ -2522,7 +2522,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://karencxx.github.io/2021/03/29/%E8%BF%9F%E6%9D%A5%E7%9A%84%E6%B3%A8%E6%84%8F%E7%82%B9-%E5%86%B7%E7%9F%A5%E8%AF%86/" data-id="clwf3tqay001tsifugm1i4fu0" class="article-share-link">Share</a>
+      <a data-url="http://karencxx.github.io/2021/03/29/%E8%BF%9F%E6%9D%A5%E7%9A%84%E6%B3%A8%E6%84%8F%E7%82%B9-%E5%86%B7%E7%9F%A5%E8%AF%86/" data-id="clwghzip70021dgfubows6zq6" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%AE%9A%E6%97%B6%E5%99%A8/" rel="tag">定时器</a></li></ul>
@@ -2645,7 +2645,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://karencxx.github.io/2021/03/11/%E5%89%8D%E7%AB%AF%E5%AD%98%E5%82%A8%E6%80%BB%E7%BB%93/" data-id="clwf3tqar001asifuanx96kn4" class="article-share-link">Share</a>
+      <a data-url="http://karencxx.github.io/2021/03/11/%E5%89%8D%E7%AB%AF%E5%AD%98%E5%82%A8%E6%80%BB%E7%BB%93/" data-id="clwghziox001ddgfufpvr1ch9" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%89%8D%E7%AB%AF%E5%AD%98%E5%82%A8/" rel="tag">前端存储</a></li></ul>
@@ -2737,7 +2737,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://karencxx.github.io/2021/03/08/snabbdom%E6%B5%85%E8%AF%BB%E6%BA%90%E7%A0%81/" data-id="clwf3tqal000wsifuh89f3qve" class="article-share-link">Share</a>
+      <a data-url="http://karencxx.github.io/2021/03/08/snabbdom%E6%B5%85%E8%AF%BB%E6%BA%90%E7%A0%81/" data-id="clwghzioq000vdgfugmenfi7v" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/source-code/" rel="tag">source code</a></li></ul>
@@ -2943,7 +2943,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://karencxx.github.io/2021/03/01/js%E8%BF%90%E8%A1%8C%E6%9C%BA%E5%88%B6/" data-id="clwf3tqai000qsifu7f63daxc" class="article-share-link">Share</a>
+      <a data-url="http://karencxx.github.io/2021/03/01/js%E8%BF%90%E8%A1%8C%E6%9C%BA%E5%88%B6/" data-id="clwghziom000mdgfu2p021wm9" class="article-share-link">Share</a>
       
       
     </footer>
@@ -3011,7 +3011,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://karencxx.github.io/2021/02/25/chrome-devTools%E7%9A%84%E6%AD%A6%E5%8A%9F%E7%A7%98%E7%AC%88/" data-id="clwf3tqad000ksifucttsbhib" class="article-share-link">Share</a>
+      <a data-url="http://karencxx.github.io/2021/02/25/chrome-devTools%E7%9A%84%E6%AD%A6%E5%8A%9F%E7%A7%98%E7%AC%88/" data-id="clwghzioh000edgfuh55y5qaa" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%BC%80%E5%8F%91%E6%8A%80%E5%B7%A7/" rel="tag">开发技巧</a></li></ul>
