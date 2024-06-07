@@ -14,7 +14,7 @@
 <meta property="og:locale">
 <meta property="og:image" content="http://karencxx.github.io/img/RendererProcess.jpeg">
 <meta property="article:published_time" content="2024-04-11T13:28:04.000Z">
-<meta property="article:modified_time" content="2024-05-16T15:13:20.961Z">
+<meta property="article:modified_time" content="2024-06-04T15:30:47.010Z">
 <meta property="article:author" content="karen">
 <meta property="article:tag" content="复习">
 <meta name="twitter:card" content="summary">
@@ -75,6 +75,10 @@
   <time datetime="2024-04-11T13:28:04.000Z" itemprop="datePublished">2024-04-11</time>
 </a>
     
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/BOM/">BOM</a>
+  </div>
+
   </div>
   <div class="article-inner">
     
@@ -115,7 +119,10 @@
 <ul>
 <li>核心对象：window，表示浏览器的一个实例，是ECMAScript规定的Global对象</li>
 <li>在全局作用域中声明的变量、函数都会变成window对象的属性和方法</li>
-<li>全局变量(使用var、let或const关键字声明)不能被delete删除，定义在window上的属性可以被delete</li>
+<li>全局变量(使用var、let或const关键字声明)不能被delete删除，定义在window上的属性可以被delete<ul>
+<li>var声明的全局变量在window对象上可见，而let、const声明的全局变量不会被添加到window对象上</li>
+</ul>
+</li>
 <li>通过查询window对象，可知道某个未声明的变量是否存在</li>
 </ul>
 <hr>
@@ -159,7 +166,11 @@
 <li>history.go(整数值) 负数表示后退，正数表示前进</li>
 <li>history.back() history.forward()</li>
 </ul>
-<p><strong>navigator，检测显示网页的浏览器类型</strong></p>
+<hr>
+<p><strong>navigator</strong></p>
+<ul>
+<li>检测显示网页的浏览器类型</li>
+</ul>
 <hr>
 <blockquote>
 <h3 id="浏览器架构"><a href="#浏览器架构" class="headerlink" title="浏览器架构"></a>浏览器架构</h3></blockquote>
@@ -177,14 +188,26 @@
 <li><p>扩展功能，包括允许用户安装的扩展程序</p>
 </li>
 </ul>
+<hr>
 <blockquote>
 <p>新开一个窗口时，打开浏览器的任务管理器能看到什么</p>
 </blockquote>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">浏览器主进程</span><br><span class="line">GPU进程</span><br><span class="line">多个渲染进程</span><br><span class="line">网络进程</span><br><span class="line">存储进程</span><br><span class="line">音频进程</span><br><span class="line">多个扩展程序</span><br></pre></td></tr></table></figure>
+<ul>
+<li>浏览器主进程</li>
+<li>GPU进程</li>
+<li>多个渲染进程</li>
+<li>网络进程</li>
+<li>存储进程</li>
+<li>音频进程</li>
+<li>多个扩展程序</li>
+</ul>
+<hr>
 <blockquote>
 <p>浏览器多进程架构的好处</p>
 </blockquote>
-<p><u>都由独立的渲染器进程运行，相互不干扰</u><br>安全性增强 / 稳定性提高 / 隐私保护 / 性能有所优化 / 资源管理</p>
+<p><u>都由独立的渲染器进程运行，相互不干扰</u></p>
+<p>安全性增强 / 稳定性提高 / 隐私保护 / 性能有所优化 / 资源管理</p>
+<hr>
 <blockquote>
 <h3 id="重排重绘"><a href="#重排重绘" class="headerlink" title="重排重绘"></a>重排重绘</h3></blockquote>
 <p><strong>repaint 重绘</strong><br>当元素样式改变不影响布局时，浏览器将使用重绘对元素进行更新，此时只需要UI层面的重新绘制，<strong>损耗较少</strong></p>
@@ -200,26 +223,37 @@
 <li>元素尺寸、位置、内容改变 （v-if / 删除或添加可见的dom元素）</li>
 <li>元素字体大小改变</li>
 <li>激活css伪类 :hover</li>
-<li>某些属性或调用某些方法<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">document.body.clientWidth &#x2F; Height | clientTop &#x2F; Left 元素内部的宽度&#x2F;高度</span><br><span class="line">offsetWidth&#x2F;Height | offsetTop&#x2F;Left 元素的布局宽度&#x2F;高度</span><br><span class="line">scrollWidth&#x2F;Height | scrollTop&#x2F;Left 元素内容宽度的一种度量，包括由于overflow溢出而在屏幕上不可见的内容。</span><br><span class="line">getComputedStyle() 报告元素的所有CSS属性的值</span><br><span class="line">getBoundingClientRect() 元素的大小及其相对于视口的位置</span><br><span class="line">scrollTo()</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p><strong>回流必定触发重绘，反之不一定</strong><br>重绘开销小，回流代价大</p>
-</blockquote>
-</li>
+<li>某些属性或调用某些方法<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">document.body.clientWidth &#x2F; Height | clientTop &#x2F; Left 元素内部的宽度&#x2F;高度</span><br><span class="line">offsetWidth&#x2F;Height | offsetTop&#x2F;Left 元素的布局宽度&#x2F;高度</span><br><span class="line">scrollWidth&#x2F;Height | scrollTop&#x2F;Left 元素内容宽度的一种度量，包括由于overflow溢出而在屏幕上不可见的内容。</span><br><span class="line">getComputedStyle() 报告元素的所有CSS属性的值</span><br><span class="line">getBoundingClientRect() 元素的大小及其相对于视口的位置</span><br><span class="line">scrollTo()</span><br></pre></td></tr></table></figure></li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">visibility: hidden vs display: none</span><br><span class="line">  hidden &#x2F; display: none 不占用空间，引发重排重绘</span><br><span class="line">  而visibility: hidden 使元素不可见，但仍占用空间且位置没有变化，只引发重绘</span><br></pre></td></tr></table></figure>
+<p><strong>回流必定触发重绘，反之不一定</strong><br><strong>重绘开销小，回流代价大</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">visibility: hidden vs display: none</span><br><span class="line">  display: none 不占用空间，引发重排重绘</span><br><span class="line">  而visibility: hidden 使元素不可见，但仍占用空间且位置没有变化，只引发重绘</span><br></pre></td></tr></table></figure>
 <ul>
 <li>javascript方面<ul>
-<li>避免频繁操作，可统一修改后再更新</li>
-<li>尽量使用class进行样式修改</li>
-<li>减少dom元素的增删修改</li>
+<li>减少DOM操作，将多次合并为一次操作；缓存DOM引用避免在循环中频繁查询DOM</li>
+<li>尽量使用class进行样式修改而不是内联样式减少重排次数</li>
+<li>避免触发同步布局如offsetWidth、scrollTop等引发同步计算导致频繁重排（读写分离，先取值element.offsetWidth再赋给style.width）</li>
+<li>使用一些css3特性加速GPU（transform、opacity）</li>
+<li>使用虚拟DOM管理和优化DOM操作</li>
+<li>动画优化使用requestAnimationFrame来渲染</li>
+<li>避免写出深层嵌套和复杂选择器的css</li>
+<li>使用will-change提示浏览器哪些元素将改变来优化元素渲染（用于解决现有的性能问题而不是用来预防，是最后的应对手段）过度使用 will-change 将导致内存使用过多，并导致更复杂的渲染发生，因为浏览器试图为可能的更改做准备。这将导致更差的性能。</li>
+<li>减少不必要的视觉变化（频繁的颜色和外观变化）避免频繁的引起页面重绘</li>
 </ul>
 </li>
 </ul>
+<ul>
+<li>document.createDocumentFragment()指向 空DocumentFragment对象 的引用<ul>
+<li>是<strong>DOM空节点</strong>，但不是主DOM树的一部分</li>
+<li>存在于内存中不在DOM树中</li>
+<li>当子元素插入到文档片段时不会引起页面回流，因此能带来更好的性能</li>
+</ul>
+</li>
+</ul>
+<hr>
 <blockquote>
 <h3 id="在浏览器中输入URL到展示的过程"><a href="#在浏览器中输入URL到展示的过程" class="headerlink" title="在浏览器中输入URL到展示的过程"></a>在浏览器中输入URL到展示的过程</h3></blockquote>
 <p>可以大致描述为：<br>输入URL - 发起URL请求（DNS解析、建立TCP连接、发送请求、服务端处理请求并发送响应）- 浏览器接收响应 - 渲染页面</p>
-<p>这一过程共涉及到3个进程，分别是浏览器进程、网络进程和渲染进程</p>
-<hr>
+<p><u>这一过程共涉及到3个进程，分别是浏览器进程、网络进程和渲染进程</u></p>
 <ol>
 <li>处理输入，当在地址栏输入内容时，地址栏先判断是搜索查询还是请求URL，如果是搜索内容，会发送到搜索引擎合成新的带搜索关键字的URL。如果是域名会加上协议（如https）合成完整的url。</li>
 <li>点击回车后，浏览器进程通过IPC把URL传给网络进程，网络进程获取到URL先去找缓存中是否有缓存资源，如果有就拦截请求直接返回资源。没有则请求DNS返回域名对应的IP地址和端口号。</li>
@@ -229,7 +263,7 @@
 <li>UI线程通知渲染进程开始渲染页面，渲染过程：<ol>
 <li>解析HTML转换为DOM树（就算编写错误也会被HTML规范优雅地处理掉）</li>
 <li>加载子资源，包括图像、CSS和JS等外部资源<ul>
-<li>script标签会暂停HTMl文档的解析，必须加载、解析和执行JS代码后再恢复HTMl文档的解析</li>
+<li>script标签会暂停HTML文档的解析，必须加载、解析和执行JS代码后再恢复HTMLz文档的解析</li>
 </ul>
 </li>
 <li>解析CSS创建CSSOM树（CSS对象模型）并确定每个dom节点的计算样式</li>
@@ -377,7 +411,7 @@
 <blockquote>
 <h3 id="跨域"><a href="#跨域" class="headerlink" title="跨域"></a>跨域</h3></blockquote>
 <p>是浏览器基于同源策略的一种安全手段，是对安全性做的限制</p>
-<p><u>同源策略： 是一种约定，用于隔离潜在恶意文件的安全机制，通常不允许不同源之间的读操作</u></p>
+<p><u>同源策略：是一种约定，用于隔离潜在恶意文件的安全机制，通常不允许不同源之间的读操作</u></p>
 <p><strong>同源三要素：协议protocol / 主机host / 端口port 相同</strong><br><strong>非同源的请求就会产生跨域</strong></p>
 <p>常见于以下场景：</p>
 <ul>
@@ -392,7 +426,7 @@
 <li>需要服务端支持且只支持GET请求</li>
 </ul>
 </li>
-<li>CORS（Cross-Origin Resource Sharing）服务端设置响应头Access-Control-Allow-Origin: * | <code>&lt;origin&gt;</code>，允许指定的域名访问资源<ul>
+<li>CORS（Cross-Origin Resource Sharing）跨境资源共享。服务端设置响应头Access-Control-Allow-Origin: * | <code>&lt;origin&gt;</code>，允许指定的域名访问资源<ul>
 <li>支持所有请求方法，但兼容性比JSONP差</li>
 <li>实现关键在服务端</li>
 </ul>
@@ -415,7 +449,7 @@
 <li>代理服务器的配置由客户端控制，需手动配置代理服务器的地址和端口</li>
 <li>反向代理服务器的配置由服务端控制，客户端无需感知反向代理服务器的存在</li>
 </ol>
-<p>实际应用中，反向代理服务器更为常见。<br>特别是在构建高可用性、高性能的Web应用时。<br>通过反向代理，可以将请求分发给不同的服务器，实现负载均衡和故障转移；<br>同时，反向代理也可以用于缓存静态内容，提高访问速度；<br>此外，反向代理还可以作为防火墙，过滤恶意请求，增强系统的安全性。</p>
+<p>实际应用中，反向代理服务器更为常见。<br>特别是在构建高可用性、高性能的Web应用时<br>通过反向代理，可以将请求分发给不同的服务器，实现负载均衡和故障转移；<br>同时，反向代理也可以用于缓存静态内容，提高访问速度；<br>此外，反向代理还可以作为防火墙，过滤恶意请求，增强系统的安全性。</p>
 <blockquote>
 <h3 id="Node的Event-Loop事件循环"><a href="#Node的Event-Loop事件循环" class="headerlink" title="Node的Event Loop事件循环"></a>Node的Event Loop事件循环</h3><p><strong>Timers -&gt; Pending callbacks -&gt; Idle/Prepare -&gt; IO Poll -&gt; Check -&gt; Closing callbacks</strong></p>
 </blockquote>
@@ -428,7 +462,7 @@
 </li>
 <li><p>IO Poll 存储I/O操作的回调函数队列，例如文件读写操作</p>
 <ul>
-<li>如果事件队列中无回调函数，但 Check阶段 或T imers队列 中有需执行的回调函数<ul>
+<li>如果事件队列中无回调函数，但 Check阶段 或 Timers队列 中有需执行的回调函数<ul>
 <li>那么事件循环会移至 Check阶段 或 Closing callbacks 并从 Timers 进入下一次循环</li>
 <li>否则会在IO Poll阶段停留一段时间以等待新的回调函数进入    </li>
 </ul>
@@ -564,7 +598,7 @@
       <strong class="article-nav-caption">Newer</strong>
       <div class="article-nav-title">
         
-          (no title)
+          vue-review
         
       </div>
     </a>
@@ -617,7 +651,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/04/">April 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/03/">March 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/02/">February 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/01/">January 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/11/">November 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">January 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">December 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/11/">November 2017</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/05/">May 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/04/">April 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/03/">March 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/02/">February 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/01/">January 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/11/">November 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">January 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">December 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/11/">November 2017</a></li></ul>
     </div>
   </div>
 
@@ -630,7 +664,11 @@
       <ul>
         
           <li>
-            <a href="/2024/04/24/ReviewNote/">(no title)</a>
+            <a href="/2024/05/31/%E6%89%8B%E5%86%99code/">手写code</a>
+          </li>
+        
+          <li>
+            <a href="/2024/04/24/ReviewNote/">vue-review</a>
           </li>
         
           <li>
@@ -643,10 +681,6 @@
         
           <li>
             <a href="/2024/04/07/JS%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/">JavaScript 内存与性能</a>
-          </li>
-        
-          <li>
-            <a href="/2024/04/01/JSNote/">JSNote</a>
           </li>
         
       </ul>

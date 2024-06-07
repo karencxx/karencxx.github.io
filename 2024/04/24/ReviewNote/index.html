@@ -3,17 +3,17 @@
 <head>
   <meta charset="utf-8">
   
-  <title>进阶</title>
+  <title>vue-review | 进阶</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="Vue.js 使用 Flow 做静态类型检查 Flow 是 facebook 的 JavaScript 静态类型检查工具 类型检查分成 2 种方式： 类型推断：通过变量的使用上下文来推断出变量类型，然后根据这些推断来检查类型 类型注释：事先注释好的类型 如x:number，Flow会基于这些注释来判断      Vue 实际上是一个类，在JS中用 Function 实现。这就是需要用 new Vu">
 <meta property="og:type" content="article">
-<meta property="og:title" content="进阶">
+<meta property="og:title" content="vue-review">
 <meta property="og:url" content="http://karencxx.github.io/2024/04/24/ReviewNote/index.html">
 <meta property="og:site_name" content="进阶">
 <meta property="og:description" content="Vue.js 使用 Flow 做静态类型检查 Flow 是 facebook 的 JavaScript 静态类型检查工具 类型检查分成 2 种方式： 类型推断：通过变量的使用上下文来推断出变量类型，然后根据这些推断来检查类型 类型注释：事先注释好的类型 如x:number，Flow会基于这些注释来判断      Vue 实际上是一个类，在JS中用 Function 实现。这就是需要用 new Vu">
 <meta property="og:locale">
 <meta property="article:published_time" content="2024-04-24T07:47:47.000Z">
-<meta property="article:modified_time" content="2024-05-20T16:10:21.829Z">
+<meta property="article:modified_time" content="2024-06-07T10:30:30.234Z">
 <meta property="article:author" content="karen">
 <meta property="article:tag" content="复习">
 <meta name="twitter:card" content="summary">
@@ -81,6 +81,16 @@
   <div class="article-inner">
     
     
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      vue-review
+    </h1>
+  
+
+      </header>
+    
     <div class="article-entry" itemprop="articleBody">
       
         <h3 id="Vue-js-使用-Flow-做静态类型检查"><a href="#Vue-js-使用-Flow-做静态类型检查" class="headerlink" title="Vue.js 使用 Flow 做静态类型检查"></a>Vue.js 使用 Flow 做静态类型检查</h3><ul>
@@ -116,7 +126,7 @@
 <h3 id="生命周期"><a href="#生命周期" class="headerlink" title="生命周期"></a>生命周期</h3><ul>
 <li>钩子函数 LIFECYCLE_HOOKS</li>
 </ul>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="string">&#x27;beforeCreate&#x27;</span>,</span><br><span class="line"><span class="string">&#x27;created&#x27;</span>,</span><br><span class="line"><span class="string">&#x27;beforeMount&#x27;</span>,</span><br><span class="line"><span class="string">&#x27;mounted&#x27;</span>,</span><br><span class="line"><span class="string">&#x27;beforeUpdate&#x27;</span>,</span><br><span class="line"><span class="string">&#x27;updated&#x27;</span>,</span><br><span class="line"><span class="string">&#x27;beforeDestroy&#x27;</span>,</span><br><span class="line"><span class="string">&#x27;destroyed&#x27;</span>,</span><br><span class="line"><span class="string">&#x27;activated&#x27;</span>,</span><br><span class="line"><span class="string">&#x27;deactivated&#x27;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="string">&#x27;beforeCreate&#x27;</span>: 在实例初始化之后，数据观测 (data observer) 和 event/watcher 事件配置之前被调用。</span><br><span class="line"><span class="string">&#x27;created&#x27;</span>: 在实例创建完成后被立即调用。在这一步，实例已完成以下的配置：数据观测(data observer)，属性和方法的运算，watch/event事件回调。然而，挂载阶段还没开始，$el属性目前不可见。</span><br><span class="line"><span class="string">&#x27;beforeMount&#x27;</span>: 在挂载开始之前被调用：相关的render函数首次被调用。</span><br><span class="line"><span class="string">&#x27;mounted&#x27;</span>: el被新创建的vm.$el替换，并挂载到实例上去之后调用该钩子。如果根实例挂载到了一个文档内的元素上，当mounted被调用时vm.$el也在文档内。</span><br><span class="line"><span class="string">&#x27;beforeUpdate&#x27;</span>: 数据更新时调用，发生在虚拟DOM重新渲染和打补丁之前。</span><br><span class="line"><span class="string">&#x27;updated&#x27;</span>: 由于数据更改导致的虚拟DOM重新渲染和打补丁后调用。</span><br><span class="line"><span class="string">&#x27;beforeDestroy&#x27;</span>: 在实例销毁之前调用。实例仍然完全可用。</span><br><span class="line"><span class="string">&#x27;destroyed&#x27;</span>: 在实例销毁之后调用。该钩子被调用后，Vue实例的所有指令都被解绑，所有的事件监听器被移除，所有的子实例被销毁。</span><br><span class="line"><span class="string">&#x27;activated&#x27;</span>,</span><br><span class="line"><span class="string">&#x27;deactivated&#x27;</span></span><br></pre></td></tr></table></figure>
 <ol>
 <li>init初始化<ul>
 <li>合并配置</li>
@@ -125,7 +135,7 @@
 <li>初始化注入和初始化data、props、methods、computed、watch等属性（initState）</li>
 <li>创建完成，调用钩子函数 created，但此时还未生成真实DOM（添加顺序是先父后子）</li>
 <li>进行元素挂载，$el \ vm.$mount()</li>
-<li>compile编译得到render方法（其实就是template转为 字符串 返回给 render属性）</li>
+<li>如果没有render方法，compile编译得到render方法（其实就是template转为 字符串 返回给 render属性）</li>
 <li>渲染VNode前调用钩子函数 beforeMount</li>
 <li>执行render函数生成真实DOM，替换DOM Tree</li>
 <li>调用钩子函数 mounted 组件已挂载（添加顺序是先子后父）</li>
@@ -152,7 +162,7 @@
 <li>解绑监听</li>
 </ul>
 </li>
-<li>上述执行完毕后再调用 destroy 钩子函数 （执行顺序是先子后父）</li>
+<li>上述执行完毕后再调用 destroyed 钩子函数 （执行顺序是先子后父）</li>
 </ul>
 </li>
 </ol>
@@ -176,7 +186,7 @@
 </li>
 <li>两者都是对 <strong>对象上的某个属性</strong> 做处理<ul>
 <li>Object.definedProperty 是劫持 <strong>对象的属性</strong>，新增元素需要再次 definedProperty</li>
-<li>Proxy 劫持的是 <strong>整个对象</strong>，不需要做特殊处理<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> data = &#123;&#125;</span><br><span class="line"><span class="keyword">const</span> vm = <span class="keyword">new</span> <span class="built_in">Proxy</span>(data, &#123;</span><br><span class="line">    get (target, key) &#123;</span><br><span class="line">        <span class="keyword">return</span> target[key]</span><br><span class="line">    &#125;,</span><br><span class="line">    set (target, key, value) &#123;</span><br><span class="line">        target[key] = value</span><br><span class="line">        <span class="comment">// update view</span></span><br><span class="line">        <span class="built_in">document</span>.querySelector(<span class="string">&#x27;#vm&#x27;</span>).textContent = target[key]</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<li>Proxy 劫持的是 <strong>整个对象</strong>，不需要做特殊处理，用到某个属性时才去收集依赖<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> data = &#123;&#125;</span><br><span class="line"><span class="keyword">const</span> vm = <span class="keyword">new</span> <span class="built_in">Proxy</span>(data, &#123;</span><br><span class="line">    get (target, key) &#123;</span><br><span class="line">        <span class="keyword">return</span> target[key]</span><br><span class="line">    &#125;,</span><br><span class="line">    set (target, key, value) &#123;</span><br><span class="line">        target[key] = value</span><br><span class="line">        <span class="comment">// update view</span></span><br><span class="line">        <span class="built_in">document</span>.querySelector(<span class="string">&#x27;#vm&#x27;</span>).textContent = target[key]</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
 <h3 id="响应式原理"><a href="#响应式原理" class="headerlink" title="响应式原理"></a>响应式原理</h3></li>
 </ul>
 </li>
@@ -192,9 +202,9 @@
 <li><p><strong>发布-订阅模式</strong></p>
 <ul>
 <li>订阅者 subscriber、发布者 publisher</li>
-<li>消息中心 Dep，接到指令后会根据事件类型给对应的订阅者发送消息</li>
+<li>增加一个消息中心 Dep，接到指令后会根据事件类型给对应的订阅者发送消息</li>
 <li>添加消息中心，所有消息均通过消息中心，发布者与订阅者不直接相关</li>
-<li>实现了两者解耦，更适合 <strong>消息类型复杂情况</strong></li>
+<li>实现了两者解耦，更适合 <strong>消息类型复杂的情况</strong></li>
 </ul>
 </li>
 </ul>
@@ -233,16 +243,24 @@
 <li>父组件可以向子组件传递任意内容，从而增强了组件的灵活性和复用性</li>
 <li>作用域插槽 v-slot=””，子组件向父组件传递</li>
 <li>具名插槽 &lt;slot name=””&gt;&lt;/slot&gt; v-slot:name</li>
+<li>vue2是通过编译成with语句来实现，内容被包裹在一个with语句中，以便直接访问</li>
+<li>vue3则改为通过函数作用域来处理插槽，提升性能和减少作用域污染（h函数）<ul>
+<li>使用函数式组件定义简单、插槽处理清晰、没有生命周期方法和内部状态，性能更优<ul>
+<li>context.slots访问插槽</li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 <h3 id="路由-Vue-Router"><a href="#路由-Vue-Router" class="headerlink" title="路由 Vue Router"></a>路由 Vue Router</h3><ul>
 <li>基于 Vue.js 的组件化思想，将路由映射到组件，并提供了一系列的钩子函数和导航方法来管理路由。</li>
 <li>通过监听 URL 的变化，然后根据配置的路由规则来匹配相应的组件，并将组件渲染到页面上</li>
-<li>mode：<ul>
-<li>H5 history：history.pushState / window.onpopstate<ul>
-<li>需要服务端支持指的是在后端需要返回一个主文件路径如index.html</li>
+<li>mode：’hash’ / ‘history’<ul>
+<li>H5 history模式：利用浏览器历史API处理URL变化。使用history.pushState或replaceState来修改历史记录 / window.onpopstate<ul>
+<li>需要服务端支持指的是在服务端配置正确的路由规则，返回一个主文件路径如index.html</li>
 </ul>
 </li>
-<li>hash：监听 window.onhashchange</li>
+<li>hash模式：通常以 # 符号开头，监听 window.onhashchange</li>
 </ul>
 </li>
 <li>配置：动态路由/:xx、懒加载 component: () =&gt; import()</li>
@@ -251,7 +269,7 @@
 <li>&lt;router-link to=””&gt;&lt;/router-link&gt;</li>
 </ul>
 </li>
-<li>占位：&lt;router-view&gt;&lt;/router-view&gt;</li>
+<li>指定区域：&lt;router-view&gt;&lt;/router-view&gt;所在的位置</li>
 </ul>
 <h3 id="动态组件-is-”component”"><a href="#动态组件-is-”component”" class="headerlink" title="动态组件 :is=”component”"></a>动态组件 :is=”component”</h3><h3 id="异步组件"><a href="#异步组件" class="headerlink" title="异步组件"></a>异步组件</h3><ul>
 <li>() =&gt; import(‘…’) import函数</li>
@@ -259,17 +277,28 @@
 </ul>
 <h3 id="keep-alive-跟-v-show"><a href="#keep-alive-跟-v-show" class="headerlink" title="keep-alive 跟 v-show"></a>keep-alive 跟 v-show</h3><ul>
 <li>v-show 是css层面的隐藏，相对来说简单些</li>
-<li>keep-alive则是vue框架层面的，缓存组件和DOM。可利用在tab切换组件等复杂的情况</li>
+<li>keep-alive则是vue框架层面的，缓存组件和DOM。可在tab切换组件等复杂的情况下使用</li>
 </ul>
-<blockquote>
-<p><strong>面试题</strong></p>
-</blockquote>
-<ul>
+<h3 id="面试题"><a href="#面试题" class="headerlink" title="面试题"></a>面试题</h3><ul>
 <li><p><strong>v-show、v-if区别</strong></p>
 <ul>
 <li>v-show通过CSS层面控制显示和隐藏，引发重绘</li>
 <li>v-if是组件的渲染和销毁，引发回流</li>
 <li>频繁切换时建议使用v-show</li>
+</ul>
+</li>
+<li><p><strong>v-for的key一定要写吗？作用是什么</strong></p>
+<ul>
+<li>虽然不是强制的，但 key 为每个渲染元素提供唯一标识，能让vue更准确地跟踪每个节点的身份</li>
+<li>快速识别新旧元素，并正确更新组件状态，重用和重排现有元素（复用DOM，就地更新）</li>
+<li>避免重复渲染和渲染错误（表单输入值错位或丢失）</li>
+<li>何时使用key<ul>
+<li>列表数据动态变化，在处理动态列表时能带来更好的性能和更稳定的行为</li>
+<li>使用 v-for 渲染组件，使用 key 可以确保组件的内部状态正确维护</li>
+<li>对性能敏感的应用里</li>
+</ul>
+</li>
+<li>key 应该时唯一且稳定的</li>
 </ul>
 </li>
 <li><p><strong>组件如何通讯</strong></p>
@@ -282,46 +311,137 @@
 <li><p><strong>何时使用beforeDestroy</strong></p>
 <ul>
 <li>解绑自定义事件 event.$off 或一些DOM事件，如scroll</li>
-<li>清楚定时器</li>
+<li>清除定时器或监听器</li>
+<li>销毁一些外部插件实例</li>
 </ul>
 </li>
-<li><p><strong>Vue.js 的双向绑定是如何实现的？</strong><br>Vue.js 使用了 Object.defineProperty(..) 或者 Proxy 来劫持对象的 getter 和 setter<br>当数据发生变化时，会触发相应的更新操作。可以使用 v-model 指令 来实现双向数据绑定</p>
+<li><p><strong>Vue.js 的双向绑定是如何实现的？</strong><br>分为几个步骤</p>
 </li>
+</ul>
+<ol>
+<li>数据劫持，使用 Object.defineProperty() 或者 Proxy 来劫持对象的 getter、setter，并添加一些依赖追踪和更新机制</li>
+<li>模版编译，将template转为render函数，创建一个VDOM树</li>
+<li>观察者，订阅数据的getter方法，并在数据发生变化时调用setter，实现监听和更新</li>
+<li>依赖追踪，数据发生变化时，自动重新计算模版表达式</li>
+<li>更新试图，当数据发生变化时，触发相应的更新操作<br>可以使用 v-model 指令 来实现双向数据绑定</li>
+</ol>
+<ul>
 <li><p><strong>Vue.js 中的计算属性和侦听器有何区别？</strong></p>
 <ul>
 <li>计算属性是基于它的依赖进行缓存的，只有依赖发生改变时才会重新求值</li>
 <li>侦听器则是在数据变化时执行异步或开销较大的操作</li>
 </ul>
 </li>
-<li><p><strong>data为什么是一个函数</strong><br>Vue本身是一个类，定义为函数可以确保每个组件实例有自己的数据副本。由于Vue组件可能会被多次复用，如果此时data是一个普通对象，那么所有的实例都会共享这个对象的引用，这样就会导致状态的共享和污染。</p>
+<li><p><strong>data为什么是一个函数</strong><br>Vue本身是一个类，定义为函数可以确保每个组件实例有自己的数据副本。<br>由于Vue组件可能会被多次复用，如果此时data是一个普通对象，那么所有的实例都会共享这个对象的引用，这样就会导致状态的共享和数据污染。</p>
 </li>
 <li><p><strong>如何监听数组变化</strong></p>
 <ul>
-<li>重新定义原型，重写push、pop等数组方法，实现监听</li>
+<li>使用vue.set / this.$set </li>
+<li>使用数组编译方法，重新定义原型，重写push、pop等数组方法来实现对数组的监听（执行完数组操作后触发视图更新）</li>
 </ul>
 </li>
 <li><p><strong>性能优化</strong></p>
 <ul>
 <li>合理使用v-show、v-if、computed</li>
 <li>v-for时要唯一标识的key，避免和v-if同时使用减少性能消耗</li>
-<li>自定义事件，DOM事件及时销毁</li>
+<li>自定义事件、DOM事件要及时销毁</li>
 <li>data层级不要太深</li>
 <li>合理使用 keep-alive 和 异步组件</li>
-<li>v-loader在开发时做模版预编译</li>
-<li>前端通用性能优化，如图片懒加载</li>
+<li>v-loader 在开发时做模版预编译</li>
+<li>前端通用性能优化，如图片懒加载、首屏优化</li>
 </ul>
 </li>
 <li><p><strong>Vue3比Vue2快</strong> </p>
 </li>
 </ul>
-<blockquote>
+<h3 id="Vue3"><a href="#Vue3" class="headerlink" title="Vue3"></a>Vue3</h3><ul>
+<li><p><strong>Composition API</strong>，高阶技巧</p>
+<ul>
+<li>与Options API相比有更好的代码组织</li>
+<li>逻辑复用</li>
+<li>更好的类型推导</li>
+<li>小型项目、业务逻辑简单，建议用Composition API</li>
+</ul>
+</li>
+<li><p><strong>ref、reactive</strong>，创建响应式引用的函数</p>
+<ul>
+<li><strong>ref</strong><ul>
+<li>创建一个包含value属性值的响应式对象，只有value是响应式的，需要用 .value 来访问和修改值</li>
+<li>可用于基本类型数据，还可用于对象、数组等</li>
+<li>也可将 ref 与 ref 函数一起使用来获取DOM元素，类似于vue2中的$refs()</li>
+<li>适用于 <strong>简单的基本类型数据 或 DOM 元素的响应式引用</strong></li>
+<li>为了创造一个明确且基本类型数据的响应式引用<ul>
+<li>Vue3响应式是基于Proxy来实现的，但Proxy无法拦截基本数据类型，因此ref的出现还是必要的</li>
+<li>其次还可以包装DOM元素及一些简单值，使得操作DOM更加方便</li>
+<li>向后兼容，能将非响应式的变为响应式，在vue3中保持相同行为</li>
+<li>同时ref也是一个对象，它包装了一个value属性是为了追踪value值的变化（对象的引用），从而触发对应的更新，如果是普通类型，那么无法监听值的变化，就会丢失响应式；也能清晰地表明该数据是响应式</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>reactive</strong><ul>
+<li>创建一个响应时代理对象，整个对象都是响应式的</li>
+<li>更适合用于创建复杂的对象的响应式代理</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong>toRef、toRefs</strong></p>
+<ul>
+<li>在不丢失响应式的情况下，将<strong>响应式对象</strong>进行解构/扩散</li>
+<li>toRef 将一个<strong>响应式对象的属性</strong>转换为一个 <strong>ref对象</strong></li>
+<li>toRefs 将一个<strong>整个响应式对象</strong>转换为 <strong>普通对象</strong>，解构为 ref对象<ul>
+<li>每个属性都是 ref 对象（如果单纯地解构reactive对象，那么将失去响应式）</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong>&lt;Suspense&gt;组件</strong></p>
+<ul>
+<li>一个用于处理异步组件加载状态的特殊组件</li>
+<li>可包裹一个或多个异步组件，并在组件加载过程中显示特定的加载指示器直到加载完成为止<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;Suspense&gt;</span><br><span class="line">    &lt;template #default&gt;</span><br><span class="line">      &lt;!-- 只能包裹异步组件 --&gt;</span><br><span class="line">    &lt;&#x2F;template&gt;</span><br><span class="line">    &lt;template #fallback&gt;</span><br><span class="line">      &lt;!-- fallback插槽的位置在上面的异步组件加载完成前显示 --&gt;</span><br><span class="line">    &lt;&#x2F;template&gt;</span><br><span class="line">  &lt;&#x2F;Suspense&gt;</span><br><span class="line">&lt;&#x2F;template&gt;</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p><strong>expose</strong>(defineExpose)</p>
+<ul>
+<li>用于将组件内部的属性或方法暴露给组件外部</li>
+<li>只有定义在expose({…})中的变量和函数才能被外部访问到</li>
+<li>外部通过ref来访问，$refs.xxx.func</li>
+</ul>
+</li>
+<li><p><strong>Teleport</strong></p>
+<ul>
+<li>用于在DOM中将子组件的内容移动到指定的目标位置</li>
+<li>&lt;Teleport to=”可以是元素body、#ID等”&gt;</li>
+<li>例如运用在弹框，直接将其展示在body元素上，不像之前只能添加到其最外层的父元素上</li>
+</ul>
+</li>
+<li><p><strong>watch、watchEffect</strong></p>
+<ul>
+<li>watch：需要手动监听参数</li>
+<li>watchEffect：立即运行一个函数，即初始化时一定会执行一次，同时响应式地追踪其依赖，并在依赖更改时重新执行</li>
+</ul>
+</li>
+<li><p>setup如何获取实例（setup函数中没有this）</p>
+</li>
+<li><p>vite编译为何那么快？本地使用ES6 Module</p>
+</li>
+<li><p><strong>编译优化</strong></p>
+<ul>
+<li>patchFlag 标记静态节点，从而减少对比，帮助优化来diff算法</li>
+<li>hoistStatic 将静态节点定义提升到父作用域缓存起来；多个相邻静态节点会被合并 </li>
+<li>cacheHandler 缓存事件</li>
+<li>ssr、tree-shaking<blockquote>
 <p><strong>简单地实现vue响应式</strong></p>
 </blockquote>
 <figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> data = &#123;&#125;</span><br><span class="line"><span class="keyword">new</span> Vue(&#123;</span><br><span class="line">    el: <span class="string">&#x27;#app&#x27;</span>,</span><br><span class="line">    data: &#123;&#125;</span><br><span class="line">&#125;)</span><br><span class="line"><span class="comment">// 将data注入实例</span></span><br><span class="line">proxyData(<span class="built_in">this</span>, data)</span><br><span class="line"><span class="comment">// observe实例监视data属性</span></span><br><span class="line">observe(data)</span><br><span class="line"><span class="comment">// 模版编译</span></span><br><span class="line"><span class="keyword">new</span> Watcher(vm, key, updateComponent)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="title">proxyData</span>(<span class="params">target, data</span>)</span> &#123;</span><br><span class="line">    <span class="built_in">Object</span>.keys(data).forEach(<span class="function"><span class="params">key</span> =&gt;</span> &#123;</span><br><span class="line">        <span class="built_in">Object</span>.defineProperty(data, key,&#123;</span><br><span class="line">            configurable: <span class="literal">true</span>,</span><br><span class="line">            enumerable: <span class="literal">true</span>,</span><br><span class="line">            <span class="function"><span class="title">get</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">                <span class="keyword">return</span> data[key]</span><br><span class="line">            &#125;,</span><br><span class="line">            <span class="function"><span class="title">set</span>(<span class="params">newVal</span>)</span> &#123;</span><br><span class="line">                data[key] = newVal</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;)</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Observe</span></span><br><span class="line"><span class="function"><span class="title">observe</span>(<span class="params">data</span>)</span> &#123;</span><br><span class="line">    <span class="built_in">Object</span>.keys(data).forEach(<span class="function"><span class="params">key</span> =&gt;</span> &#123;</span><br><span class="line">        defineReactive(data, key, value)</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="title">defineReactive</span>(<span class="params">data, key, value</span>)</span> &#123;</span><br><span class="line">    <span class="comment">// 创建消息中心实例</span></span><br><span class="line">    <span class="keyword">const</span> dep = <span class="keyword">new</span> Dep()</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">typeof</span> value === <span class="string">&#x27;object&#x27;</span> &amp;&amp; value !== <span class="literal">null</span>)  &#123;</span><br><span class="line">      observe(value)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">Object</span>.defineProperty(data, key, &#123;</span><br><span class="line">        enumerable: <span class="literal">true</span>,</span><br><span class="line">        configurable: <span class="literal">true</span>,</span><br><span class="line">        <span class="function"><span class="title">get</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">            <span class="comment">//  添加订阅者</span></span><br><span class="line">            Dep.target &amp;&amp; dep.addSub(Dep.target)</span><br><span class="line">            <span class="keyword">return</span> value</span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="function"><span class="title">set</span>(<span class="params">newVal</span>)</span> &#123;</span><br><span class="line">            <span class="keyword">if</span> (newVal === value) <span class="keyword">return</span></span><br><span class="line">            value = newVal</span><br><span class="line">           <span class="keyword">if</span> (<span class="keyword">typeof</span> value === <span class="string">&#x27;object&#x27;</span> &amp;&amp; value !== <span class="literal">null</span>)  &#123;</span><br><span class="line">            observe(value)</span><br><span class="line">          &#125;</span><br><span class="line">            <span class="comment">// 通知消息中心</span></span><br><span class="line">            dep.notify() </span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Dep</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="title">constructor</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="built_in">this</span>.subs = []</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="title">addSub</span>(<span class="params">sub</span>)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.subs.push(sub)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="title">notify</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.subs.forEach(<span class="function"><span class="params">sub</span> =&gt;</span> sub.update())</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Watcher</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="title">constructor</span>(<span class="params">vm, key, cb</span>)</span>&#123;</span><br><span class="line">        <span class="built_in">this</span>.vm = vm</span><br><span class="line">        <span class="built_in">this</span>.key = key</span><br><span class="line">        <span class="built_in">this</span>.cb = cb</span><br><span class="line">        <span class="comment">// 触发getter前，在消息中心存储当前订阅者实例</span></span><br><span class="line">        Dep.target = <span class="built_in">this</span></span><br><span class="line">        <span class="comment">// 记录属性更改之前的值，用于进行更新状态检测，触发getter</span></span><br><span class="line">        <span class="built_in">this</span>.oldValue = vm[key]</span><br><span class="line">        <span class="comment">// 触发getter后，恢复当前实例</span></span><br><span class="line">        Dep.target = <span class="literal">null</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="title">update</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">        <span class="keyword">const</span> newValue = <span class="built_in">this</span>.vm[<span class="built_in">this</span>.key]</span><br><span class="line">        <span class="keyword">if</span> (newValue != <span class="built_in">this</span>.oldValue) <span class="keyword">return</span></span><br><span class="line">        <span class="built_in">this</span>.cb(newValue)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">updateComponent</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    vm._update() <span class="comment">// patchs</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<p>============Vue 3============</p>
+============Vue 3============</li>
+</ul>
+</li>
+<li><p>比 Vue2 体积更小；性能更好；更好的 TS 支持 / 代码组织 / 逻辑抽离</p>
+</li>
+<li><p>生命周期</p>
 <ul>
-<li>比 Vue2 体积更小；性能更好；更好的 TS 支持 / 代码组织 / 逻辑抽离</li>
-<li>生命周期<ul>
 <li>beforeDestroy 更改为 beforeUnmount</li>
 <li>destroyed 更改为 unmounted</li>
 </ul>
@@ -341,6 +461,15 @@
   
     
 <nav id="article-nav">
+  
+    <a href="/2024/05/31/%E6%89%8B%E5%86%99code/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          手写code
+        
+      </div>
+    </a>
   
   
     <a href="/2024/04/11/BOMNote/" id="article-nav-older" class="article-nav-link-wrap">
@@ -390,7 +519,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/04/">April 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/03/">March 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/02/">February 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/01/">January 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/11/">November 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">January 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">December 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/11/">November 2017</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/05/">May 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/04/">April 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/03/">March 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/02/">February 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/01/">January 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/11/">November 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">January 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">December 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/11/">November 2017</a></li></ul>
     </div>
   </div>
 
@@ -403,7 +532,11 @@
       <ul>
         
           <li>
-            <a href="/2024/04/24/ReviewNote/">(no title)</a>
+            <a href="/2024/05/31/%E6%89%8B%E5%86%99code/">手写code</a>
+          </li>
+        
+          <li>
+            <a href="/2024/04/24/ReviewNote/">vue-review</a>
           </li>
         
           <li>
@@ -416,10 +549,6 @@
         
           <li>
             <a href="/2024/04/07/JS%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/">JavaScript 内存与性能</a>
-          </li>
-        
-          <li>
-            <a href="/2024/04/01/JSNote/">JSNote</a>
           </li>
         
       </ul>

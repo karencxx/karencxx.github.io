@@ -66,6 +66,103 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-手写code" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2024/05/31/%E6%89%8B%E5%86%99code/" class="article-date">
+  <time datetime="2024-05-31T07:15:57.000Z" itemprop="datePublished">2024-05-31</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/JS/">JS</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2024/05/31/%E6%89%8B%E5%86%99code/">手写code</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p><strong>jsonP</strong></p>
+</blockquote>
+<blockquote>
+<p><strong>xhr</strong></p>
+</blockquote>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line">使用JS的XMLHttpRequest</span><br><span class="line">fetch API</span><br><span class="line">实现几个要点：设置请求头；处理响应；处理错误；发送请求</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// use XMLHttpRequest</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">httpRequest</span>(<span class="params">method, url, data = <span class="literal">null</span></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">const</span> xhr = <span class="keyword">new</span> XMLHttpRequest()</span><br><span class="line">        xhr.open(method, url, <span class="literal">true</span>)</span><br><span class="line">        xhr.setRequestHeader(<span class="string">&#x27;Content-Type&#x27;</span>, <span class="string">&#x27;application/json;charset=utf-8&#x27;</span>)</span><br><span class="line">        xhr.onreadystatechange = <span class="function">() =&gt;</span> &#123;</span><br><span class="line">            <span class="keyword">if</span>(xhr.readyState === <span class="number">4</span>) &#123;</span><br><span class="line">                <span class="keyword">if</span>(xhr.status === <span class="number">200</span>) resolve(<span class="built_in">JSON</span>.parse(xhr.responseText))</span><br><span class="line">                <span class="keyword">else</span> reject(<span class="keyword">new</span> <span class="built_in">Error</span>(xhr.statusText))   </span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        xhr.onerror = <span class="function">() =&gt;</span> reject(<span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">&#x27;Network error&#x27;</span>))</span><br><span class="line">        xhr.send(data ? <span class="built_in">JSON</span>.stringify(data) : <span class="literal">null</span>)</span><br><span class="line">    &#125;)</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// use fetch() 在 Web Worker 中可用</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">httpRequest</span>(<span class="params">method, url, data = <span class="literal">null</span></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">const</span> headers = <span class="keyword">new</span> Headers()</span><br><span class="line">    headers.append(<span class="string">&#x27;Content-Type&#x27;</span>, <span class="string">&#x27;application/json&#x27;</span>)</span><br><span class="line">    <span class="keyword">const</span> options = &#123;</span><br><span class="line">        method,</span><br><span class="line">        headers,</span><br><span class="line">        body: data ? <span class="built_in">JSON</span>.stringify(data) : <span class="literal">null</span> </span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 这些请求不能有body</span></span><br><span class="line">    <span class="keyword">if</span>([<span class="string">&#x27;GET&#x27;</span>, <span class="string">&#x27;HEAD&#x27;</span>].includes(method)) &#123; </span><br><span class="line">        <span class="keyword">delete</span> options.body</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> fetch(url, options) </span><br><span class="line">        .then(<span class="function"><span class="params">response</span> =&gt;</span> &#123;</span><br><span class="line">            <span class="keyword">if</span>(!response.ok) <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Error</span>(response.status)</span><br><span class="line">            <span class="keyword">return</span> response.json()</span><br><span class="line">        &#125;)</span><br><span class="line">&#125;   </span><br></pre></td></tr></table></figure>
+<blockquote>
+<p><strong>防抖</strong></p>
+</blockquote>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line">事件触发n秒后再执行回调函数</span><br><span class="line">如果在n秒内又被触发，则需重新计时</span><br><span class="line">使用场景：多次提交按钮；表单验证；输入框连续输入、校验；搜索框联想词</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@params <span class="variable">func</span></span></span></span><br><span class="line"><span class="comment"> * <span class="doctag">@params <span class="variable">delay</span></span></span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">debounce</span>(<span class="params">func, delay</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> timerId</span><br><span class="line">    <span class="keyword">return</span> <span class="function">(<span class="params">...args</span>) =&gt;</span> &#123;</span><br><span class="line">        <span class="built_in">clearTimeout</span>(timerId)</span><br><span class="line">        timerId = <span class="built_in">setTimeout</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">            func.apply(<span class="built_in">this</span>, args)</span><br><span class="line">        &#125;, delay)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Example usage:</span></span><br><span class="line"><span class="keyword">const</span> debouncedFunction = debounce(<span class="function">() =&gt;</span> &#123;...&#125;, <span class="number">300</span>)</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p><strong>节流 throttle</strong></p>
+</blockquote>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line">在一定间隔时间内只执行一次回调；在单位时间内触发多次函数，但只有一次生效</span><br><span class="line">将高频操作转为低频操作；降低频率</span><br><span class="line">使用场景：滚动事件；resize事件</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@params <span class="variable">func</span></span></span></span><br><span class="line"><span class="comment"> * <span class="doctag">@params <span class="variable">delay</span></span></span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">throttle</span>(<span class="params">func, delay</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> lastExcutedTime = <span class="number">0</span></span><br><span class="line">    <span class="keyword">return</span> (...args) &#123;</span><br><span class="line">        <span class="keyword">const</span> now = <span class="built_in">Date</span>.now()</span><br><span class="line">        <span class="keyword">if</span>(now - lastExcutedTime &gt;= delay) &#123;</span><br><span class="line">            func.apply(<span class="built_in">this</span>, args)</span><br><span class="line">            lastExcutedTime = now</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Example usage:</span></span><br><span class="line"><span class="keyword">const</span> throttledFunction = throttle(<span class="function">() =&gt;</span> &#123;...&#125;, <span class="number">300</span>)</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p><strong>instanceof</strong></p>
+</blockquote>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line">判断是什么类型的对象，确定值的引用类型；确定原型和实例的关系</span><br><span class="line">实现：遍历对象原型链向上查找</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@params <span class="variable">instance</span></span></span></span><br><span class="line"><span class="comment"> * <span class="doctag">@params <span class="variable">construtor</span></span></span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return <span class="variable">boolean</span></span></span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">instanceof</span>(<span class="params">instance, construtor</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">const</span> prototype = <span class="title">constructor</span>.<span class="title">prototype</span></span><br><span class="line">    <span class="title">const</span> <span class="title">proto</span> = <span class="title">Object</span>.<span class="title">getPrototypeOf</span>(<span class="params">instance</span>)</span><br><span class="line">    <span class="title">while</span> (<span class="params">proto != <span class="literal">null</span></span>) &#123;</span><br><span class="line">        <span class="keyword">if</span> (proto === prototype) <span class="keyword">return</span> <span class="literal">true</span></span><br><span class="line">        proto = <span class="built_in">Object</span>.getPrototypeOf(proto) <span class="comment">// 向上查找原型链</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">false</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p><strong>setPrototypeOf</strong></p>
+</blockquote>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line">给指定对象设置原型 A.setPrototypeOf(B)</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@params <span class="variable">obj</span></span></span></span><br><span class="line"><span class="comment"> * <span class="doctag">@params <span class="variable">construtor</span></span></span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return <span class="variable">object</span></span></span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">setPrototypeOf</span>(<span class="params">obj, construtor</span>) </span>&#123;</span><br><span class="line">    obj.__proto__ = <span class="title">constructor</span>.<span class="title">prototype</span></span><br><span class="line">    <span class="title">return</span> <span class="title">obj</span></span><br><span class="line">&#125; </span><br></pre></td></tr></table></figure>
+<blockquote>
+<p><strong>new 运算符</strong></p>
+</blockquote>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line">实现需要几个步骤：</span><br><span class="line">1. 创建一个新对象；使用普通对象字面量创建更好，它具有默认原型链，兼容性更好</span><br><span class="line">   - Object.create(null) 虽然可以工作，但创建的对象没有原型，可能不具备某些方法，出现意外行为 </span><br><span class="line">2. 执行原型连接</span><br><span class="line">3. 绑定this到新对象</span><br><span class="line">4. 如果没有返回其他对象就返回该对象</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@params <span class="variable">construtor</span></span></span></span><br><span class="line"><span class="comment"> * <span class="doctag">@params <span class="variable">args</span></span></span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return <span class="variable">object</span></span></span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">ObjectFactory</span>(<span class="params">construtor, ...args</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">const</span> obj = &#123;&#125; <span class="comment">// 1</span></span><br><span class="line">    obj.__proto__ = construtor.prototype <span class="comment">// 2</span></span><br><span class="line">    <span class="keyword">const</span> result = <span class="title">constructor</span>.<span class="title">apply</span>(<span class="params">obj, args</span>) // 3</span><br><span class="line">    <span class="title">return</span> <span class="title">result</span> === &#x27;<span class="title">object</span>&#x27; &amp;&amp; <span class="title">result</span> !== <span class="title">null</span> ? <span class="title">result</span> : <span class="title">obj</span> // 4</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p><strong>Object.create</strong></p>
+</blockquote>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line">创建一个新对象，使用现有对象为新对象提供原型proto</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">create</span> (<span class="params">o</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(!o) <span class="keyword">return</span> &#123;&#125;</span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">F</span>(<span class="params"></span>) </span>&#123;&#125;</span><br><span class="line">    F.prototype = o</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> F</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">Object</span>.create = <span class="built_in">Object</span>.create || create</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p><strong>深拷贝</strong></p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 不能拷贝函数、循环引用、RegExp及Date等特殊对象</span></span><br><span class="line"><span class="comment">// 对象有循环引用时会报错</span></span><br><span class="line"><span class="built_in">JSON</span>.parse(<span class="built_in">JSON</span>.stringify(str))</span><br><span class="line"></span><br><span class="line"><span class="comment">// 手动递归</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">deepClone</span>(<span class="params">obj, hash = <span class="keyword">new</span> <span class="built_in">WeakMap</span>()</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(obj === <span class="literal">null</span> || <span class="keyword">typeof</span> obj !== <span class="string">&#x27;object&#x27;</span>) <span class="keyword">return</span> obj</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span>(hash.has(obj))&#123;</span><br><span class="line">        <span class="keyword">return</span> hash.get(obj)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">let</span> result</span><br><span class="line">    <span class="comment">//  处理特殊对象</span></span><br><span class="line">    <span class="keyword">if</span>(obj <span class="keyword">instanceof</span> <span class="built_in">Date</span>) &#123;</span><br><span class="line">        result = <span class="keyword">new</span> <span class="built_in">Date</span>(obj)</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (obj <span class="keyword">instanceof</span> <span class="built_in">RegExp</span>) &#123;</span><br><span class="line">        result = <span class="keyword">new</span> <span class="built_in">RegExp</span>(obj)</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span>(<span class="built_in">Array</span>.isArray(obj)) &#123;</span><br><span class="line">        result = []</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        result = &#123;&#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    hash.set(obj, result)</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">const</span> key <span class="keyword">in</span> obj) &#123;</span><br><span class="line">        <span class="keyword">if</span>(obj.hasOwnProperty(key)) &#123;</span><br><span class="line">            result[key] = deepClone(obj[key], hash)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> result</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p><strong>JSON.parse</strong></p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">parseJSON</span>(<span class="params">str</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">eval</span>(<span class="string">`(<span class="subst">$&#123;str&#125;</span>)`</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p><strong>stringToNumber</strong></p>
+</blockquote>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line">处理负号</span><br><span class="line">根据ASCII码转换对应的数字</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@params <span class="variable">str</span></span></span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">stringToNumber</span>(<span class="params">str</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> result = <span class="number">0</span></span><br><span class="line">    <span class="keyword">let</span> <span class="built_in">isNaN</span>, isNegative = <span class="literal">false</span></span><br><span class="line">    <span class="keyword">let</span> startIndex = <span class="number">0</span></span><br><span class="line">    <span class="comment">// 处理负号</span></span><br><span class="line">    <span class="keyword">if</span>(str[<span class="number">0</span>] === <span class="string">&#x27;-&#x27;</span>) &#123;</span><br><span class="line">        isNegative = <span class="literal">true</span></span><br><span class="line">        startIndex = <span class="number">1</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span>(startIndex; startIndex &lt; str.length; startIndex++) &#123;</span><br><span class="line">        <span class="comment">// 如果不是数字则停止转换</span></span><br><span class="line">        <span class="keyword">if</span>(str[startIndex] &lt; <span class="string">&#x27;0&#x27;</span> || str[startIndex] &gt; <span class="string">&#x27;9&#x27;</span>) &#123;</span><br><span class="line">            <span class="built_in">isNaN</span> = <span class="literal">true</span></span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line">        &#125; </span><br><span class="line"></span><br><span class="line">        <span class="keyword">const</span> digitValue = str.charCodeAt(startIndex) - <span class="string">&#x27;0&#x27;</span>.charCodeAt(<span class="number">0</span>)</span><br><span class="line">        result = result * <span class="number">10</span> + digitValue</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span>(<span class="built_in">isNaN</span>) <span class="keyword">return</span> <span class="literal">NaN</span></span><br><span class="line">    <span class="keyword">return</span> isNegative ?  -result : result</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p><strong>Promise</strong></p>
+</blockquote>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line">实现需要几个要点：</span><br><span class="line">1. 状态state，必须处于这三种之一：pending、fulfilled、rejected</span><br><span class="line">2. 状态转移：从pending到fulfilled 和 从pending到rejected；状态变化后不能改变或回退</span><br><span class="line">3. 传入异步处理器executor，定义 resolve 和 reject 函数；fulfilledCallbacks、rejectedCallbacks</span><br><span class="line">4. then 方法：返回一个新的promise；接收2个可选参数onFulfilled 和 onRejected；可以被同一个promise调用多次</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> StateEnum = &#123;</span><br><span class="line">    <span class="string">&#x27;pending&#x27;</span>: <span class="string">&#x27;PENDING&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;fulfilled&#x27;</span>: <span class="string">&#x27;FULFILLED&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;rejected&#x27;</span>: <span class="string">&#x27;REJECTED&#x27;</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">myPromise</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="title">constructor</span>(<span class="params">executor</span>)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.state = StateEnum.pending</span><br><span class="line">        <span class="built_in">this</span>.value = <span class="literal">undefined</span></span><br><span class="line">        <span class="built_in">this</span>.reason = <span class="literal">undefined</span></span><br><span class="line">        <span class="built_in">this</span>.fulfilledCallbacks= []</span><br><span class="line">        <span class="built_in">this</span>.rejectedCallbacks= []</span><br><span class="line"></span><br><span class="line">        <span class="keyword">const</span> resolve = <span class="function">(<span class="params">value</span>) =&gt;</span> &#123;</span><br><span class="line">            <span class="keyword">if</span>(<span class="built_in">this</span>.state === StateEnum.pending) &#123;</span><br><span class="line">                <span class="built_in">this</span>.state = StateEnum.fulfilled</span><br><span class="line">                <span class="built_in">this</span>.value = value</span><br><span class="line">                fulfilledCallbacks.forEach(<span class="function"><span class="params">cb</span> =&gt;</span> cb(<span class="built_in">this</span>.vlaue))</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">const</span> reject = <span class="function">(<span class="params">reason</span>) =&gt;</span> &#123;</span><br><span class="line">           <span class="keyword">if</span>(<span class="built_in">this</span>.state === StateEnum.pending) &#123;</span><br><span class="line">                <span class="built_in">this</span>.state = StateEnum.rejected</span><br><span class="line">                <span class="built_in">this</span>.reason = reason</span><br><span class="line">                rejectedCallbacks.forEach(<span class="function"><span class="params">cb</span> =&gt;</span> cb(<span class="built_in">this</span>.reason))</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            executor(resolve, reject)</span><br><span class="line">        &#125; <span class="keyword">catch</span>(err) &#123;</span><br><span class="line">            reject(err)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="title">then</span>(<span class="params">onFulfilled, onRejected</span>)</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> myPromise(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</span><br><span class="line">            <span class="keyword">if</span>(<span class="built_in">this</span>.state === StateEnum.pending) &#123;</span><br><span class="line">                <span class="built_in">this</span>.fulfilledCallbacks.push(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">                    <span class="built_in">setTimeout</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">                        <span class="keyword">try</span> &#123;</span><br><span class="line">                            resolve(onFulfilled(<span class="built_in">this</span>.value))</span><br><span class="line">                        &#125; <span class="keyword">catch</span>(err) &#123;</span><br><span class="line">                            reject(err)</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;)</span><br><span class="line">                &#125;)</span><br><span class="line">                <span class="built_in">this</span>.rejectedCallbacks.push(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">                    <span class="built_in">setTimeout</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">                        <span class="keyword">try</span> &#123;</span><br><span class="line">                            resolve(onRejected(<span class="built_in">this</span>.reason))</span><br><span class="line">                        &#125; <span class="keyword">catch</span>(err) &#123;</span><br><span class="line">                            reject(err)</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;)</span><br><span class="line">                &#125;)</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span>(<span class="built_in">this</span>.state === StateEnum.fulfilled) &#123;</span><br><span class="line">                <span class="built_in">setTimeout</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">                    <span class="keyword">try</span> &#123;</span><br><span class="line">                        resolved(onFulfilled(<span class="built_in">this</span>.value))</span><br><span class="line">                    &#125; <span class="keyword">catch</span>(err) &#123;</span><br><span class="line">                        reject(err)</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;)</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span>(<span class="built_in">this</span>.state === StateEnum.rejected) &#123;</span><br><span class="line">                <span class="built_in">setTimeout</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">                    <span class="keyword">try</span> &#123;</span><br><span class="line">                        resolved(onRejected(<span class="built_in">this</span>.reason))</span><br><span class="line">                    &#125; <span class="keyword">catch</span>(err) &#123;</span><br><span class="line">                        reject(err)</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;)</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://karencxx.github.io/2024/05/31/%E6%89%8B%E5%86%99code/" data-id="clwucrk4900008tfuafl75vgx" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%A4%8D%E4%B9%A0/" rel="tag">复习</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-ReviewNote" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2024/04/24/ReviewNote/" class="article-date">
@@ -79,6 +176,16 @@
   </div>
   <div class="article-inner">
     
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2024/04/24/ReviewNote/">vue-review</a>
+    </h1>
+  
+
+      </header>
     
     <div class="article-entry" itemprop="articleBody">
       
@@ -115,7 +222,7 @@
 <h3 id="生命周期"><a href="#生命周期" class="headerlink" title="生命周期"></a>生命周期</h3><ul>
 <li>钩子函数 LIFECYCLE_HOOKS</li>
 </ul>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="string">&#x27;beforeCreate&#x27;</span>,</span><br><span class="line"><span class="string">&#x27;created&#x27;</span>,</span><br><span class="line"><span class="string">&#x27;beforeMount&#x27;</span>,</span><br><span class="line"><span class="string">&#x27;mounted&#x27;</span>,</span><br><span class="line"><span class="string">&#x27;beforeUpdate&#x27;</span>,</span><br><span class="line"><span class="string">&#x27;updated&#x27;</span>,</span><br><span class="line"><span class="string">&#x27;beforeDestroy&#x27;</span>,</span><br><span class="line"><span class="string">&#x27;destroyed&#x27;</span>,</span><br><span class="line"><span class="string">&#x27;activated&#x27;</span>,</span><br><span class="line"><span class="string">&#x27;deactivated&#x27;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="string">&#x27;beforeCreate&#x27;</span>: 在实例初始化之后，数据观测 (data observer) 和 event/watcher 事件配置之前被调用。</span><br><span class="line"><span class="string">&#x27;created&#x27;</span>: 在实例创建完成后被立即调用。在这一步，实例已完成以下的配置：数据观测(data observer)，属性和方法的运算，watch/event事件回调。然而，挂载阶段还没开始，$el属性目前不可见。</span><br><span class="line"><span class="string">&#x27;beforeMount&#x27;</span>: 在挂载开始之前被调用：相关的render函数首次被调用。</span><br><span class="line"><span class="string">&#x27;mounted&#x27;</span>: el被新创建的vm.$el替换，并挂载到实例上去之后调用该钩子。如果根实例挂载到了一个文档内的元素上，当mounted被调用时vm.$el也在文档内。</span><br><span class="line"><span class="string">&#x27;beforeUpdate&#x27;</span>: 数据更新时调用，发生在虚拟DOM重新渲染和打补丁之前。</span><br><span class="line"><span class="string">&#x27;updated&#x27;</span>: 由于数据更改导致的虚拟DOM重新渲染和打补丁后调用。</span><br><span class="line"><span class="string">&#x27;beforeDestroy&#x27;</span>: 在实例销毁之前调用。实例仍然完全可用。</span><br><span class="line"><span class="string">&#x27;destroyed&#x27;</span>: 在实例销毁之后调用。该钩子被调用后，Vue实例的所有指令都被解绑，所有的事件监听器被移除，所有的子实例被销毁。</span><br><span class="line"><span class="string">&#x27;activated&#x27;</span>,</span><br><span class="line"><span class="string">&#x27;deactivated&#x27;</span></span><br></pre></td></tr></table></figure>
 <ol>
 <li>init初始化<ul>
 <li>合并配置</li>
@@ -124,7 +231,7 @@
 <li>初始化注入和初始化data、props、methods、computed、watch等属性（initState）</li>
 <li>创建完成，调用钩子函数 created，但此时还未生成真实DOM（添加顺序是先父后子）</li>
 <li>进行元素挂载，$el \ vm.$mount()</li>
-<li>compile编译得到render方法（其实就是template转为 字符串 返回给 render属性）</li>
+<li>如果没有render方法，compile编译得到render方法（其实就是template转为 字符串 返回给 render属性）</li>
 <li>渲染VNode前调用钩子函数 beforeMount</li>
 <li>执行render函数生成真实DOM，替换DOM Tree</li>
 <li>调用钩子函数 mounted 组件已挂载（添加顺序是先子后父）</li>
@@ -151,7 +258,7 @@
 <li>解绑监听</li>
 </ul>
 </li>
-<li>上述执行完毕后再调用 destroy 钩子函数 （执行顺序是先子后父）</li>
+<li>上述执行完毕后再调用 destroyed 钩子函数 （执行顺序是先子后父）</li>
 </ul>
 </li>
 </ol>
@@ -175,7 +282,7 @@
 </li>
 <li>两者都是对 <strong>对象上的某个属性</strong> 做处理<ul>
 <li>Object.definedProperty 是劫持 <strong>对象的属性</strong>，新增元素需要再次 definedProperty</li>
-<li>Proxy 劫持的是 <strong>整个对象</strong>，不需要做特殊处理<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> data = &#123;&#125;</span><br><span class="line"><span class="keyword">const</span> vm = <span class="keyword">new</span> <span class="built_in">Proxy</span>(data, &#123;</span><br><span class="line">    get (target, key) &#123;</span><br><span class="line">        <span class="keyword">return</span> target[key]</span><br><span class="line">    &#125;,</span><br><span class="line">    set (target, key, value) &#123;</span><br><span class="line">        target[key] = value</span><br><span class="line">        <span class="comment">// update view</span></span><br><span class="line">        <span class="built_in">document</span>.querySelector(<span class="string">&#x27;#vm&#x27;</span>).textContent = target[key]</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<li>Proxy 劫持的是 <strong>整个对象</strong>，不需要做特殊处理，用到某个属性时才去收集依赖<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> data = &#123;&#125;</span><br><span class="line"><span class="keyword">const</span> vm = <span class="keyword">new</span> <span class="built_in">Proxy</span>(data, &#123;</span><br><span class="line">    get (target, key) &#123;</span><br><span class="line">        <span class="keyword">return</span> target[key]</span><br><span class="line">    &#125;,</span><br><span class="line">    set (target, key, value) &#123;</span><br><span class="line">        target[key] = value</span><br><span class="line">        <span class="comment">// update view</span></span><br><span class="line">        <span class="built_in">document</span>.querySelector(<span class="string">&#x27;#vm&#x27;</span>).textContent = target[key]</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
 <h3 id="响应式原理"><a href="#响应式原理" class="headerlink" title="响应式原理"></a>响应式原理</h3></li>
 </ul>
 </li>
@@ -191,9 +298,9 @@
 <li><p><strong>发布-订阅模式</strong></p>
 <ul>
 <li>订阅者 subscriber、发布者 publisher</li>
-<li>消息中心 Dep，接到指令后会根据事件类型给对应的订阅者发送消息</li>
+<li>增加一个消息中心 Dep，接到指令后会根据事件类型给对应的订阅者发送消息</li>
 <li>添加消息中心，所有消息均通过消息中心，发布者与订阅者不直接相关</li>
-<li>实现了两者解耦，更适合 <strong>消息类型复杂情况</strong></li>
+<li>实现了两者解耦，更适合 <strong>消息类型复杂的情况</strong></li>
 </ul>
 </li>
 </ul>
@@ -232,16 +339,24 @@
 <li>父组件可以向子组件传递任意内容，从而增强了组件的灵活性和复用性</li>
 <li>作用域插槽 v-slot=””，子组件向父组件传递</li>
 <li>具名插槽 &lt;slot name=””&gt;&lt;/slot&gt; v-slot:name</li>
+<li>vue2是通过编译成with语句来实现，内容被包裹在一个with语句中，以便直接访问</li>
+<li>vue3则改为通过函数作用域来处理插槽，提升性能和减少作用域污染（h函数）<ul>
+<li>使用函数式组件定义简单、插槽处理清晰、没有生命周期方法和内部状态，性能更优<ul>
+<li>context.slots访问插槽</li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 <h3 id="路由-Vue-Router"><a href="#路由-Vue-Router" class="headerlink" title="路由 Vue Router"></a>路由 Vue Router</h3><ul>
 <li>基于 Vue.js 的组件化思想，将路由映射到组件，并提供了一系列的钩子函数和导航方法来管理路由。</li>
 <li>通过监听 URL 的变化，然后根据配置的路由规则来匹配相应的组件，并将组件渲染到页面上</li>
-<li>mode：<ul>
-<li>H5 history：history.pushState / window.onpopstate<ul>
-<li>需要服务端支持指的是在后端需要返回一个主文件路径如index.html</li>
+<li>mode：’hash’ / ‘history’<ul>
+<li>H5 history模式：利用浏览器历史API处理URL变化。使用history.pushState或replaceState来修改历史记录 / window.onpopstate<ul>
+<li>需要服务端支持指的是在服务端配置正确的路由规则，返回一个主文件路径如index.html</li>
 </ul>
 </li>
-<li>hash：监听 window.onhashchange</li>
+<li>hash模式：通常以 # 符号开头，监听 window.onhashchange</li>
 </ul>
 </li>
 <li>配置：动态路由/:xx、懒加载 component: () =&gt; import()</li>
@@ -250,7 +365,7 @@
 <li>&lt;router-link to=””&gt;&lt;/router-link&gt;</li>
 </ul>
 </li>
-<li>占位：&lt;router-view&gt;&lt;/router-view&gt;</li>
+<li>指定区域：&lt;router-view&gt;&lt;/router-view&gt;所在的位置</li>
 </ul>
 <h3 id="动态组件-is-”component”"><a href="#动态组件-is-”component”" class="headerlink" title="动态组件 :is=”component”"></a>动态组件 :is=”component”</h3><h3 id="异步组件"><a href="#异步组件" class="headerlink" title="异步组件"></a>异步组件</h3><ul>
 <li>() =&gt; import(‘…’) import函数</li>
@@ -258,17 +373,28 @@
 </ul>
 <h3 id="keep-alive-跟-v-show"><a href="#keep-alive-跟-v-show" class="headerlink" title="keep-alive 跟 v-show"></a>keep-alive 跟 v-show</h3><ul>
 <li>v-show 是css层面的隐藏，相对来说简单些</li>
-<li>keep-alive则是vue框架层面的，缓存组件和DOM。可利用在tab切换组件等复杂的情况</li>
+<li>keep-alive则是vue框架层面的，缓存组件和DOM。可在tab切换组件等复杂的情况下使用</li>
 </ul>
-<blockquote>
-<p><strong>面试题</strong></p>
-</blockquote>
-<ul>
+<h3 id="面试题"><a href="#面试题" class="headerlink" title="面试题"></a>面试题</h3><ul>
 <li><p><strong>v-show、v-if区别</strong></p>
 <ul>
 <li>v-show通过CSS层面控制显示和隐藏，引发重绘</li>
 <li>v-if是组件的渲染和销毁，引发回流</li>
 <li>频繁切换时建议使用v-show</li>
+</ul>
+</li>
+<li><p><strong>v-for的key一定要写吗？作用是什么</strong></p>
+<ul>
+<li>虽然不是强制的，但 key 为每个渲染元素提供唯一标识，能让vue更准确地跟踪每个节点的身份</li>
+<li>快速识别新旧元素，并正确更新组件状态，重用和重排现有元素（复用DOM，就地更新）</li>
+<li>避免重复渲染和渲染错误（表单输入值错位或丢失）</li>
+<li>何时使用key<ul>
+<li>列表数据动态变化，在处理动态列表时能带来更好的性能和更稳定的行为</li>
+<li>使用 v-for 渲染组件，使用 key 可以确保组件的内部状态正确维护</li>
+<li>对性能敏感的应用里</li>
+</ul>
+</li>
+<li>key 应该时唯一且稳定的</li>
 </ul>
 </li>
 <li><p><strong>组件如何通讯</strong></p>
@@ -281,46 +407,137 @@
 <li><p><strong>何时使用beforeDestroy</strong></p>
 <ul>
 <li>解绑自定义事件 event.$off 或一些DOM事件，如scroll</li>
-<li>清楚定时器</li>
+<li>清除定时器或监听器</li>
+<li>销毁一些外部插件实例</li>
 </ul>
 </li>
-<li><p><strong>Vue.js 的双向绑定是如何实现的？</strong><br>Vue.js 使用了 Object.defineProperty(..) 或者 Proxy 来劫持对象的 getter 和 setter<br>当数据发生变化时，会触发相应的更新操作。可以使用 v-model 指令 来实现双向数据绑定</p>
+<li><p><strong>Vue.js 的双向绑定是如何实现的？</strong><br>分为几个步骤</p>
 </li>
+</ul>
+<ol>
+<li>数据劫持，使用 Object.defineProperty() 或者 Proxy 来劫持对象的 getter、setter，并添加一些依赖追踪和更新机制</li>
+<li>模版编译，将template转为render函数，创建一个VDOM树</li>
+<li>观察者，订阅数据的getter方法，并在数据发生变化时调用setter，实现监听和更新</li>
+<li>依赖追踪，数据发生变化时，自动重新计算模版表达式</li>
+<li>更新试图，当数据发生变化时，触发相应的更新操作<br>可以使用 v-model 指令 来实现双向数据绑定</li>
+</ol>
+<ul>
 <li><p><strong>Vue.js 中的计算属性和侦听器有何区别？</strong></p>
 <ul>
 <li>计算属性是基于它的依赖进行缓存的，只有依赖发生改变时才会重新求值</li>
 <li>侦听器则是在数据变化时执行异步或开销较大的操作</li>
 </ul>
 </li>
-<li><p><strong>data为什么是一个函数</strong><br>Vue本身是一个类，定义为函数可以确保每个组件实例有自己的数据副本。由于Vue组件可能会被多次复用，如果此时data是一个普通对象，那么所有的实例都会共享这个对象的引用，这样就会导致状态的共享和污染。</p>
+<li><p><strong>data为什么是一个函数</strong><br>Vue本身是一个类，定义为函数可以确保每个组件实例有自己的数据副本。<br>由于Vue组件可能会被多次复用，如果此时data是一个普通对象，那么所有的实例都会共享这个对象的引用，这样就会导致状态的共享和数据污染。</p>
 </li>
 <li><p><strong>如何监听数组变化</strong></p>
 <ul>
-<li>重新定义原型，重写push、pop等数组方法，实现监听</li>
+<li>使用vue.set / this.$set </li>
+<li>使用数组编译方法，重新定义原型，重写push、pop等数组方法来实现对数组的监听（执行完数组操作后触发视图更新）</li>
 </ul>
 </li>
 <li><p><strong>性能优化</strong></p>
 <ul>
 <li>合理使用v-show、v-if、computed</li>
 <li>v-for时要唯一标识的key，避免和v-if同时使用减少性能消耗</li>
-<li>自定义事件，DOM事件及时销毁</li>
+<li>自定义事件、DOM事件要及时销毁</li>
 <li>data层级不要太深</li>
 <li>合理使用 keep-alive 和 异步组件</li>
-<li>v-loader在开发时做模版预编译</li>
-<li>前端通用性能优化，如图片懒加载</li>
+<li>v-loader 在开发时做模版预编译</li>
+<li>前端通用性能优化，如图片懒加载、首屏优化</li>
 </ul>
 </li>
 <li><p><strong>Vue3比Vue2快</strong> </p>
 </li>
 </ul>
-<blockquote>
+<h3 id="Vue3"><a href="#Vue3" class="headerlink" title="Vue3"></a>Vue3</h3><ul>
+<li><p><strong>Composition API</strong>，高阶技巧</p>
+<ul>
+<li>与Options API相比有更好的代码组织</li>
+<li>逻辑复用</li>
+<li>更好的类型推导</li>
+<li>小型项目、业务逻辑简单，建议用Composition API</li>
+</ul>
+</li>
+<li><p><strong>ref、reactive</strong>，创建响应式引用的函数</p>
+<ul>
+<li><strong>ref</strong><ul>
+<li>创建一个包含value属性值的响应式对象，只有value是响应式的，需要用 .value 来访问和修改值</li>
+<li>可用于基本类型数据，还可用于对象、数组等</li>
+<li>也可将 ref 与 ref 函数一起使用来获取DOM元素，类似于vue2中的$refs()</li>
+<li>适用于 <strong>简单的基本类型数据 或 DOM 元素的响应式引用</strong></li>
+<li>为了创造一个明确且基本类型数据的响应式引用<ul>
+<li>Vue3响应式是基于Proxy来实现的，但Proxy无法拦截基本数据类型，因此ref的出现还是必要的</li>
+<li>其次还可以包装DOM元素及一些简单值，使得操作DOM更加方便</li>
+<li>向后兼容，能将非响应式的变为响应式，在vue3中保持相同行为</li>
+<li>同时ref也是一个对象，它包装了一个value属性是为了追踪value值的变化（对象的引用），从而触发对应的更新，如果是普通类型，那么无法监听值的变化，就会丢失响应式；也能清晰地表明该数据是响应式</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>reactive</strong><ul>
+<li>创建一个响应时代理对象，整个对象都是响应式的</li>
+<li>更适合用于创建复杂的对象的响应式代理</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong>toRef、toRefs</strong></p>
+<ul>
+<li>在不丢失响应式的情况下，将<strong>响应式对象</strong>进行解构/扩散</li>
+<li>toRef 将一个<strong>响应式对象的属性</strong>转换为一个 <strong>ref对象</strong></li>
+<li>toRefs 将一个<strong>整个响应式对象</strong>转换为 <strong>普通对象</strong>，解构为 ref对象<ul>
+<li>每个属性都是 ref 对象（如果单纯地解构reactive对象，那么将失去响应式）</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong>&lt;Suspense&gt;组件</strong></p>
+<ul>
+<li>一个用于处理异步组件加载状态的特殊组件</li>
+<li>可包裹一个或多个异步组件，并在组件加载过程中显示特定的加载指示器直到加载完成为止<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;Suspense&gt;</span><br><span class="line">    &lt;template #default&gt;</span><br><span class="line">      &lt;!-- 只能包裹异步组件 --&gt;</span><br><span class="line">    &lt;&#x2F;template&gt;</span><br><span class="line">    &lt;template #fallback&gt;</span><br><span class="line">      &lt;!-- fallback插槽的位置在上面的异步组件加载完成前显示 --&gt;</span><br><span class="line">    &lt;&#x2F;template&gt;</span><br><span class="line">  &lt;&#x2F;Suspense&gt;</span><br><span class="line">&lt;&#x2F;template&gt;</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p><strong>expose</strong>(defineExpose)</p>
+<ul>
+<li>用于将组件内部的属性或方法暴露给组件外部</li>
+<li>只有定义在expose({…})中的变量和函数才能被外部访问到</li>
+<li>外部通过ref来访问，$refs.xxx.func</li>
+</ul>
+</li>
+<li><p><strong>Teleport</strong></p>
+<ul>
+<li>用于在DOM中将子组件的内容移动到指定的目标位置</li>
+<li>&lt;Teleport to=”可以是元素body、#ID等”&gt;</li>
+<li>例如运用在弹框，直接将其展示在body元素上，不像之前只能添加到其最外层的父元素上</li>
+</ul>
+</li>
+<li><p><strong>watch、watchEffect</strong></p>
+<ul>
+<li>watch：需要手动监听参数</li>
+<li>watchEffect：立即运行一个函数，即初始化时一定会执行一次，同时响应式地追踪其依赖，并在依赖更改时重新执行</li>
+</ul>
+</li>
+<li><p>setup如何获取实例（setup函数中没有this）</p>
+</li>
+<li><p>vite编译为何那么快？本地使用ES6 Module</p>
+</li>
+<li><p><strong>编译优化</strong></p>
+<ul>
+<li>patchFlag 标记静态节点，从而减少对比，帮助优化来diff算法</li>
+<li>hoistStatic 将静态节点定义提升到父作用域缓存起来；多个相邻静态节点会被合并 </li>
+<li>cacheHandler 缓存事件</li>
+<li>ssr、tree-shaking<blockquote>
 <p><strong>简单地实现vue响应式</strong></p>
 </blockquote>
 <figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> data = &#123;&#125;</span><br><span class="line"><span class="keyword">new</span> Vue(&#123;</span><br><span class="line">    el: <span class="string">&#x27;#app&#x27;</span>,</span><br><span class="line">    data: &#123;&#125;</span><br><span class="line">&#125;)</span><br><span class="line"><span class="comment">// 将data注入实例</span></span><br><span class="line">proxyData(<span class="built_in">this</span>, data)</span><br><span class="line"><span class="comment">// observe实例监视data属性</span></span><br><span class="line">observe(data)</span><br><span class="line"><span class="comment">// 模版编译</span></span><br><span class="line"><span class="keyword">new</span> Watcher(vm, key, updateComponent)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="title">proxyData</span>(<span class="params">target, data</span>)</span> &#123;</span><br><span class="line">    <span class="built_in">Object</span>.keys(data).forEach(<span class="function"><span class="params">key</span> =&gt;</span> &#123;</span><br><span class="line">        <span class="built_in">Object</span>.defineProperty(data, key,&#123;</span><br><span class="line">            configurable: <span class="literal">true</span>,</span><br><span class="line">            enumerable: <span class="literal">true</span>,</span><br><span class="line">            <span class="function"><span class="title">get</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">                <span class="keyword">return</span> data[key]</span><br><span class="line">            &#125;,</span><br><span class="line">            <span class="function"><span class="title">set</span>(<span class="params">newVal</span>)</span> &#123;</span><br><span class="line">                data[key] = newVal</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;)</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Observe</span></span><br><span class="line"><span class="function"><span class="title">observe</span>(<span class="params">data</span>)</span> &#123;</span><br><span class="line">    <span class="built_in">Object</span>.keys(data).forEach(<span class="function"><span class="params">key</span> =&gt;</span> &#123;</span><br><span class="line">        defineReactive(data, key, value)</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="title">defineReactive</span>(<span class="params">data, key, value</span>)</span> &#123;</span><br><span class="line">    <span class="comment">// 创建消息中心实例</span></span><br><span class="line">    <span class="keyword">const</span> dep = <span class="keyword">new</span> Dep()</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">typeof</span> value === <span class="string">&#x27;object&#x27;</span> &amp;&amp; value !== <span class="literal">null</span>)  &#123;</span><br><span class="line">      observe(value)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">Object</span>.defineProperty(data, key, &#123;</span><br><span class="line">        enumerable: <span class="literal">true</span>,</span><br><span class="line">        configurable: <span class="literal">true</span>,</span><br><span class="line">        <span class="function"><span class="title">get</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">            <span class="comment">//  添加订阅者</span></span><br><span class="line">            Dep.target &amp;&amp; dep.addSub(Dep.target)</span><br><span class="line">            <span class="keyword">return</span> value</span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="function"><span class="title">set</span>(<span class="params">newVal</span>)</span> &#123;</span><br><span class="line">            <span class="keyword">if</span> (newVal === value) <span class="keyword">return</span></span><br><span class="line">            value = newVal</span><br><span class="line">           <span class="keyword">if</span> (<span class="keyword">typeof</span> value === <span class="string">&#x27;object&#x27;</span> &amp;&amp; value !== <span class="literal">null</span>)  &#123;</span><br><span class="line">            observe(value)</span><br><span class="line">          &#125;</span><br><span class="line">            <span class="comment">// 通知消息中心</span></span><br><span class="line">            dep.notify() </span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Dep</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="title">constructor</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="built_in">this</span>.subs = []</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="title">addSub</span>(<span class="params">sub</span>)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.subs.push(sub)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="title">notify</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.subs.forEach(<span class="function"><span class="params">sub</span> =&gt;</span> sub.update())</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Watcher</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="title">constructor</span>(<span class="params">vm, key, cb</span>)</span>&#123;</span><br><span class="line">        <span class="built_in">this</span>.vm = vm</span><br><span class="line">        <span class="built_in">this</span>.key = key</span><br><span class="line">        <span class="built_in">this</span>.cb = cb</span><br><span class="line">        <span class="comment">// 触发getter前，在消息中心存储当前订阅者实例</span></span><br><span class="line">        Dep.target = <span class="built_in">this</span></span><br><span class="line">        <span class="comment">// 记录属性更改之前的值，用于进行更新状态检测，触发getter</span></span><br><span class="line">        <span class="built_in">this</span>.oldValue = vm[key]</span><br><span class="line">        <span class="comment">// 触发getter后，恢复当前实例</span></span><br><span class="line">        Dep.target = <span class="literal">null</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="title">update</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">        <span class="keyword">const</span> newValue = <span class="built_in">this</span>.vm[<span class="built_in">this</span>.key]</span><br><span class="line">        <span class="keyword">if</span> (newValue != <span class="built_in">this</span>.oldValue) <span class="keyword">return</span></span><br><span class="line">        <span class="built_in">this</span>.cb(newValue)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">updateComponent</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    vm._update() <span class="comment">// patchs</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<p>============Vue 3============</p>
+============Vue 3============</li>
+</ul>
+</li>
+<li><p>比 Vue2 体积更小；性能更好；更好的 TS 支持 / 代码组织 / 逻辑抽离</p>
+</li>
+<li><p>生命周期</p>
 <ul>
-<li>比 Vue2 体积更小；性能更好；更好的 TS 支持 / 代码组织 / 逻辑抽离</li>
-<li>生命周期<ul>
 <li>beforeDestroy 更改为 beforeUnmount</li>
 <li>destroyed 更改为 unmounted</li>
 </ul>
@@ -348,6 +565,10 @@
   <time datetime="2024-04-11T13:28:04.000Z" itemprop="datePublished">2024-04-11</time>
 </a>
     
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/BOM/">BOM</a>
+  </div>
+
   </div>
   <div class="article-inner">
     
@@ -388,7 +609,10 @@
 <ul>
 <li>核心对象：window，表示浏览器的一个实例，是ECMAScript规定的Global对象</li>
 <li>在全局作用域中声明的变量、函数都会变成window对象的属性和方法</li>
-<li>全局变量(使用var、let或const关键字声明)不能被delete删除，定义在window上的属性可以被delete</li>
+<li>全局变量(使用var、let或const关键字声明)不能被delete删除，定义在window上的属性可以被delete<ul>
+<li>var声明的全局变量在window对象上可见，而let、const声明的全局变量不会被添加到window对象上</li>
+</ul>
+</li>
 <li>通过查询window对象，可知道某个未声明的变量是否存在</li>
 </ul>
 <hr>
@@ -432,7 +656,11 @@
 <li>history.go(整数值) 负数表示后退，正数表示前进</li>
 <li>history.back() history.forward()</li>
 </ul>
-<p><strong>navigator，检测显示网页的浏览器类型</strong></p>
+<hr>
+<p><strong>navigator</strong></p>
+<ul>
+<li>检测显示网页的浏览器类型</li>
+</ul>
 <hr>
 <blockquote>
 <h3 id="浏览器架构"><a href="#浏览器架构" class="headerlink" title="浏览器架构"></a>浏览器架构</h3></blockquote>
@@ -450,14 +678,26 @@
 <li><p>扩展功能，包括允许用户安装的扩展程序</p>
 </li>
 </ul>
+<hr>
 <blockquote>
 <p>新开一个窗口时，打开浏览器的任务管理器能看到什么</p>
 </blockquote>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">浏览器主进程</span><br><span class="line">GPU进程</span><br><span class="line">多个渲染进程</span><br><span class="line">网络进程</span><br><span class="line">存储进程</span><br><span class="line">音频进程</span><br><span class="line">多个扩展程序</span><br></pre></td></tr></table></figure>
+<ul>
+<li>浏览器主进程</li>
+<li>GPU进程</li>
+<li>多个渲染进程</li>
+<li>网络进程</li>
+<li>存储进程</li>
+<li>音频进程</li>
+<li>多个扩展程序</li>
+</ul>
+<hr>
 <blockquote>
 <p>浏览器多进程架构的好处</p>
 </blockquote>
-<p><u>都由独立的渲染器进程运行，相互不干扰</u><br>安全性增强 / 稳定性提高 / 隐私保护 / 性能有所优化 / 资源管理</p>
+<p><u>都由独立的渲染器进程运行，相互不干扰</u></p>
+<p>安全性增强 / 稳定性提高 / 隐私保护 / 性能有所优化 / 资源管理</p>
+<hr>
 <blockquote>
 <h3 id="重排重绘"><a href="#重排重绘" class="headerlink" title="重排重绘"></a>重排重绘</h3></blockquote>
 <p><strong>repaint 重绘</strong><br>当元素样式改变不影响布局时，浏览器将使用重绘对元素进行更新，此时只需要UI层面的重新绘制，<strong>损耗较少</strong></p>
@@ -473,26 +713,37 @@
 <li>元素尺寸、位置、内容改变 （v-if / 删除或添加可见的dom元素）</li>
 <li>元素字体大小改变</li>
 <li>激活css伪类 :hover</li>
-<li>某些属性或调用某些方法<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">document.body.clientWidth &#x2F; Height | clientTop &#x2F; Left 元素内部的宽度&#x2F;高度</span><br><span class="line">offsetWidth&#x2F;Height | offsetTop&#x2F;Left 元素的布局宽度&#x2F;高度</span><br><span class="line">scrollWidth&#x2F;Height | scrollTop&#x2F;Left 元素内容宽度的一种度量，包括由于overflow溢出而在屏幕上不可见的内容。</span><br><span class="line">getComputedStyle() 报告元素的所有CSS属性的值</span><br><span class="line">getBoundingClientRect() 元素的大小及其相对于视口的位置</span><br><span class="line">scrollTo()</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p><strong>回流必定触发重绘，反之不一定</strong><br>重绘开销小，回流代价大</p>
-</blockquote>
-</li>
+<li>某些属性或调用某些方法<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">document.body.clientWidth &#x2F; Height | clientTop &#x2F; Left 元素内部的宽度&#x2F;高度</span><br><span class="line">offsetWidth&#x2F;Height | offsetTop&#x2F;Left 元素的布局宽度&#x2F;高度</span><br><span class="line">scrollWidth&#x2F;Height | scrollTop&#x2F;Left 元素内容宽度的一种度量，包括由于overflow溢出而在屏幕上不可见的内容。</span><br><span class="line">getComputedStyle() 报告元素的所有CSS属性的值</span><br><span class="line">getBoundingClientRect() 元素的大小及其相对于视口的位置</span><br><span class="line">scrollTo()</span><br></pre></td></tr></table></figure></li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">visibility: hidden vs display: none</span><br><span class="line">  hidden &#x2F; display: none 不占用空间，引发重排重绘</span><br><span class="line">  而visibility: hidden 使元素不可见，但仍占用空间且位置没有变化，只引发重绘</span><br></pre></td></tr></table></figure>
+<p><strong>回流必定触发重绘，反之不一定</strong><br><strong>重绘开销小，回流代价大</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">visibility: hidden vs display: none</span><br><span class="line">  display: none 不占用空间，引发重排重绘</span><br><span class="line">  而visibility: hidden 使元素不可见，但仍占用空间且位置没有变化，只引发重绘</span><br></pre></td></tr></table></figure>
 <ul>
 <li>javascript方面<ul>
-<li>避免频繁操作，可统一修改后再更新</li>
-<li>尽量使用class进行样式修改</li>
-<li>减少dom元素的增删修改</li>
+<li>减少DOM操作，将多次合并为一次操作；缓存DOM引用避免在循环中频繁查询DOM</li>
+<li>尽量使用class进行样式修改而不是内联样式减少重排次数</li>
+<li>避免触发同步布局如offsetWidth、scrollTop等引发同步计算导致频繁重排（读写分离，先取值element.offsetWidth再赋给style.width）</li>
+<li>使用一些css3特性加速GPU（transform、opacity）</li>
+<li>使用虚拟DOM管理和优化DOM操作</li>
+<li>动画优化使用requestAnimationFrame来渲染</li>
+<li>避免写出深层嵌套和复杂选择器的css</li>
+<li>使用will-change提示浏览器哪些元素将改变来优化元素渲染（用于解决现有的性能问题而不是用来预防，是最后的应对手段）过度使用 will-change 将导致内存使用过多，并导致更复杂的渲染发生，因为浏览器试图为可能的更改做准备。这将导致更差的性能。</li>
+<li>减少不必要的视觉变化（频繁的颜色和外观变化）避免频繁的引起页面重绘</li>
 </ul>
 </li>
 </ul>
+<ul>
+<li>document.createDocumentFragment()指向 空DocumentFragment对象 的引用<ul>
+<li>是<strong>DOM空节点</strong>，但不是主DOM树的一部分</li>
+<li>存在于内存中不在DOM树中</li>
+<li>当子元素插入到文档片段时不会引起页面回流，因此能带来更好的性能</li>
+</ul>
+</li>
+</ul>
+<hr>
 <blockquote>
 <h3 id="在浏览器中输入URL到展示的过程"><a href="#在浏览器中输入URL到展示的过程" class="headerlink" title="在浏览器中输入URL到展示的过程"></a>在浏览器中输入URL到展示的过程</h3></blockquote>
 <p>可以大致描述为：<br>输入URL - 发起URL请求（DNS解析、建立TCP连接、发送请求、服务端处理请求并发送响应）- 浏览器接收响应 - 渲染页面</p>
-<p>这一过程共涉及到3个进程，分别是浏览器进程、网络进程和渲染进程</p>
-<hr>
+<p><u>这一过程共涉及到3个进程，分别是浏览器进程、网络进程和渲染进程</u></p>
 <ol>
 <li>处理输入，当在地址栏输入内容时，地址栏先判断是搜索查询还是请求URL，如果是搜索内容，会发送到搜索引擎合成新的带搜索关键字的URL。如果是域名会加上协议（如https）合成完整的url。</li>
 <li>点击回车后，浏览器进程通过IPC把URL传给网络进程，网络进程获取到URL先去找缓存中是否有缓存资源，如果有就拦截请求直接返回资源。没有则请求DNS返回域名对应的IP地址和端口号。</li>
@@ -502,7 +753,7 @@
 <li>UI线程通知渲染进程开始渲染页面，渲染过程：<ol>
 <li>解析HTML转换为DOM树（就算编写错误也会被HTML规范优雅地处理掉）</li>
 <li>加载子资源，包括图像、CSS和JS等外部资源<ul>
-<li>script标签会暂停HTMl文档的解析，必须加载、解析和执行JS代码后再恢复HTMl文档的解析</li>
+<li>script标签会暂停HTML文档的解析，必须加载、解析和执行JS代码后再恢复HTMLz文档的解析</li>
 </ul>
 </li>
 <li>解析CSS创建CSSOM树（CSS对象模型）并确定每个dom节点的计算样式</li>
@@ -650,7 +901,7 @@
 <blockquote>
 <h3 id="跨域"><a href="#跨域" class="headerlink" title="跨域"></a>跨域</h3></blockquote>
 <p>是浏览器基于同源策略的一种安全手段，是对安全性做的限制</p>
-<p><u>同源策略： 是一种约定，用于隔离潜在恶意文件的安全机制，通常不允许不同源之间的读操作</u></p>
+<p><u>同源策略：是一种约定，用于隔离潜在恶意文件的安全机制，通常不允许不同源之间的读操作</u></p>
 <p><strong>同源三要素：协议protocol / 主机host / 端口port 相同</strong><br><strong>非同源的请求就会产生跨域</strong></p>
 <p>常见于以下场景：</p>
 <ul>
@@ -665,7 +916,7 @@
 <li>需要服务端支持且只支持GET请求</li>
 </ul>
 </li>
-<li>CORS（Cross-Origin Resource Sharing）服务端设置响应头Access-Control-Allow-Origin: * | <code>&lt;origin&gt;</code>，允许指定的域名访问资源<ul>
+<li>CORS（Cross-Origin Resource Sharing）跨境资源共享。服务端设置响应头Access-Control-Allow-Origin: * | <code>&lt;origin&gt;</code>，允许指定的域名访问资源<ul>
 <li>支持所有请求方法，但兼容性比JSONP差</li>
 <li>实现关键在服务端</li>
 </ul>
@@ -688,7 +939,7 @@
 <li>代理服务器的配置由客户端控制，需手动配置代理服务器的地址和端口</li>
 <li>反向代理服务器的配置由服务端控制，客户端无需感知反向代理服务器的存在</li>
 </ol>
-<p>实际应用中，反向代理服务器更为常见。<br>特别是在构建高可用性、高性能的Web应用时。<br>通过反向代理，可以将请求分发给不同的服务器，实现负载均衡和故障转移；<br>同时，反向代理也可以用于缓存静态内容，提高访问速度；<br>此外，反向代理还可以作为防火墙，过滤恶意请求，增强系统的安全性。</p>
+<p>实际应用中，反向代理服务器更为常见。<br>特别是在构建高可用性、高性能的Web应用时<br>通过反向代理，可以将请求分发给不同的服务器，实现负载均衡和故障转移；<br>同时，反向代理也可以用于缓存静态内容，提高访问速度；<br>此外，反向代理还可以作为防火墙，过滤恶意请求，增强系统的安全性。</p>
 <blockquote>
 <h3 id="Node的Event-Loop事件循环"><a href="#Node的Event-Loop事件循环" class="headerlink" title="Node的Event Loop事件循环"></a>Node的Event Loop事件循环</h3><p><strong>Timers -&gt; Pending callbacks -&gt; Idle/Prepare -&gt; IO Poll -&gt; Check -&gt; Closing callbacks</strong></p>
 </blockquote>
@@ -701,7 +952,7 @@
 </li>
 <li><p>IO Poll 存储I/O操作的回调函数队列，例如文件读写操作</p>
 <ul>
-<li>如果事件队列中无回调函数，但 Check阶段 或T imers队列 中有需执行的回调函数<ul>
+<li>如果事件队列中无回调函数，但 Check阶段 或 Timers队列 中有需执行的回调函数<ul>
 <li>那么事件循环会移至 Check阶段 或 Closing callbacks 并从 Timers 进入下一次循环</li>
 <li>否则会在IO Poll阶段停留一段时间以等待新的回调函数进入    </li>
 </ul>
@@ -1245,7 +1496,7 @@
 </ul>
 <hr>
 <h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><blockquote>
-<p>css 雪碧图</p>
+<p>CSS 雪碧图 (CSS Sprites)<br>是一种优化网页性能的技术，通过将多个小图标或图像合并到一张大图中，然后通过 CSS 来显示图像的不同部分。这种方法减少了 HTTP 请求的数量，从而加快了网页的加载速度。</p>
 </blockquote>
 <blockquote>
 <p>用纯css画一个三角形</p>
@@ -1259,6 +1510,27 @@
 <li>perspective: 指定了观察者与 z=0 平面的距离，使具有三维位置变换的元素产生透视效果</li>
 <li>transform-style: 设置元素的子元素是位于3D空间中还是平面中 flat / preserve-3d</li>
 <li>backface-visibility: 指定当元素背面朝向观察者时是否可见 visible / hidden</li>
+</ul>
+<blockquote>
+<p>html语义化优点</p>
+</blockquote>
+<ul>
+<li>提升了网页的可访问性<ul>
+<li>语义化标签如<header>、<nav>、<main>等可以帮助屏幕阅读器更准确地解析，帮助视障用户更好理解和导航页面</li>
+<li>确保在不同设备和浏览器上的一致性，提升用户体验</li>
+</ul>
+</li>
+<li>代码可读性和可维护性<ul>
+<li>清晰结构，文档清晰，方便编写和维护</li>
+<li>减少样式依赖</li>
+<li>更易团队合作</li>
+</ul>
+</li>
+<li>搜索引擎优化（SEO）<ul>
+<li>更好地理解网页内容和主题，提高在搜索结果中的排名</li>
+</ul>
+</li>
+<li>兼容未来的标准</li>
 </ul>
 
       
@@ -1282,6 +1554,10 @@
   <time datetime="2024-04-07T06:28:26.000Z" itemprop="datePublished">2024-04-07</time>
 </a>
     
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/JS/">JS</a>
+  </div>
+
   </div>
   <div class="article-inner">
     
@@ -1299,16 +1575,20 @@
     <div class="article-entry" itemprop="articleBody">
       
         <blockquote>
-<p><strong>V8，Google开发的JS引擎</strong><br>V8将内存分为：</p>
+<p><strong>V8，Google开发的JS引擎</strong></p>
 </blockquote>
+<p>负责JS代码编译和执行<br>具有高效的即时编译、优化编译和垃圾回收机制，特点是高性能<br>V8将堆内存分为：</p>
 <ul>
-<li>新生代，存放生命周期较短的对象，采用Scavenge算法垃圾回收</li>
-<li>老生代，存放生命周期较短的对象，采用标记清除和标记整理等算法垃圾回收</li>
+<li>新生代，存放生命周期较短的对象，采用Scavenge算法垃圾回收，会频繁地对新生代进行清理</li>
+<li>老生代，存放生命周期较长的对象，采用标记清除和标记整理等算法垃圾回收</li>
 </ul>
-<h3 id="垃圾回收机制，负责管理和释放不再被引用的内存"><a href="#垃圾回收机制，负责管理和释放不再被引用的内存" class="headerlink" title="垃圾回收机制，负责管理和释放不再被引用的内存"></a>垃圾回收机制，负责管理和释放不再被引用的内存</h3><ol>
+<hr>
+<p><strong>垃圾回收机制，负责管理和释放不再被引用的内存</strong></p>
+<ol>
 <li>Scavenge算法<ul>
+<li>采用复制算法，将存活的对象从一个空间复制到另一个空间 </li>
 <li>将内存空间一分为二，分为From空间 跟 To空间；From空间存放活对象</li>
-<li>当From空间被占满时，启动垃圾回收，将存活的对象复制到To空间，进行内存整理，From空间和To空间互换</li>
+<li>当From空间被占满时，启动垃圾回收，将存活的对象复制到To空间，进行内存整理，最后From空间和To空间互换</li>
 </ul>
 </li>
 <li>标记清除，主流垃圾收集算法<ul>
@@ -1319,18 +1599,47 @@
 </li>
 </ol>
 <p><u>会产生内存碎片，导致内存空间不连续性</u></p>
-<ol>
-<li>标记整理，标记清除改进版<ul>
-<li>清理不再被引用对象之后，会对存活的对象进行整理，移动内存空间一端，减少内存碎片产生</li>
+<ol start="3">
+<li><p>标记整理，标记清除改进版</p>
+<ul>
+<li>清理不再被引用对象之后，会对存活的对象进行整理，移动到内存的一端，减少内存碎片产生</li>
+<li>移动对象需要更新所有引用这些对象的指针，开销较大</li>
 </ul>
 </li>
-<li><h3 id="引用计数，不太常见"><a href="#引用计数，不太常见" class="headerlink" title="引用计数，不太常见"></a>引用计数，不太常见</h3></li>
+<li><p>引用计数，不太常见</p>
+</li>
 </ol>
 <ul>
 <li>如果一个值的引用次数为0时，就会被释放内存</li>
 <li>函数被反复多次调用，就会导致大量内存得不到回收</li>
-<li>循环引用会导致问题，可能会导致内存永远不会被回收 ？</li>
+<li>循环引用会导致问题，可能会导致内存永远不会被回收（导致引用次数始终大于0）</li>
 </ul>
+<ol start="5">
+<li>三色标记算法<ul>
+<li>使用白灰黑三种颜色标记对象状态</li>
+<li>能减少停顿时间，可以与程序执行并发进行（有新的引用也能及时观察到）</li>
+</ul>
+</li>
+</ol>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line">白色：未访问的对象，将在清除阶段被回收</span><br><span class="line">灰色：已访问但未处理完的对象</span><br><span class="line">黑色：已访问且处理完的对象</span><br></pre></td></tr></table></figure>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line">1. 初始标记：根对象标记为灰色</span><br><span class="line">2. 扫描灰色对象，标记其引用对象为灰色，自身标记为黑色</span><br><span class="line">3. 重复步骤2，直到没有灰色对象</span><br><span class="line">4. 清除白色对象</span><br></pre></td></tr></table></figure>
+<p><strong>V8在Node.js中的应用</strong></p>
+<ul>
+<li>执行JS代码</li>
+<li>性能优化</li>
+<li>内存管理，自动处理对象分配和释放</li>
+</ul>
+<p><strong>Orinoco</strong></p>
+<ul>
+<li>是垃圾回收GC架构的代号</li>
+<li>做了一些关键改进<ul>
+<li>并发和增量垃圾回收，减少停顿时间，使用后台线程标记清除，与应用逻辑并行运行</li>
+<li>优化内存管理，减少碎片化问题</li>
+<li>自适应垃圾回收，动态调整垃圾回收策略</li>
+</ul>
+</li>
+</ul>
+<hr>
 <blockquote>
 <p><strong>管理内存</strong></p>
 </blockquote>
@@ -1338,29 +1647,37 @@
 <li>为执行中的代码只保存必要的数据</li>
 <li>尽可能少未声明就初始化变量，会变为全局变量</li>
 <li>解除引用：不仅可以消除循环引用，对垃圾回收也有帮助<ul>
-<li>设置为null来释放其引用，让值脱离执行环境</li>
-<li>局部变量会在离开执行环境时自动被解除引用</li>
+<li><strong>设置为null 来释放其引用，让值脱离执行环境</strong></li>
+<li>局部变量会在 离开执行环境时 自动被解除引用（函数执行完毕，局部变量就会被销毁）</li>
 </ul>
 </li>
 </ul>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line">栈内存，后进先出</span><br><span class="line">  - 内存分配和释放速度快，由编辑器自动管理</span><br><span class="line">  - 大小通常有限，不适合存储大对象</span><br><span class="line">堆内存，内存分配是动态的</span><br><span class="line">  - 需要手动分配和释放内存</span><br><span class="line">  - 由于动态分配和释放内存的开销，访问速度比栈内存慢</span><br></pre></td></tr></table></figure>
+<ul>
+<li>JS中内存主要有V8引擎负责<ul>
+<li>栈内存用于存储原始类型和函数调用帧</li>
+<li>堆内存则用于存储对象和函数</li>
+</ul>
+</li>
+</ul>
+<hr>
 <blockquote>
 <p><strong>性能问题</strong></p>
 </blockquote>
 <ul>
-<li><p>let、const都以块为作用域，相比于使用var可能会更早地让垃圾回收程序介入，尽早释放内存</p>
-</li>
-<li><p>隐藏类和内嵌缓存来提高性能</p>
-</li>
-<li><p>尽量做到及时回收不用的内存</p>
-<blockquote>
-<p><strong>内存泄漏</strong><br>一些常见的内存泄漏情况：</p>
-</blockquote>
-</li>
+<li>let、const都以块为作用域，相比于使用var可能会更早地让垃圾回收程序介入，尽早释放内存</li>
+<li>隐藏类和内嵌缓存来提高性能</li>
+<li>尽量做到及时回收不用的内存</li>
 </ul>
+<hr>
+<blockquote>
+<p><strong>内存泄漏</strong></p>
+</blockquote>
+<p>一些常见的内存泄漏情况：</p>
 <ol>
 <li>意外的全局变量在页面声明周期内不会被释放</li>
-<li>定时器未清理会导致函数或对象一直存在在内存中无法被回收</li>
-<li>事件监听器未被正确移除，仍然存在在内存中</li>
+<li>定时器未清理会导致函数或对象一直存在于内存中无法被回收</li>
+<li>事件监听器未被正确移除，仍然存在于内存中</li>
 <li>如果闭包中引用了大量变量而又未被及时释放</li>
 <li>dom引用：如果在不需要时未释放这些引用，导致dom元素无法被回收</li>
 <li>循环引用无法被垃圾回收</li>
@@ -1374,34 +1691,15 @@
 <li>优化算法和数据结构</li>
 <li>及时释放资源，如打开文件、网络请求等，务必在使用完毕后及时关闭或释放资源<br>还可以通过工具来监控和诊断问题，比如Google浏览器有一些工具</li>
 </ul>
-<p><strong>可以学习对Performance、Memory的运用来检测和分析内存泄漏</strong><br><strong>可以使用timeline进行内存标记，可视化查看内存的变量情况</strong></p>
+<p><strong>可以学习对Performance、Memory的运用来检测和分析内存泄漏</strong><br><strong>可以使用timeline进行内存标记，可视化查看内存的变量情况</strong><br>timeline 已改成 Performance</p>
+<hr>
 <blockquote>
-<p><strong>JS性能</strong><br>当谈到这个话题时，可以考虑几个方面：</p>
+<p><strong>JS性能</strong></p>
 </blockquote>
-<ol>
-<li><p>运行时间，通过减少不必要的循环、尽可能少操纵DOM等方式优化JS代码的执行速度，使得页面加载速度更快，提升用户体验</p>
-</li>
-<li><p>内存占用也是一个关键指标，过度使用内存可能会导致页面加载慢、卡顿甚至崩溃；优化内存使用可以通过避免内存泄漏</p>
-</li>
-<li><p>渲染性能，频繁地操作DOM会导致重绘或重排，从而降低性能</p>
-</li>
-<li><p>网络性能</p>
-</li>
-<li><p>跨浏览器性能，在不同浏览器和设备上表现可能有所不同</p>
+<p>当谈到这个话题时，可以考虑几个方面：</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line">1. 运行时间，通过减少不必要的循环、尽可能少操纵DOM等方式优化JS代码的执行速度，使得页面加载速度更快，提升用户体验</span><br><span class="line">2. 内存占用也是一个关键指标，过度使用内存可能会导致页面加载慢、卡顿甚至崩溃；优化内存使用可以避免内存泄漏</span><br><span class="line">3. 渲染性能，频繁地操作DOM会导致重绘或重排，从而降低性能</span><br><span class="line">4. 网络性能</span><br><span class="line">5. 跨浏览器性能，在不同浏览器和设备上表现可能有所不同</span><br></pre></td></tr></table></figure>
 <p>可以考虑采取以下措施提高性能：</p>
-</li>
-</ol>
-<ul>
-<li>使用局部变量来提高访问速度</li>
-<li>避免使用eval函数，因为它会影响性能</li>
-<li>使用事件委托来减少事件处理程序的数量</li>
-<li>减少DOM操作次数，避免频繁的重绘和重排；使用批量更新</li>
-<li>使用合适的数据结构和算法</li>
-<li>使用异步加载来延迟不必要的资源加载</li>
-<li>缓存重复的计算结果</li>
-<li>使用Web Workers进行多线程处理，提高性能</li>
-</ul>
-
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line">使用局部变量来提高访问速度</span><br><span class="line">避免使用eval函数，因为它会影响性能</span><br><span class="line">使用事件委托来减少事件处理程序的数量</span><br><span class="line">减少DOM操作次数，避免频繁的重绘和重排；使用批量更新</span><br><span class="line">使用合适的数据结构和算法</span><br><span class="line">使用异步加载来延迟不必要的资源加载</span><br><span class="line">缓存重复的计算结果</span><br><span class="line">使用Web Workers进行多线程处理，提高性能</span><br></pre></td></tr></table></figure>
       
     </div>
     <footer class="article-footer">
@@ -1524,6 +1822,7 @@
 </ul>
 </li>
 </ul>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line">暂时性死区是指在块级作用域内，使用 let 或 const 声明的变量从进入该作用域到变量声明之前的这段时间内，变量处于“未初始化”状态，此时访问这些变量会抛ReferenceError。</span><br><span class="line"></span><br><span class="line">原因：ES6 规范要求在声明之前的块级作用域内不能访问 let 和 const 声明的变量，以避免变量提升带来的潜在问题。</span><br></pre></td></tr></table></figure>
 <h3 id="数据类型"><a href="#数据类型" class="headerlink" title="数据类型"></a>数据类型</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">基本数据类型：undefined null boolean number string </span><br><span class="line">复杂数据类型：object，由一组无序的键值对组成</span><br></pre></td></tr></table></figure>
 <p>typeof操作符 用来检测给定变量的数据类型，<strong>确定值的原始类型</strong><br>instanceof 判断是什么类型的对象，<strong>确定值的引用类型</strong></p>
 <ul>
@@ -1561,11 +1860,14 @@
 <li>由于浮点数值需要的内存空间是保存整数值的2倍<ul>
 <li>像1.这样的小数点后无数字，那么会被作为整数值来保存</li>
 <li>最高精度为17位小数，计算会产生舍入误差问题；toPrecision(..)</li>
-<li>检查等式左右两边差的绝对值是否小于最小精度，才是正确的比较浮点数的方法<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Math</span>.abs(<span class="number">0.1</span> + <span class="number">0.2</span> - <span class="number">0.3</span>) &lt;= <span class="built_in">Number</span>.EPSILON) <span class="comment">// true</span></span><br></pre></td></tr></table></figure></li>
+<li>检查等式左右两边差的绝对值是否小于最小精度，才是正确的比较浮点数的方法</li>
 </ul>
 </li>
 </ul>
 </li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Math</span>.abs(<span class="number">0.1</span> + <span class="number">0.2</span> - <span class="number">0.3</span>) &lt;= <span class="built_in">Number</span>.EPSILON) <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
+<ul>
 <li><strong>NaN，Not a Number</strong><ul>
 <li>涉及NaN的操作都返回 NaN</li>
 <li>与任何值都不想等，包括NaN本身</li>
@@ -1735,29 +2037,38 @@
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">switch (expression) &#123;</span><br><span class="line">    case value: statement</span><br><span class="line">    break;</span><br><span class="line">    default; statement</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <hr>
 <blockquote>
-<h2 id="函数-function"><a href="#函数-function" class="headerlink" title="函数 function"></a>函数 function</h2></blockquote>
+<h2 id="函数-Function"><a href="#函数-Function" class="headerlink" title="函数 Function"></a>函数 Function</h2></blockquote>
 <p><strong>参数</strong></p>
 <ul>
 <li>按值传递（对象也是），被传递的值会复制给一个局部变量</li>
 <li>函数参数内部用一个数组来表示，通过<strong>arguments对象</strong>来访问这个数组</li>
 <li>arguments.length 由传入的参数个数决定</li>
-<li>arguments的值永远与对应命名参数的值保持同步（但它们的内存空间时独立的）<ul>
+<li>arguments的值永远与对应命名参数的值保持同步（但它们的内存空间是独立的）<ul>
 <li>前提是 arguments[n] 访问的 参数n 有被传入</li>
 </ul>
 </li>
 </ul>
 <p><strong>ECMAScript函数没有签名，不能实现重载</strong></p>
 <ul>
-<li>JS是动态类型的语言，函数参数类型在运行时才能确定，不在编译时确定</li>
-<li>函数签名是指函数的声明部分，包括函数名、参数列表和返回类型（如果有的话） </li>
-<li>函数重载指在同一个作用域内，允许定义多个同名函数，但参数列表或参数类型不同<ul>
-<li>但在ECMAScript中，后定义的会覆盖先定义的<blockquote>
+<li><p>JS是动态类型的语言，函数参数类型在<strong>运行时</strong>才能确定，不在编译时确定</p>
+</li>
+<li><p>函数签名是指函数的声明部分，包括函数名、参数列表和返回类型（如果有的话） </p>
+</li>
+<li><p>函数重载指在同一个作用域内，允许定义多个同名函数，但参数列表或参数类型不同</p>
+<ul>
+<li>但在ECMAScript中，后定义的会覆盖先定义的</li>
+</ul>
+</li>
+<li><p>IIFE 立即执行函数表达式</p>
+<ul>
+<li>是一个立即执行的函数表达式</li>
+<li>通常用于创建一个新的作用域，避免变量污染全局作用域</li>
+</ul>
+</li>
+</ul>
+<blockquote>
 <h2 id="闭包"><a href="#闭包" class="headerlink" title="闭包"></a>闭包</h2></blockquote>
-</li>
-</ul>
-</li>
-</ul>
-<p><strong>一个引用了另一个函数作用域中变量的函数</strong><br>常见方式：在一个函数内部创建另一个函数<br>是一种静态作用域</p>
+<p><strong>一个引用了另一个函数作用域中变量的函数</strong><br>常见方式：在一个函数内部创建另一个函数<br><u>是一种静态作用域</u></p>
 <ul>
 <li>闭包作用域链<strong>包含自己的、包含函数的和全局的</strong><ul>
 <li>在作用域链中查找变量 (作用域链本质上是一个指向变量对象的指针列表)</li>
@@ -1768,7 +2079,7 @@
 <ul>
 <li>一般来讲，函数执行完毕后，局部活动对象就会被销毁，<u>内存中仅保存全局作用域</u></li>
 <li>而闭包则会使<strong>内部定义的函数将包含函数的活动对象添加到它的作用域链中</strong><ul>
-<li>当被引用的函数返回后，其执行环境的<u>作用域链会被销毁，但活动对象仍会留在内存中</u></li>
+<li>当被引用的函数返回后，<u>其执行环境的作用域链会被销毁，但活动对象仍会留在内存中</u></li>
 </ul>
 </li>
 <li>闭包只能取得包含函数中<strong>任何变量的最后一个值</strong>，<strong>因为它们引用的是一个活动对象里的变量</strong><ul>
@@ -1793,6 +2104,9 @@
 </li>
 </ul>
 </li>
+<li>数据的隐藏和封装，用于创建私有变量和方法</li>
+<li>模拟块级作用域（立即执行函数）</li>
+<li>常用于回调函数</li>
 </ul>
 <hr>
 <ul>
@@ -1800,7 +2114,6 @@
 <li>创建闭包必须要维护额外的作用域，过度使用可能会占用大量内存</li>
 </ul>
 </li>
-<li>过度使用闭包可能导致内存占用过多</li>
 </ul>
 <p>解决：</p>
 <ul>
@@ -1814,12 +2127,14 @@
 <h2 id="执行环境-全局执行环境-函数执行环境"><a href="#执行环境-全局执行环境-函数执行环境" class="headerlink" title="执行环境 全局执行环境 函数执行环境"></a>执行环境 全局执行环境 函数执行环境</h2></blockquote>
 <ul>
 <li>通常指<strong>代码执行时的整个环境，包括当前作用域、变量、函数等信息</strong></li>
-<li>全局执行环境为window对象</li>
+<li>全局执行环境为 window对象</li>
 <li>每进入一个新的执行环境，都会创建一个用于<strong>搜索变量和函数的作用域链</strong></li>
 <li>当代码在一个环境中执行时，会创建变量对象的一个作用域链，保证对执行环境有权访问的所有变量和函数的有序访问<ul>
-<li>哪些方式能延长作用域链     <ul>
-<li>try-catch中的catch块</li>
-<li>with语句 <blockquote>
+<li>哪些方式能延长作用域链<ul>
+<li>嵌套函数、闭包函数（在内部访问外部环境的变量）     </li>
+<li>try-catch中的catch块（将变量赋值给外部作用域的变量来延长作用域）</li>
+<li>with语句 </li>
+<li>ES6模块（使变量和函数在不同模块间共享和使用）<blockquote>
 <h2 id="执行上下文EC"><a href="#执行上下文EC" class="headerlink" title="执行上下文EC"></a>执行上下文EC</h2></blockquote>
 </li>
 </ul>
@@ -1855,7 +2170,7 @@
 <li>使用var声明的变量会自动被添加到最接近的环境中</li>
 <li>查询标识符，沿作用域链向上查找</li>
 </ul>
-<p>块级作用域/私有作用域，限制向全局作用域中添加过多变量和函数</p>
+<p>块级作用域/私有作用域，限制向全局作用域中添加过多变量和函数(避免变量污染全局作用域)</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">(function()&#123;</span><br><span class="line">    &#x2F;&#x2F; 模拟块级作用域</span><br><span class="line">&#125;)()</span><br></pre></td></tr></table></figure>
 <p><u>function(){}() 这是函数声明，不能加()会导致错误</u></p>
 <hr>
@@ -1925,7 +2240,7 @@
 <li><u>函数表达式则在 解析器执行到它所在行时，才会被 解释执行</u> var xxx = function(){}</li>
 <li>函数内部有两个特殊对象：<ul>
 <li><strong>arguments</strong>：类数组对象，保存函数参数</li>
-<li><strong>callee</strong>：指向拥有这个arguments对象的函数，典型的有 阶乘函数</li>
+<li><strong>callee</strong>：指向拥有这个arguments对象的函数（函数执行上下文），典型的有 阶乘函数</li>
 </ul>
 </li>
 </ul>
@@ -2032,6 +2347,7 @@
 <li>工厂模式：抽象了创建具体对象的过程</li>
 <li>构造函数模式</li>
 </ul>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">不用<span class="keyword">new</span>运算符 获取对象的方法有哪些?</span><br><span class="line">- 对象字面量 &#123;&#125;</span><br><span class="line">- 工厂函数，返回新创建的对象</span><br><span class="line">- <span class="built_in">Object</span>.create()</span><br><span class="line">- ES6的<span class="class"><span class="keyword">class</span></span></span><br><span class="line"><span class="class">- 原型链</span></span><br></pre></td></tr></table></figure>
 <h3 id="复制对象"><a href="#复制对象" class="headerlink" title="复制对象"></a>复制对象</h3><ul>
 <li><p>浅拷贝shallow copy</p>
 <ul>
@@ -2050,7 +2366,7 @@
 <li>常见的方法：<ul>
 <li><strong>JSON.parse(JSON.stringify(..))</strong><ul>
 <li><strong>性能最快</strong>，但对某些特殊类型对象可能会失效<ul>
-<li><strong>包含循环引用的对象</strong>（对象之间相互引用，形成无限循环）执行此方法会报错</li>
+<li><strong>包含循环引用的对象</strong>（对象之间相互引用，形成无限循环）执行此方法会报错（手动接触引用或者使用weakMap）</li>
 <li><strong>undefined、任意函数以及symbol值</strong>，在序列化过程中会被忽略(作为对象的属性值时)或者被转换成null(作为数组属性值时)</li>
 <li>函数、undefined 被单独转换时，会返回 undefined<ul>
 <li>简单来说，函数、undefined、symbol值都不是有效的数据类型，序列化时被忽略也是为了确保JSON字符串的有效性跟可靠性，以防出现不一致的行为或丢失等潜在风险</li>
@@ -2062,6 +2378,7 @@
 </ul>
 </li>
 <li><strong>递归复制</strong>，逐层复制对象属性</li>
+<li>使用<strong>Lodash</strong>工具库 </li>
 </ul>
 </li>
 </ul>
@@ -2104,17 +2421,16 @@
 <li>寄生构造函数模式，稳妥构造函数模式（安全性）</li>
 </ul>
 <figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// object.create 兼容写法</span></span><br><span class="line"><span class="keyword">var</span> objectCreate = <span class="function"><span class="keyword">function</span> (<span class="params">arg</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (!arg) &#123; <span class="keyword">return</span> &#123;&#125; &#125;</span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">obj</span> (<span class="params"></span>) </span>&#123;&#125;</span><br><span class="line">    obj.prototype = arg</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> obj</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">Object</span>.create = <span class="built_in">Object</span>.create || objectCreate</span><br></pre></td></tr></table></figure>
-<hr>
 <blockquote>
 <h2 id="继承"><a href="#继承" class="headerlink" title="继承"></a>继承</h2></blockquote>
-<h3 id="原型链"><a href="#原型链" class="headerlink" title="原型链"></a>原型链</h3><p>由原型对象组成，每个对象都有__proto__属性，指向创建该对象的构造函数的原型，将对象连接组成原型链。<br>是一个用来<u>实现继承</u>和<u>共享属性</u>的对象链<br>通过原型链继承原型上的属性或方法</p>
+<h3 id="原型链"><a href="#原型链" class="headerlink" title="原型链"></a>原型链</h3><p>由原型对象组成，每个对象都有__proto__属性，指向创建该对象的构造函数的原型，将对象连接组成原型链。<br>是一个用来<u>实现继承</u>和<u>属性共享</u>的对象链<br>通过原型链继承原型上的属性或方法</p>
 <ul>
 <li>__proto__是<strong>某个实例对象</strong>的(非标准)属性，prototype则是属于<strong>构造器函数</strong>的属性</li>
 <li>所有函数的默认原型是Object的实例，默认原型的指针指向Object.prototype<ul>
 <li>即所有自定义类型都会继承toString()、valueOf()等默认方法</li>
 </ul>
 </li>
-<li>用instanceof(..), isPrototypeOf(..)确定原型和实例等关系</li>
+<li>用instanceof(..), isPrototypeOf(..)确定原型和实例的关系</li>
 <li>实现继承时，不能使用对象字面量创建原型，这样就重写原型链，切断了相互间的关系</li>
 <li>在创建子类型实例时，不能向超类型的构造函数中传递参数，解决方法如下：<ul>
 <li><strong>借用构造函数，在子类型构造函数内部调用超类型构造函数</strong><ul>
@@ -2123,7 +2439,7 @@
 </li>
 </ul>
 </li>
-<li>实例通过 <strong>proto</strong> 指向 原型prototype，通过 constructor 指向构造函数。</li>
+<li>实例通过 __proto__ 指向 原型prototype，通过 constructor 指向构造函数。</li>
 </ul>
 <h3 id="组合继承"><a href="#组合继承" class="headerlink" title="组合继承"></a>组合继承</h3><ul>
 <li>使用原型链实现对原型属性和方法的继承</li>
@@ -2145,7 +2461,14 @@
 <li>object { xxx: { vlaue: ‘’} }</li>
 </ul>
 </li>
+<li><p>ES5继承是先创建子类实例对象this，再将父类方法添加到this上(Parent.apply)(this)</p>
+</li>
 <li><p>ES6语法糖 class / extends 也可以实现继承</p>
+</li>
+<li><p>ES6继承是先创建父类实例对象this，再用子类构造函数去修改this(super(…args)) </p>
+<ul>
+<li>只有调用super后才能使用this</li>
+</ul>
 </li>
 </ul>
 <hr>
@@ -2234,7 +2557,8 @@
 </ul>
 </li>
 <li>Object.create(null) 和 {} 很像，但是并不会创建 Object.prototype 这个委托<ul>
-<li>Object.create(null)<strong>没有原型链</strong>，所以它比 {} ‘更空’</li>
+<li>Object.create(null)<strong>没有原型链</strong>，创建的对象没有原型，所以它比 {} ‘更空’</li>
+<li>这类对象通常被称为 纯净对象 或 字典对象</li>
 </ul>
 </li>
 </ul>
@@ -2322,23 +2646,8 @@
 <blockquote>
 <h2 id="高频触发优化方式"><a href="#高频触发优化方式" class="headerlink" title="高频触发优化方式"></a>高频触发优化方式</h2></blockquote>
 <ol>
-<li><strong>防抖 Debouncing</strong><ul>
-<li>当事件被触发后，延迟一段时间再执行响应的处理函数</li>
-<li>使用场景：输入框输入校验，在输入完成后再做校验</li>
-</ul>
-</li>
-</ol>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">debounce</span>(<span class="params">func, delay</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> timerId;</span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params">...args</span>) </span>&#123;</span><br><span class="line">        <span class="built_in">clearTimeout</span>(timerId);</span><br><span class="line">        timerId = <span class="built_in">setTimeout</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">            func.apply(<span class="built_in">this</span>, args);</span><br><span class="line">        &#125;, delay);</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Example usage:</span></span><br><span class="line"><span class="keyword">const</span> debouncedFunction = debounce(<span class="function">() =&gt;</span> &#123;...&#125;, <span class="number">300</span>)</span><br></pre></td></tr></table></figure>
-<ol start="2">
-<li><strong>节流 Throttling</strong><ul>
-<li>在一定时间间隔内只执行一次事件处理函数</li>
-<li>将高频转为低频处理，降低频率</li>
-<li>通常使用场景：滚动事件、resize事件</li>
-</ul>
-</li>
-</ol>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">throttle</span>(<span class="params">func, delay</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> lastExecutedTime = <span class="number">0</span></span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> (<span class="params">...args</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">const</span> now = <span class="built_in">Date</span>.now()</span><br><span class="line">        <span class="keyword">if</span>(now - lastExecutedTime &gt;= delay) &#123;</span><br><span class="line">            func.apply(<span class="built_in">this</span>, args)</span><br><span class="line">            lastExecutedTime = now</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Example usage:</span></span><br><span class="line"><span class="keyword">const</span> throttledFunction = throttle(<span class="function">() =&gt;</span> &#123;...&#125;, <span class="number">300</span>)</span><br></pre></td></tr></table></figure>
-<ol start="3">
+<li><strong>防抖 Debouncing</strong></li>
+<li><strong>节流 Throttling</strong></li>
 <li><strong>事件委托</strong><ul>
 <li>对大量相似的元素，将事件处理程序添加到这一组元素的共同祖先上，利用<strong>事件冒泡</strong>处理事件</li>
 <li>动态绑定事件，减少事件处理程序的数量，提高性能</li>
@@ -2352,6 +2661,13 @@
 <h2 id="ES6-ES7-新特性"><a href="#ES6-ES7-新特性" class="headerlink" title="ES6 ES7 新特性"></a>ES6 ES7 新特性</h2></blockquote>
 <ul>
 <li>ES6<ul>
+<li><strong>类class</strong> <ul>
+<li>静态方法使用staic关键字修饰，该方法不会被实例继承，而是直接通过类调用</li>
+<li>如果在实例上调用静态方法，会抛出错误，表示不存在该方法</li>
+<li>父类静态方法可以被子类继承</li>
+<li>修饰器只能用于类和类的方法，不能用于函数（存在函数提升）</li>
+</ul>
+</li>
 <li><strong>数据结构：Set、Map、WeakSet、WeakMap</strong><ul>
 <li>Set集合，类似于数组，以[值，值]的形式存储元素，且成员的值是唯一的。本身是一个构造函数，用来生成Set数据结构</li>
 <li>WeakSet与Set相似，但成员只能是对象且都是弱引用，即其他对象不再引用该对象时，垃圾回收机制就会自动回收该对象。还是不可遍历的（弱引用是指不能确保其引用的对象不会被垃圾回收器回收的引用，换句话说就是可能在任意时间被回收）</li>
@@ -2384,10 +2700,19 @@
 <li>根据具体情况，有时 Promise 可能会更容易理解和维护，因为它提供了一种线性的、顺序执行的方式来处理异步任务</li>
 </ul>
 </li>
-<li><strong>class 继承extends</strong><ul>
-<li>ES5继承是先创建子类实例对象this，再将父类方法添加到this上（Parent.apply(this)）</li>
-<li>与ES5不同，实质上是先创建父类实例对象this，然后用子类构造函数修改this。所以必须在constructor里调用super</li>
-<li>调用super后才能使用this关键字</li>
+</ul>
+</li>
+<li><strong>Generator函数</strong><ul>
+<li>是一种异步编程解决方案；像一个状态机，封装了多个内部状态</li>
+<li>是分段执行的；返回一个遍历器对象</li>
+<li>写法：<ul>
+<li>function* funcGenerator(){}</li>
+<li>内部使用yield定义不同状态，是暂停执行的标记，本身无返回值</li>
+<li>调用next()方法来恢复执行，返回一个对象{value, done}<ul>
+<li>当调用了该方法后，内部指针指向该语句时才会执行，类似手动地去 惰性求值</li>
+<li>可以带参数</li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -2463,8 +2788,13 @@
 <ul>
 <li>数组空位有自己的位置，反映在length属性上</li>
 <li>但空位的位置上的值未定义，即值不存在。如果一定要读取，结果就是 undefined</li>
-<li>那么属性名也不存在，所以无论在 in 、hasOwnProperty、 Object.keys() 方法都娶不到空位的key值</li>
-<li>map遍历时发现空位就直接跳过，不进入回调函数<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> arr =[,,,]</span><br><span class="line"><span class="built_in">console</span>.log(arr.length) <span class="comment">// 3</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="number">0</span> <span class="keyword">in</span> arr) <span class="comment">// false</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Object</span>.keys(arr)) <span class="comment">// [ ]</span></span><br><span class="line">arr.map(<span class="function"><span class="params">n</span> =&gt;</span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(n)</span><br><span class="line">    <span class="keyword">return</span> <span class="number">1</span></span><br><span class="line">&#125;) <span class="comment">// no return value</span></span><br></pre></td></tr></table></figure></li>
+<li>那么属性名也不存在，所以无论在 in 、hasOwnProperty、 Object.keys() 方法都取不到空位的key值</li>
+<li>map遍历时发现空位就直接跳过，不进入回调函数<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> arr =[,,,]</span><br><span class="line"><span class="built_in">console</span>.log(arr.length) <span class="comment">// 3</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="number">0</span> <span class="keyword">in</span> arr) <span class="comment">// false</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Object</span>.keys(arr)) <span class="comment">// [ ]</span></span><br><span class="line">arr.map(<span class="function"><span class="params">n</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(n) <span class="comment">// 空位直接跳过不进入回调函数</span></span><br><span class="line">  <span class="keyword">return</span> <span class="number">1</span></span><br><span class="line">&#125;) <span class="comment">// no return value [&lt;3 empty items]</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<p><strong>setTimeout(fn, 0)</strong></p>
+<ul>
+<li>常用于让某些代码在当前同步代码块执行完之后再执行，比如等待 DOM 更新完成后执行某些操作。</li>
+<li>允许浏览器有时间去处理其他事件（如渲染、处理用户输入等），从而避免长时间阻塞主线程。</li>
 </ul>
 
       
@@ -2953,80 +3283,10 @@
 
 
   
-    <article id="post-chrome-devTools的武功秘笈" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2021/02/25/chrome-devTools%E7%9A%84%E6%AD%A6%E5%8A%9F%E7%A7%98%E7%AC%88/" class="article-date">
-  <time datetime="2021-02-25T07:05:29.000Z" itemprop="datePublished">2021-02-25</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/02/25/chrome-devTools%E7%9A%84%E6%AD%A6%E5%8A%9F%E7%A7%98%E7%AC%88/">chrome devTools</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p><strong>chrome DevTools的运用</strong></p>
-<h3 id="console"><a href="#console" class="headerlink" title="console"></a>console</h3><p><img src="/img/chrome-2-1.png" alt="图2-1"></p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="built_in">console</span>.group()</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&#x27;group1&#x27;</span>)</span><br><span class="line">    <span class="built_in">console</span>.group()</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">&#x27;group2&#x27;</span>)</span><br><span class="line">    <span class="built_in">console</span>.groupEnd()</span><br><span class="line"><span class="built_in">console</span>.groupEnd()</span><br></pre></td></tr></table></figure>
-<p><img src="/img/chrome-2-2.png" alt="图2-2"></p>
-<h3 id="控制台复制变量到剪切板"><a href="#控制台复制变量到剪切板" class="headerlink" title="控制台复制变量到剪切板"></a>控制台复制变量到剪切板</h3><p>右键 -&gt; store object as global variable<br>得到temp变量 -&gt; copy(temp) -&gt; 剪切板上就有了temp</p>
-<p><img src="/img/chrome-1-1.png" alt="图1-1"><br><img src="/img/chrome-1-2.png" alt="图1-2"></p>
-<h3 id="XHR重放"><a href="#XHR重放" class="headerlink" title="XHR重放"></a>XHR重放</h3><p>在Network Tab下选中对应的XHR记录，右键可以重放网络请求。<br>还可以复制请求包到命令行下修改后执行<br><img src="/img/chrome-3-1.png" alt="图3-1"></p>
-<h3 id="截图"><a href="#截图" class="headerlink" title="截图"></a>截图</h3><p><img src="/img/chrome-4-1.png" alt="图4-1"></p>
-<ul>
-<li>Capture area screenshot<br>  自定义选中截图区域</li>
-<li>Capture full size screenshot<br>  截取HTML完整渲染图</li>
-<li>Capture node screenshot<br>  截取某个DOM节点的渲染图，使用前得先在Elements Tab下选中DOM节点</li>
-<li>Capture screenshot<br>  截取浏览器视窗所见屏幕</li>
-</ul>
-<h3 id="Performance"><a href="#Performance" class="headerlink" title="Performance"></a>Performance</h3><p>性能监控</p>
-<ul>
-<li>在调试某个web网页，想要查看从HTML渲染到屏幕的过程或运行时用户交互时的渲染、重绘、重拍，内存占用、页面变化过程。</li>
-<li>可以在Performace Tab下，点击红色小圆点即可录制页面的完整变化过程</li>
-</ul>
-<h3 id="Source-Tab-DEBUG工具栏"><a href="#Source-Tab-DEBUG工具栏" class="headerlink" title="Source Tab / DEBUG工具栏"></a>Source Tab / DEBUG工具栏</h3><h3 id="Event-Listener-Breakpoints"><a href="#Event-Listener-Breakpoints" class="headerlink" title="Event Listener Breakpoints"></a>Event Listener Breakpoints</h3><p>事件监听断点，打开这个列表，在触发该事件时进入断点，调试器会停留在触发事件代码行。<br>展开事件列表，选择要监听的事件，勾选即可</p>
-<h3 id="Snippets"><a href="#Snippets" class="headerlink" title="Snippets"></a>Snippets</h3><p>代码片段，开发者自己写一些调试代码的代码片段，比如解析json数据等工具函数。<br>在代码片段中的代码可以访问当前页面中的变量和函数，不会因刷新而丢失。</p>
-<ul>
-<li>右键即可run</li>
-<li>不需要的时候可以右键remove</li>
-</ul>
-<h3 id="Coverage"><a href="#Coverage" class="headerlink" title="Coverage"></a>Coverage</h3><p>代码使用率（有效率）统计，支持运行时录制统计。</p>
-<h3 id="Rendering"><a href="#Rendering" class="headerlink" title="Rendering"></a>Rendering</h3><p>监控页面重绘、重排时变化的区域进行高亮处理，还可查看帧率相关信息，用于网页性能优化</p>
-<p>打开方式： 在more tools菜单中可选择Rendering工具</p>
-<h3 id="Layers"><a href="#Layers" class="headerlink" title="Layers"></a>Layers</h3><p>层，当一个页面足够复杂的时候，在css加持下，可能会出现一些渲染性能问题<br>这时候可以通过Layers工具显式地查看DOM层关系。<br>打开方式： 在more tools菜单中可选择Layers工具</p>
-<h3 id="移动端H5调试DEBUG"><a href="#移动端H5调试DEBUG" class="headerlink" title="移动端H5调试DEBUG"></a>移动端H5调试DEBUG</h3><p>Chrome浏览器地址栏访问：chrome://inspect，可进入调试网页</p>
-<hr>
-<p>参考资料：<a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/gBv8iF2JAp6VnjW7WsQ4MQ">https://mp.weixin.qq.com/s/gBv8iF2JAp6VnjW7WsQ4MQ</a></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://karencxx.github.io/2021/02/25/chrome-devTools%E7%9A%84%E6%AD%A6%E5%8A%9F%E7%A7%98%E7%AC%88/" data-id="clwghzioh000edgfuh55y5qaa" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%BC%80%E5%8F%91%E6%8A%80%E5%B7%A7/" rel="tag">开发技巧</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
 
 
   <nav id="page-nav">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/">__(&#39;next&#39;) &amp;raquo;</a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/2/">__(&#39;next&#39;) &amp;raquo;</a>
   </nav>
 </section>
         
@@ -3065,7 +3325,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/04/">April 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/03/">March 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/02/">February 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/01/">January 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/11/">November 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">January 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">December 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/11/">November 2017</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/05/">May 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/04/">April 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/03/">March 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/02/">February 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/01/">January 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/11/">November 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">January 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">December 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/11/">November 2017</a></li></ul>
     </div>
   </div>
 
@@ -3078,7 +3338,11 @@
       <ul>
         
           <li>
-            <a href="/2024/04/24/ReviewNote/">(no title)</a>
+            <a href="/2024/05/31/%E6%89%8B%E5%86%99code/">手写code</a>
+          </li>
+        
+          <li>
+            <a href="/2024/04/24/ReviewNote/">vue-review</a>
           </li>
         
           <li>
@@ -3091,10 +3355,6 @@
         
           <li>
             <a href="/2024/04/07/JS%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/">JavaScript 内存与性能</a>
-          </li>
-        
-          <li>
-            <a href="/2024/04/01/JSNote/">JSNote</a>
           </li>
         
       </ul>

@@ -13,7 +13,7 @@
 <meta property="og:description" content="开始前，可以先看以下几篇  理解js中的this    JS，专为与网页交互而设计的脚本语言 诞生于1995年，由三部分组成：  ECMAScript：核心语言，由ECMA-262定义 与web浏览器无依赖关系，web浏览器只是宿主环境之一，其他宿主包括Node 组成部分：语法 &#x2F; 类型 &#x2F; 语句 &#x2F; 关键字 &#x2F; 保留字 &#x2F; 操作符 &#x2F; 对象    DOM(Domcument Object Mod">
 <meta property="og:locale">
 <meta property="article:published_time" content="2024-04-01T04:08:38.000Z">
-<meta property="article:modified_time" content="2024-05-16T14:38:04.797Z">
+<meta property="article:modified_time" content="2024-06-07T06:30:33.080Z">
 <meta property="article:author" content="karen">
 <meta property="article:tag" content="复习">
 <meta name="twitter:card" content="summary">
@@ -176,6 +176,7 @@
 </ul>
 </li>
 </ul>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line">暂时性死区是指在块级作用域内，使用 let 或 const 声明的变量从进入该作用域到变量声明之前的这段时间内，变量处于“未初始化”状态，此时访问这些变量会抛ReferenceError。</span><br><span class="line"></span><br><span class="line">原因：ES6 规范要求在声明之前的块级作用域内不能访问 let 和 const 声明的变量，以避免变量提升带来的潜在问题。</span><br></pre></td></tr></table></figure>
 <h3 id="数据类型"><a href="#数据类型" class="headerlink" title="数据类型"></a>数据类型</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">基本数据类型：undefined null boolean number string </span><br><span class="line">复杂数据类型：object，由一组无序的键值对组成</span><br></pre></td></tr></table></figure>
 <p>typeof操作符 用来检测给定变量的数据类型，<strong>确定值的原始类型</strong><br>instanceof 判断是什么类型的对象，<strong>确定值的引用类型</strong></p>
 <ul>
@@ -213,11 +214,14 @@
 <li>由于浮点数值需要的内存空间是保存整数值的2倍<ul>
 <li>像1.这样的小数点后无数字，那么会被作为整数值来保存</li>
 <li>最高精度为17位小数，计算会产生舍入误差问题；toPrecision(..)</li>
-<li>检查等式左右两边差的绝对值是否小于最小精度，才是正确的比较浮点数的方法<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Math</span>.abs(<span class="number">0.1</span> + <span class="number">0.2</span> - <span class="number">0.3</span>) &lt;= <span class="built_in">Number</span>.EPSILON) <span class="comment">// true</span></span><br></pre></td></tr></table></figure></li>
+<li>检查等式左右两边差的绝对值是否小于最小精度，才是正确的比较浮点数的方法</li>
 </ul>
 </li>
 </ul>
 </li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Math</span>.abs(<span class="number">0.1</span> + <span class="number">0.2</span> - <span class="number">0.3</span>) &lt;= <span class="built_in">Number</span>.EPSILON) <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
+<ul>
 <li><strong>NaN，Not a Number</strong><ul>
 <li>涉及NaN的操作都返回 NaN</li>
 <li>与任何值都不想等，包括NaN本身</li>
@@ -387,29 +391,38 @@
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">switch (expression) &#123;</span><br><span class="line">    case value: statement</span><br><span class="line">    break;</span><br><span class="line">    default; statement</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <hr>
 <blockquote>
-<h2 id="函数-function"><a href="#函数-function" class="headerlink" title="函数 function"></a>函数 function</h2></blockquote>
+<h2 id="函数-Function"><a href="#函数-Function" class="headerlink" title="函数 Function"></a>函数 Function</h2></blockquote>
 <p><strong>参数</strong></p>
 <ul>
 <li>按值传递（对象也是），被传递的值会复制给一个局部变量</li>
 <li>函数参数内部用一个数组来表示，通过<strong>arguments对象</strong>来访问这个数组</li>
 <li>arguments.length 由传入的参数个数决定</li>
-<li>arguments的值永远与对应命名参数的值保持同步（但它们的内存空间时独立的）<ul>
+<li>arguments的值永远与对应命名参数的值保持同步（但它们的内存空间是独立的）<ul>
 <li>前提是 arguments[n] 访问的 参数n 有被传入</li>
 </ul>
 </li>
 </ul>
 <p><strong>ECMAScript函数没有签名，不能实现重载</strong></p>
 <ul>
-<li>JS是动态类型的语言，函数参数类型在运行时才能确定，不在编译时确定</li>
-<li>函数签名是指函数的声明部分，包括函数名、参数列表和返回类型（如果有的话） </li>
-<li>函数重载指在同一个作用域内，允许定义多个同名函数，但参数列表或参数类型不同<ul>
-<li>但在ECMAScript中，后定义的会覆盖先定义的<blockquote>
+<li><p>JS是动态类型的语言，函数参数类型在<strong>运行时</strong>才能确定，不在编译时确定</p>
+</li>
+<li><p>函数签名是指函数的声明部分，包括函数名、参数列表和返回类型（如果有的话） </p>
+</li>
+<li><p>函数重载指在同一个作用域内，允许定义多个同名函数，但参数列表或参数类型不同</p>
+<ul>
+<li>但在ECMAScript中，后定义的会覆盖先定义的</li>
+</ul>
+</li>
+<li><p>IIFE 立即执行函数表达式</p>
+<ul>
+<li>是一个立即执行的函数表达式</li>
+<li>通常用于创建一个新的作用域，避免变量污染全局作用域</li>
+</ul>
+</li>
+</ul>
+<blockquote>
 <h2 id="闭包"><a href="#闭包" class="headerlink" title="闭包"></a>闭包</h2></blockquote>
-</li>
-</ul>
-</li>
-</ul>
-<p><strong>一个引用了另一个函数作用域中变量的函数</strong><br>常见方式：在一个函数内部创建另一个函数<br>是一种静态作用域</p>
+<p><strong>一个引用了另一个函数作用域中变量的函数</strong><br>常见方式：在一个函数内部创建另一个函数<br><u>是一种静态作用域</u></p>
 <ul>
 <li>闭包作用域链<strong>包含自己的、包含函数的和全局的</strong><ul>
 <li>在作用域链中查找变量 (作用域链本质上是一个指向变量对象的指针列表)</li>
@@ -420,7 +433,7 @@
 <ul>
 <li>一般来讲，函数执行完毕后，局部活动对象就会被销毁，<u>内存中仅保存全局作用域</u></li>
 <li>而闭包则会使<strong>内部定义的函数将包含函数的活动对象添加到它的作用域链中</strong><ul>
-<li>当被引用的函数返回后，其执行环境的<u>作用域链会被销毁，但活动对象仍会留在内存中</u></li>
+<li>当被引用的函数返回后，<u>其执行环境的作用域链会被销毁，但活动对象仍会留在内存中</u></li>
 </ul>
 </li>
 <li>闭包只能取得包含函数中<strong>任何变量的最后一个值</strong>，<strong>因为它们引用的是一个活动对象里的变量</strong><ul>
@@ -445,6 +458,9 @@
 </li>
 </ul>
 </li>
+<li>数据的隐藏和封装，用于创建私有变量和方法</li>
+<li>模拟块级作用域（立即执行函数）</li>
+<li>常用于回调函数</li>
 </ul>
 <hr>
 <ul>
@@ -452,7 +468,6 @@
 <li>创建闭包必须要维护额外的作用域，过度使用可能会占用大量内存</li>
 </ul>
 </li>
-<li>过度使用闭包可能导致内存占用过多</li>
 </ul>
 <p>解决：</p>
 <ul>
@@ -466,12 +481,14 @@
 <h2 id="执行环境-全局执行环境-函数执行环境"><a href="#执行环境-全局执行环境-函数执行环境" class="headerlink" title="执行环境 全局执行环境 函数执行环境"></a>执行环境 全局执行环境 函数执行环境</h2></blockquote>
 <ul>
 <li>通常指<strong>代码执行时的整个环境，包括当前作用域、变量、函数等信息</strong></li>
-<li>全局执行环境为window对象</li>
+<li>全局执行环境为 window对象</li>
 <li>每进入一个新的执行环境，都会创建一个用于<strong>搜索变量和函数的作用域链</strong></li>
 <li>当代码在一个环境中执行时，会创建变量对象的一个作用域链，保证对执行环境有权访问的所有变量和函数的有序访问<ul>
-<li>哪些方式能延长作用域链     <ul>
-<li>try-catch中的catch块</li>
-<li>with语句 <blockquote>
+<li>哪些方式能延长作用域链<ul>
+<li>嵌套函数、闭包函数（在内部访问外部环境的变量）     </li>
+<li>try-catch中的catch块（将变量赋值给外部作用域的变量来延长作用域）</li>
+<li>with语句 </li>
+<li>ES6模块（使变量和函数在不同模块间共享和使用）<blockquote>
 <h2 id="执行上下文EC"><a href="#执行上下文EC" class="headerlink" title="执行上下文EC"></a>执行上下文EC</h2></blockquote>
 </li>
 </ul>
@@ -507,7 +524,7 @@
 <li>使用var声明的变量会自动被添加到最接近的环境中</li>
 <li>查询标识符，沿作用域链向上查找</li>
 </ul>
-<p>块级作用域/私有作用域，限制向全局作用域中添加过多变量和函数</p>
+<p>块级作用域/私有作用域，限制向全局作用域中添加过多变量和函数(避免变量污染全局作用域)</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">(function()&#123;</span><br><span class="line">    &#x2F;&#x2F; 模拟块级作用域</span><br><span class="line">&#125;)()</span><br></pre></td></tr></table></figure>
 <p><u>function(){}() 这是函数声明，不能加()会导致错误</u></p>
 <hr>
@@ -577,7 +594,7 @@
 <li><u>函数表达式则在 解析器执行到它所在行时，才会被 解释执行</u> var xxx = function(){}</li>
 <li>函数内部有两个特殊对象：<ul>
 <li><strong>arguments</strong>：类数组对象，保存函数参数</li>
-<li><strong>callee</strong>：指向拥有这个arguments对象的函数，典型的有 阶乘函数</li>
+<li><strong>callee</strong>：指向拥有这个arguments对象的函数（函数执行上下文），典型的有 阶乘函数</li>
 </ul>
 </li>
 </ul>
@@ -684,6 +701,7 @@
 <li>工厂模式：抽象了创建具体对象的过程</li>
 <li>构造函数模式</li>
 </ul>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">不用<span class="keyword">new</span>运算符 获取对象的方法有哪些?</span><br><span class="line">- 对象字面量 &#123;&#125;</span><br><span class="line">- 工厂函数，返回新创建的对象</span><br><span class="line">- <span class="built_in">Object</span>.create()</span><br><span class="line">- ES6的<span class="class"><span class="keyword">class</span></span></span><br><span class="line"><span class="class">- 原型链</span></span><br></pre></td></tr></table></figure>
 <h3 id="复制对象"><a href="#复制对象" class="headerlink" title="复制对象"></a>复制对象</h3><ul>
 <li><p>浅拷贝shallow copy</p>
 <ul>
@@ -702,7 +720,7 @@
 <li>常见的方法：<ul>
 <li><strong>JSON.parse(JSON.stringify(..))</strong><ul>
 <li><strong>性能最快</strong>，但对某些特殊类型对象可能会失效<ul>
-<li><strong>包含循环引用的对象</strong>（对象之间相互引用，形成无限循环）执行此方法会报错</li>
+<li><strong>包含循环引用的对象</strong>（对象之间相互引用，形成无限循环）执行此方法会报错（手动接触引用或者使用weakMap）</li>
 <li><strong>undefined、任意函数以及symbol值</strong>，在序列化过程中会被忽略(作为对象的属性值时)或者被转换成null(作为数组属性值时)</li>
 <li>函数、undefined 被单独转换时，会返回 undefined<ul>
 <li>简单来说，函数、undefined、symbol值都不是有效的数据类型，序列化时被忽略也是为了确保JSON字符串的有效性跟可靠性，以防出现不一致的行为或丢失等潜在风险</li>
@@ -714,6 +732,7 @@
 </ul>
 </li>
 <li><strong>递归复制</strong>，逐层复制对象属性</li>
+<li>使用<strong>Lodash</strong>工具库 </li>
 </ul>
 </li>
 </ul>
@@ -756,17 +775,16 @@
 <li>寄生构造函数模式，稳妥构造函数模式（安全性）</li>
 </ul>
 <figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// object.create 兼容写法</span></span><br><span class="line"><span class="keyword">var</span> objectCreate = <span class="function"><span class="keyword">function</span> (<span class="params">arg</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (!arg) &#123; <span class="keyword">return</span> &#123;&#125; &#125;</span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">obj</span> (<span class="params"></span>) </span>&#123;&#125;</span><br><span class="line">    obj.prototype = arg</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> obj</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">Object</span>.create = <span class="built_in">Object</span>.create || objectCreate</span><br></pre></td></tr></table></figure>
-<hr>
 <blockquote>
 <h2 id="继承"><a href="#继承" class="headerlink" title="继承"></a>继承</h2></blockquote>
-<h3 id="原型链"><a href="#原型链" class="headerlink" title="原型链"></a>原型链</h3><p>由原型对象组成，每个对象都有__proto__属性，指向创建该对象的构造函数的原型，将对象连接组成原型链。<br>是一个用来<u>实现继承</u>和<u>共享属性</u>的对象链<br>通过原型链继承原型上的属性或方法</p>
+<h3 id="原型链"><a href="#原型链" class="headerlink" title="原型链"></a>原型链</h3><p>由原型对象组成，每个对象都有__proto__属性，指向创建该对象的构造函数的原型，将对象连接组成原型链。<br>是一个用来<u>实现继承</u>和<u>属性共享</u>的对象链<br>通过原型链继承原型上的属性或方法</p>
 <ul>
 <li>__proto__是<strong>某个实例对象</strong>的(非标准)属性，prototype则是属于<strong>构造器函数</strong>的属性</li>
 <li>所有函数的默认原型是Object的实例，默认原型的指针指向Object.prototype<ul>
 <li>即所有自定义类型都会继承toString()、valueOf()等默认方法</li>
 </ul>
 </li>
-<li>用instanceof(..), isPrototypeOf(..)确定原型和实例等关系</li>
+<li>用instanceof(..), isPrototypeOf(..)确定原型和实例的关系</li>
 <li>实现继承时，不能使用对象字面量创建原型，这样就重写原型链，切断了相互间的关系</li>
 <li>在创建子类型实例时，不能向超类型的构造函数中传递参数，解决方法如下：<ul>
 <li><strong>借用构造函数，在子类型构造函数内部调用超类型构造函数</strong><ul>
@@ -775,7 +793,7 @@
 </li>
 </ul>
 </li>
-<li>实例通过 <strong>proto</strong> 指向 原型prototype，通过 constructor 指向构造函数。</li>
+<li>实例通过 __proto__ 指向 原型prototype，通过 constructor 指向构造函数。</li>
 </ul>
 <h3 id="组合继承"><a href="#组合继承" class="headerlink" title="组合继承"></a>组合继承</h3><ul>
 <li>使用原型链实现对原型属性和方法的继承</li>
@@ -797,7 +815,14 @@
 <li>object { xxx: { vlaue: ‘’} }</li>
 </ul>
 </li>
+<li><p>ES5继承是先创建子类实例对象this，再将父类方法添加到this上(Parent.apply)(this)</p>
+</li>
 <li><p>ES6语法糖 class / extends 也可以实现继承</p>
+</li>
+<li><p>ES6继承是先创建父类实例对象this，再用子类构造函数去修改this(super(…args)) </p>
+<ul>
+<li>只有调用super后才能使用this</li>
+</ul>
 </li>
 </ul>
 <hr>
@@ -886,7 +911,8 @@
 </ul>
 </li>
 <li>Object.create(null) 和 {} 很像，但是并不会创建 Object.prototype 这个委托<ul>
-<li>Object.create(null)<strong>没有原型链</strong>，所以它比 {} ‘更空’</li>
+<li>Object.create(null)<strong>没有原型链</strong>，创建的对象没有原型，所以它比 {} ‘更空’</li>
+<li>这类对象通常被称为 纯净对象 或 字典对象</li>
 </ul>
 </li>
 </ul>
@@ -974,23 +1000,8 @@
 <blockquote>
 <h2 id="高频触发优化方式"><a href="#高频触发优化方式" class="headerlink" title="高频触发优化方式"></a>高频触发优化方式</h2></blockquote>
 <ol>
-<li><strong>防抖 Debouncing</strong><ul>
-<li>当事件被触发后，延迟一段时间再执行响应的处理函数</li>
-<li>使用场景：输入框输入校验，在输入完成后再做校验</li>
-</ul>
-</li>
-</ol>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">debounce</span>(<span class="params">func, delay</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> timerId;</span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params">...args</span>) </span>&#123;</span><br><span class="line">        <span class="built_in">clearTimeout</span>(timerId);</span><br><span class="line">        timerId = <span class="built_in">setTimeout</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">            func.apply(<span class="built_in">this</span>, args);</span><br><span class="line">        &#125;, delay);</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Example usage:</span></span><br><span class="line"><span class="keyword">const</span> debouncedFunction = debounce(<span class="function">() =&gt;</span> &#123;...&#125;, <span class="number">300</span>)</span><br></pre></td></tr></table></figure>
-<ol start="2">
-<li><strong>节流 Throttling</strong><ul>
-<li>在一定时间间隔内只执行一次事件处理函数</li>
-<li>将高频转为低频处理，降低频率</li>
-<li>通常使用场景：滚动事件、resize事件</li>
-</ul>
-</li>
-</ol>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">throttle</span>(<span class="params">func, delay</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> lastExecutedTime = <span class="number">0</span></span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> (<span class="params">...args</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">const</span> now = <span class="built_in">Date</span>.now()</span><br><span class="line">        <span class="keyword">if</span>(now - lastExecutedTime &gt;= delay) &#123;</span><br><span class="line">            func.apply(<span class="built_in">this</span>, args)</span><br><span class="line">            lastExecutedTime = now</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Example usage:</span></span><br><span class="line"><span class="keyword">const</span> throttledFunction = throttle(<span class="function">() =&gt;</span> &#123;...&#125;, <span class="number">300</span>)</span><br></pre></td></tr></table></figure>
-<ol start="3">
+<li><strong>防抖 Debouncing</strong></li>
+<li><strong>节流 Throttling</strong></li>
 <li><strong>事件委托</strong><ul>
 <li>对大量相似的元素，将事件处理程序添加到这一组元素的共同祖先上，利用<strong>事件冒泡</strong>处理事件</li>
 <li>动态绑定事件，减少事件处理程序的数量，提高性能</li>
@@ -1004,6 +1015,13 @@
 <h2 id="ES6-ES7-新特性"><a href="#ES6-ES7-新特性" class="headerlink" title="ES6 ES7 新特性"></a>ES6 ES7 新特性</h2></blockquote>
 <ul>
 <li>ES6<ul>
+<li><strong>类class</strong> <ul>
+<li>静态方法使用staic关键字修饰，该方法不会被实例继承，而是直接通过类调用</li>
+<li>如果在实例上调用静态方法，会抛出错误，表示不存在该方法</li>
+<li>父类静态方法可以被子类继承</li>
+<li>修饰器只能用于类和类的方法，不能用于函数（存在函数提升）</li>
+</ul>
+</li>
 <li><strong>数据结构：Set、Map、WeakSet、WeakMap</strong><ul>
 <li>Set集合，类似于数组，以[值，值]的形式存储元素，且成员的值是唯一的。本身是一个构造函数，用来生成Set数据结构</li>
 <li>WeakSet与Set相似，但成员只能是对象且都是弱引用，即其他对象不再引用该对象时，垃圾回收机制就会自动回收该对象。还是不可遍历的（弱引用是指不能确保其引用的对象不会被垃圾回收器回收的引用，换句话说就是可能在任意时间被回收）</li>
@@ -1036,10 +1054,19 @@
 <li>根据具体情况，有时 Promise 可能会更容易理解和维护，因为它提供了一种线性的、顺序执行的方式来处理异步任务</li>
 </ul>
 </li>
-<li><strong>class 继承extends</strong><ul>
-<li>ES5继承是先创建子类实例对象this，再将父类方法添加到this上（Parent.apply(this)）</li>
-<li>与ES5不同，实质上是先创建父类实例对象this，然后用子类构造函数修改this。所以必须在constructor里调用super</li>
-<li>调用super后才能使用this关键字</li>
+</ul>
+</li>
+<li><strong>Generator函数</strong><ul>
+<li>是一种异步编程解决方案；像一个状态机，封装了多个内部状态</li>
+<li>是分段执行的；返回一个遍历器对象</li>
+<li>写法：<ul>
+<li>function* funcGenerator(){}</li>
+<li>内部使用yield定义不同状态，是暂停执行的标记，本身无返回值</li>
+<li>调用next()方法来恢复执行，返回一个对象{value, done}<ul>
+<li>当调用了该方法后，内部指针指向该语句时才会执行，类似手动地去 惰性求值</li>
+<li>可以带参数</li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -1115,8 +1142,13 @@
 <ul>
 <li>数组空位有自己的位置，反映在length属性上</li>
 <li>但空位的位置上的值未定义，即值不存在。如果一定要读取，结果就是 undefined</li>
-<li>那么属性名也不存在，所以无论在 in 、hasOwnProperty、 Object.keys() 方法都娶不到空位的key值</li>
-<li>map遍历时发现空位就直接跳过，不进入回调函数<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> arr =[,,,]</span><br><span class="line"><span class="built_in">console</span>.log(arr.length) <span class="comment">// 3</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="number">0</span> <span class="keyword">in</span> arr) <span class="comment">// false</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Object</span>.keys(arr)) <span class="comment">// [ ]</span></span><br><span class="line">arr.map(<span class="function"><span class="params">n</span> =&gt;</span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(n)</span><br><span class="line">    <span class="keyword">return</span> <span class="number">1</span></span><br><span class="line">&#125;) <span class="comment">// no return value</span></span><br></pre></td></tr></table></figure></li>
+<li>那么属性名也不存在，所以无论在 in 、hasOwnProperty、 Object.keys() 方法都取不到空位的key值</li>
+<li>map遍历时发现空位就直接跳过，不进入回调函数<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> arr =[,,,]</span><br><span class="line"><span class="built_in">console</span>.log(arr.length) <span class="comment">// 3</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="number">0</span> <span class="keyword">in</span> arr) <span class="comment">// false</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Object</span>.keys(arr)) <span class="comment">// [ ]</span></span><br><span class="line">arr.map(<span class="function"><span class="params">n</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(n) <span class="comment">// 空位直接跳过不进入回调函数</span></span><br><span class="line">  <span class="keyword">return</span> <span class="number">1</span></span><br><span class="line">&#125;) <span class="comment">// no return value [&lt;3 empty items]</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<p><strong>setTimeout(fn, 0)</strong></p>
+<ul>
+<li>常用于让某些代码在当前同步代码块执行完之后再执行，比如等待 DOM 更新完成后执行某些操作。</li>
+<li>允许浏览器有时间去处理其他事件（如渲染、处理用户输入等），从而避免长时间阻塞主线程。</li>
 </ul>
 
       
@@ -1190,7 +1222,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/04/">April 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/03/">March 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/02/">February 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/01/">January 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/11/">November 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">January 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">December 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/11/">November 2017</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/05/">May 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/04/">April 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/03/">March 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/02/">February 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/01/">January 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/11/">November 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">January 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">December 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/11/">November 2017</a></li></ul>
     </div>
   </div>
 
@@ -1203,7 +1235,11 @@
       <ul>
         
           <li>
-            <a href="/2024/04/24/ReviewNote/">(no title)</a>
+            <a href="/2024/05/31/%E6%89%8B%E5%86%99code/">手写code</a>
+          </li>
+        
+          <li>
+            <a href="/2024/04/24/ReviewNote/">vue-review</a>
           </li>
         
           <li>
@@ -1216,10 +1252,6 @@
         
           <li>
             <a href="/2024/04/07/JS%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/">JavaScript 内存与性能</a>
-          </li>
-        
-          <li>
-            <a href="/2024/04/01/JSNote/">JSNote</a>
           </li>
         
       </ul>
