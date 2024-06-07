@@ -397,7 +397,7 @@
 
   
   <url>
-    <loc>http://karencxx.github.io/categories/express/</loc>
+    <loc>http://karencxx.github.io/categories/BOM/</loc>
     <lastmod>2024-06-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -405,6 +405,13 @@
   
   <url>
     <loc>http://karencxx.github.io/categories/CSS/</loc>
+    <lastmod>2024-06-07</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>http://karencxx.github.io/categories/express/</loc>
     <lastmod>2024-06-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -426,13 +433,6 @@
   
   <url>
     <loc>http://karencxx.github.io/categories/snabbdom/</loc>
-    <lastmod>2024-06-07</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>http://karencxx.github.io/categories/BOM/</loc>
     <lastmod>2024-06-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
