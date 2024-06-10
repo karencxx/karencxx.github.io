@@ -13,7 +13,7 @@
 <meta property="og:description" content="开始前，可以先看以下几篇  理解js中的this    JS，专为与网页交互而设计的脚本语言 诞生于1995年，由三部分组成：  ECMAScript：核心语言，由ECMA-262定义 与web浏览器无依赖关系，web浏览器只是宿主环境之一，其他宿主包括Node 组成部分：语法 &#x2F; 类型 &#x2F; 语句 &#x2F; 关键字 &#x2F; 保留字 &#x2F; 操作符 &#x2F; 对象    DOM(Domcument Object Mod">
 <meta property="og:locale">
 <meta property="article:published_time" content="2024-04-01T04:08:38.000Z">
-<meta property="article:modified_time" content="2024-06-07T06:30:33.080Z">
+<meta property="article:modified_time" content="2024-06-09T14:26:10.719Z">
 <meta property="article:author" content="karen">
 <meta property="article:tag" content="复习">
 <meta name="twitter:card" content="summary">
@@ -739,7 +739,7 @@
 </li>
 </ul>
 <hr>
-<h3 id="原型"><a href="#原型" class="headerlink" title="原型"></a>原型</h3><p><strong>用于实现对象的属性继承，行为重用</strong><br><strong>通过复制已存在的原型对象来实现，但这里的肤质并不是真实的复制，而是使新对象持有一个原型的引用</strong><br>简单来说有两点：</p>
+<h3 id="原型"><a href="#原型" class="headerlink" title="原型"></a>原型</h3><p><strong>用于实现对象的属性继承，行为重用</strong><br><strong>通过复制已存在的原型对象来实现，但这里的复制并不是真实的复制，而是使新对象持有一个原型的引用</strong><br>简单来说有两点：</p>
 <ol>
 <li>每个对象有私有字段prototype，即对象原型</li>
 <li>读取属性时，如果对象本身没有，就向上查找原型直到找到为止<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Person</span>(<span class="params"></span>)</span>&#123;&#125; <span class="comment">// 构造函数</span></span><br><span class="line">Person.prototype.name = <span class="string">&#x27;aaa&#x27;</span> <span class="comment">// 原型</span></span><br><span class="line"><span class="keyword">let</span> p1 = <span class="keyword">new</span> Person() <span class="comment">// 对象实例</span></span><br></pre></td></tr></table></figure></li>
@@ -776,7 +776,8 @@
 </ul>
 <figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// object.create 兼容写法</span></span><br><span class="line"><span class="keyword">var</span> objectCreate = <span class="function"><span class="keyword">function</span> (<span class="params">arg</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (!arg) &#123; <span class="keyword">return</span> &#123;&#125; &#125;</span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">obj</span> (<span class="params"></span>) </span>&#123;&#125;</span><br><span class="line">    obj.prototype = arg</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> obj</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">Object</span>.create = <span class="built_in">Object</span>.create || objectCreate</span><br></pre></td></tr></table></figure>
 <blockquote>
-<h2 id="继承"><a href="#继承" class="headerlink" title="继承"></a>继承</h2></blockquote>
+<h2 id="继承"><a href="#继承" class="headerlink" title="继承"></a>继承</h2><p>继承是一个对象获得另一个对象的属性和方法的能力，JS中继承通过原型链实现。</p>
+</blockquote>
 <h3 id="原型链"><a href="#原型链" class="headerlink" title="原型链"></a>原型链</h3><p>由原型对象组成，每个对象都有__proto__属性，指向创建该对象的构造函数的原型，将对象连接组成原型链。<br>是一个用来<u>实现继承</u>和<u>属性共享</u>的对象链<br>通过原型链继承原型上的属性或方法</p>
 <ul>
 <li>__proto__是<strong>某个实例对象</strong>的(非标准)属性，prototype则是属于<strong>构造器函数</strong>的属性</li>
@@ -1013,28 +1014,48 @@
 <hr>
 <blockquote>
 <h2 id="ES6-ES7-新特性"><a href="#ES6-ES7-新特性" class="headerlink" title="ES6 ES7 新特性"></a>ES6 ES7 新特性</h2></blockquote>
-<ul>
-<li>ES6<ul>
+<h3 id="ES6"><a href="#ES6" class="headerlink" title="ES6"></a>ES6</h3><ul>
 <li><strong>类class</strong> <ul>
 <li>静态方法使用staic关键字修饰，该方法不会被实例继承，而是直接通过类调用</li>
 <li>如果在实例上调用静态方法，会抛出错误，表示不存在该方法</li>
 <li>父类静态方法可以被子类继承</li>
-<li>修饰器只能用于类和类的方法，不能用于函数（存在函数提升）</li>
+<li>修饰器@只能用于类和类的方法，不能用于函数（存在函数提升）</li>
 </ul>
 </li>
 <li><strong>数据结构：Set、Map、WeakSet、WeakMap</strong><ul>
-<li>Set集合，类似于数组，以[值，值]的形式存储元素，且成员的值是唯一的。本身是一个构造函数，用来生成Set数据结构</li>
-<li>WeakSet与Set相似，但成员只能是对象且都是弱引用，即其他对象不再引用该对象时，垃圾回收机制就会自动回收该对象。还是不可遍历的（弱引用是指不能确保其引用的对象不会被垃圾回收器回收的引用，换句话说就是可能在任意时间被回收）</li>
-<li>Map，类似于对象，以[键，值]的形式存储元素。但键名的范围不限于字符串或Symbol，可以是各种类型。可以在键值类型丰富的情况下使用<ul>
-<li>如果键是简单类型的值，只要值严格相等，包括+0、-0都会视为是一个键</li>
+<li>Set集合，类似于数组，以[值，值]的形式存储元素，且成员的值是唯一的不重复<ul>
+<li>本身是一个构造函数，用来生成Set数据结构</li>
+<li>操作方法：add(value) has(value) delete(value) clear()</li>
+<li>遍历方法：keys() values() entries() forEach()</li>
+<li>添加值时不会发生类型转换，因此1和’1’是不同的值（精确相等===）</li>
+<li>Array.from(set)将Set结构转为数组（也可以用于数组去重）</li>
 </ul>
 </li>
-<li>WeakMap与Map相似，但键名只接受对象。也是弱引用，没有遍历方法</li>
+<li>WeakSet与Set相似，但成员只能是<u>对象或数组</u>且都是弱引用且不可遍历<ul>
+<li>其他对象不再引用该对象时，垃圾回收机制就会自动回收该对象。</li>
+<li>（弱引用是指不能确保其引用的对象不会被垃圾回收器回收的引用，换句话说就是可能在任意时间被回收）因此获取不到size属性</li>
+<li>一个用处是存储DOM节点，不用担心引用未及时接触而造成内存泄漏</li>
+</ul>
+</li>
+<li>Map，类似于对象，以[键，值]的形式存储元素<ul>
+<li>键名的范围不限于字符串或Symbol，可以是各种类型。可以在键值类型丰富的情况下使用</li>
+<li>如果键是简单类型的值，只要值严格相等，包括+0、-0都会视为是一个键</li>
+<li>对同一个值多次赋值，后面的将覆盖前面的值</li>
+<li>操作方法：get(key) set(key,value) has(key) delete(key) clear()</li>
+<li>遍历方法：keys() values() entries() forEach()</li>
+<li>可使用扩展运算符…快速转为数组</li>
+</ul>
+</li>
+<li>WeakMap与Map相似，但键名只接受对象。<ul>
+<li>也是弱引用，没有遍历方法和size属性</li>
+<li>get() set() has() delete() 无法清空，不支持clear()</li>
+</ul>
+</li>
 </ul>
 </li>
 <li><strong>Reflect，与Proxy对象一样，为操作对象而提供的API</strong><ul>
 <li>将Object上一些明显属于语言层面的方法放到Reflect上</li>
-<li>修改某些Object的防护返回结果，使其更合理。如Object.defineProperty(obj,prop,desc)在无法定义属性时会抛出错误，而Reflect.defineProperty…则会返回false</li>
+<li>修改某些Object方法的返回结果，使其更合理。如Object.defineProperty(obj,prop,desc)在无法定义属性时会抛出错误，而Reflect.defineProperty…则会返回false</li>
 <li>Obejct操作从命令变为函数行为，如 in,delete 在 Reflect 中用 has, deleteProperty</li>
 <li>方法与Proxy对象 方法一一对应，可以方便地调用对应的Reflect方法完成默认行为</li>
 </ul>
@@ -1042,7 +1063,7 @@
 <li><strong>Promise，是一个对象，用来传递异步操作的消息</strong><ul>
 <li>3种状态：Pending Resolved Rejected</li>
 <li>从Pending变为Resolved 或 Rejected，一旦发生状态就凝固不会再变</li>
-<li>可以将异步操作以同步操作流程表达，避免层层嵌套的回调函数（链式调用）</li>
+<li>可以将异步操作以同步操作流程表达，避免层层嵌套的回调函数（链式调用，代码更简洁）</li>
 <li>缺点：无法中途取消Promise；不设置回调函数那么内部错误不会被反应到外部；Pending状态时无法得知目前在哪个阶段</li>
 <li><strong>stream模式</strong><ul>
 <li>连续的数据流：如果你需要处理大量的数据流，例如从文件、网络或其他来源读取连续的数据块，并进行实时处理，那么使用 Stream 模式可能更合适。Stream 提供了一种高效处理大数据的方式，可以分块读取和处理数据，减少内存占用和提高性能。</li>
@@ -1065,8 +1086,6 @@
 <li>调用next()方法来恢复执行，返回一个对象{value, done}<ul>
 <li>当调用了该方法后，内部指针指向该语句时才会执行，类似手动地去 惰性求值</li>
 <li>可以带参数</li>
-</ul>
-</li>
 </ul>
 </li>
 </ul>
@@ -1154,7 +1173,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://karencxx.github.io/2024/04/01/JSNote/" data-id="clx4kidlh0009stfubq2wgqom" class="article-share-link">Share</a>
+      <a data-url="http://karencxx.github.io/2024/04/01/JSNote/" data-id="clx8v6ivp001bagfu75cbcg1c" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%A4%8D%E4%B9%A0/" rel="tag">复习</a></li></ul>
@@ -1222,7 +1241,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/05/">May 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/04/">April 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/03/">March 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/02/">February 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/01/">January 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/11/">November 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">January 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">December 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/11/">November 2017</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/06/">June 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/05/">May 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/04/">April 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/03/">March 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/02/">February 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/01/">January 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/11/">November 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">January 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">December 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/11/">November 2017</a></li></ul>
     </div>
   </div>
 
@@ -1233,6 +1252,10 @@
     <h3 class="widget-title">Recent Posts</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2024/06/07/%E9%A2%98%E7%9B%AE/">(no title)</a>
+          </li>
         
           <li>
             <a href="/2024/05/31/%E6%89%8B%E5%86%99code/">手写code</a>
@@ -1248,10 +1271,6 @@
         
           <li>
             <a href="/2024/04/08/CSSNote/">CSSNote</a>
-          </li>
-        
-          <li>
-            <a href="/2024/04/07/JS%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/">JavaScript 内存与性能</a>
           </li>
         
       </ul>

@@ -66,6 +66,212 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-js运行机制" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2021/03/01/js%E8%BF%90%E8%A1%8C%E6%9C%BA%E5%88%B6/" class="article-date">
+  <time datetime="2021-03-01T03:22:01.000Z" itemprop="datePublished">2021-03-01</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/JS/">JS</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/03/01/js%E8%BF%90%E8%A1%8C%E6%9C%BA%E5%88%B6/">js运行机制</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>看到这个问题，首先想到了什么？单线程？任务队列？</p>
+<!-- CPU、线程与进程 -->
+
+<blockquote>
+<h3 id="进程"><a href="#进程" class="headerlink" title="进程"></a>进程</h3></blockquote>
+<p><strong>CPU资源分配</strong>的最小单位，可<strong>独立运行</strong>且拥有自己的资源空间的一个任务程序，包括运行中的程序和程序所使用到的内存和系统资源</p>
+<ul>
+<li><p>进程之间相互独立</p>
+<ul>
+<li>但同一进程下各个线程共享程序的内存空间(包括代码段、数据集、堆等)及进程级的资源(如打开文件和信号)</li>
+</ul>
+</li>
+<li><p>多进程的好处是可以同时干不同的事情，且不受干扰</p>
+</li>
+<li><p>如果进程间需要通信，可以通过<strong>IPC</strong>(进程间通信)来实现</p>
+</li>
+</ul>
+<blockquote>
+<h3 id="线程"><a href="#线程" class="headerlink" title="线程"></a>线程</h3></blockquote>
+<p><strong>CPU调度</strong>的最小单位，即程序执行的最小单位。</p>
+<ul>
+<li>建立在进程基础上的一次程序运行单位，即可以理解为程序中的一个执行流，<strong>一个进程可以有多个线程</strong></li>
+</ul>
+<blockquote>
+<h4 id="单线程，就是一个进程中只有一个执行流。反之有多个就叫多线程，允许单个程序创建多个并行执行的线程来完成各自的任务"><a href="#单线程，就是一个进程中只有一个执行流。反之有多个就叫多线程，允许单个程序创建多个并行执行的线程来完成各自的任务" class="headerlink" title="单线程，就是一个进程中只有一个执行流。反之有多个就叫多线程，允许单个程序创建多个并行执行的线程来完成各自的任务"></a>单线程，就是一个进程中只有一个执行流。反之有多个就叫多线程，允许单个程序创建多个<u>并行执行</u>的线程来完成各自的任务</h4></blockquote>
+<p><u>CPU可以有很多进程，但资源是固定的，进程越多，CPU分出去的资源越多，越卡。</u><br>在运行一个进程时，其他进程处于非运行状态，使用<u>时间片轮转调度</u>算法</p>
+<p><strong>线程上下文切换比进程上下文切换要快得多</strong></p>
+<blockquote>
+<h2 id="JS为何是单线程"><a href="#JS为何是单线程" class="headerlink" title="JS为何是单线程"></a>JS为何是单线程</h2></blockquote>
+<p>主要与用途有关: js用途主要是<u>与用户互动及操作DOM</u>，如果不是单线程会带来复杂的同步问题</p>
+<blockquote>
+<p>web worker</p>
+</blockquote>
+<ul>
+<li>JS的异步特性本质上还是绑定在一个单事件循环线程上。</li>
+<li>HTML5 提出Web Worker标准，允许js脚本创建多个线程，但子线程完全受主线程控制，不得操作DOM</li>
+<li>可以在独立的线程运行一个JavaScript文件(即程序)，使用<strong>异步事件</strong>在线程之间传递消息。</li>
+</ul>
+<blockquote>
+<p>浏览器多线程</p>
+</blockquote>
+<ul>
+<li>Browser进程<ul>
+<li>浏览器的主进程(负责协调、主控)，该进程只有一个</li>
+<li>负责浏览器界面显示，与用户交互。如前进，后退等</li>
+<li>负责各个页面的管理，创建和销毁其他进程</li>
+<li>将渲染(Renderer)进程得到的内存中的Bitmap(位图)，绘制到用户界面上</li>
+<li>网络资源的管理，下载等</li>
+</ul>
+</li>
+<li>第三方插件进程<ul>
+<li>每种类型的插件对应一个进程，当使用该插件时才创建</li>
+</ul>
+</li>
+<li>GPU进程<ul>
+<li>该进程也只有一个，用于3D绘制等等</li>
+</ul>
+</li>
+<li>渲染进程（<strong>重点</strong>）<ul>
+<li>即通常所说的浏览器内核(Renderer进程，内部是多线程)</li>
+<li>每个Tab页面都有一个渲染进程，互不影响</li>
+<li>主要作用为页面渲染，脚本执行，事件处理等</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>浏览器如果为单进程，那么任何一个tab崩溃或者插件奔溃就会影响到整个浏览器，这样的体验是很大的</li>
+<li>但浏览器进程很多，每个进程又有很多线程，都会占用内存。这意味着内存等资源消耗会很大，有点类似空间换时间的意思</li>
+</ul>
+<blockquote>
+<p>Renderer进程</p>
+</blockquote>
+<h4 id="一些主要线程"><a href="#一些主要线程" class="headerlink" title="一些主要线程"></a>一些主要线程</h4><ul>
+<li><p>GUI渲染线程</p>
+<ul>
+<li>解析HTML、CSS、构建DOM树和RenderObject树，布局和绘制等<ul>
+<li>解析html代码（本质是字符串）转化为浏览器的节点，生成DOM Tree</li>
+<li>解析css，生成CSSOM（css规则树）</li>
+<li>DOM Tree和 CSSOM 结合，生成Rendering Tree</li>
+</ul>
+</li>
+<li>重绘 Repaint</li>
+<li>回流 Reflow</li>
+<li>Repaint和Reflow时GUI线程执行</li>
+<li>Reflow 比 Repaint 成本要高，尽量避免这两者</li>
+</ul>
+</li>
+<li><p>JS引擎线程</p>
+<ul>
+<li>是JS内核，负责处理JS脚本程序，例如V8</li>
+<li>解析JS脚本，运行代码</li>
+<li>一直等任务队列中的任务然后开始处理   <ul>
+<li>浏览器同时只能有一个JS引擎运行JS程序，所以JS单线程运行</li>
+<li>一个Tab页无论何时只有一个JS线程</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>事件触发线程</p>
+<ul>
+<li>属于浏览器而不是JS引擎，用来控制时间循环，管理一个事件队列 task queue</li>
+<li>只关心异步回调</li>
+</ul>
+</li>
+<li><p>定时触发器线程</p>
+<ul>
+<li>setTimeout、setInterval所在线程</li>
+<li>由于JS引擎单线程，如果处于阻塞线程状态就会影响计时的准确，所以并不由JS引擎计数</li>
+<li>通过单独线程来计时并触发定时，计时完毕后，添加到事件触发线程的task queue中，等待JS引擎空闲后执行</li>
+<li>W3C在HTML标准中规定，要求setTimeout中低于4ms的时间间隔算为4ms</li>
+<li>只管理定时器不关心结果，结果在事件触发线程中</li>
+</ul>
+</li>
+<li><p>异步http请求线程</p>
+<ul>
+<li>XMLHttpRequest 在连接后通过浏览器新开一个线程请求</li>
+<li>简单地说，就是当执行到一个异步请求，就将异步请求事件添加到异步请求线程，等待http状态变化，再将回调函数添加到task queue中，等待JS引擎执行</li>
+</ul>
+</li>
+</ul>
+<p><u> GUI渲染线程和JS引擎线程是互斥的 </u><br><u> JS引擎会阻塞GUI渲染引擎，此时GUI线程会被挂起，可以认为被冻结了 </u></p>
+<ul>
+<li>也就是JS执行时间过长就会导致页面渲染加载阻塞，加载慢</li>
+<li>例如浏览器渲染的时候遇到script标签，就会停止GUI的渲染，然后js引擎线程开始执行js代码，等js执行完毕，<br>  js引擎线程停止工作，GUI继续渲染。所以如果js执行时间太长就会造成页面卡顿的情况</li>
+<li>GUI更新会被保存在一个队列中等到JS引擎空闲时立即被执行</li>
+</ul>
+<p>那么，上面都提到了一个共同点<br>来看看这个到底是什么？</p>
+<blockquote>
+<p>事件循环</p>
+</blockquote>
+<p>JS 有 <u>同步任务</u> 和 <u>异步任务</u><br><strong>同步任务在主线程上执行，形成一个执行栈</strong></p>
+<p>上面说到，事件触发线程管理一个事件队列 task queue<br>只要异步任务有运行结果，就在任务队列中放一个<u>事件回调</u></p>
+<p>一旦执行栈中的所有<u>同步任务</u>执行完毕<br>即JS引擎线程空闲下来了，系统就会读取任务队列<br>将可运行的异步任务添加到执行栈中</p>
+<p><img src="/img/js-1.png" alt="图1"></p>
+<blockquote>
+<p>宏任务 微任务</p>
+</blockquote>
+<p>宏任务：macrotask 也被称为 <u>task</u></p>
+<p>浏览器为了使 宏任务 和 DOM任务 有序地进行，通常是下面的顺序<br>宏任务 -&gt; GUI渲染 -&gt; 宏任务</p>
+<p>常见的宏任务</p>
+<ul>
+<li>主代码块</li>
+<li>setTimeout</li>
+<li>setInterval</li>
+<li>setImmediate() -&gt; Node</li>
+<li>requestAnimationFrame() -&gt; 浏览器</li>
+</ul>
+<p>微任务：microtask<br>ES6新引入了Promise标准，同时浏览器实现上多了一个微任务概念<br>在ECMAScript中，microtask 也被称为 <u>jobs</u><br>可以看作是宏任务执行后立即执行的任务</p>
+<p>常见微任务</p>
+<ul>
+<li>process.nextTick() - Node</li>
+<li>Promise.then()</li>
+<li>catch</li>
+<li>finally</li>
+<li>Object.observe</li>
+<li>MutationObserver</li>
+</ul>
+<p><strong>当一个宏任务执行完，会在渲染前，将执行期间所产生的所有微任务都执行完</strong><br>是这样的执行顺序<br>宏任务 -&gt; 微任务 -&gt; GUI渲染 -&gt; 宏任务 </p>
+<blockquote>
+<p>new Promise(() =&gt; {}).then()</p>
+</blockquote>
+<p>new Promise(() =&gt; {}) 这部分是一个构造函数，是一个同步任务<br>.then() 是 <strong>异步微任务</strong></p>
+<blockquote>
+<p>async/await<br>是基于Promise的语法糖，基于Promise的封装<br>async用于声明一个异步函数，await用于等待异步操作完成</p>
+</blockquote>
+<p>总结来自：<a target="_blank" rel="noopener" href="https://juejin.cn/post/6844904050543034376#heading-28">https://juejin.cn/post/6844904050543034376#heading-28</a><br>动画演示：<a target="_blank" rel="noopener" href="https://jakearchibald.com/2015/tasks-microtasks-queues-and-schedules/?utm_source=html5weekly">https://jakearchibald.com/2015/tasks-microtasks-queues-and-schedules/?utm_source=html5weekly</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://karencxx.github.io/2021/03/01/js%E8%BF%90%E8%A1%8C%E6%9C%BA%E5%88%B6/" data-id="clx8v6ivg000oagfu862y9peg" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-chrome-devTools的武功秘笈" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2021/02/25/chrome-devTools%E7%9A%84%E6%AD%A6%E5%8A%9F%E7%A7%98%E7%AC%88/" class="article-date">
@@ -124,7 +330,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://karencxx.github.io/2021/02/25/chrome-devTools%E7%9A%84%E6%AD%A6%E5%8A%9F%E7%A7%98%E7%AC%88/" data-id="clx4kidm0000istfu22pme9vr" class="article-share-link">Share</a>
+      <a data-url="http://karencxx.github.io/2021/02/25/chrome-devTools%E7%9A%84%E6%AD%A6%E5%8A%9F%E7%A7%98%E7%AC%88/" data-id="clx8v6iva000bagfudfg01o1x" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%BC%80%E5%8F%91%E6%8A%80%E5%B7%A7/" rel="tag">开发技巧</a></li></ul>
@@ -263,7 +469,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://karencxx.github.io/2021/02/24/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%E6%80%BB%E7%BB%93/" data-id="clx4kidme001hstfu8pxy7hsy" class="article-share-link">Share</a>
+      <a data-url="http://karencxx.github.io/2021/02/24/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%E6%80%BB%E7%BB%93/" data-id="clx8v6ivx001vagfu4eob6oc8" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/" rel="tag">性能优化</a></li></ul>
@@ -310,7 +516,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://karencxx.github.io/2021/02/19/vue-%E5%90%84%E7%A7%8D%E5%BD%A2%E5%BC%8F%E7%9A%84%E7%BB%84%E4%BB%B6/" data-id="clx4kidm90013stfu661l6rf5" class="article-share-link">Share</a>
+      <a data-url="http://karencxx.github.io/2021/02/19/vue-%E5%90%84%E7%A7%8D%E5%BD%A2%E5%BC%8F%E7%9A%84%E7%BB%84%E4%BB%B6/" data-id="clx8v6ivj000vagfu20949s1l" class="article-share-link">Share</a>
       
       
     </footer>
@@ -354,7 +560,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://karencxx.github.io/2021/02/01/%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%BC%80%E5%8F%91%E6%8A%80%E5%B7%A7/" data-id="clx4kidmj001rstfuaez6dja9" class="article-share-link">Share</a>
+      <a data-url="http://karencxx.github.io/2021/02/01/%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%BC%80%E5%8F%91%E6%8A%80%E5%B7%A7/" data-id="clx8v6ivs001lagfufa1v230p" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%BC%80%E5%8F%91%E6%8A%80%E5%B7%A7/" rel="tag">开发技巧</a></li></ul>
@@ -393,7 +599,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://karencxx.github.io/2021/01/29/%E8%B0%88%E8%B0%88%E8%BF%99%E6%AC%A1%E9%A2%86%E5%85%BB%E5%90%8E%E7%9A%84%E6%84%9F%E5%8F%97/" data-id="clx4kidml001zstfu9dv30bm7" class="article-share-link">Share</a>
+      <a data-url="http://karencxx.github.io/2021/01/29/%E8%B0%88%E8%B0%88%E8%BF%99%E6%AC%A1%E9%A2%86%E5%85%BB%E5%90%8E%E7%9A%84%E6%84%9F%E5%8F%97/" data-id="clx8v6ivw001sagfu837hgcla" class="article-share-link">Share</a>
       
       
     </footer>
@@ -505,7 +711,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://karencxx.github.io/2021/01/21/%E8%BF%9F%E5%88%B0%E7%9A%84vue-source-code-%E8%AE%B0%E5%BD%95/" data-id="clx4kidmo0025stfuf97k9a7k" class="article-share-link">Share</a>
+      <a data-url="http://karencxx.github.io/2021/01/21/%E8%BF%9F%E5%88%B0%E7%9A%84vue-source-code-%E8%AE%B0%E5%BD%95/" data-id="clx8v6ivy0020agfud4zl41ih" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/source-code/" rel="tag">source code</a></li></ul>
@@ -570,7 +776,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://karencxx.github.io/2021/01/19/%E9%A1%B9%E7%9B%AE%E6%9E%84%E5%BB%BA%E9%83%A8%E7%BD%B2%E4%BA%8C%E4%B8%89%E4%BA%8B/" data-id="clx4kidmr002cstfudvind3y1" class="article-share-link">Share</a>
+      <a data-url="http://karencxx.github.io/2021/01/19/%E9%A1%B9%E7%9B%AE%E6%9E%84%E5%BB%BA%E9%83%A8%E7%BD%B2%E4%BA%8C%E4%B8%89%E4%BA%8B/" data-id="clx8v6ivz0022agfuev1b6cj9" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E9%83%A8%E7%BD%B2/" rel="tag">部署</a></li></ul>
@@ -674,7 +880,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://karencxx.github.io/2021/01/11/%E7%90%86%E8%A7%A3js%E4%B8%AD%E7%9A%84this/" data-id="clx4kidmh001ostfu4d457gpr" class="article-share-link">Share</a>
+      <a data-url="http://karencxx.github.io/2021/01/11/%E7%90%86%E8%A7%A3js%E4%B8%AD%E7%9A%84this/" data-id="clx8v6ivy001xagfu00st64uo" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js-this/" rel="tag">js-this</a></li></ul>
@@ -742,181 +948,11 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://karencxx.github.io/2021/01/07/%E8%B0%88%E8%B0%88%E5%9C%A8%E4%BD%BF%E7%94%A8v-for%E6%97%B6key%E7%9A%84%E4%BD%9C%E7%94%A8/" data-id="clx4kidmk001vstfufn5eb2x2" class="article-share-link">Share</a>
+      <a data-url="http://karencxx.github.io/2021/01/07/%E8%B0%88%E8%B0%88%E5%9C%A8%E4%BD%BF%E7%94%A8v-for%E6%97%B6key%E7%9A%84%E4%BD%9C%E7%94%A8/" data-id="clx8v6ivv001oagfufclf0hbh" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/v-for/" rel="tag">v-for</a></li></ul>
 
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="what-跨域" class="article article-type-what" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2021/01/05/%E8%B7%A8%E5%9F%9F/" class="article-date">
-  <time datetime="2021-01-05T06:03:25.000Z" itemprop="datePublished">2021-01-05</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/BOM/">BOM</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/01/05/%E8%B7%A8%E5%9F%9F/">跨域</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p><strong>跨域</strong>是浏览器基于<strong>同源策略</strong>的一种安全手段，是浏览器出于安全性做的限制</p>
-<blockquote>
-<p><strong>同源策略</strong>( Sameoriginpolicy )   </p>
-</blockquote>
-<ul>
-<li>是一种约定，是浏览器最核心也最基本的安全功能</li>
-<li>用于隔离潜在恶意文件的安全机制，通常不允许不同源之间的读操作</li>
-</ul>
-<blockquote>
-<p><strong>同源</strong></p>
-</blockquote>
-<ul>
-<li>协议相同 protocol</li>
-<li>主机相同 host</li>
-<li>端口相同 port</li>
-</ul>
-<blockquote>
-<p><a target="_blank" rel="noopener" href="http://www.xxx.com/">www.xxx.com</a> 中 www是顶级域名，xxx.com是二级域名（主域名）<br>aaa.xxx.com 中 aaa则是分域名（子域）</p>
-</blockquote>
-<table>
-<thead>
-<tr>
-<th>url-1 url-2</th>
-<th>允许通信</th>
-<th>说明</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>http:<a target="_blank" rel="noopener" href="http://www.example.com/a.js">www.example.com/a.js</a> http:<a target="_blank" rel="noopener" href="http://www.example.com/lab/b.js">www.example.com/lab/b.js</a></td>
-<td>✅</td>
-<td>同一域名，不同文件路径</td>
-</tr>
-<tr>
-<td>http:<a target="_blank" rel="noopener" href="http://www.example.com:8080/a.js">www.example.com:8080/a.js</a> http:<a target="_blank" rel="noopener" href="http://www.example.com/c.js">www.example.com/c.js</a></td>
-<td>❎</td>
-<td>同一域名，不同端口</td>
-</tr>
-<tr>
-<td><a target="_blank" rel="noopener" href="http://www.example.com/a.js">http://www.example.com/a.js</a> <a target="_blank" rel="noopener" href="https://www.example.com/c.js">https://www.example.com/c.js</a></td>
-<td>❎</td>
-<td>同一域名，不同协议</td>
-</tr>
-<tr>
-<td><a target="_blank" rel="noopener" href="http://www.example.com/a.js">http://www.example.com/a.js</a> <a target="_blank" rel="noopener" href="https://192.169.2xx.2x/b.js">https://192.169.2xx.2x/b.js</a></td>
-<td>❎</td>
-<td>域名和域名对应相同的ip</td>
-</tr>
-<tr>
-<td><a target="_blank" rel="noopener" href="http://www.example.com/a.js">http://www.example.com/a.js</a> <a target="_blank" rel="noopener" href="http://www.demo.com/c.js">http://www.demo.com/c.js</a></td>
-<td>❎</td>
-<td>主域不同</td>
-</tr>
-<tr>
-<td><a target="_blank" rel="noopener" href="http://www.example.com/a.js">http://www.example.com/a.js</a> <a target="_blank" rel="noopener" href="http://x.example.com/c.js">http://x.example.com/c.js</a></td>
-<td>❎</td>
-<td>子域不同</td>
-</tr>
-</tbody></table>
-<blockquote>
-<p><strong>当没有这个限制时，可能你会碰到</strong></p>
-</blockquote>
-<ul>
-<li>Cookie劫持，被恶意网站窃取数据</li>
-<li>更易受到XSS、CSRF攻击</li>
-<li>无法隔离潜在恶意文件</li>
-</ul>
-<p><strong>也就是说，非同源的请求就会产生跨域</strong></p>
-<blockquote>
-<p><strong>解决方法</strong></p>
-</blockquote>
-<ul>
-<li>JSONP</li>
-<li>document.domain + iframe</li>
-<li>window.name + iframe</li>
-<li>location.hash + iframe</li>
-<li>postMessage</li>
-<li>CORS</li>
-<li>Nginx代理</li>
-<li>nodejs中间件代理</li>
-<li>webSocket协议</li>
-</ul>
-<blockquote>
-<p><strong>JSONP（JSON with Padding）</strong></p>
-</blockquote>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> *  只支持GET请求 </span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">jsonp</span>(<span class="params">url, callback, success</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">const</span> script = <span class="built_in">document</span>.createElement(<span class="string">&#x27;script&#x27;</span>);</span><br><span class="line">    script.url = url;</span><br><span class="line">    script.async = <span class="literal">true</span>;</span><br><span class="line">    script.type = <span class="string">&#x27;text/javascript&#x27;</span>;</span><br><span class="line">    <span class="built_in">window</span>[callback] = <span class="function"><span class="keyword">function</span> (<span class="params">data</span>) </span>&#123;</span><br><span class="line">        success &amp;&amp; success(data);</span><br><span class="line">    &#125;;</span><br><span class="line">    <span class="built_in">document</span>.body.appendChild(script);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<p>最终效果</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;script src&#x3D;&#39;https:&#x2F;&#x2F;xxx.xxx.xx?key&#x3D;xxx&amp;callback&#x3D;xxx&#39;&gt;&lt;script&gt;</span><br></pre></td></tr></table></figure>
-<p>优点：兼容性好，可兼容老式浏览器<br>缺点：需要服务端支持且只支持GET请求</p>
-<blockquote>
-<p><strong>CORS</strong>跨域资源共享（Cross-origin Resource Sharing）是一个系统</p>
-</blockquote>
-<p><strong>在vue项目中，一般关注 CORS / proxy</strong></p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">由一系列传输的HTTP头组成</span><br><span class="line">&#x3D;&gt;(HTTP HEADERS)</span><br><span class="line"></span><br><span class="line">！服务端需打开这个限制 ！</span><br><span class="line">Access-Control-Allow-Origin: * | &lt;origin&gt; 指定一个可访问资源的URI</span><br></pre></td></tr></table></figure>
-<p>如果服务端未使用*, 而是指定了一个域，那么为了向客户端表明服务器的返回会根据Origin请求头而有不同, 即对不同源返回不同的内容<br>必须在<strong>Vary</strong>响应头中包含Origin</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Access-Control-Allow-Origin: &lt;origin&gt;</span><br><span class="line">Vary: Origin</span><br></pre></td></tr></table></figure>
-<p><strong>Simple requests（简单请求，不触发CORS预检）</strong></p>
-<p>使用方法： GET / HEAD / POST<br>Content-type值的限制</p>
-<ul>
-<li>text/plain</li>
-<li>multipart/form-data</li>
-<li>application/x-www-form-urlencoded</li>
-</ul>
-<p><strong>Preflighted requests（预检请求）</strong></p>
-<p>基于<strong>OPTIONS</strong>方法进行过滤，发起一个预检请求到服务器，以获知是否允许该实际请求<br>作用：避免跨域请求对服务器的用户数据产生未预期的影响</p>
-<p>OPTIONS请求通过<strong>Access-Control-Request-Method</strong>告知实际请求使用的方法<br>服务端返回响应<strong>Access-Control-Allow-Methods</strong>表示允许客户端使用的方法发起请求</p>
-<p><strong>实现CORS的关键是服务器</strong></p>
-<p>优点：支持所有请求方法<br>缺点：兼容性比JSONP差</p>
-<blockquote>
-<p><strong>网络代理</strong></p>
-</blockquote>
-<p>运行一个通过这个服务与另一个网络终端进行非直接的连接</p>
-<ol>
-<li><p>如果是通过vue-cli搭建工具，可通过<strong>webpack</strong>起一个本地服务器作为请求代理对象<br>但上线时web应用和接口服务器不在一起，还是会跨域</p>
-</li>
-<li><p>服务器实现代理请求转发，以<strong>express</strong>框架为例</p>
-</li>
-<li><p>通过配置<strong>nginx</strong>实现代理</p>
-</li>
-</ol>
-<p>nginx是一个HTTP Server<br>反向代理原理简单概括为:<br><img src="/img/same-site-1.png" alt="图1"></p>
-<p>也可以使用node中间件做代理</p>
-<p>node中间件和Nginx反向代理都利用了服务器对服务器无同源策略限制</p>
-<blockquote>
-<p><strong>PostMessage</strong></p>
-</blockquote>
-<p>是HTML5 XMLHttpRequest Level 2中的API<br>可以实现跨文档通信<br>可与Websocket、Service Work进行通信</p>
-<blockquote>
-<p><strong>Websocket</strong></p>
-</blockquote>
-<p>是HTML5的一个持久化协议<br>实现了浏览器与服务器双向通信<br>是一个长连接，在一个页面建立多个Websocket连接 有可能会导致性能问题</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://karencxx.github.io/2021/01/05/%E8%B7%A8%E5%9F%9F/" data-id="clx4kidmn0022stfu7unj6oyw" class="article-share-link">Share</a>
-      
-      
     </footer>
   </div>
   
@@ -966,7 +1002,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/05/">May 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/04/">April 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/03/">March 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/02/">February 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/01/">January 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/11/">November 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">January 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">December 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/11/">November 2017</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/06/">June 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/05/">May 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/04/">April 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/03/">March 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/02/">February 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/01/">January 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/11/">November 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">January 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">December 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/11/">November 2017</a></li></ul>
     </div>
   </div>
 
@@ -977,6 +1013,10 @@
     <h3 class="widget-title">Recent Posts</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2024/06/07/%E9%A2%98%E7%9B%AE/">(no title)</a>
+          </li>
         
           <li>
             <a href="/2024/05/31/%E6%89%8B%E5%86%99code/">手写code</a>
@@ -992,10 +1032,6 @@
         
           <li>
             <a href="/2024/04/08/CSSNote/">CSSNote</a>
-          </li>
-        
-          <li>
-            <a href="/2024/04/07/JS%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/">JavaScript 内存与性能</a>
           </li>
         
       </ul>
