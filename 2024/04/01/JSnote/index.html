@@ -13,7 +13,7 @@
 <meta property="og:description" content="开始前，可以先看以下几篇  理解js中的this    JS，专为与网页交互而设计的脚本语言 诞生于1995年，由三部分组成：  ECMAScript：核心语言，由ECMA-262定义 与web浏览器无依赖关系，web浏览器只是宿主环境之一，其他宿主包括Node 组成部分：语法 &#x2F; 类型 &#x2F; 语句 &#x2F; 关键字 &#x2F; 保留字 &#x2F; 操作符 &#x2F; 对象    DOM(Domcument Object Mod">
 <meta property="og:locale">
 <meta property="article:published_time" content="2024-04-01T04:08:38.000Z">
-<meta property="article:modified_time" content="2024-06-09T14:26:10.719Z">
+<meta property="article:modified_time" content="2024-07-26T08:55:31.755Z">
 <meta property="article:author" content="karen">
 <meta property="article:tag" content="复习">
 <meta name="twitter:card" content="summary">
@@ -113,7 +113,7 @@
 <hr>
 <blockquote>
 <h2 id="script"><a href="#script" class="headerlink" title="script"></a>script</h2></blockquote>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">&lt;script  </span><br><span class="line">	src: 立即下载脚本，只对外部脚本文件有效</span><br><span class="line">	charset: 指定的代码的字符集</span><br><span class="line">	defer: 异步加载，可延迟到文档完全被解析和显示后再执行，只对外部脚本文件有效</span><br><span class="line">	type: 替代language,text/javascript  </span><br><span class="line">	<span class="keyword">async</span>: 异步加载，与元素渲染并行执行，立即下载脚本</span><br><span class="line">	language(已废弃)</span><br><span class="line">&gt;&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">&lt;script  </span><br><span class="line">	src: 立即下载脚本，只对外部脚本文件有效</span><br><span class="line">	charset: 指定的代码的字符集</span><br><span class="line">	defer: 同步加载，可延迟到文档完全被解析和显示后再执行，只对外部脚本文件有效</span><br><span class="line">	type: 替代language,text/javascript  </span><br><span class="line">	<span class="keyword">async</span>: 异步加载，与元素渲染并行执行，立即下载脚本</span><br><span class="line">	language(已废弃)</span><br><span class="line">&gt;&lt;/script&gt;</span><br></pre></td></tr></table></figure>
 <ul>
 <li>页面直接嵌入 或 外部引入 或 JS动态插入</li>
 <li>一般放在&lt;body&gt;&lt;/body&gt;中</li>
@@ -145,11 +145,14 @@
 </ul>
 <h3 id="基本类型，简单的数据段"><a href="#基本类型，简单的数据段" class="headerlink" title="基本类型，简单的数据段"></a>基本类型，简单的数据段</h3><ul>
 <li>原始值 undefined / null / boolean / number / string / symbol / object</li>
-<li>在内存中占据固定大小空间，被保存在 <strong>栈内存</strong> 中</li>
+<li>在内存中占据固定大小空间，被频繁使用，因此被保存在 <strong>栈内存</strong> 中</li>
 </ul>
 <h3 id="引用类型，可能由多个值构成的对象"><a href="#引用类型，可能由多个值构成的对象" class="headerlink" title="引用类型，可能由多个值构成的对象"></a>引用类型，可能由多个值构成的对象</h3><ul>
 <li>可动态地添加属性</li>
-<li>值为保存在内存中的对象，保存在 <strong>堆内存</strong> 中，<u>不允许直接访问，按引用访问</u></li>
+<li>值为保存在内存中的对象，保存在 <strong>堆内存</strong> 中，<u>不允许直接访问，按引用访问。</u>占据空间大、大小不固定<ul>
+<li>在栈中存储了指针，该指针指向堆中实体大起始地址</li>
+</ul>
+</li>
 <li>当做变量复制时，这个值的副本实际上是一个<strong>指针</strong>，<strong>指向存储在堆中的同一个对象</strong></li>
 </ul>
 <hr>
@@ -173,12 +176,17 @@
 <li><strong>const关键字，声明同时必须初始化，且不能再被重新赋新值</strong><ul>
 <li>只应用到顶级原语或对象，对象的键不受限制</li>
 <li>运行时编译器可以将所有实例换成实际的值，不会通过查询表进行变量查找</li>
+<li>保证的是变量指向的内存地址不能改动<ul>
+<li>对于基本类型的数据，其值就保存在对应的内存地址上，因此等同于常量</li>
+<li>但引用数据类型保存的只是一个指针，只能保证指针地址不变，但指向的数据结构并不能保证不可变</li>
 </ul>
 </li>
 </ul>
-<figure class="highlight html"><table><tr><td class="code"><pre><span class="line">暂时性死区是指在块级作用域内，使用 let 或 const 声明的变量从进入该作用域到变量声明之前的这段时间内，变量处于“未初始化”状态，此时访问这些变量会抛ReferenceError。</span><br><span class="line"></span><br><span class="line">原因：ES6 规范要求在声明之前的块级作用域内不能访问 let 和 const 声明的变量，以避免变量提升带来的潜在问题。</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line">暂时性死区是指在块级作用域内，使用 let 或 const 声明的变量从进入该作用域到变量声明之前的这段时间内，变量处于“未初始化”状态，此时访问这些变量会抛 ReferenceError。</span><br><span class="line"></span><br><span class="line">原因：ES6 规范要求在声明之前的块级作用域内不能访问 let 和 const 声明的变量，以避免变量提升带来的潜在问题。</span><br></pre></td></tr></table></figure>
 <h3 id="数据类型"><a href="#数据类型" class="headerlink" title="数据类型"></a>数据类型</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">基本数据类型：undefined null boolean number string </span><br><span class="line">复杂数据类型：object，由一组无序的键值对组成</span><br></pre></td></tr></table></figure>
-<p>typeof操作符 用来检测给定变量的数据类型，<strong>确定值的原始类型</strong><br>instanceof 判断是什么类型的对象，<strong>确定值的引用类型</strong></p>
+<p>typeof操作符 用来检测给定变量的数据类型，只能检测基本数据类型，<strong>确定值的原始类型</strong><br>instanceof 判断是什么类型的对象，<strong>确定值的引用类型</strong></p>
 <ul>
 <li><strong>Null，值表示一个空对象指针</strong><ul>
 <li>表示定义了，但是为空</li>
@@ -208,6 +216,7 @@
 <li>用isFinite(..)判断是否位于最大和最小数值之间</li>
 </ul>
 </li>
+<li>Number.MAX_SAFE_INTEGER，最大安全数字，这个数范围内不会出现精度丢失，超出就会出现计算不准确的情况 </li>
 </ul>
 </li>
 <li><strong>浮点数</strong><ul>
@@ -234,7 +243,13 @@
 </li>
 <li><strong>Number(..), parseInt(..), parseFloat(..)</strong><ul>
 <li>parseFloat(..)第一个小数点有效，后面的字符串将被忽略；十六进制的字符串会被转换为0</li>
-<li>parseInt(..)找第一个<u>非空格字符</u>，如果不是数字或负号，就返回 NaN</li>
+<li>parseInt(..)找第一个<u>非空格字符</u>，如果不是数字或负号，就返回 NaN<ul>
+<li>parseInt(string, radix)<ul>
+<li>radix 是2-36之间的整数，表示被解析字符串的基数</li>
+</ul>
+</li>
+</ul>
+</li>
 <li>Number(..)函数基于一些规则执行转换，其中null返回 0；undefined返回 NaN</li>
 </ul>
 </li>
@@ -488,15 +503,15 @@
 <li>嵌套函数、闭包函数（在内部访问外部环境的变量）     </li>
 <li>try-catch中的catch块（将变量赋值给外部作用域的变量来延长作用域）</li>
 <li>with语句 </li>
-<li>ES6模块（使变量和函数在不同模块间共享和使用）<blockquote>
+<li>ES6模块（使变量和函数在不同模块间共享和使用）</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<blockquote>
 <h2 id="执行上下文EC"><a href="#执行上下文EC" class="headerlink" title="执行上下文EC"></a>执行上下文EC</h2></blockquote>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<p>可以简单理解为一个对象，可以认为是 <strong>执行环境的一部分</strong>，更偏向于描述<strong>代码执行时的特定上下文信息</strong>。包含三部分：</p>
+<p>可以简单理解为一个对象，可以认为是 <strong>执行环境的一部分</strong>，更偏向于描述<strong>代码执行时的特定上下文信息</strong>。<br>包含三部分：</p>
 <ol>
 <li><strong>变量对象VO</strong>，存储该执行上下文中所有变量和函数声明<ul>
 <li>当变量对象所在的上下文为active EC时，称为活动对象AO</li>
@@ -533,7 +548,7 @@
 <h3 id="Object"><a href="#Object" class="headerlink" title="Object"></a>Object</h3><h3 id="Array"><a href="#Array" class="headerlink" title="Array"></a>Array</h3><ul>
 <li>length属性不是只读的，可通过它来添加或移除数组项</li>
 <li>最多可包含4294967295个项</li>
-<li>ECMAScript 5 新增.isArray()方法</li>
+<li>ES5 新增.isArray()方法</li>
 <li>toString(..) toLocaleString(..) valueOf(..) join(..) concat(..) includes(..)</li>
 <li>填充：fill(value[, start[, end]])</li>
 <li>栈方法：后进先出 push(..) pop(..) </li>
@@ -549,6 +564,7 @@
 <li>替换：splice(起始位置, 1, 插入的项)</li>
 </ul>
 </li>
+<li>toSpliced(..) 不改变原数组，返回一个新数组</li>
 <li>indexOf(..) lastIndexOf(..)从末尾开始找；这两个方法没找到都返回-1</li>
 <li>迭代方法：every(..) filter(..) forEach(..) map(..) some(..)<ul>
 <li>(function(item, index, array){})</li>
@@ -802,13 +818,14 @@
 <li>这样既在原型上定义方法实现函数复用，又能保证每个实例都有它自己的属性</li>
 </ul>
 <h3 id="原型式继承"><a href="#原型式继承" class="headerlink" title="原型式继承"></a>原型式继承</h3><ul>
-<li>借助已有对象创建新对象</li>
+<li>借助已有对象创建新对象，实现对某个对象的简单继承</li>
+<li>如ES5的 Object.create()</li>
 </ul>
 <figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">object</span>(<span class="params">o</span>) </span>&#123; </span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">F</span>(<span class="params"></span>)</span>&#123;&#125;</span><br><span class="line">    F.prototype = o</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> F()</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> person = &#123;</span><br><span class="line">    name: <span class="string">&#x27;John&#x27;</span>,</span><br><span class="line">    friends: [<span class="string">&#x27;bob&#x27;</span>,<span class="string">&#x27;jack&#x27;</span>]</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> anotherPerson = object(person)</span><br><span class="line">anotherPerson.name = <span class="string">&#x27;greg&#x27;</span></span><br><span class="line">anotherPerson.friends.push(<span class="string">&#x27;helen&#x27;</span>) <span class="comment">// 被anotherPerson共享</span></span><br></pre></td></tr></table></figure>
 <h3 id="寄生式继承"><a href="#寄生式继承" class="headerlink" title="寄生式继承"></a>寄生式继承</h3><ul>
 <li>借用构造函数来继承属性，通过原型链等混成形式来继承</li>
 </ul>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">inhreitPrototype</span>(<span class="params">subType, superType</span>) </span>&#123; <span class="comment">// 接受2个构造函数</span></span><br><span class="line">    <span class="keyword">var</span> prototype = <span class="built_in">Object</span>(superType.prototype); <span class="comment">// 创建对象</span></span><br><span class="line">    prototype.constructor = subType; <span class="comment">// 增强对象</span></span><br><span class="line">    subType.prototype = prototype; <span class="comment">// 指定对象</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">inhreitPrototype</span>(<span class="params">subType, superType</span>) </span>&#123; <span class="comment">// 接受2个构造函数</span></span><br><span class="line">    <span class="keyword">var</span> prototype = <span class="built_in">Object</span>(superType.prototype); <span class="comment">// 创建对象副本</span></span><br><span class="line">    prototype.constructor = subType; <span class="comment">// 增强对象</span></span><br><span class="line">    subType.prototype = prototype; <span class="comment">// 指定对象</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <ul>
 <li><p>ES5中 Object.create(person, object) 是静态方法，以一个现有对象作为原型，创建一个新对象</p>
 <ul>
@@ -816,13 +833,14 @@
 <li>object { xxx: { vlaue: ‘’} }</li>
 </ul>
 </li>
-<li><p>ES5继承是先创建子类实例对象this，再将父类方法添加到this上(Parent.apply)(this)</p>
+<li><p>ES5继承是先创建子类实例对象this，再将父类方法添加到this上(Parent.apply(this))（实例在前，继承在后）</p>
 </li>
 <li><p>ES6语法糖 class / extends 也可以实现继承</p>
 </li>
 <li><p>ES6继承是先创建父类实例对象this，再用子类构造函数去修改this(super(…args)) </p>
 <ul>
 <li>只有调用super后才能使用this</li>
+<li>继承在前，实例在后</li>
 </ul>
 </li>
 </ul>
@@ -929,7 +947,10 @@
 </ul>
 </li>
 <li>在递归问题上可以更好地运用起来，即尾调用自身，只保留一个调用记录，复杂度为O(1)</li>
-<li>ES6中尾递归不会发生栈溢出，相对节省内存<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 阶乘就函数可以改为</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">tailFactorial</span>(<span class="params">num, total = <span class="number">1</span></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(num === <span class="number">1</span>) <span class="keyword">return</span> total</span><br><span class="line">    <span class="keyword">return</span> factorial(num - <span class="number">1</span>, num * total)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<li>ES6中尾递归不会发生栈溢出，相对节省内存<ul>
+<li>ES6的尾调用只在严格模式下生效<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 阶乘就函数可以改为</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">tailFactorial</span>(<span class="params">num, total = <span class="number">1</span></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(num === <span class="number">1</span>) <span class="keyword">return</span> total</span><br><span class="line">    <span class="keyword">return</span> tailFactorial(num - <span class="number">1</span>, num * total)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
 </li>
 </ul>
 <hr>
@@ -958,7 +979,7 @@
 <li>&lt;script type=”module”&gt;&lt;/script&gt;</li>
 <li>是异步加载和执行的</li>
 <li>顶级this 的值是 undefined（windows下）</li>
-<li>解析到上述标签后回立即下载模块文件，但执行回延迟到文档解析完成；有多个标签时也是按顺序执行</li>
+<li>解析到上述标签后回立即下载模块文件，但执行会延迟到文档解析完成；有多个标签时也是按顺序执行</li>
 <li>嵌入模块的代码不能使用 import 加载到其他模块。只有通过外部文件加载的模块才可以使用 import 加载</li>
 <li>使用 <strong>export</strong> 导出，且必须在模块顶级，不能嵌套在语句中。支持 命名导出 和 默认导出<ul>
 <li>默认导出使用 default关键字 作为值来导出，default命令只能使用一次，不可重复默认导出。不用加{ } </li>
@@ -979,8 +1000,8 @@
 <li>CommonJs，由Node.js社区采用<ul>
 <li>require导入模块，module.exports 和 exports 导出模块</li>
 <li>在运行时同步加载模块，适用于服务器端（运行时加载）</li>
-<li>模块输出的是值的拷贝，导出值变化不会影响导入值</li>
-<li>模块就是对象，输入时必须查找对象属性</li>
+<li>文件就是一个模块，输入时必须查找对象属性</li>
+<li>模块输出的是值的拷贝（浅拷贝），导出值变化不会影响导入值</li>
 <li>加载整个模块里的所有方法，然后在使用时再运用对应的方法</li>
 </ul>
 </li>
@@ -1034,7 +1055,7 @@
 <li>WeakSet与Set相似，但成员只能是<u>对象或数组</u>且都是弱引用且不可遍历<ul>
 <li>其他对象不再引用该对象时，垃圾回收机制就会自动回收该对象。</li>
 <li>（弱引用是指不能确保其引用的对象不会被垃圾回收器回收的引用，换句话说就是可能在任意时间被回收）因此获取不到size属性</li>
-<li>一个用处是存储DOM节点，不用担心引用未及时接触而造成内存泄漏</li>
+<li>一个用处是存储DOM节点，不用担心引用未及时解除引用而造成内存泄漏</li>
 </ul>
 </li>
 <li>Map，类似于对象，以[键，值]的形式存储元素<ul>
@@ -1173,7 +1194,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://karencxx.github.io/2024/04/01/JSNote/" data-id="clx8v6ivp001bagfu75cbcg1c" class="article-share-link">Share</a>
+      <a data-url="http://karencxx.github.io/2024/04/01/JSNote/" data-id="clzv47wt3000i47fu4cerhbh5" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%A4%8D%E4%B9%A0/" rel="tag">复习</a></li></ul>

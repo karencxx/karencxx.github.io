@@ -226,7 +226,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://karencxx.github.io/2021/01/05/%E8%B7%A8%E5%9F%9F/" data-id="clx8v6iw10028agfu0l8rfrle" class="article-share-link">Share</a>
+      <a data-url="http://karencxx.github.io/2021/01/05/%E8%B7%A8%E5%9F%9F/" data-id="clzv47wto001t47fu56c47anc" class="article-share-link">Share</a>
       
       
     </footer>
@@ -288,6 +288,15 @@
 <li>并且当只知道一部分数据的类型时，any 类型也是有用的</li>
 </ul>
 <blockquote>
+<p><strong>unknown类型</strong> 类型不确定的变量</p>
+</blockquote>
+<figure class="highlight typescript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> result:unknown</span><br><span class="line"><span class="keyword">let</span> anything:<span class="built_in">any</span> = result</span><br></pre></td></tr></table></figure>
+<ul>
+<li>unknown比any在类型上更安全</li>
+<li>任意类型的值可以赋值给unknown</li>
+<li>但unknown类型的值只能赋值给 unknown 或 any</li>
+</ul>
+<blockquote>
 <p><strong>void</strong> 无任何类型</p>
 </blockquote>
 <figure class="highlight typescript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">xxx</span>(<span class="params"></span>):<span class="title">void</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 无返回值</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -297,7 +306,7 @@
 <p><strong>null &amp; undefined</strong>  任意类型</p>
 </blockquote>
 <p>默认情况下 null 和 undefined 是所有类型的<strong>子类型</strong><br><strong>子类型可以赋值给父类型</strong><br>像下面这个例子，null 和 undefined 赋值给 number类型 的变量</p>
-<figure class="highlight typescript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> u:<span class="literal">undefined</span> = <span class="literal">undefined</span></span><br><span class="line"><span class="keyword">let</span> n:<span class="literal">null</span> = <span class="literal">undefined</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> num:<span class="built_in">number</span> =<span class="number">3</span></span><br><span class="line">num = <span class="literal">null</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight typescript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> u:<span class="literal">undefined</span> = <span class="literal">undefined</span></span><br><span class="line"><span class="keyword">let</span> n:<span class="literal">null</span> = <span class="literal">null</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> num:<span class="built_in">number</span> =<span class="number">3</span></span><br><span class="line">num = <span class="literal">null</span></span><br></pre></td></tr></table></figure>
 <p>常规编译不会出错<br>严格编译 <strong>tsc xxx.ts –strictNullChecks</strong> 将会检查 null，从而规避一些问题</p>
 <blockquote>
 <p><strong>联合类型</strong>  任意类型</p>
@@ -324,11 +333,53 @@
 <p>有时候你会遇到这样的情况，你会比 TypeScript 更了解某个值的详细信息。<br>通常这会发生在你清楚地知道一个实体具有比它现有类型更确切的类型。</p>
 <p>通过类型断言这种方式可以告诉编译器，“相信我，我知道自己在干什么”。<br>类型断言好比其它语言里的 <strong>类型转换</strong>，但是不进行<u>特殊的数据检查和解构</u>。<br>它没有运行时的影响，只是在 <strong>编译阶段起作用</strong></p>
 <figure class="highlight typescript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> someValue:<span class="built_in">any</span> = <span class="string">&#x27;this is a string&#x27;</span></span><br><span class="line">someValue.length <span class="comment">// // 此时找不到.length</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> strLength:<span class="built_in">number</span>=(&lt;<span class="built_in">string</span>&gt;someValue).length <span class="comment">// 1. 尖括号语法</span></span><br><span class="line"><span class="keyword">let</span> strLength:<span class="built_in">number</span>=(someValue <span class="keyword">as</span> <span class="built_in">string</span>).length <span class="comment">// 2. as 语法</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p><strong>范型</strong></p>
+</blockquote>
+<ul>
+<li>可以理解为类型参数化，将某种具体的类型进行参数化</li>
+<li>就像定义函数参数一样，给泛型定义若干个类型参数，并在调用时给泛型传入明确的类型参数</li>
+<li>目的在于有效约束类型成员之间的关系</li>
+<li>应用场景：用来约束函数参数的类型</li>
+</ul>
+<blockquote>
+<p><strong>自带工具类型</strong></p>
+</blockquote>
+<ul>
+<li>操作接口类型<ul>
+<li>Partial，将类型所有属性变为可选的</li>
+<li>Required， 将给定类型的所有属性变为必选</li>
+<li>Readonly，将给定类型属性设为只读</li>
+<li>Pick，从给定类型中选出指定的键值</li>
+<li>Omit，去除指定的键值后返回新类型 </li>
+</ul>
+</li>
+<li>联合类型<ul>
+<li>Exclude，从联合类型中去除指定类型</li>
+<li>Extract，从联合类型中提取出指定类型</li>
+<li>NonNullable，从联合类型中去除null或undefined类型</li>
+<li>Record，生成接口类型</li>
+</ul>
+</li>
+<li>函数类型<ul>
+<li>ConstructorParameters，获取构造函数的构造参数，需要使用infer关键字</li>
+<li>Parameters，获取函数参数并返回</li>
+<li>ReturnType，获取函数返回类型</li>
+<li>ThisParameterType，获取函数this参数类型</li>
+<li>ThisType，在对象字面量中指定this的类型</li>
+<li>OmitThisParameter，去除函数类型中的this类型</li>
+</ul>
+</li>
+<li>字符串类型<ul>
+<li>模版字符串Uppercase、Lowercase、Capitalize，Uncapitalize</li>
+</ul>
+</li>
+</ul>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://karencxx.github.io/2020/11/16/tsNote/" data-id="clx8v6ivk000zagfu1hzkdkb7" class="article-share-link">Share</a>
+      <a data-url="http://karencxx.github.io/2020/11/16/tsNote/" data-id="clzv47wtb000z47fuaiqudfp5" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/typescript/" rel="tag">typescript</a></li></ul>
@@ -374,7 +425,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://karencxx.github.io/2018/01/12/webpack%E6%8E%A2%E8%B7%AF/" data-id="clx8v6ivn0018agfu7sbmaa2a" class="article-share-link">Share</a>
+      <a data-url="http://karencxx.github.io/2018/01/12/webpack%E6%8E%A2%E8%B7%AF/" data-id="clzv47wth001a47fu1hbvc0w6" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/webpack/" rel="tag">webpack</a></li></ul>
@@ -433,7 +484,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://karencxx.github.io/2017/12/13/vue-router/" data-id="clx8v6ivi000uagfua63hc6c3" class="article-share-link">Share</a>
+      <a data-url="http://karencxx.github.io/2017/12/13/vue-router/" data-id="clzv47wte001147fu1kgo8gix" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/vue-router/" rel="tag">vue-router</a></li></ul>
@@ -489,7 +540,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://karencxx.github.io/2017/11/28/vuex/" data-id="clx8v6ivl0012agfudgj90q7e" class="article-share-link">Share</a>
+      <a data-url="http://karencxx.github.io/2017/11/28/vuex/" data-id="clzv47wty002k47fu38fq5e6n" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/vuex%E6%8E%A2%E7%A9%B6/" rel="tag">vuex探究</a></li></ul>
@@ -542,7 +593,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://karencxx.github.io/2017/11/27/vue%E9%A1%B9%E7%9B%AE%E6%9E%84%E5%BB%BA/" data-id="clx8v6ivm0015agfufnhi4eqx" class="article-share-link">Share</a>
+      <a data-url="http://karencxx.github.io/2017/11/27/vue%E9%A1%B9%E7%9B%AE%E6%9E%84%E5%BB%BA/" data-id="clzv47wtg001747fu2wo743k0" class="article-share-link">Share</a>
       
       
     </footer>
@@ -604,7 +655,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://karencxx.github.io/2017/11/23/Express/" data-id="clx8v6iv70006agfuekgahqtd" class="article-share-link">Share</a>
+      <a data-url="http://karencxx.github.io/2017/11/23/Express/" data-id="clzv47wst000447fu92kj5j1d" class="article-share-link">Share</a>
       
       
     </footer>
@@ -657,7 +708,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://karencxx.github.io/2017/11/23/ExpressNote/" data-id="clx8v6iuz0001agfua0zd7oos" class="article-share-link">Share</a>
+      <a data-url="http://karencxx.github.io/2017/11/23/ExpressNote/" data-id="clzv47wsu000547fubjhn0yxz" class="article-share-link">Share</a>
       
       
     </footer>
@@ -693,7 +744,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://karencxx.github.io/2017/11/21/1121/" data-id="clx8v6ius0000agfugxiphd2e" class="article-share-link">Share</a>
+      <a data-url="http://karencxx.github.io/2017/11/21/1121/" data-id="clzv47wsv000647fuar7r6o85" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E9%9A%8F%E7%AC%94%E5%86%99/" rel="tag">随笔写</a></li></ul>
@@ -731,7 +782,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://karencxx.github.io/2017/11/17/create-a-plugin/" data-id="clx8v6ivb000dagfudieg6gdj" class="article-share-link">Share</a>
+      <a data-url="http://karencxx.github.io/2017/11/17/create-a-plugin/" data-id="clzv47wt6000o47fu17bwbmzk" class="article-share-link">Share</a>
       
       
     </footer>

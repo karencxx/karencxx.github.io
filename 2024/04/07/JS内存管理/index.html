@@ -13,7 +13,7 @@
 <meta property="og:description" content="V8，Google开发的JS引擎  负责JS代码编译和执行具有高效的即时编译、优化编译和垃圾回收机制，特点是高性能V8将堆内存分为：  新生代，存放生命周期较短的对象，采用Scavenge算法垃圾回收，会频繁地对新生代进行清理 老生代，存放生命周期较长的对象，采用标记清除和标记整理等算法垃圾回收   垃圾回收机制，负责管理和释放不再被引用的内存  Scavenge算法 采用复制算法，将存活的对象">
 <meta property="og:locale">
 <meta property="article:published_time" content="2024-04-07T06:28:26.000Z">
-<meta property="article:modified_time" content="2024-06-07T07:29:49.732Z">
+<meta property="article:modified_time" content="2024-07-26T09:09:03.236Z">
 <meta property="article:author" content="karen">
 <meta name="twitter:card" content="summary">
   
@@ -140,7 +140,7 @@
 </li>
 </ol>
 <figure class="highlight html"><table><tr><td class="code"><pre><span class="line">白色：未访问的对象，将在清除阶段被回收</span><br><span class="line">灰色：已访问但未处理完的对象</span><br><span class="line">黑色：已访问且处理完的对象</span><br></pre></td></tr></table></figure>
-<figure class="highlight html"><table><tr><td class="code"><pre><span class="line">1. 初始标记：根对象标记为灰色</span><br><span class="line">2. 扫描灰色对象，标记其引用对象为灰色，自身标记为黑色</span><br><span class="line">3. 重复步骤2，直到没有灰色对象</span><br><span class="line">4. 清除白色对象</span><br></pre></td></tr></table></figure>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line">1. 初始标记：根集合里的对象 标记为灰色，其余对象为白色</span><br><span class="line">2. 扫描灰色对象，标记其引用对象为灰色，自身标记为黑色</span><br><span class="line">3. 重复步骤2，直到没有灰色对象</span><br><span class="line">4. 清除白色对象</span><br></pre></td></tr></table></figure>
 <p><strong>V8在Node.js中的应用</strong></p>
 <ul>
 <li>执行JS代码</li>
@@ -193,7 +193,7 @@
 </blockquote>
 <p>一些常见的内存泄漏情况：</p>
 <ol>
-<li>意外的全局变量在页面声明周期内不会被释放</li>
+<li>意外的全局变量，在页面声明周期内不会被释放导致无法回收</li>
 <li>定时器未清理会导致函数或对象一直存在于内存中无法被回收</li>
 <li>事件监听器未被正确移除，仍然存在于内存中</li>
 <li>如果闭包中引用了大量变量而又未被及时释放</li>
@@ -221,7 +221,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://karencxx.github.io/2024/04/07/JS%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/" data-id="clx8v6iv60005agfu0k0qb5af" class="article-share-link">Share</a>
+      <a data-url="http://karencxx.github.io/2024/04/07/JS%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/" data-id="clzv47wsz000a47fuhujs29a9" class="article-share-link">Share</a>
       
       
     </footer>
