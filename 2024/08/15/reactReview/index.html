@@ -13,7 +13,7 @@
 <meta property="og:description" content="state   默认存在state，是一个对象，存储当前组件数据  setState方法来修改数据值，更新组件状态  setState是异步函数，可以使用async与await来解决 在setTimeout里是同步的；自定义DOM事件也是同步的；  React 18 版本以后也是异步更新+state合并   如果需要在状态更新后执行某些操作，可以使用setState的回调函数。  这个回调函数会">
 <meta property="og:locale">
 <meta property="article:published_time" content="2024-08-15T10:12:03.000Z">
-<meta property="article:modified_time" content="2024-08-15T10:12:35.574Z">
+<meta property="article:modified_time" content="2024-10-11T13:06:11.934Z">
 <meta property="article:author" content="karen">
 <meta property="article:tag" content="复习">
 <meta name="twitter:card" content="summary">
@@ -162,6 +162,7 @@
 <li>只能有一个父元素</li>
 <li>使用单标签时，必须正确关闭</li>
 <li>jsx中可以直接将数组中的数据解构</li>
+<li>本质上来说JSX是React.createComponent…方法的语法糖，17之前需要引入react，17之后babel会自动引入</li>
 </ul>
 <ul>
 <li>内联样式 放在{}中 {width: ‘100’} 默认无法支持伪类及媒体样式查询，可以用radium包</li>
@@ -195,6 +196,12 @@
 </blockquote>
 <ul>
 <li><p>表单元素的值由DOM自身控制。你可以通过ref直接访问DOM节点和获取它的值。</p>
+</li>
+<li><p>ref: 当你希望记住某些信息但不想<strong>触发新的渲染</strong>可以用ref</p>
+<ul>
+<li>返回一个{current: 传入的值}对象</li>
+<li>使用ref.current访问当前值</li>
+</ul>
 </li>
 <li><p>件使用场景</p>
 <ul>
@@ -241,6 +248,7 @@
 <li>下次渲染时将无法正确匹配每个 Hook 的状态</li>
 </ul>
 </li>
+<li>设计 Hook 的一个重要原则是：副作用和状态更新应该是确定的，这样组件的行为就能被清晰地理解和预测</li>
 <li><strong>Effect Hook 模拟生命周期</strong><ul>
 <li>useEffect 可以看作是 componentDidMount、componentDidUpdate、componentWillUnMount 的结合</li>
 <li>useEffect(()=&gt;{}, []) 第二个参数是根据依赖的state判断是哪个生命周期，空数组代表didMount，无依赖或有依赖则为didUpdate</li>
@@ -251,9 +259,14 @@
 </ul>
 </li>
 <li><strong>useContext</strong>，获取context对象</li>
-<li><strong>useRef</strong>，获取组件真实节点</li>
-<li><strong>useMemo</strong>，缓存传入的props，避免依赖的组件每次都重新渲染</li>
-<li><strong>useReducer</strong>，组件内部的redux<ul>
+<li><strong>useRef</strong>，获取组件真实节点；帮助引用一个不需要渲染的值</li>
+<li><strong>useMemo</strong>，缓存传入的props，避免依赖的组件每次都重新渲染；在每次重新渲染时缓存计算的结果<ul>
+<li>useMemo(calculateValue, dependencies)</li>
+</ul>
+</li>
+<li><strong>useReducer</strong>，组件内部的redux，是一个Hook<ul>
+<li>useReducer(reducer, initialArg, init?)</li>
+<li>返回[state, dispatch]，state为首次渲染提供初始值；dispatch函数可以根据交互修改state</li>
 <li>并不是持久化存储，会随组件被销毁而销毁</li>
 <li>属于组件内部，各个组件是隔离的，单纯使用无法共享数据</li>
 </ul>
@@ -366,7 +379,7 @@
 </li>
 </ul>
 <blockquote>
-<p>高阶组件HOC</p>
+<p>高阶组件HOC（Higher-Order Component）</p>
 </blockquote>
 <ul>
 <li>是React中用于复用组件逻辑的一种高级技巧</li>
@@ -376,11 +389,29 @@
 <li>优点：逻辑复用、不影响被包裹组件的内部逻辑</li>
 <li>缺点：hoc传递给被包裹组件的props容易和被包裹后的组件重名，从而被覆盖</li>
 </ul>
+<blockquote>
+<p>Hooks 库</p>
+</blockquote>
+<ul>
+<li>SWR，用于数据请求的库<ul>
+<li>stale-while-revalidate，一种由HTTP RFC 5861推广的HTTP缓存失效策略<ul>
+<li>首先从缓存中返回数据（过期的），同时发送fetch请求（重新验证），最后得到最新数据</li>
+</ul>
+</li>
+<li>使用SWR组件将会不断地、自动获取最新数据流，UI也会保持快速响应</li>
+<li>使用：useSWR(‘/api/user’, fetcher)<ul>
+<li>fetcher 可以是任何返回数据的异步函数</li>
+<li>返回2个值，data和error</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://karencxx.github.io/2024/08/15/reactReview/" data-id="clzv4lf7i000vdyfu6l191hbt" class="article-share-link">Share</a>
+      <a data-url="http://karencxx.github.io/2024/08/15/reactReview/" data-id="cm2d2gpdy000ve2fu93uk9h17" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%A4%8D%E4%B9%A0/" rel="tag">复习</a></li></ul>

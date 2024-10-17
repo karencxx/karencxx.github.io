@@ -13,7 +13,7 @@
 <meta property="og:description" content="开始前，可以先看以下几篇  理解js中的this    JS，专为与网页交互而设计的脚本语言 诞生于1995年，由三部分组成：  ECMAScript：核心语言，由ECMA-262定义 与web浏览器无依赖关系，web浏览器只是宿主环境之一，其他宿主包括Node 组成部分：语法 &#x2F; 类型 &#x2F; 语句 &#x2F; 关键字 &#x2F; 保留字 &#x2F; 操作符 &#x2F; 对象    DOM(Domcument Object Mod">
 <meta property="og:locale">
 <meta property="article:published_time" content="2024-04-01T04:08:38.000Z">
-<meta property="article:modified_time" content="2024-08-15T10:11:23.055Z">
+<meta property="article:modified_time" content="2024-09-29T09:05:35.818Z">
 <meta property="article:author" content="karen">
 <meta property="article:tag" content="复习">
 <meta name="twitter:card" content="summary">
@@ -150,7 +150,7 @@
 <h3 id="引用类型，可能由多个值构成的对象"><a href="#引用类型，可能由多个值构成的对象" class="headerlink" title="引用类型，可能由多个值构成的对象"></a>引用类型，可能由多个值构成的对象</h3><ul>
 <li>可动态地添加属性</li>
 <li>值为保存在内存中的对象，保存在 <strong>堆内存</strong> 中，<u>不允许直接访问，按引用访问。</u>占据空间大、大小不固定<ul>
-<li>在栈中存储了指针，该指针指向堆中实体大起始地址</li>
+<li>在栈中存储了指针，该指针指向堆中实体的起始地址</li>
 </ul>
 </li>
 <li>当做变量复制时，这个值的副本实际上是一个<strong>指针</strong>，<strong>指向存储在堆中的同一个对象</strong></li>
@@ -198,6 +198,7 @@
 <li><u>也可以进一步区分null和undefined</u></li>
 </ul>
 </li>
+<li>null 只在与 undefined 进行宽松相等比较时返回 true，与其他任何值进行比较时都不会进行类型转换 </li>
 </ul>
 </li>
 <li><strong>Undefined，表示值未定义</strong><ul>
@@ -233,7 +234,7 @@
 <ul>
 <li><strong>NaN，Not a Number</strong><ul>
 <li>涉及NaN的操作都返回 NaN</li>
-<li>与任何值都不想等，包括NaN本身</li>
+<li><strong>与任何值都不相等，包括NaN本身</strong>(比较时会转换为NaN)</li>
 <li>当对对象调用isNaN(..)时<ul>
 <li>先调用对象的valueOf(..)，确定返回值可否转换为数值</li>
 <li>如果不能，基于返回值再调用toString(..)，再测试返回值</li>
@@ -321,7 +322,9 @@
 </ul>
 </li>
 </ul>
-<h3 id="乘操作符-、除操作符"><a href="#乘操作符-、除操作符" class="headerlink" title="乘操作符*、除操作符/"></a>乘操作符*、除操作符/</h3><h3 id="求模-，取余"><a href="#求模-，取余" class="headerlink" title="求模%，取余"></a>求模%，取余</h3><ul>
+<h3 id="乘操作符-、除操作符"><a href="#乘操作符-、除操作符" class="headerlink" title="乘操作符*、除操作符/"></a>乘操作符*、除操作符/</h3><ul>
+<li>Infinity*0 和 -Infinity*0 结果都为 NaN</li>
+<li>0/0 = NaN<h3 id="求模-，取余"><a href="#求模-，取余" class="headerlink" title="求模%，取余"></a>求模%，取余</h3></li>
 <li>Infinity%Infinity Infinity%8 2%0 结果都为 NaN</li>
 </ul>
 <h3 id="加操作符"><a href="#加操作符" class="headerlink" title="加操作符 +"></a>加操作符 +</h3><ul>
@@ -347,7 +350,11 @@
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">NaN跟任何数比较都是false </span><br><span class="line">  * NaN &gt; 3 </span><br><span class="line">  * NaN &lt;&#x3D; 3  </span><br></pre></td></tr></table></figure>
 <h3 id="相等操作符"><a href="#相等操作符" class="headerlink" title="相等操作符 == !="></a>相等操作符 == !=</h3><ul>
 <li>=== 和 !==  只在两个数<strong>未经转换就相等</strong>的情况下返回true</li>
-<li>== 和 != 试图实现跨类型比较，存在类型转换问题，为了保证代码中数据类型完整性，推荐使用 === 和 !==</li>
+<li>== 和 != 试图实现跨类型比较，存在类型转换问题，为了保证代码中数据类型完整性，推荐使用 === 和 !==<ul>
+<li>如果其中一个操作数是对象，另一个是原始值，则将对象转换为原始值</li>
+</ul>
+</li>
+<li>Object.is() 确定两个值是否为相同值；不会对其操作数进行类型转换（== 会进行类型转换）；处理带符号的 0 和 NaN 值的时候与 === 不同</li>
 </ul>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">NaN !&#x3D; NaN  &#x2F;&#x2F; true</span><br><span class="line">null &#x3D;&#x3D; undefined &#x2F;&#x2F; true</span><br></pre></td></tr></table></figure>
 <h3 id="条件操作符"><a href="#条件操作符" class="headerlink" title="条件操作符"></a>条件操作符</h3><ul>
@@ -361,6 +368,9 @@
 <li>let num = (1,2,3,4,0)  // 0</li>
 </ul>
 </li>
+</ul>
+<h3 id="比较运算符（如-lt-和-gt-）"><a href="#比较运算符（如-lt-和-gt-）" class="headerlink" title="比较运算符（如 &lt;= 和 &gt;=）"></a>比较运算符（如 &lt;= 和 &gt;=）</h3><ul>
+<li>会先尝试将两个操作数转换为数字，再进行比较</li>
 </ul>
 <hr>
 <blockquote>
@@ -416,6 +426,7 @@
 <li>前提是 arguments[n] 访问的 参数n 有被传入</li>
 </ul>
 </li>
+<li>函数内部的函数名称是只读的</li>
 </ul>
 <p><strong>ECMAScript函数没有签名，不能实现重载</strong></p>
 <ul>
@@ -547,6 +558,7 @@
 <h2 id="引用类型"><a href="#引用类型" class="headerlink" title="引用类型"></a>引用类型</h2></blockquote>
 <h3 id="Object"><a href="#Object" class="headerlink" title="Object"></a>Object</h3><h3 id="Array"><a href="#Array" class="headerlink" title="Array"></a>Array</h3><ul>
 <li>length属性不是只读的，可通过它来添加或移除数组项</li>
+<li>[]被认为是一个“真”的值</li>
 <li>最多可包含4294967295个项</li>
 <li>ES5 新增.isArray()方法</li>
 <li>toString(..) toLocaleString(..) valueOf(..) join(..) concat(..) includes(..)</li>
@@ -568,6 +580,8 @@
 <li>indexOf(..) lastIndexOf(..)从末尾开始找；这两个方法没找到都返回-1</li>
 <li>迭代方法：every(..) filter(..) forEach(..) map(..) some(..)<ul>
 <li>(function(item, index, array){})</li>
+<li>forEach() 只会遍历已存在的、非空的索引</li>
+<li>稀疏数组在使用 map方法 后仍然是稀疏的。空槽的索引在返回的数组中仍然为空</li>
 </ul>
 </li>
 <li>缩小数组：reduce(..) reduceRight(..)<ul>
@@ -601,7 +615,7 @@
 </ul>
 </li>
 </ul>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 常用的一些正则</span></span><br><span class="line">/^<span class="number">1</span>\d&#123;<span class="number">10</span>&#125;$/ <span class="comment">// 以1开头的手机号码</span></span><br><span class="line">/^\d&#123;<span class="number">4</span>&#125;-\d&#123;<span class="number">2</span>&#125;-\d&#123;<span class="number">2</span>&#125;$/ <span class="comment">// 匹配日期，YYYY-MM-DD</span></span><br><span class="line">/^[a-zA-Z0-9_]&#123;<span class="number">4</span>,<span class="number">16</span>&#125;$/ <span class="comment">// 匹配用户名</span></span><br><span class="line">/^\(https?|ftp):\/\/[^\s/$.?#].[^\s]*$/ <span class="comment">// 匹配URL</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 常用的一些正则</span></span><br><span class="line">/[^\d]*<span class="regexp">/ /</span><span class="regexp">/ 非数字，反向</span></span><br><span class="line"><span class="regexp">/</span>^<span class="number">1</span>\d&#123;<span class="number">10</span>&#125;$/ <span class="comment">// 以1开头的手机号码</span></span><br><span class="line">/^\d&#123;<span class="number">4</span>&#125;-\d&#123;<span class="number">2</span>&#125;-\d&#123;<span class="number">2</span>&#125;$/ <span class="comment">// 匹配日期，YYYY-MM-DD</span></span><br><span class="line">/^[a-zA-Z0-9_]&#123;<span class="number">4</span>,<span class="number">16</span>&#125;$/ <span class="comment">// 匹配用户名</span></span><br><span class="line">/^\(https?|ftp):\/\/[^\s/$.?#].[^\s]*$/ <span class="comment">// 匹配URL</span></span><br></pre></td></tr></table></figure>
 <h3 id="Function"><a href="#Function" class="headerlink" title="Function"></a>Function</h3><ul>
 <li><strong>每个函数都是 Function 的实例</strong></li>
 <li>函数是<strong>对象</strong>，函数名是<strong>指向函数的指针</strong>，所以函数可以用作 <strong>值</strong> 来使用</li>
@@ -694,6 +708,7 @@
 <p><strong>2. Math()</strong></p>
 <ul>
 <li>max(..) ｜ min(..) ｜ ceil(..) | floor(..) | round(..) | random(..)</li>
+<li>max(..) ｜ min(..)在没有传参的情况下分别返回 -Infinity | Infinity</li>
 </ul>
 <hr>
 <blockquote>
@@ -742,6 +757,7 @@
 <li>简单来说，函数、undefined、symbol值都不是有效的数据类型，序列化时被忽略也是为了确保JSON字符串的有效性跟可靠性，以防出现不一致的行为或丢失等潜在风险</li>
 </ul>
 </li>
+<li>null还是被转换为null</li>
 <li><strong>不可枚举的属性</strong> 默认会被 忽略</li>
 </ul>
 </li>
@@ -1085,7 +1101,10 @@
 <li>3种状态：Pending Resolved Rejected</li>
 <li>从Pending变为Resolved 或 Rejected，一旦发生状态就凝固不会再变</li>
 <li>可以将异步操作以同步操作流程表达，避免层层嵌套的回调函数（链式调用，代码更简洁）</li>
+<li>Promise.then 接收的如果不是函数，那么Promise会忽略它，并会将上一个then的值传递</li>
 <li>缺点：无法中途取消Promise；不设置回调函数那么内部错误不会被反应到外部；Pending状态时无法得知目前在哪个阶段</li>
+</ul>
+</li>
 <li><strong>stream模式</strong><ul>
 <li>连续的数据流：如果你需要处理大量的数据流，例如从文件、网络或其他来源读取连续的数据块，并进行实时处理，那么使用 Stream 模式可能更合适。Stream 提供了一种高效处理大数据的方式，可以分块读取和处理数据，减少内存占用和提高性能。</li>
 <li>基于事件驱动：例如实时消息传递、监视文件系统变化等，那么使用 Stream 可能更自然和高效。Stream 提供了一种异步事件驱动的方式，可以方便地处理事件流，并且可以与其他事件驱动的模块和框架无缝集成。</li>
@@ -1094,8 +1113,6 @@
 <li>Promise 模式相对于 Stream 模式来说，可能更简单和易于理解<ul>
 <li>Promise 提供了一种更直观的方式来处理异步操作，可以通过链式调用来组织和处理异步任务，适合处理<strong>一次性的异步操作</strong></li>
 <li>根据具体情况，有时 Promise 可能会更容易理解和维护，因为它提供了一种线性的、顺序执行的方式来处理异步任务</li>
-</ul>
-</li>
 </ul>
 </li>
 <li><strong>Generator函数</strong><ul>
@@ -1194,7 +1211,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://karencxx.github.io/2024/04/01/JSNote/" data-id="clzv4lf76000bdyfu30f6bju5" class="article-share-link">Share</a>
+      <a data-url="http://karencxx.github.io/2024/04/01/JSNote/" data-id="cm2d2gpdd0009e2fu68e46jto" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%A4%8D%E4%B9%A0/" rel="tag">复习</a></li></ul>

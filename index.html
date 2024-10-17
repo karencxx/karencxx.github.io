@@ -161,6 +161,7 @@
 <li>只能有一个父元素</li>
 <li>使用单标签时，必须正确关闭</li>
 <li>jsx中可以直接将数组中的数据解构</li>
+<li>本质上来说JSX是React.createComponent…方法的语法糖，17之前需要引入react，17之后babel会自动引入</li>
 </ul>
 <ul>
 <li>内联样式 放在{}中 {width: ‘100’} 默认无法支持伪类及媒体样式查询，可以用radium包</li>
@@ -194,6 +195,12 @@
 </blockquote>
 <ul>
 <li><p>表单元素的值由DOM自身控制。你可以通过ref直接访问DOM节点和获取它的值。</p>
+</li>
+<li><p>ref: 当你希望记住某些信息但不想<strong>触发新的渲染</strong>可以用ref</p>
+<ul>
+<li>返回一个{current: 传入的值}对象</li>
+<li>使用ref.current访问当前值</li>
+</ul>
 </li>
 <li><p>件使用场景</p>
 <ul>
@@ -240,6 +247,7 @@
 <li>下次渲染时将无法正确匹配每个 Hook 的状态</li>
 </ul>
 </li>
+<li>设计 Hook 的一个重要原则是：副作用和状态更新应该是确定的，这样组件的行为就能被清晰地理解和预测</li>
 <li><strong>Effect Hook 模拟生命周期</strong><ul>
 <li>useEffect 可以看作是 componentDidMount、componentDidUpdate、componentWillUnMount 的结合</li>
 <li>useEffect(()=&gt;{}, []) 第二个参数是根据依赖的state判断是哪个生命周期，空数组代表didMount，无依赖或有依赖则为didUpdate</li>
@@ -250,9 +258,14 @@
 </ul>
 </li>
 <li><strong>useContext</strong>，获取context对象</li>
-<li><strong>useRef</strong>，获取组件真实节点</li>
-<li><strong>useMemo</strong>，缓存传入的props，避免依赖的组件每次都重新渲染</li>
-<li><strong>useReducer</strong>，组件内部的redux<ul>
+<li><strong>useRef</strong>，获取组件真实节点；帮助引用一个不需要渲染的值</li>
+<li><strong>useMemo</strong>，缓存传入的props，避免依赖的组件每次都重新渲染；在每次重新渲染时缓存计算的结果<ul>
+<li>useMemo(calculateValue, dependencies)</li>
+</ul>
+</li>
+<li><strong>useReducer</strong>，组件内部的redux，是一个Hook<ul>
+<li>useReducer(reducer, initialArg, init?)</li>
+<li>返回[state, dispatch]，state为首次渲染提供初始值；dispatch函数可以根据交互修改state</li>
 <li>并不是持久化存储，会随组件被销毁而销毁</li>
 <li>属于组件内部，各个组件是隔离的，单纯使用无法共享数据</li>
 </ul>
@@ -365,7 +378,7 @@
 </li>
 </ul>
 <blockquote>
-<p>高阶组件HOC</p>
+<p>高阶组件HOC（Higher-Order Component）</p>
 </blockquote>
 <ul>
 <li>是React中用于复用组件逻辑的一种高级技巧</li>
@@ -375,11 +388,29 @@
 <li>优点：逻辑复用、不影响被包裹组件的内部逻辑</li>
 <li>缺点：hoc传递给被包裹组件的props容易和被包裹后的组件重名，从而被覆盖</li>
 </ul>
+<blockquote>
+<p>Hooks 库</p>
+</blockquote>
+<ul>
+<li>SWR，用于数据请求的库<ul>
+<li>stale-while-revalidate，一种由HTTP RFC 5861推广的HTTP缓存失效策略<ul>
+<li>首先从缓存中返回数据（过期的），同时发送fetch请求（重新验证），最后得到最新数据</li>
+</ul>
+</li>
+<li>使用SWR组件将会不断地、自动获取最新数据流，UI也会保持快速响应</li>
+<li>使用：useSWR(‘/api/user’, fetcher)<ul>
+<li>fetcher 可以是任何返回数据的异步函数</li>
+<li>返回2个值，data和error</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://karencxx.github.io/2024/08/15/reactReview/" data-id="clzv4lf7i000vdyfu6l191hbt" class="article-share-link">Share</a>
+      <a data-url="http://karencxx.github.io/2024/08/15/reactReview/" data-id="cm2d2gpdy000ve2fu93uk9h17" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%A4%8D%E4%B9%A0/" rel="tag">复习</a></li></ul>
@@ -477,7 +508,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://karencxx.github.io/2024/05/31/%E6%89%8B%E5%86%99code/" data-id="clzv4lf7w001pdyfu26hv60av" class="article-share-link">Share</a>
+      <a data-url="http://karencxx.github.io/2024/05/31/%E6%89%8B%E5%86%99code/" data-id="cm2d2gpek001pe2fu8s5b625g" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%A4%8D%E4%B9%A0/" rel="tag">复习</a></li></ul>
@@ -955,7 +986,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://karencxx.github.io/2024/04/24/ReviewNote/" data-id="clzv4lf750009dyfubimad213" class="article-share-link">Share</a>
+      <a data-url="http://karencxx.github.io/2024/04/24/ReviewNote/" data-id="cm2d2gpdl000ee2fucifh0f2g" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%A4%8D%E4%B9%A0/" rel="tag">复习</a></li></ul>
@@ -1389,7 +1420,7 @@
 </li>
 <li><p>宏任务：setInterval、setTimeout、I/O、setImmediate</p>
 </li>
-<li><p>微任务：Promist.than/catch/finally、process.nextTick</p>
+<li><p>微任务：Promise.than/catch/finally、process.nextTick</p>
 </li>
 <li><p>宏任务微任务各自的回调函数放在各自的任务队列中</p>
 </li>
@@ -1513,7 +1544,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://karencxx.github.io/2024/04/11/BOMNote/" data-id="clzv4lf7e000ndyfu6mfm8afq" class="article-share-link">Share</a>
+      <a data-url="http://karencxx.github.io/2024/04/11/BOMNote/" data-id="cm2d2gpd00001e2fub2hj77w9" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%A4%8D%E4%B9%A0/" rel="tag">复习</a></li></ul>
@@ -1856,7 +1887,7 @@
 <p><u>选择哪种预处理器取决于个人或团队的喜好跟项目需求</u></p>
 <blockquote>
 <h2 id="CSS层叠样式表（Cascading-Style-Sheets）"><a href="#CSS层叠样式表（Cascading-Style-Sheets）" class="headerlink" title="CSS层叠样式表（Cascading Style Sheets）"></a>CSS层叠样式表（Cascading Style Sheets）</h2></blockquote>
-<p><u>如何理解</u><br>是一种样式表语言，用于描述HTMl或XML文档的呈现。<br>层叠是CSS的样式冲突解决机制，是CSS的核心特性之一。<br>它是指当多个样式规则应用到同一个元素时，浏览器如何解决冲突并确定最终样式。</p>
+<p><u>如何理解</u><br>是一种样式表语言，用于描述HTML或XML文档的呈现。<br>层叠是CSS的样式冲突解决机制，是CSS的核心特性之一。<br>它是指当多个样式规则应用到同一个元素时，浏览器如何解决冲突并确定最终样式。</p>
 <p>层叠规则基于几个因素：</p>
 <ul>
 <li>样式的重要性，标记为!important的样式优先级最高</li>
@@ -1983,7 +2014,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://karencxx.github.io/2024/04/08/CSSNote/" data-id="clzv4lf6w0001dyfu00qu5ww6" class="article-share-link">Share</a>
+      <a data-url="http://karencxx.github.io/2024/04/08/CSSNote/" data-id="cm2d2gpd70003e2fubt06cy9n" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%A4%8D%E4%B9%A0/" rel="tag">复习</a></li></ul>
@@ -2150,7 +2181,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://karencxx.github.io/2024/04/07/JS%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/" data-id="clzv4lf720005dyfueaeth1ok" class="article-share-link">Share</a>
+      <a data-url="http://karencxx.github.io/2024/04/07/JS%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/" data-id="cm2d2gpdf000be2fugmlagcju" class="article-share-link">Share</a>
       
       
     </footer>
@@ -2243,7 +2274,7 @@
 <h3 id="引用类型，可能由多个值构成的对象"><a href="#引用类型，可能由多个值构成的对象" class="headerlink" title="引用类型，可能由多个值构成的对象"></a>引用类型，可能由多个值构成的对象</h3><ul>
 <li>可动态地添加属性</li>
 <li>值为保存在内存中的对象，保存在 <strong>堆内存</strong> 中，<u>不允许直接访问，按引用访问。</u>占据空间大、大小不固定<ul>
-<li>在栈中存储了指针，该指针指向堆中实体大起始地址</li>
+<li>在栈中存储了指针，该指针指向堆中实体的起始地址</li>
 </ul>
 </li>
 <li>当做变量复制时，这个值的副本实际上是一个<strong>指针</strong>，<strong>指向存储在堆中的同一个对象</strong></li>
@@ -2291,6 +2322,7 @@
 <li><u>也可以进一步区分null和undefined</u></li>
 </ul>
 </li>
+<li>null 只在与 undefined 进行宽松相等比较时返回 true，与其他任何值进行比较时都不会进行类型转换 </li>
 </ul>
 </li>
 <li><strong>Undefined，表示值未定义</strong><ul>
@@ -2326,7 +2358,7 @@
 <ul>
 <li><strong>NaN，Not a Number</strong><ul>
 <li>涉及NaN的操作都返回 NaN</li>
-<li>与任何值都不想等，包括NaN本身</li>
+<li><strong>与任何值都不相等，包括NaN本身</strong>(比较时会转换为NaN)</li>
 <li>当对对象调用isNaN(..)时<ul>
 <li>先调用对象的valueOf(..)，确定返回值可否转换为数值</li>
 <li>如果不能，基于返回值再调用toString(..)，再测试返回值</li>
@@ -2414,7 +2446,9 @@
 </ul>
 </li>
 </ul>
-<h3 id="乘操作符-、除操作符"><a href="#乘操作符-、除操作符" class="headerlink" title="乘操作符*、除操作符/"></a>乘操作符*、除操作符/</h3><h3 id="求模-，取余"><a href="#求模-，取余" class="headerlink" title="求模%，取余"></a>求模%，取余</h3><ul>
+<h3 id="乘操作符-、除操作符"><a href="#乘操作符-、除操作符" class="headerlink" title="乘操作符*、除操作符/"></a>乘操作符*、除操作符/</h3><ul>
+<li>Infinity*0 和 -Infinity*0 结果都为 NaN</li>
+<li>0/0 = NaN<h3 id="求模-，取余"><a href="#求模-，取余" class="headerlink" title="求模%，取余"></a>求模%，取余</h3></li>
 <li>Infinity%Infinity Infinity%8 2%0 结果都为 NaN</li>
 </ul>
 <h3 id="加操作符"><a href="#加操作符" class="headerlink" title="加操作符 +"></a>加操作符 +</h3><ul>
@@ -2440,7 +2474,11 @@
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">NaN跟任何数比较都是false </span><br><span class="line">  * NaN &gt; 3 </span><br><span class="line">  * NaN &lt;&#x3D; 3  </span><br></pre></td></tr></table></figure>
 <h3 id="相等操作符"><a href="#相等操作符" class="headerlink" title="相等操作符 == !="></a>相等操作符 == !=</h3><ul>
 <li>=== 和 !==  只在两个数<strong>未经转换就相等</strong>的情况下返回true</li>
-<li>== 和 != 试图实现跨类型比较，存在类型转换问题，为了保证代码中数据类型完整性，推荐使用 === 和 !==</li>
+<li>== 和 != 试图实现跨类型比较，存在类型转换问题，为了保证代码中数据类型完整性，推荐使用 === 和 !==<ul>
+<li>如果其中一个操作数是对象，另一个是原始值，则将对象转换为原始值</li>
+</ul>
+</li>
+<li>Object.is() 确定两个值是否为相同值；不会对其操作数进行类型转换（== 会进行类型转换）；处理带符号的 0 和 NaN 值的时候与 === 不同</li>
 </ul>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">NaN !&#x3D; NaN  &#x2F;&#x2F; true</span><br><span class="line">null &#x3D;&#x3D; undefined &#x2F;&#x2F; true</span><br></pre></td></tr></table></figure>
 <h3 id="条件操作符"><a href="#条件操作符" class="headerlink" title="条件操作符"></a>条件操作符</h3><ul>
@@ -2454,6 +2492,9 @@
 <li>let num = (1,2,3,4,0)  // 0</li>
 </ul>
 </li>
+</ul>
+<h3 id="比较运算符（如-lt-和-gt-）"><a href="#比较运算符（如-lt-和-gt-）" class="headerlink" title="比较运算符（如 &lt;= 和 &gt;=）"></a>比较运算符（如 &lt;= 和 &gt;=）</h3><ul>
+<li>会先尝试将两个操作数转换为数字，再进行比较</li>
 </ul>
 <hr>
 <blockquote>
@@ -2509,6 +2550,7 @@
 <li>前提是 arguments[n] 访问的 参数n 有被传入</li>
 </ul>
 </li>
+<li>函数内部的函数名称是只读的</li>
 </ul>
 <p><strong>ECMAScript函数没有签名，不能实现重载</strong></p>
 <ul>
@@ -2640,6 +2682,7 @@
 <h2 id="引用类型"><a href="#引用类型" class="headerlink" title="引用类型"></a>引用类型</h2></blockquote>
 <h3 id="Object"><a href="#Object" class="headerlink" title="Object"></a>Object</h3><h3 id="Array"><a href="#Array" class="headerlink" title="Array"></a>Array</h3><ul>
 <li>length属性不是只读的，可通过它来添加或移除数组项</li>
+<li>[]被认为是一个“真”的值</li>
 <li>最多可包含4294967295个项</li>
 <li>ES5 新增.isArray()方法</li>
 <li>toString(..) toLocaleString(..) valueOf(..) join(..) concat(..) includes(..)</li>
@@ -2661,6 +2704,8 @@
 <li>indexOf(..) lastIndexOf(..)从末尾开始找；这两个方法没找到都返回-1</li>
 <li>迭代方法：every(..) filter(..) forEach(..) map(..) some(..)<ul>
 <li>(function(item, index, array){})</li>
+<li>forEach() 只会遍历已存在的、非空的索引</li>
+<li>稀疏数组在使用 map方法 后仍然是稀疏的。空槽的索引在返回的数组中仍然为空</li>
 </ul>
 </li>
 <li>缩小数组：reduce(..) reduceRight(..)<ul>
@@ -2694,7 +2739,7 @@
 </ul>
 </li>
 </ul>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 常用的一些正则</span></span><br><span class="line">/^<span class="number">1</span>\d&#123;<span class="number">10</span>&#125;$/ <span class="comment">// 以1开头的手机号码</span></span><br><span class="line">/^\d&#123;<span class="number">4</span>&#125;-\d&#123;<span class="number">2</span>&#125;-\d&#123;<span class="number">2</span>&#125;$/ <span class="comment">// 匹配日期，YYYY-MM-DD</span></span><br><span class="line">/^[a-zA-Z0-9_]&#123;<span class="number">4</span>,<span class="number">16</span>&#125;$/ <span class="comment">// 匹配用户名</span></span><br><span class="line">/^\(https?|ftp):\/\/[^\s/$.?#].[^\s]*$/ <span class="comment">// 匹配URL</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 常用的一些正则</span></span><br><span class="line">/[^\d]*<span class="regexp">/ /</span><span class="regexp">/ 非数字，反向</span></span><br><span class="line"><span class="regexp">/</span>^<span class="number">1</span>\d&#123;<span class="number">10</span>&#125;$/ <span class="comment">// 以1开头的手机号码</span></span><br><span class="line">/^\d&#123;<span class="number">4</span>&#125;-\d&#123;<span class="number">2</span>&#125;-\d&#123;<span class="number">2</span>&#125;$/ <span class="comment">// 匹配日期，YYYY-MM-DD</span></span><br><span class="line">/^[a-zA-Z0-9_]&#123;<span class="number">4</span>,<span class="number">16</span>&#125;$/ <span class="comment">// 匹配用户名</span></span><br><span class="line">/^\(https?|ftp):\/\/[^\s/$.?#].[^\s]*$/ <span class="comment">// 匹配URL</span></span><br></pre></td></tr></table></figure>
 <h3 id="Function"><a href="#Function" class="headerlink" title="Function"></a>Function</h3><ul>
 <li><strong>每个函数都是 Function 的实例</strong></li>
 <li>函数是<strong>对象</strong>，函数名是<strong>指向函数的指针</strong>，所以函数可以用作 <strong>值</strong> 来使用</li>
@@ -2787,6 +2832,7 @@
 <p><strong>2. Math()</strong></p>
 <ul>
 <li>max(..) ｜ min(..) ｜ ceil(..) | floor(..) | round(..) | random(..)</li>
+<li>max(..) ｜ min(..)在没有传参的情况下分别返回 -Infinity | Infinity</li>
 </ul>
 <hr>
 <blockquote>
@@ -2835,6 +2881,7 @@
 <li>简单来说，函数、undefined、symbol值都不是有效的数据类型，序列化时被忽略也是为了确保JSON字符串的有效性跟可靠性，以防出现不一致的行为或丢失等潜在风险</li>
 </ul>
 </li>
+<li>null还是被转换为null</li>
 <li><strong>不可枚举的属性</strong> 默认会被 忽略</li>
 </ul>
 </li>
@@ -3178,7 +3225,10 @@
 <li>3种状态：Pending Resolved Rejected</li>
 <li>从Pending变为Resolved 或 Rejected，一旦发生状态就凝固不会再变</li>
 <li>可以将异步操作以同步操作流程表达，避免层层嵌套的回调函数（链式调用，代码更简洁）</li>
+<li>Promise.then 接收的如果不是函数，那么Promise会忽略它，并会将上一个then的值传递</li>
 <li>缺点：无法中途取消Promise；不设置回调函数那么内部错误不会被反应到外部；Pending状态时无法得知目前在哪个阶段</li>
+</ul>
+</li>
 <li><strong>stream模式</strong><ul>
 <li>连续的数据流：如果你需要处理大量的数据流，例如从文件、网络或其他来源读取连续的数据块，并进行实时处理，那么使用 Stream 模式可能更合适。Stream 提供了一种高效处理大数据的方式，可以分块读取和处理数据，减少内存占用和提高性能。</li>
 <li>基于事件驱动：例如实时消息传递、监视文件系统变化等，那么使用 Stream 可能更自然和高效。Stream 提供了一种异步事件驱动的方式，可以方便地处理事件流，并且可以与其他事件驱动的模块和框架无缝集成。</li>
@@ -3187,8 +3237,6 @@
 <li>Promise 模式相对于 Stream 模式来说，可能更简单和易于理解<ul>
 <li>Promise 提供了一种更直观的方式来处理异步操作，可以通过链式调用来组织和处理异步任务，适合处理<strong>一次性的异步操作</strong></li>
 <li>根据具体情况，有时 Promise 可能会更容易理解和维护，因为它提供了一种线性的、顺序执行的方式来处理异步任务</li>
-</ul>
-</li>
 </ul>
 </li>
 <li><strong>Generator函数</strong><ul>
@@ -3287,7 +3335,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://karencxx.github.io/2024/04/01/JSNote/" data-id="clzv4lf76000bdyfu30f6bju5" class="article-share-link">Share</a>
+      <a data-url="http://karencxx.github.io/2024/04/01/JSNote/" data-id="cm2d2gpdd0009e2fu68e46jto" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%A4%8D%E4%B9%A0/" rel="tag">复习</a></li></ul>
@@ -3339,7 +3387,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://karencxx.github.io/2021/03/29/%E8%BF%9F%E6%9D%A5%E7%9A%84%E6%B3%A8%E6%84%8F%E7%82%B9-%E5%86%B7%E7%9F%A5%E8%AF%86/" data-id="clzv4lf83002bdyfu0dji27ly" class="article-share-link">Share</a>
+      <a data-url="http://karencxx.github.io/2021/03/29/%E8%BF%9F%E6%9D%A5%E7%9A%84%E6%B3%A8%E6%84%8F%E7%82%B9-%E5%86%B7%E7%9F%A5%E8%AF%86/" data-id="cm2d2gpew002ce2fu25k45ocv" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%AE%9A%E6%97%B6%E5%99%A8/" rel="tag">定时器</a></li></ul>
@@ -3462,7 +3510,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://karencxx.github.io/2021/03/11/%E5%89%8D%E7%AB%AF%E5%AD%98%E5%82%A8%E6%80%BB%E7%BB%93/" data-id="clzv4lf7t001jdyfub8293egi" class="article-share-link">Share</a>
+      <a data-url="http://karencxx.github.io/2021/03/11/%E5%89%8D%E7%AB%AF%E5%AD%98%E5%82%A8%E6%80%BB%E7%BB%93/" data-id="cm2d2gpeg001ie2fu8s0nd5f9" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%89%8D%E7%AB%AF%E5%AD%98%E5%82%A8/" rel="tag">前端存储</a></li></ul>
@@ -3554,7 +3602,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://karencxx.github.io/2021/03/08/snabbdom%E6%B5%85%E8%AF%BB%E6%BA%90%E7%A0%81/" data-id="clzv4lf7k000ydyfua96r044v" class="article-share-link">Share</a>
+      <a data-url="http://karencxx.github.io/2021/03/08/snabbdom%E6%B5%85%E8%AF%BB%E6%BA%90%E7%A0%81/" data-id="cm2d2gpe0000ze2fugoyn6w52" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/source-code/" rel="tag">source code</a></li></ul>
