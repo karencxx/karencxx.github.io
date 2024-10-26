@@ -1,99 +1,106 @@
 <!DOCTYPE html>
-<html>
-<head>
-  <meta charset="utf-8">
-  
-  <title>迟到的vue source code 记录 | 进阶</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="前期准备：需要拉取远程vue代码 package.json构建后的主文件: dist&#x2F;vue.runtime.common.js构建入口js: scripts&#x2F;config.js我们主要看platform: web 的目标构建对象 TARGET: web-full-dev build.js过滤构建配置，构建不同用途的vue.js config.js找到web-full-dev可得知入口为 web&#x2F;">
-<meta property="og:type" content="article">
-<meta property="og:title" content="迟到的vue source code 记录">
-<meta property="og:url" content="http://karencxx.github.io/2021/01/21/%E8%BF%9F%E5%88%B0%E7%9A%84vue-source-code-%E8%AE%B0%E5%BD%95/index.html">
-<meta property="og:site_name" content="进阶">
-<meta property="og:description" content="前期准备：需要拉取远程vue代码 package.json构建后的主文件: dist&#x2F;vue.runtime.common.js构建入口js: scripts&#x2F;config.js我们主要看platform: web 的目标构建对象 TARGET: web-full-dev build.js过滤构建配置，构建不同用途的vue.js config.js找到web-full-dev可得知入口为 web&#x2F;">
-<meta property="og:locale">
-<meta property="article:published_time" content="2021-01-21T08:00:14.000Z">
-<meta property="article:modified_time" content="2024-04-24T09:22:15.811Z">
-<meta property="article:author" content="karen">
-<meta property="article:tag" content="source code">
-<meta name="twitter:card" content="summary">
-  
-    <link rel="alternate" href="/atom.xml" title="进阶" type="application/atom+xml">
-  
-  
-    <link rel="icon" href="/favicon.png">
-  
-  
-    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
-  
-  
-<link rel="stylesheet" href="/css/style.css">
+<html lang="">
+    <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>迟到的vue source code 记录 | 蘑菇小记</title>
+    <link rel="stylesheet" href="/css/breeze.css">
+    <script src="/js/toc.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const backToTopButton = document.getElementById('back-to-top');
 
-  
+            // 当页面滚动超过 300px 时显示按钮
+            window.onscroll = function() {
+                if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
+                backToTopButton.style.display = "block";
+                } else {
+                backToTopButton.style.display = "none";
+                }
+            };
+            
+            // 点击按钮时平滑滚动回顶部
+            backToTopButton.addEventListener('click', function() {
+                const scrollToTop = function() {
+                    const c = document.documentElement.scrollTop || document.body.scrollTop;
+                    if (c > 0) {
+                    window.requestAnimationFrame(scrollToTop);
+                    window.scrollTo(0, c - c / 8);
+                    }
+                };
+                scrollToTop();
+            });
+        });
+        window.isMobile = /mobile|android|iphone|ipad|phone/i.test(navigator.userAgent);
+    </script>
 
+    
 <meta name="generator" content="Hexo 5.3.0"></head>
-
-<body>
-  <div id="container">
-    <div id="wrap">
-      <header id="header">
-  <div id="banner"></div>
-  <div id="header-outer" class="outer">
-    <div id="header-title" class="inner">
-      <h1 id="logo-wrap">
-        <a href="/" id="logo">进阶</a>
-      </h1>
-      
+    
+  <body>
+    <div class="container">
+      <header class="header-container post-header">
+    <div class="title">
+        <img src="/images/Icon-leaf.png" class="leaf-icon">
+        <a href="/">蘑菇小记</a>
     </div>
-    <div id="header-inner" class="inner">
-      <nav id="main-nav">
-        <a id="main-nav-toggle" class="nav-icon"></a>
-        
-          <a class="main-nav-link" href="/">Home</a>
-        
-          <a class="main-nav-link" href="/archives">Archives</a>
-        
-      </nav>
-      <nav id="sub-nav">
-        
-          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
-        
-        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
-      </nav>
-      <div id="search-form-wrap">
-        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://karencxx.github.io"></form>
-      </div>
-    </div>
-  </div>
+    <nav class="nav">
+        <ul>
+            
+                <li><a href="/archives" class="nav-item">Archives</a></li>
+            
+                <li><a href="/about" class="nav-item">About</a></li>
+            
+          </ul>
+    </nav>
 </header>
-      <div class="outer">
-        <section id="main"><article id="post-迟到的vue-source-code-记录" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2021/01/21/%E8%BF%9F%E5%88%B0%E7%9A%84vue-source-code-%E8%AE%B0%E5%BD%95/" class="article-date">
-  <time datetime="2021-01-21T08:00:14.000Z" itemprop="datePublished">2021-01-21</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/vue/">vue</a>
-  </div>
 
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
+      <div class="main-content">
         
-  
-    <h1 class="article-title" itemprop="name">
-      迟到的vue source code 记录
-    </h1>
-  
+          
 
-      </header>
+<aside class="post-toc">
+    <div class="toc-wrapper collapsed">
+  <div class="toc-toggle">
+    <span class="toc-toggle-icon"></span>
+  </div>
+  <div class="toc-content">
     
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>前期准备：需要拉取远程vue代码</p>
+      <div class="toc-body">
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#package-json"><span class="toc-text">package.json</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#build-js"><span class="toc-text">build.js</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#config-js"><span class="toc-text">config.js</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#web-entry-runtime-with-compiler-js"><span class="toc-text">web&#x2F;entry-runtime-with-compiler.js</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#core-instance-index-js"><span class="toc-text">core&#x2F;instance&#x2F;index.js</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#core-instance-init-js"><span class="toc-text">core&#x2F;instance&#x2F;init.js</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#web-entry-runtime-with-compiler-js-1"><span class="toc-text">web&#x2F;entry-runtime-with-compiler.js</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#web-runtime-index-js"><span class="toc-text">web&#x2F;runtime&#x2F;index.js</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#core-instance-lifecycle-js"><span class="toc-text">core&#x2F;instance&#x2F;lifecycle.js</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#core-instance-render-js"><span class="toc-text">core&#x2F;instance&#x2F;render.js</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#core-vdom-vnode-js"><span class="toc-text">core&#x2F;vdom&#x2F;vnode.js</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#core-vdom-create-element-js"><span class="toc-text">core&#x2F;vdom&#x2F;create-element.js</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#core-instance-lifecycle-js-1"><span class="toc-text">core&#x2F;instance&#x2F;lifecycle.js</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#platforms-web-runtime-patch-js"><span class="toc-text">platforms&#x2F;web&#x2F;runtime&#x2F;patch.js</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#core-vdom-patch-js"><span class="toc-text">core&#x2F;vdom&#x2F;patch.js</span></a></li></ol>
+      </div>
+    
+  </div>
+</div>
+
+
+</aside>
+
+<article class="post-detail has-toc toc-collapsed">
+    <div class="post-title-container">
+        <h1 class="post-title">迟到的vue source code 记录</h1>
+    </div>
+    <div class="post-meta">
+        <time datetime="2021-01-21T08:00:14.000Z">2021-01-21</time>
+        
+          <div class="post-tags">
+            
+              <a href="/tags/source-code/" class="post-tag">source code</a>
+            
+          </div>
+        
+        
+          <div class="post-categories">
+            
+              <a href="/categories/vue/" class="post-category">vue</a>
+            
+          </div>
+        
+  </div>
+  <div class="post-content">
+    
+
+    <p>前期准备：需要拉取远程vue代码</p>
 <h2 id="package-json"><a href="#package-json" class="headerlink" title="package.json"></a>package.json</h2><p>构建后的主文件: dist/vue.runtime.common.js<br>构建入口js: scripts/config.js<br>我们主要看<strong>platform: web</strong> 的目标构建对象 <strong>TARGET: web-full-dev</strong></p>
 <h2 id="build-js"><a href="#build-js" class="headerlink" title="build.js"></a>build.js</h2><p>过滤构建配置，构建不同用途的vue.js</p>
 <h2 id="config-js"><a href="#config-js" class="headerlink" title="config.js"></a>config.js</h2><p>找到web-full-dev<br>可得知入口为 web/entry-runtime-with-compiler.js<br>输出文件 dist/vue.js</p>
@@ -166,151 +173,19 @@
 <h2 id="core-vdom-patch-js"><a href="#core-vdom-patch-js" class="headerlink" title="core/vdom/patch.js"></a>core/vdom/patch.js</h2><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="function"><span class="keyword">function</span> <span class="title">createPatchFunction</span> (<span class="params">backend</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> i, j</span><br><span class="line">  <span class="keyword">const</span> cbs = &#123;&#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> &#123; modules, nodeOps &#125; = backend</span><br><span class="line"></span><br><span class="line">  <span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; hooks.length; ++i) &#123;</span><br><span class="line">    cbs[hooks[i]] = []</span><br><span class="line">    <span class="keyword">for</span> (j = <span class="number">0</span>; j &lt; modules.length; ++j) &#123;</span><br><span class="line">      <span class="keyword">if</span> (isDef(modules[j][hooks[i]])) &#123;</span><br><span class="line">        cbs[hooks[i]].push(modules[j][hooks[i]])</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  ... <span class="comment">//  一些辅助函数定义</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> <span class="title">patch</span> (<span class="params">oldVnode, vnode, hydrating, removeOnly</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (isUndef(vnode)) &#123;</span><br><span class="line">      <span class="keyword">if</span> (isDef(oldVnode)) invokeDestroyHook(oldVnode)</span><br><span class="line">      <span class="keyword">return</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">let</span> isInitialPatch = <span class="literal">false</span></span><br><span class="line">    <span class="keyword">const</span> insertedVnodeQueue = []</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (isUndef(oldVnode)) &#123;</span><br><span class="line">      <span class="comment">// empty mount (likely as component), create new root element</span></span><br><span class="line">      isInitialPatch = <span class="literal">true</span></span><br><span class="line">      createElm(vnode, insertedVnodeQueue)</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="keyword">const</span> isRealElement = isDef(oldVnode.nodeType)</span><br><span class="line">      <span class="keyword">if</span> (!isRealElement &amp;&amp; sameVnode(oldVnode, vnode)) &#123;</span><br><span class="line">        <span class="comment">// patch existing root node</span></span><br><span class="line">        patchVnode(oldVnode, vnode, insertedVnodeQueue, <span class="literal">null</span>, <span class="literal">null</span>, removeOnly)</span><br><span class="line">      &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (isRealElement) &#123;</span><br><span class="line">          <span class="comment">// mounting to a real element</span></span><br><span class="line">          <span class="comment">// check if this is server-rendered content and if we can perform</span></span><br><span class="line">          <span class="comment">// a successful hydration.</span></span><br><span class="line">          <span class="keyword">if</span> (oldVnode.nodeType === <span class="number">1</span> &amp;&amp; oldVnode.hasAttribute(SSR_ATTR)) &#123;</span><br><span class="line">            oldVnode.removeAttribute(SSR_ATTR)</span><br><span class="line">            hydrating = <span class="literal">true</span></span><br><span class="line">          &#125;</span><br><span class="line">          <span class="keyword">if</span> (isTrue(hydrating)) &#123;</span><br><span class="line">            <span class="keyword">if</span> (hydrate(oldVnode, vnode, insertedVnodeQueue)) &#123;</span><br><span class="line">              invokeInsertHook(vnode, insertedVnodeQueue, <span class="literal">true</span>)</span><br><span class="line">              <span class="keyword">return</span> oldVnode</span><br><span class="line">            &#125; <span class="keyword">else</span> <span class="keyword">if</span> (process.env.NODE_ENV !== <span class="string">&#x27;production&#x27;</span>) &#123;</span><br><span class="line">              warn(</span><br><span class="line">                <span class="string">&#x27;The client-side rendered virtual DOM tree is not matching &#x27;</span> +</span><br><span class="line">                <span class="string">&#x27;server-rendered content. This is likely caused by incorrect &#x27;</span> +</span><br><span class="line">                <span class="string">&#x27;HTML markup, for example nesting block-level elements inside &#x27;</span> +</span><br><span class="line">                <span class="string">&#x27;&lt;p&gt;, or missing &lt;tbody&gt;. Bailing hydration and performing &#x27;</span> +</span><br><span class="line">                <span class="string">&#x27;full client-side render.&#x27;</span></span><br><span class="line">              )</span><br><span class="line">            &#125;</span><br><span class="line">          &#125;</span><br><span class="line">          <span class="comment">// either not server-rendered, or hydration failed.</span></span><br><span class="line">          <span class="comment">// create an empty node and replace it</span></span><br><span class="line">          oldVnode = emptyNodeAt(oldVnode)</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// replacing existing element</span></span><br><span class="line">        <span class="keyword">const</span> oldElm = oldVnode.elm</span><br><span class="line">        <span class="keyword">const</span> parentElm = nodeOps.parentNode(oldElm)</span><br><span class="line"></span><br><span class="line">        <span class="comment">// create new node</span></span><br><span class="line">        createElm(</span><br><span class="line">          vnode,</span><br><span class="line">          insertedVnodeQueue,</span><br><span class="line">          <span class="comment">// extremely rare edge case: do not insert if old element is in a</span></span><br><span class="line">          <span class="comment">// leaving transition. Only happens when combining transition +</span></span><br><span class="line">          <span class="comment">// keep-alive + HOCs. (#4590)</span></span><br><span class="line">          oldElm._leaveCb ? <span class="literal">null</span> : parentElm,</span><br><span class="line">          nodeOps.nextSibling(oldElm)</span><br><span class="line">        )</span><br><span class="line"></span><br><span class="line">        <span class="comment">// update parent placeholder node element, recursively</span></span><br><span class="line">        <span class="keyword">if</span> (isDef(vnode.parent)) &#123;</span><br><span class="line">          <span class="keyword">let</span> ancestor = vnode.parent</span><br><span class="line">          <span class="keyword">const</span> patchable = isPatchable(vnode)</span><br><span class="line">          <span class="keyword">while</span> (ancestor) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; cbs.destroy.length; ++i) &#123;</span><br><span class="line">              cbs.destroy[i](ancestor)</span><br><span class="line">            &#125;</span><br><span class="line">            ancestor.elm = vnode.elm</span><br><span class="line">            <span class="keyword">if</span> (patchable) &#123;</span><br><span class="line">              <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; cbs.create.length; ++i) &#123;</span><br><span class="line">                cbs.create[i](emptyNode, ancestor)</span><br><span class="line">              &#125;</span><br><span class="line">              <span class="comment">// #6513</span></span><br><span class="line">              <span class="comment">// invoke insert hooks that may have been merged by create hooks.</span></span><br><span class="line">              <span class="comment">// e.g. for directives that uses the &quot;inserted&quot; hook.</span></span><br><span class="line">              <span class="keyword">const</span> insert = ancestor.data.hook.insert</span><br><span class="line">              <span class="keyword">if</span> (insert.merged) &#123;</span><br><span class="line">                <span class="comment">// start at index 1 to avoid re-invoking component mounted hook</span></span><br><span class="line">                <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">1</span>; i &lt; insert.fns.length; i++) &#123;</span><br><span class="line">                  insert.fns[i]()</span><br><span class="line">                &#125;</span><br><span class="line">              &#125;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">              registerRef(ancestor)</span><br><span class="line">            &#125;</span><br><span class="line">            ancestor = ancestor.parent</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// destroy old node</span></span><br><span class="line">        <span class="keyword">if</span> (isDef(parentElm)) &#123;</span><br><span class="line">          removeVnodes([oldVnode], <span class="number">0</span>, <span class="number">0</span>)</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (isDef(oldVnode.tag)) &#123;</span><br><span class="line">          invokeDestroyHook(oldVnode)</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    invokeInsertHook(vnode, insertedVnodeQueue, isInitialPatch)</span><br><span class="line">    <span class="keyword">return</span> vnode.elm</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>函数最终返回一个 patch 方法，即 <strong>vm.<strong>patch</strong></strong> 调用的就是该方法<br>看到这里，可以看到patch主要逻辑相同，<strong>差异在入参</strong><br>通过 createPatchFunction 先传入<strong>不同平台的参数</strong>，再赋给patch<br>这样 patch 对外是 无差别的，这种编程技巧非常值得学习</p>
 
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://karencxx.github.io/2021/01/21/%E8%BF%9F%E5%88%B0%E7%9A%84vue-source-code-%E8%AE%B0%E5%BD%95/" data-id="cm2d2gpeu0029e2fuf3ll8fhh" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/source-code/" rel="tag">source code</a></li></ul>
-
-    </footer>
   </div>
-  
-    
-<nav id="article-nav">
-  
-    <a href="/2021/01/29/%E8%B0%88%E8%B0%88%E8%BF%99%E6%AC%A1%E9%A2%86%E5%85%BB%E5%90%8E%E7%9A%84%E6%84%9F%E5%8F%97/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
-        
-          谈谈这次领养后的感受
-        
-      </div>
-    </a>
-  
-  
-    <a href="/2021/01/19/%E9%A1%B9%E7%9B%AE%E6%9E%84%E5%BB%BA%E9%83%A8%E7%BD%B2%E4%BA%8C%E4%B8%89%E4%BA%8B/" id="article-nav-older" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">项目构建部署二三事</div>
-    </a>
-  
-</nav>
-
-  
 </article>
 
-</section>
         
-          <aside id="sidebar">
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Categories</h3>
-    <div class="widget">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/BOM/">BOM</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/CSS/">CSS</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/JS/">JS</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/React/">React</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/express/">express</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/snabbdom/">snabbdom</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/vue/">vue</a></li></ul>
-    </div>
-  </div>
-
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Tags</h3>
-    <div class="widget">
-      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/" rel="tag">hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/js-this/" rel="tag">js-this</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/source-code/" rel="tag">source code</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/typescript/" rel="tag">typescript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/v-for/" rel="tag">v-for</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vue-router/" rel="tag">vue-router</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vuex%E6%8E%A2%E7%A9%B6/" rel="tag">vuex探究</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/webpack/" rel="tag">webpack</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%89%8D%E7%AB%AF%E5%AD%98%E5%82%A8/" rel="tag">前端存储</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%A4%8D%E4%B9%A0/" rel="tag">复习</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%AE%9A%E6%97%B6%E5%99%A8/" rel="tag">定时器</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%BC%80%E5%8F%91%E6%8A%80%E5%B7%A7/" rel="tag">开发技巧</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/" rel="tag">性能优化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%83%A8%E7%BD%B2/" rel="tag">部署</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%9A%8F%E7%AC%94%E5%86%99/" rel="tag">随笔写</a></li></ul>
-    </div>
-  </div>
-
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Tag Cloud</h3>
-    <div class="widget tagcloud">
-      <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/js-this/" style="font-size: 10px;">js-this</a> <a href="/tags/source-code/" style="font-size: 15px;">source code</a> <a href="/tags/typescript/" style="font-size: 10px;">typescript</a> <a href="/tags/v-for/" style="font-size: 10px;">v-for</a> <a href="/tags/vue-router/" style="font-size: 10px;">vue-router</a> <a href="/tags/vuex%E6%8E%A2%E7%A9%B6/" style="font-size: 10px;">vuex探究</a> <a href="/tags/webpack/" style="font-size: 10px;">webpack</a> <a href="/tags/%E5%89%8D%E7%AB%AF%E5%AD%98%E5%82%A8/" style="font-size: 10px;">前端存储</a> <a href="/tags/%E5%A4%8D%E4%B9%A0/" style="font-size: 20px;">复习</a> <a href="/tags/%E5%AE%9A%E6%97%B6%E5%99%A8/" style="font-size: 10px;">定时器</a> <a href="/tags/%E5%BC%80%E5%8F%91%E6%8A%80%E5%B7%A7/" style="font-size: 15px;">开发技巧</a> <a href="/tags/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/" style="font-size: 10px;">性能优化</a> <a href="/tags/%E9%83%A8%E7%BD%B2/" style="font-size: 10px;">部署</a> <a href="/tags/%E9%9A%8F%E7%AC%94%E5%86%99/" style="font-size: 10px;">随笔写</a>
-    </div>
-  </div>
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Archives</h3>
-    <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/08/">August 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/05/">May 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/04/">April 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/03/">March 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/02/">February 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/01/">January 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/11/">November 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">January 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">December 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/11/">November 2017</a></li></ul>
-    </div>
-  </div>
-
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Recent Posts</h3>
-    <div class="widget">
-      <ul>
-        
-          <li>
-            <a href="/2024/08/15/reactReview/">reactReview</a>
-          </li>
-        
-          <li>
-            <a href="/2024/05/31/%E6%89%8B%E5%86%99code/">手写code</a>
-          </li>
-        
-          <li>
-            <a href="/2024/04/24/ReviewNote/">vue-review</a>
-          </li>
-        
-          <li>
-            <a href="/2024/04/11/BOMNote/">BOMNote</a>
-          </li>
-        
-          <li>
-            <a href="/2024/04/08/CSSNote/">CSSNote</a>
-          </li>
-        
-      </ul>
-    </div>
-  </div>
-
-  
-</aside>
         
       </div>
-      <footer id="footer">
-  
-  <div class="outer">
-    <div id="footer-info" class="inner">
-      &copy; 2024 karen<br>
-      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+      <footer class="footer">
+    <div class="footer-content">
+        <p>&copy; 2024 蘑菇小记</p>
+        <p class="copyright">All rights reserved.</p>
     </div>
-  </div>
 </footer>
     </div>
-    <nav id="mobile-nav">
-  
-    <a href="/" class="mobile-nav-link">Home</a>
-  
-    <a href="/archives" class="mobile-nav-link">Archives</a>
-  
-</nav>
-    
-
-<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
-
-
-  
-<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
-
-  
-<script src="/fancybox/jquery.fancybox.pack.js"></script>
-
-
-
-
-<script src="/js/script.js"></script>
-
-
-  </div>
-</body>
+    <button id="back-to-top" title="回到顶部">↑</button>
+  </body>
 </html>
