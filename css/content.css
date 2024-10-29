@@ -20,12 +20,12 @@
 .post-list {
   flex: 1;
   margin: 0 30px;
-  padding: 0 16px;
-  border-left: 20px solid #286e34;
+  padding: 0 10px;
+  border-left: 16px solid #286e34;
 }
 .post-list .post-item {
   border-bottom: 1px solid #e5e7eb;
-  padding: 10px;
+  padding: 8px;
 }
 .post-list .post-item:last-child {
   border-bottom: none;
@@ -35,7 +35,6 @@
   align-items: baseline;
   justify-content: flex-start;
   color: #c2c2c2;
-  font-size: 16px;
 }
 .post-detail {
   flex: 1;

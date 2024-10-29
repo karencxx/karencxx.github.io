@@ -1,0 +1,36 @@
+.pagination {
+  padding: 1em 0;
+  text-align: right;
+  width: 100%;
+  clear: both;
+}
+.pagination .page-number,
+.pagination .extend {
+  display: inline-block;
+  margin: 0 0.3em;
+  padding: 0.5em 1em;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  color: #666;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+.pagination .page-number:hover,
+.pagination .extend:hover {
+  background-color: #286e34;
+  color: #fff;
+  border-color: #ccc;
+}
+.pagination .current {
+  background-color: #286e34;
+  color: #fff;
+}
+.pagination .space {
+  margin: 0 0.5em;
+}
+.pagination .extend.prev {
+  margin-right: 1em;
+}
+.pagination .extend.next {
+  margin-left: 1em;
+}

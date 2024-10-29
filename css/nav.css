@@ -10,7 +10,7 @@
   padding: 10px 24px;
 }
 .header-container .title {
-  font-size: 32px;
+  font-size: 28px;
   font-weight: bold;
   color: #286e34;
   display: flex;
@@ -23,8 +23,8 @@
   color: inherit;
 }
 .header-container .leaf-icon {
-  width: 36px;
-  height: 50px;
+  width: 30px;
+  height: 42px;
   background: url("/images/Icon-leaf.png") no-repeat;
   background-size: contain;
   margin-right: 6px;
