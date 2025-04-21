@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="">
+    <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>记录：注意点&amp;冷知识 | 蘑菇小记</title>
+    <link rel="stylesheet" href="/css/breeze.css">
+    <script src="/js/toc.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const backToTopButton = document.getElementById('back-to-top');
+
+            // 当页面滚动超过 300px 时显示按钮
+            window.onscroll = function() {
+                if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
+                backToTopButton.style.display = "block";
+                } else {
+                backToTopButton.style.display = "none";
+                }
+            };
+            
+            // 点击按钮时平滑滚动回顶部
+            backToTopButton.addEventListener('click', function() {
+                const scrollToTop = function() {
+                    const c = document.documentElement.scrollTop || document.body.scrollTop;
+                    if (c > 0) {
+                    window.requestAnimationFrame(scrollToTop);
+                    window.scrollTo(0, c - c / 8);
+                    }
+                };
+                scrollToTop();
+            });
+        });
+        window.isMobile = /mobile|android|iphone|ipad|phone/i.test(navigator.userAgent);
+    </script>
+
+    
+<meta name="generator" content="Hexo 5.4.2"></head>
+    
+  <body>
+    <div class="container">
+      <header class="header-container post-header">
+    <div class="title">
+        <img src="/images/Icon-leaf.png" class="leaf-icon">
+        <a href="/">蘑菇小记</a>
+    </div>
+    <nav class="nav">
+        <ul>
+            
+                <li><a href="/archives" class="nav-item">Archives</a></li>
+            
+                <li><a href="/about" class="nav-item">About</a></li>
+            
+          </ul>
+    </nav>
+</header>
+
+      <div class="main-content">
+        
+          
+
+<article class="post-detail ">
+    <div class="post-title-container">
+        <h1 class="post-title">记录：注意点&amp;冷知识</h1>
+    </div>
+    <div class="post-meta">
+        <time datetime="2021-03-29T06:11:07.000Z">2021-03-29</time>
+        
+          <div class="post-tags">
+            
+              <a href="/tags/%E5%AE%9A%E6%97%B6%E5%99%A8/" class="post-tag">定时器</a>
+            
+          </div>
+        
+        
+          <div class="post-categories">
+            
+              <a href="/categories/JS/" class="post-category">JS</a>
+            
+          </div>
+        
+  </div>
+  <div class="post-content">
+    
+
+    <blockquote>
+<p><strong>setTimeout / setInterval</strong></p>
+</blockquote>
+<ul>
+<li>setTimeout: 0ms 并不是立即执行，被放入任务队列等待空闲时执行（js运行机制）</li>
+<li>实际延迟比设定值更久，原因是有最小延迟4ms，最先规定的嵌套函数最小延迟10ms</li>
+<li>setTimeout 和 setInterval 每调用一次最小间隔4ms</li>
+<li>最大延迟值：当延迟大于2147483647ms，约为24.8天时就会移除，导致定时器会被立即执行</li>
+<li>可以使用postMessage实现零延迟<br>  window.postMessage()可以安全地实现跨源通信  <figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">(<span class="keyword">function</span>(<span class="params"></span>)&#123;</span><br><span class="line">    <span class="keyword">var</span> timeouts = []</span><br><span class="line">    <span class="keyword">var</span> messageName = <span class="string">&quot;zero-timeout-message&quot;</span></span><br><span class="line">    <span class="comment">// 只接受一个函数参数，延迟时间始终为0</span></span><br><span class="line">    <span class="keyword">function</span> <span class="title function_">setZeroTimeout</span>(<span class="params">fn</span>)&#123;</span><br><span class="line">        timeouts.<span class="title function_">push</span>(fn)</span><br><span class="line">        <span class="variable language_">window</span>.<span class="title function_">postMessage</span>(messageName, <span class="string">&quot;*&quot;</span>)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">function</span> <span class="title function_">handleMessage</span>(<span class="params">event</span>)&#123;</span><br><span class="line">        <span class="keyword">if</span>(event.<span class="property">source</span> == <span class="variable language_">window</span> &amp;&amp; event.<span class="property">data</span> == messageName)&#123;</span><br><span class="line">            event.<span class="title function_">stopPropagation</span>()</span><br><span class="line">            <span class="keyword">if</span>(timeouts.<span class="property">length</span> &gt; <span class="number">0</span>)&#123;</span><br><span class="line">                <span class="keyword">var</span> fn = timeouts.<span class="title function_">shift</span>()</span><br><span class="line">                <span class="title function_">fn</span>()</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="variable language_">window</span>.<span class="title function_">addEventListener</span>(<span class="string">&quot;message&quot;</span>, handleMessage, <span class="literal">true</span>)</span><br><span class="line">    <span class="variable language_">window</span>.<span class="property">setZeroTimeout</span> = setZeroTimeout</span><br><span class="line">&#125;)()</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">runtest</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="keyword">var</span> i = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">var</span> startTime = <span class="title class_">Date</span>.<span class="title function_">now</span>();</span><br><span class="line">    <span class="keyword">function</span> <span class="title function_">test1</span>(<span class="params"></span>) &#123;</span><br><span class="line">        <span class="keyword">if</span> (++i == <span class="number">100</span>) &#123;</span><br><span class="line">            <span class="keyword">var</span> endTime = <span class="title class_">Date</span>.<span class="title function_">now</span>();</span><br><span class="line">            <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;100 iterations of setZeroTimeout took &quot;</span> +</span><br><span class="line">                        (endTime - startTime) + <span class="string">&quot; milliseconds.&quot;</span>);</span><br><span class="line">            i = <span class="number">0</span>;</span><br><span class="line">            startTime = <span class="title class_">Date</span>.<span class="title function_">now</span>();</span><br><span class="line">            <span class="built_in">setTimeout</span>(test2, <span class="number">0</span>);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="title function_">setZeroTimeout</span>(test1);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="title function_">setZeroTimeout</span>(test1);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">function</span> <span class="title function_">test2</span>(<span class="params"></span>) &#123;</span><br><span class="line">        <span class="keyword">if</span> (++i == <span class="number">100</span>) &#123;</span><br><span class="line">            <span class="keyword">var</span> endTime = <span class="title class_">Date</span>.<span class="title function_">now</span>();</span><br><span class="line">            <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;100 iterations of setTimeout(0) took &quot;</span> +</span><br><span class="line">                        (endTime - startTime) + <span class="string">&quot; milliseconds.&quot;</span>);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="built_in">setTimeout</span>(test2, <span class="number">0</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;   </span><br></pre></td></tr></table></figure></li>
+</ul>
+
+  </div>
+</article>
+
+        
+        
+      </div>
+      <footer class="footer">
+    <div class="footer-content">
+        <p>&copy; 2025 蘑菇小记</p>
+        <p class="copyright">All rights reserved.</p>
+    </div>
+</footer>
+    </div>
+    <button id="back-to-top" title="回到顶部">↑</button>
+  </body>
+</html>

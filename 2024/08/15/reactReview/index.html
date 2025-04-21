@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="">
+    <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>reactReview | 蘑菇小记</title>
+    <link rel="stylesheet" href="/css/breeze.css">
+    <script src="/js/toc.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const backToTopButton = document.getElementById('back-to-top');
+
+            // 当页面滚动超过 300px 时显示按钮
+            window.onscroll = function() {
+                if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
+                backToTopButton.style.display = "block";
+                } else {
+                backToTopButton.style.display = "none";
+                }
+            };
+            
+            // 点击按钮时平滑滚动回顶部
+            backToTopButton.addEventListener('click', function() {
+                const scrollToTop = function() {
+                    const c = document.documentElement.scrollTop || document.body.scrollTop;
+                    if (c > 0) {
+                    window.requestAnimationFrame(scrollToTop);
+                    window.scrollTo(0, c - c / 8);
+                    }
+                };
+                scrollToTop();
+            });
+        });
+        window.isMobile = /mobile|android|iphone|ipad|phone/i.test(navigator.userAgent);
+    </script>
+
+    
+<meta name="generator" content="Hexo 5.4.2"></head>
+    
+  <body>
+    <div class="container">
+      <header class="header-container post-header">
+    <div class="title">
+        <img src="/images/Icon-leaf.png" class="leaf-icon">
+        <a href="/">蘑菇小记</a>
+    </div>
+    <nav class="nav">
+        <ul>
+            
+                <li><a href="/archives" class="nav-item">Archives</a></li>
+            
+                <li><a href="/about" class="nav-item">About</a></li>
+            
+          </ul>
+    </nav>
+</header>
+
+      <div class="main-content">
+        
+          
+
+<article class="post-detail ">
+    <div class="post-title-container">
+        <h1 class="post-title">reactReview</h1>
+    </div>
+    <div class="post-meta">
+        <time datetime="2024-08-15T10:12:03.000Z">2024-08-15</time>
+        
+          <div class="post-tags">
+            
+              <a href="/tags/%E5%A4%8D%E4%B9%A0/" class="post-tag">复习</a>
+            
+          </div>
+        
+        
+          <div class="post-categories">
+            
+              <a href="/categories/React/" class="post-category">React</a>
+            
+          </div>
+        
+  </div>
+  <div class="post-content">
+    
+
+    <blockquote>
+<p>state</p>
+</blockquote>
+<ul>
+<li><p>默认存在state，是一个对象，存储当前组件数据</p>
+</li>
+<li><p>setState方法来修改数据值，更新组件状态</p>
+<ul>
+<li>setState是异步函数，可以使用async与await来解决</li>
+<li>在setTimeout里是同步的；原生DOM事件也是同步的；Promise里也是；因为无法在这些场景里识别需要批量更新，只能立即处理 <ul>
+<li>异步和同步行为的关键在于 <strong>React是否能批量控制这些更新</strong></li>
+</ul>
+</li>
+<li>React 18 版本以后也是异步更新+state合并</li>
+</ul>
+</li>
+<li><p>如果需要在状态更新后执行某些操作，可以使用setState的回调函数。</p>
+<ul>
+<li>这个回调函数会在状态更新完成并且组件重新渲染后执行，类似vue的nextTick</li>
+</ul>
+</li>
+<li><p>创建并传递一个新状态对象，而不是修改当前的状态对象。是高效更新UI的关键</p>
+</li>
+<li><p>多次重复的setState调用会被合并以优化性能和避免不必要的多次渲染。 </p>
+<ul>
+<li>对象形式 this.setState({count: prevState.count + 1 });</li>
+</ul>
+</li>
+<li><p>使用函数形式的setState确保每次状态更新基于最新的状态值  </p>
+<ul>
+<li>this.setState((prevState) =&gt; ({ count: prevState.count + 1 }));</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>不可变值</p>
+</blockquote>
+<ul>
+<li><p>一旦创建就不能更改的值</p>
+</li>
+<li><p>为什么需要不可变值</p>
+<ul>
+<li>性能优化，比较新旧状态只需要简单的引用比较<ul>
+<li>即检查两个对象是否是同一个对象，而不是逐个比较对象的属性</li>
+</ul>
+</li>
+<li>简化调试，状态不会被直接修改，所以可以更容易追踪状态的变化</li>
+<li>可回溯</li>
+</ul>
+</li>
+<li><p>方法需要bind(this) 或者 使用箭头函数</p>
+</li>
+</ul>
+<blockquote>
+<p>event</p>
+</blockquote>
+<ul>
+<li>事件的event是React封装的合成事件SyntheticBaseEvent</li>
+<li>要看原生Event可以.nativeEvent获取到</li>
+<li>更好的兼容性和跨平台</li>
+<li>减少内存消耗，避免频繁解绑</li>
+<li>统一放在一个数组里，方便事件统一管理</li>
+<li>17前绑定到document（html）上，17后绑定到root组件上</li>
+<li>执行顺序为 原生事件先执行，合成事件后执行</li>
+</ul>
+<blockquote>
+<p>JSX 是个表达式</p>
+</blockquote>
+<ul>
+<li>只能有一个父元素</li>
+<li>使用单标签时，必须正确关闭</li>
+<li>jsx中可以直接将数组中的数据解构</li>
+<li>本质上来说JSX是React.createComponent…方法的语法糖，17之前需要引入react，17之后babel会自动引入</li>
+</ul>
+<ul>
+<li>内联样式 放在{}中 {width: ‘100’} 默认无法支持伪类及媒体样式查询，可以用radium包</li>
+<li>外联样式 styled插件</li>
+</ul>
+<blockquote>
+<p>生命周期</p>
+</blockquote>
+<ul>
+<li>constructor</li>
+<li>render</li>
+<li>componentdidmount</li>
+<li>componentdidupdate</li>
+<li>componentwillunmount</li>
+</ul>
+<blockquote>
+<p>函数组件</p>
+</blockquote>
+<ul>
+<li>没有this、state、生命周期，有props</li>
+<li>可以搭配hook使用，useState为函数组件添加状态</li>
+</ul>
+<blockquote>
+<p>受控组件</p>
+</blockquote>
+<ul>
+<li>React的状态是唯一的“数据源”。表单元素的值由React的状态控制，并且每次表单元素的变化都会触发状态更新。</li>
+</ul>
+<blockquote>
+<p>非受控组件</p>
+</blockquote>
+<ul>
+<li><p>表单元素的值由DOM自身控制。你可以通过ref直接访问DOM节点和获取它的值。</p>
+</li>
+<li><p>ref: 当你希望记住某些信息但不想<strong>触发新的渲染</strong>可以用ref</p>
+<ul>
+<li>返回一个{current: 传入的值}对象</li>
+<li>使用ref.current访问当前值</li>
+</ul>
+</li>
+<li><p>件使用场景</p>
+<ul>
+<li>必须手动操作DOM，setState实现不了。例如文件上传或富文本操作</li>
+<li>在处理文件输入时特别有用，因为文件输入的值是只读的，不能通过React状态来控制</li>
+</ul>
+</li>
+<li><p>简单性：对于简单的表单，非受控组件可以减少一些样板代码，因为你不需要编写状态管理逻辑。</p>
+</li>
+<li><p>直接操作DOM：可以在特定情况下更直接和高效地操作DOM，特别是在集成第三方库时</p>
+</li>
+</ul>
+<blockquote>
+<p>如何让子组件渲染到父组件外</p>
+</blockquote>
+<ul>
+<li><p>ReactDOM.createPortal(el, document.body) 应用在弹窗蒙层</p>
+</li>
+<li><p>类似于vue3的teleport (position:fixed)</p>
+</li>
+<li><p>context在组件树中跨层级传递数据</p>
+</li>
+<li><p>异步组件 React.lazy() &lt;React.Suspence fallback={}&gt; 结合使用</p>
+</li>
+<li><p>react默认父组件更新，子组件无条件更新(scu默认)</p>
+</li>
+<li><p>因此性能优化对react更加重要 </p>
+</li>
+</ul>
+<blockquote>
+<p>redux 单向数据流</p>
+</blockquote>
+<ul>
+<li>State、Action、Reducer</li>
+<li>中间件：Redux Thunk（异步）、Redux logger（日志）</li>
+<li>使用 Reducer 更新，支持同步和异步</li>
+<li>单一数据源，整个应用的状态存储在一个对象树中（State）</li>
+<li>状态是只读的：不能直接修改状态，必须通过 Dispatch 触发动作（Action）。</li>
+<li>使用纯函数更新状态：Reducer 是纯函数，接收旧状态和 Action，返回新状态。</li>
+</ul>
+<p>ref.current()<br>jsx React.createElement(tag, data, child1, child2, child3…) return VNode</p>
+<blockquote>
+<p>React Hooks</p>
+</blockquote>
+<ul>
+<li>只能用于函数组件或自定义Hook</li>
+<li>所有Hooks以use开头</li>
+<li>Hooks严重依赖调用顺序，必须保持一致</li>
+<li>只能用于顶层代码，不能在<strong>条件语句、循环、嵌套函数</strong>里使用<ul>
+<li>依赖于<strong>调用顺序</strong>来正确管理和更新组件的状态和副作用</li>
+<li>基于数组索引来存储和检索状态和副作用的，因此任何条件性地调用 Hooks 都会破坏这种索引顺序，导致不可预测的行为和错误</li>
+<li>下次渲染时将无法正确匹配每个 Hook 的状态</li>
+</ul>
+</li>
+<li>设计 Hook 的一个重要原则是：副作用和状态更新应该是确定的，这样组件的行为就能被清晰地理解和预测</li>
+<li><strong>Effect Hook 模拟生命周期</strong><ul>
+<li>useEffect 可以看作是 componentDidMount、componentDidUpdate、componentWillUnMount 的结合</li>
+<li>useEffect(()=&gt;{}, []) 第二个参数是根据依赖的state判断是哪个生命周期，空数组代表didMount，无依赖或有依赖则为didUpdate</li>
+<li>useEffect(()=&gt;{ 返回一个函数fn }, []) </li>
+<li>如果依赖是[]，那么是模拟willUnMount，组件销毁时执行函数fn</li>
+<li>如果无依赖或依赖某些属性，那么更新时也会执行fn，即在下一次更新或卸载前先执行了本次的fn</li>
+<li>不能在其中使用useState，会报错</li>
+<li>第二个参数是依赖数组，务必准确列出所有依赖项，避免遗漏导致逻辑异常</li>
+<li>避免在其中更新依赖项，防止出现无限循环</li>
+<li>常见用途：组件初始化时获取数据；监听某个状态或props的变化并触发逻辑；清理副作用（如取消订阅、清除定时器等）</li>
+</ul>
+</li>
+<li><strong>useContext</strong>，获取context对象</li>
+<li><strong>useRef</strong>，获取组件真实节点；帮助引用一个不需要渲染的值</li>
+<li><strong>useMemo</strong>，缓存传入的props，避免依赖的组件每次都重新渲染；在每次重新渲染时缓存计算的结果<ul>
+<li>useMemo(calculateValue, dependencies)</li>
+</ul>
+</li>
+<li><strong>useReducer</strong>，组件内部的redux，是一个Hook<ul>
+<li>useReducer(reducer, initialArg, init?)</li>
+<li>返回[state, dispatch]，state为首次渲染提供初始值；dispatch函数可以根据交互修改state</li>
+<li>并不是持久化存储，会随组件被销毁而销毁</li>
+<li>属于组件内部，各个组件是隔离的，单纯使用无法共享数据</li>
+</ul>
+</li>
+<li><strong>useCallback</strong>，缓存回调函数<ul>
+<li>避免传入的回调每次都是新的函数实例导致依赖组件重新渲染，具有性能优化的效果</li>
+</ul>
+</li>
+<li><strong>自定义Hook</strong><ul>
+<li>扩展性，解耦代码；封装通用功能；可以开发和使用第三方Hook</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>React Fiber </p>
+</blockquote>
+<ul>
+<li><p>是 React 的新核心算法，旨在提升 React 的性能和灵活性</p>
+</li>
+<li><p>原渲染算法是同步的，一旦开始渲染更新，就会阻塞主线程，直到渲染完成。可能导致在处理大量更新或复杂组件树时，用户界面卡顿或响应不及时<br>主要特征</p>
+<ul>
+<li>增量渲染：将渲染工作分割成更小的任务，以便在主线程上进行任务调度，避免长时间阻塞。实现异步可中断的渲染，类似于操作系统的时间分片调度，使渲染过程更灵活管理和优化</li>
+<li>优先级管理：根据任务的重要性和紧急程度分配优先级，确保高优先级任务（如用户输入）能够尽快响应。</li>
+<li>并发模式：支持并发渲染，使得多个任务可以同时进行，从而提高应用的响应速度和流畅度。</li>
+<li>更好的错误处理：提供更好的错误边界支持，允许在组件树的特定部分捕获和处理错误。</li>
+</ul>
+</li>
+<li><p>协调阶段，主要负责比较新的虚拟 DOM 树和旧的虚拟 DOM 树，找出需要更新的部分。</p>
+</li>
+<li><p>Fiber 会为每个组件创建一个对应的 Fiber 节点，并构建一棵 Fiber 树</p>
+</li>
+<li><p>调度优先级</p>
+<ul>
+<li>React Fiber 为每个更新任务分配优先级</li>
+<li>提供了一种可中断、可恢复的渲染机制，使得 React 可以更好地响应用户的交互，而不会因为长时间的渲染任务导致页面卡顿</li>
+</ul>
+</li>
+<li><p>而Vue 的核心是其响应式系统，它通过依赖追踪和细粒度的响应式更新来高效地管理组件状态。</p>
+</li>
+<li><p>当数据变化时，Vue 只更新受影响的部分，而不是重新渲染整个组件树。</p>
+</li>
+<li><p>这种设计使得 Vue 在很多情况下能够避免不必要的性能开销</p>
+</li>
+<li><p>优点</p>
+<ul>
+<li>简单易用，响应式更新机制高效，适合大多数应用场景</li>
+<li>优化策略相对简单，开发者容易上手</li>
+</ul>
+</li>
+<li><p>缺点</p>
+<ul>
+<li>在处理极其复杂的组件树时，可能没有 Fiber 那么灵活。</li>
+<li>是组件级别的监听</li>
+</ul>
+</li>
+</ul>
+<p><strong>React 更加关注处理高复杂度的场景，而 Vue 则注重易用性和高效的响应式更新</strong></p>
+<blockquote>
+<p>class组件</p>
+</blockquote>
+<ul>
+<li>如果是大型组件很难拆分和重构</li>
+<li>相同业务逻辑，分散到各个方法中，容易逻辑混乱</li>
+<li>导致复用逻辑变得复杂</li>
+<li>函数组件可以规避上面的问题</li>
+</ul>
+<blockquote>
+<p>Vercel<br>一家提供现代 web 开发工具和托管服务的公司</p>
+</blockquote>
+<ul>
+<li>其核心产品是一个用于构建、部署和托管静态网站、服务器渲染应用程序和无服务器函数的平台。</li>
+<li>目的用于简化 web开发 和部署 流程</li>
+</ul>
+<blockquote>
+<p>函数式组编程</p>
+</blockquote>
+<ul>
+<li>是一种编程范式，与面向对象编程相比，它强调无副作用的函数和不可变性</li>
+<li>数组的方法如split、join、map就有纯函数的特点</li>
+<li>核心概念<ul>
+<li>纯函数，总是产生相同输出，不产生副作用<ul>
+<li>例如函数不能包含new Date()或Math.random()等这种不可控的因素</li>
+</ul>
+</li>
+<li>数据一旦被创建，就不可变；不修改参数<ul>
+<li>保证数据稳定性，避免依赖的数据被未知地修改，引起自身执行异常</li>
+</ul>
+</li>
+<li>高阶函数指接收一个或多个函数作为参数，返回一个函数的函数（组件逻辑复用）</li>
+<li>函数组合，将多个函数组合为一个新函数，可以一个接一个执行</li>
+<li>柯里化，将多个参数转换一系列只接收单个参数的函数</li>
+<li>递归</li>
+<li>鼓励将副作用隔离开（如修改全局变量、输入/输出等）</li>
+<li>不变数据结构，避免产生复杂的副作用</li>
+<li>惰性评估，当需要结果时才计算表达式的值</li>
+</ul>
+</li>
+<li>优势<ul>
+<li>完全独立，与外部解耦</li>
+<li>由于纯函数和不可变性，更易于理解和推理</li>
+<li>避免共享状态更适合并发和并行执行</li>
+<li>高阶函数和函数组合可以提高代码复用性</li>
+<li>纯函数没有副作用，更易编写单元测试</li>
+</ul>
+</li>
+<li>缺点<ul>
+<li>不可变性和递归可能导致性能问题，尤其是在处理大量数据时</li>
+<li>有一定学习成本</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>高阶组件HOC（Higher-Order Component）</p>
+</blockquote>
+<ul>
+<li>是React中用于复用组件逻辑的一种高级技巧</li>
+<li>是基于React组合特性而形成的设计模式</li>
+<li>接受一个组件和额外的参数，返回一个新组件</li>
+<li>是纯函数，没有副作用</li>
+<li>优点：逻辑复用、不影响被包裹组件的内部逻辑</li>
+<li>缺点：hoc传递给被包裹组件的props容易和被包裹后的组件重名，从而被覆盖</li>
+</ul>
+<blockquote>
+<p>Hooks 库</p>
+</blockquote>
+<ul>
+<li>SWR，用于数据请求的库<ul>
+<li>stale-while-revalidate，一种由HTTP RFC 5861推广的HTTP缓存失效策略<ul>
+<li>首先从缓存中返回数据（过期的），同时发送fetch请求（重新验证），最后得到最新数据</li>
+</ul>
+</li>
+<li>使用SWR组件将会不断地、自动获取最新数据流，UI也会保持快速响应</li>
+<li>使用：useSWR(‘/api/user’, fetcher)<ul>
+<li>fetcher 可以是任何返回数据的异步函数</li>
+<li>返回2个值，data和error</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  </div>
+</article>
+
+        
+        
+      </div>
+      <footer class="footer">
+    <div class="footer-content">
+        <p>&copy; 2025 蘑菇小记</p>
+        <p class="copyright">All rights reserved.</p>
+    </div>
+</footer>
+    </div>
+    <button id="back-to-top" title="回到顶部">↑</button>
+  </body>
+</html>

@@ -1,0 +1,144 @@
+figure.highlight {
+  background-color: #f6f8fa;
+  border-left: 3px solid #f36d33;
+}
+figure.highlight img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+figure.highlight figcaption {
+  margin-left: 0.3em;
+  margin-top: 0.5em;
+  color: #666;
+  font-size: 0.9em;
+  font-style: italic;
+  line-height: 1.4;
+}
+code {
+  background-color: #f4f4f4;
+  color: #f36d33;
+  padding: 0.2em 0.4em;
+  margin: 0;
+  font-size: 85%;
+  background-color: rgba(27,31,35,0.05);
+  border-radius: 3px;
+  font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;
+}
+pre {
+  color: #666;
+  page-break-inside: avoid;
+  font-family: monospace;
+  font-size: 15px;
+  line-height: 1.6;
+  margin-bottom: 0;
+  max-width: 100%;
+  overflow: auto;
+  padding: 0.6em 1.5em;
+  display: block;
+  word-wrap: break-word;
+}
+pre code {
+  background-color: transparent;
+  color: inherit;
+  font-size: inherit;
+  padding: 0;
+}
+.highlight {
+  margin-bottom: 1.6em;
+  border: 1px solid #ddd;
+}
+.highlight .gutter {
+  color: #999;
+  padding-right: 0;
+  border-right: 1px solid #ddd;
+  text-align: right;
+}
+.language-js .code {
+  color: #333;
+}
+.language-css .code {
+  color: #2980b9;
+}
+.language-html .code {
+  color: #2c3e50;
+}
+.comment,
+.quote {
+  color: #998;
+}
+.keyword,
+.selector-tag,
+.subst {
+  color: #333;
+  font-weight: bold;
+}
+.number,
+.literal,
+.variable,
+.template-variable,
+.tag .attr {
+  color: #008080;
+}
+.string,
+.doctag {
+  color: #d14;
+}
+.title,
+.section,
+.selector-id {
+  color: #900;
+  font-weight: bold;
+}
+.subst,
+font-weight: normal,
+.type,
+.class .title {
+  color: #458;
+  font-weight: bold;
+}
+.tag,
+.name,
+.attribute {
+  color: #000080;
+  font-weight: normal;
+}
+.regexp,
+.link {
+  color: #009926;
+}
+.symbol,
+.bullet {
+  color: #990073;
+}
+.built_in,
+.builtin-name {
+  color: #0086b3;
+}
+.meta {
+  color: #999;
+  font-weight: bold;
+}
+.deletion {
+  background: #fdd;
+}
+.addition {
+  background: #dfd;
+}
+.emphasis {
+  font-style: italic;
+}
+.strong {
+  font-weight: bold;
+}
+img:not([class]):not([id]) {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 1.5em auto;
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}

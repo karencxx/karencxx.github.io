@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="">
+    <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>webpack探路 | 蘑菇小记</title>
+    <link rel="stylesheet" href="/css/breeze.css">
+    <script src="/js/toc.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const backToTopButton = document.getElementById('back-to-top');
+
+            // 当页面滚动超过 300px 时显示按钮
+            window.onscroll = function() {
+                if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
+                backToTopButton.style.display = "block";
+                } else {
+                backToTopButton.style.display = "none";
+                }
+            };
+            
+            // 点击按钮时平滑滚动回顶部
+            backToTopButton.addEventListener('click', function() {
+                const scrollToTop = function() {
+                    const c = document.documentElement.scrollTop || document.body.scrollTop;
+                    if (c > 0) {
+                    window.requestAnimationFrame(scrollToTop);
+                    window.scrollTo(0, c - c / 8);
+                    }
+                };
+                scrollToTop();
+            });
+        });
+        window.isMobile = /mobile|android|iphone|ipad|phone/i.test(navigator.userAgent);
+    </script>
+
+    
+<meta name="generator" content="Hexo 5.4.2"></head>
+    
+  <body>
+    <div class="container">
+      <header class="header-container post-header">
+    <div class="title">
+        <img src="/images/Icon-leaf.png" class="leaf-icon">
+        <a href="/">蘑菇小记</a>
+    </div>
+    <nav class="nav">
+        <ul>
+            
+                <li><a href="/archives" class="nav-item">Archives</a></li>
+            
+                <li><a href="/about" class="nav-item">About</a></li>
+            
+          </ul>
+    </nav>
+</header>
+
+      <div class="main-content">
+        
+          
+
+<aside class="post-toc">
+    <div class="toc-wrapper collapsed">
+  <div class="toc-toggle">
+    <span class="toc-toggle-icon"></span>
+  </div>
+  <div class="toc-content">
+    
+      <div class="toc-body">
+        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#webpack%E5%88%9D%E6%AD%A5%E7%90%86%E8%A7%A3"><span class="toc-text">webpack初步理解</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8F%90%E4%BA%A4%E4%BA%8C"><span class="toc-text">提交二</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8F%90%E4%BA%A4%E4%B8%89"><span class="toc-text">提交三</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8F%90%E4%BA%A4%E5%9B%9B"><span class="toc-text">提交四</span></a></li></ol>
+      </div>
+    
+  </div>
+</div>
+
+
+</aside>
+
+<article class="post-detail has-toc toc-collapsed">
+    <div class="post-title-container">
+        <h1 class="post-title">webpack探路</h1>
+    </div>
+    <div class="post-meta">
+        <time datetime="2018-01-12T05:54:08.000Z">2018-01-12</time>
+        
+          <div class="post-tags">
+            
+              <a href="/tags/webpack/" class="post-tag">webpack</a>
+            
+          </div>
+        
+        
+  </div>
+  <div class="post-content">
+    
+
+    <h3 id="webpack初步理解"><a href="#webpack初步理解" class="headerlink" title="webpack初步理解"></a>webpack初步理解</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">mkdir</span> webpack-eg</span><br><span class="line"><span class="built_in">cd</span> webpack-eg</span><br><span class="line">npm init</span><br><span class="line"></span><br><span class="line">npm start</span><br></pre></td></tr></table></figure>
+
+<h3 id="提交二"><a href="#提交二" class="headerlink" title="提交二"></a>提交二</h3><p>关键词</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">webpack-dev-server 代理</span><br><span class="line">source-map</span><br><span class="line">部署上线 webpack-prod.config.js</span><br><span class="line">分离app.js 和 第三方库</span><br><span class="line">vendor: [] / filename: &#x27;[name].js&#x27;</span><br><span class="line">uglifyJs CommonsChunkPlugin</span><br><span class="line">babel-loader</span><br><span class="line">npm run build</span><br></pre></td></tr></table></figure>
+
+<h3 id="提交三"><a href="#提交三" class="headerlink" title="提交三"></a>提交三</h3><p>关键词</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">生成多页面</span><br><span class="line">多入口</span><br><span class="line">templates	index.html / mobile.html</span><br><span class="line">生成hash名称的script 来防止缓存</span><br><span class="line">output filename: [name].[hash].js </span><br></pre></td></tr></table></figure>
+
+<h3 id="提交四"><a href="#提交四" class="headerlink" title="提交四"></a>提交四</h3><p>关键词</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">start命令指定 webpack.dev.js</span><br><span class="line">区分生产环境和开发环境 </span><br><span class="line">保留通用配置 webpack.common.js</span><br><span class="line">webpack-merge</span><br></pre></td></tr></table></figure>
+
+<p>具体代码移步–<a target="_blank" rel="noopener" href="https://github.com/karencxx/webpack-demo.git">https://github.com/karencxx/webpack-demo.git</a></p>
+
+  </div>
+</article>
+
+        
+        
+      </div>
+      <footer class="footer">
+    <div class="footer-content">
+        <p>&copy; 2025 蘑菇小记</p>
+        <p class="copyright">All rights reserved.</p>
+    </div>
+</footer>
+    </div>
+    <button id="back-to-top" title="回到顶部">↑</button>
+  </body>
+</html>

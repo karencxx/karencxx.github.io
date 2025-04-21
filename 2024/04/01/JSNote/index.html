@@ -1,0 +1,1249 @@
+<!DOCTYPE html>
+<html lang="">
+    <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JSNote | 蘑菇小记</title>
+    <link rel="stylesheet" href="/css/breeze.css">
+    <script src="/js/toc.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const backToTopButton = document.getElementById('back-to-top');
+
+            // 当页面滚动超过 300px 时显示按钮
+            window.onscroll = function() {
+                if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
+                backToTopButton.style.display = "block";
+                } else {
+                backToTopButton.style.display = "none";
+                }
+            };
+            
+            // 点击按钮时平滑滚动回顶部
+            backToTopButton.addEventListener('click', function() {
+                const scrollToTop = function() {
+                    const c = document.documentElement.scrollTop || document.body.scrollTop;
+                    if (c > 0) {
+                    window.requestAnimationFrame(scrollToTop);
+                    window.scrollTo(0, c - c / 8);
+                    }
+                };
+                scrollToTop();
+            });
+        });
+        window.isMobile = /mobile|android|iphone|ipad|phone/i.test(navigator.userAgent);
+    </script>
+
+    
+<meta name="generator" content="Hexo 5.4.2"></head>
+    
+  <body>
+    <div class="container">
+      <header class="header-container post-header">
+    <div class="title">
+        <img src="/images/Icon-leaf.png" class="leaf-icon">
+        <a href="/">蘑菇小记</a>
+    </div>
+    <nav class="nav">
+        <ul>
+            
+                <li><a href="/archives" class="nav-item">Archives</a></li>
+            
+                <li><a href="/about" class="nav-item">About</a></li>
+            
+          </ul>
+    </nav>
+</header>
+
+      <div class="main-content">
+        
+          
+
+<aside class="post-toc">
+    <div class="toc-wrapper collapsed">
+  <div class="toc-toggle">
+    <span class="toc-toggle-icon"></span>
+  </div>
+  <div class="toc-content">
+    
+      <div class="toc-body">
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#JS%EF%BC%8C%E4%B8%93%E4%B8%BA%E4%B8%8E%E7%BD%91%E9%A1%B5%E4%BA%A4%E4%BA%92%E8%80%8C%E8%AE%BE%E8%AE%A1%E7%9A%84%E8%84%9A%E6%9C%AC%E8%AF%AD%E8%A8%80"><span class="toc-text">JS，专为与网页交互而设计的脚本语言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#script"><span class="toc-text">script</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AF%AD%E6%B3%95"><span class="toc-text">语法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%B3%E9%94%AE%E5%AD%97%E5%92%8C%E4%BF%9D%E7%95%99%E5%AD%97"><span class="toc-text">关键字和保留字</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%98%E9%87%8F-var-xx"><span class="toc-text">变量 var xx</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9F%BA%E6%9C%AC%E7%B1%BB%E5%9E%8B%EF%BC%8C%E7%AE%80%E5%8D%95%E7%9A%84%E6%95%B0%E6%8D%AE%E6%AE%B5"><span class="toc-text">基本类型，简单的数据段</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BC%95%E7%94%A8%E7%B1%BB%E5%9E%8B%EF%BC%8C%E5%8F%AF%E8%83%BD%E7%94%B1%E5%A4%9A%E4%B8%AA%E5%80%BC%E6%9E%84%E6%88%90%E7%9A%84%E5%AF%B9%E8%B1%A1"><span class="toc-text">引用类型，可能由多个值构成的对象</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%98%E9%87%8F%E5%A3%B0%E6%98%8E"><span class="toc-text">变量声明</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B"><span class="toc-text">数据类型</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%93%8D%E4%BD%9C%E7%AC%A6"><span class="toc-text">操作符</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%80%E5%85%83%E6%93%8D%E4%BD%9C%E7%AC%A6%EF%BC%8C%E5%8F%AA%E8%83%BD%E6%93%8D%E4%BD%9C%E4%B8%80%E4%B8%AA%E5%80%BC"><span class="toc-text">一元操作符，只能操作一个值</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%8D%E6%93%8D%E4%BD%9C%E7%AC%A6%EF%BC%8C%E6%8C%89%E5%86%85%E5%AD%98%E4%B8%AD%E8%A1%A8%E7%A4%BA%E6%95%B0%E5%80%BC%E7%9A%84%E4%BD%8D%E6%9D%A5%E6%93%8D%E4%BD%9C%E6%95%B0%E5%80%BC"><span class="toc-text">位操作符，按内存中表示数值的位来操作数值</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B8%83%E5%B0%94%E6%93%8D%E4%BD%9C%E7%AC%A6"><span class="toc-text">布尔操作符</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B9%98%E6%93%8D%E4%BD%9C%E7%AC%A6-%E3%80%81%E9%99%A4%E6%93%8D%E4%BD%9C%E7%AC%A6"><span class="toc-text">乘操作符*、除操作符&#x2F;</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B1%82%E6%A8%A1-%EF%BC%8C%E5%8F%96%E4%BD%99"><span class="toc-text">求模%，取余</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8A%A0%E6%93%8D%E4%BD%9C%E7%AC%A6"><span class="toc-text">加操作符 +</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%87%8F%E6%93%8D%E4%BD%9C%E7%AC%A6"><span class="toc-text">减操作符 -</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%B3%E7%B3%BB%E6%93%8D%E4%BD%9C%E7%AC%A6"><span class="toc-text">关系操作符</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%9B%B8%E7%AD%89%E6%93%8D%E4%BD%9C%E7%AC%A6"><span class="toc-text">相等操作符 &#x3D;&#x3D; !&#x3D;</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9D%A1%E4%BB%B6%E6%93%8D%E4%BD%9C%E7%AC%A6"><span class="toc-text">条件操作符</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%B5%8B%E5%80%BC%E6%93%8D%E4%BD%9C%E7%AC%A6"><span class="toc-text">赋值操作符 &#x3D;</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%80%97%E5%8F%B7%E6%93%8D%E4%BD%9C%E7%AC%A6%EF%BC%8C%E5%9C%A8%E4%B8%80%E6%9D%A1%E8%AF%AD%E5%8F%A5%E4%B8%AD%E6%89%A7%E8%A1%8C%E5%A4%9A%E4%B8%AA%E6%93%8D%E4%BD%9C"><span class="toc-text">逗号操作符，在一条语句中执行多个操作</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%AF%94%E8%BE%83%E8%BF%90%E7%AE%97%E7%AC%A6%EF%BC%88%E5%A6%82-lt-%E5%92%8C-gt-%EF%BC%89"><span class="toc-text">比较运算符（如 &lt;&#x3D; 和 &gt;&#x3D;）</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AF%AD%E5%8F%A5"><span class="toc-text">语句</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%87%BD%E6%95%B0-Function"><span class="toc-text">函数 Function</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%97%AD%E5%8C%85"><span class="toc-text">闭包</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%89%A7%E8%A1%8C%E7%8E%AF%E5%A2%83-%E5%85%A8%E5%B1%80%E6%89%A7%E8%A1%8C%E7%8E%AF%E5%A2%83-%E5%87%BD%E6%95%B0%E6%89%A7%E8%A1%8C%E7%8E%AF%E5%A2%83"><span class="toc-text">执行环境 全局执行环境 函数执行环境</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%89%A7%E8%A1%8C%E4%B8%8A%E4%B8%8B%E6%96%87EC"><span class="toc-text">执行上下文EC</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BC%95%E7%94%A8%E7%B1%BB%E5%9E%8B"><span class="toc-text">引用类型</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Object"><span class="toc-text">Object</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Array"><span class="toc-text">Array</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Date"><span class="toc-text">Date</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#RegExp-%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F"><span class="toc-text">RegExp 正则表达式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Function"><span class="toc-text">Function</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9F%BA%E7%A1%80%E5%8C%85%E8%A3%85%E7%B1%BB%E5%9E%8B"><span class="toc-text">基础包装类型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8D%95%E4%BD%93%E5%86%85%E7%BD%AE%E5%AF%B9%E8%B1%A1%EF%BC%8C%E4%B8%8D%E4%BE%9D%E8%B5%96%E5%AE%BF%E4%B8%BB%E7%8E%AF%E5%A2%83"><span class="toc-text">单体内置对象，不依赖宿主环境</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1"><span class="toc-text">面向对象</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AF%B9%E8%B1%A1"><span class="toc-text">对象</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E5%AF%B9%E8%B1%A1"><span class="toc-text">创建对象</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A4%8D%E5%88%B6%E5%AF%B9%E8%B1%A1"><span class="toc-text">复制对象</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8E%9F%E5%9E%8B"><span class="toc-text">原型</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%A7%E6%89%BF"><span class="toc-text">继承</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8E%9F%E5%9E%8B%E9%93%BE"><span class="toc-text">原型链</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BB%84%E5%90%88%E7%BB%A7%E6%89%BF"><span class="toc-text">组合继承</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8E%9F%E5%9E%8B%E5%BC%8F%E7%BB%A7%E6%89%BF"><span class="toc-text">原型式继承</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AF%84%E7%94%9F%E5%BC%8F%E7%BB%A7%E6%89%BF"><span class="toc-text">寄生式继承</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%A7%E8%83%BD"><span class="toc-text">性能</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BC%96%E8%AF%91"><span class="toc-text">编译</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A8%A1%E5%9D%97"><span class="toc-text">模块</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8A%A8%E6%80%81%E4%BD%9C%E7%94%A8%E5%9F%9F"><span class="toc-text">动态作用域</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%B0%83%E7%94%A8%E6%A0%88"><span class="toc-text">调用栈</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B0%BE%E8%B0%83%E7%94%A8%E4%BC%98%E5%8C%96"><span class="toc-text">尾调用优化</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A8%A1%E5%9D%97-1"><span class="toc-text">模块</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%AB%98%E9%A2%91%E8%A7%A6%E5%8F%91%E4%BC%98%E5%8C%96%E6%96%B9%E5%BC%8F"><span class="toc-text">高频触发优化方式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ES6-ES7-%E6%96%B0%E7%89%B9%E6%80%A7"><span class="toc-text">ES6 ES7 新特性</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#ES6"><span class="toc-text">ES6</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%B6%E4%BB%96"><span class="toc-text">其他</span></a></li></ol>
+      </div>
+    
+  </div>
+</div>
+
+
+</aside>
+
+<article class="post-detail has-toc toc-collapsed">
+    <div class="post-title-container">
+        <h1 class="post-title">JSNote</h1>
+    </div>
+    <div class="post-meta">
+        <time datetime="2024-04-01T04:08:38.000Z">2024-04-01</time>
+        
+          <div class="post-tags">
+            
+              <a href="/tags/%E5%A4%8D%E4%B9%A0/" class="post-tag">复习</a>
+            
+          </div>
+        
+        
+          <div class="post-categories">
+            
+              <a href="/categories/JS/" class="post-category">JS</a>
+            
+          </div>
+        
+  </div>
+  <div class="post-content">
+    
+
+    <p>开始前，可以先看以下几篇</p>
+<ol>
+<li><a href="/2021/01/11/%E7%90%86%E8%A7%A3js%E4%B8%AD%E7%9A%84this">理解js中的this</a></li>
+</ol>
+<hr>
+<blockquote>
+<h2 id="JS，专为与网页交互而设计的脚本语言"><a href="#JS，专为与网页交互而设计的脚本语言" class="headerlink" title="JS，专为与网页交互而设计的脚本语言"></a>JS，专为与网页交互而设计的脚本语言</h2></blockquote>
+<p><strong>诞生于1995年，由三部分组成：</strong></p>
+<ol>
+<li>ECMAScript：核心语言，由ECMA-262定义<ul>
+<li>与web浏览器无依赖关系，web浏览器只是宿主环境之一，其他宿主包括Node</li>
+<li>组成部分：语法 / 类型 / 语句 / 关键字 / 保留字 / 操作符 / 对象 </li>
+</ul>
+</li>
+<li>DOM(Domcument Object Model)：文档对象模型，提供访问和操作网页内容的方法和接口。把整个页面映射为一个多层节点结构</li>
+<li>BOM(Browser Object Model)：浏览器对象模型，提供与浏览器交互的方法和接口</li>
+</ol>
+<hr>
+<blockquote>
+<h2 id="script"><a href="#script" class="headerlink" title="script"></a>script</h2></blockquote>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">&lt;script  </span><br><span class="line">	<span class="attr">src</span>: 立即下载脚本，只对外部脚本文件有效</span><br><span class="line">	<span class="attr">charset</span>: 指定的代码的字符集</span><br><span class="line">	<span class="attr">defer</span>: 同步加载，可延迟到文档完全被解析和显示后再执行，只对外部脚本文件有效</span><br><span class="line">	<span class="attr">type</span>: 替代language,text/javascript  </span><br><span class="line">	<span class="attr">async</span>: 异步加载，与元素渲染并行执行，立即下载脚本</span><br><span class="line">	<span class="title function_">language</span>(已废弃)</span><br><span class="line">&gt;&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>页面直接嵌入 或 外部引入 或 JS动态插入</li>
+<li>一般放在&lt;body&gt;&lt;/body&gt;中</li>
+<li>使用defer延迟执行时，现实中不一定按照顺序执行，因此最好包含一个延迟脚本 ？</li>
+<li>async异步脚本一定在页面load事件前执行，建议不要在加载期间修改dom</li>
+</ul>
+<p><strong>使用外部文件的优点：</strong></p>
+<ul>
+<li>可维护性</li>
+<li>可缓存</li>
+<li>适应未来<br><u>当浏览器不支持脚本或脚本被禁用时，&lt;noscript&gt;xx&lt;/noscript&gt;中的内容会显示出来</u></li>
+</ul>
+<hr>
+<h3 id="语法"><a href="#语法" class="headerlink" title="语法"></a>语法</h3><ul>
+<li>区分大小写</li>
+<li>标识符</li>
+<li>注释</li>
+<li>严格模式 use strict</li>
+<li>语句以;结尾</li>
+</ul>
+<h3 id="关键字和保留字"><a href="#关键字和保留字" class="headerlink" title="关键字和保留字"></a>关键字和保留字</h3><p>break do instanceof typeof new var return case  if else<br>continue this let …</p>
+<ul>
+<li>null是关键字，但undefined不是（是个设计失误）</li>
+</ul>
+<h3 id="变量-var-xx"><a href="#变量-var-xx" class="headerlink" title="变量 var xx"></a>变量 var xx</h3><ul>
+<li>是松散类型，可以用来保存任何类型的数据。</li>
+<li>未初始化时，有一个特殊的值<strong>undefined</strong></li>
+<li>全局变量很难维护，很难被收回</li>
+</ul>
+<h3 id="基本类型，简单的数据段"><a href="#基本类型，简单的数据段" class="headerlink" title="基本类型，简单的数据段"></a>基本类型，简单的数据段</h3><ul>
+<li>原始值 undefined / null / boolean / number / string / symbol / object</li>
+<li>在内存中占据固定大小空间，被频繁使用，因此被保存在 <strong>栈内存</strong> 中</li>
+</ul>
+<h3 id="引用类型，可能由多个值构成的对象"><a href="#引用类型，可能由多个值构成的对象" class="headerlink" title="引用类型，可能由多个值构成的对象"></a>引用类型，可能由多个值构成的对象</h3><ul>
+<li>可动态地添加属性</li>
+<li>值为保存在内存中的对象，保存在 <strong>堆内存</strong> 中，<u>不允许直接访问，按引用访问。</u>占据空间大、大小不固定<ul>
+<li>在栈中存储了指针，该指针指向堆中实体的起始地址</li>
+</ul>
+</li>
+<li>当做变量复制时，这个值的副本实际上是一个<strong>指针</strong>，<strong>指向存储在堆中的同一个对象</strong></li>
+</ul>
+<hr>
+<h3 id="变量声明"><a href="#变量声明" class="headerlink" title="变量声明"></a>变量声明</h3><ul>
+<li>var声明 会被拿到<strong>函数或全局作用域顶部</strong>，位于作用域中所有代码之前，这个叫做<strong>变量提升</strong><ul>
+<li>会让同一作用域的代码不用考虑变量是否已声明就可以直接使用</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> a = <span class="number">1</span></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">f</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(a, <span class="string">&#x27;1&#x27;</span>) <span class="comment">// undefined 1</span></span><br><span class="line">    <span class="keyword">var</span> a = <span class="number">3</span></span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(a, <span class="string">&#x27;2&#x27;</span>) <span class="comment">// 3 2</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">function</span> <span class="title function_">f1</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(a, <span class="string">&#x27;1&#x27;</span>) <span class="comment">// 1 1</span></span><br><span class="line">    a = <span class="number">3</span></span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(a, <span class="string">&#x27;2&#x27;</span>) <span class="comment">// 3 2</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li><strong>let 块级作用域，由最近的一对包含{}来界定</strong><ul>
+<li>同一作用域不能<strong>声明两次</strong></li>
+<li>适合在循环中声明迭代变量，不像var声明会泄漏到循环外部<ul>
+<li>将其重新绑定到循环的每个迭代，确保使用上一个循环结束时的值重新进行赋值</li>
+</ul>
+</li>
+<li>严格来说，let声明也会被提升，但由于<u>暂时性死区</u>，实际上不能在<strong>声明前使用let变量</strong></li>
+</ul>
+</li>
+<li><strong>const关键字，声明同时必须初始化，且不能再被重新赋新值</strong><ul>
+<li>只应用到顶级原语或对象，对象的键不受限制</li>
+<li>运行时编译器可以将所有实例换成实际的值，不会通过查询表进行变量查找</li>
+<li>保证的是变量指向的内存地址不能改动<ul>
+<li>对于基本类型的数据，其值就保存在对应的内存地址上，因此等同于常量</li>
+<li>但引用数据类型保存的只是一个指针，只能保证指针地址不变，但指向的数据结构并不能保证不可变</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line">暂时性死区是指在块级作用域内，使用 let 或 const 声明的变量从进入该作用域到变量声明之前的这段时间内，变量处于“未初始化”状态，此时访问这些变量会抛 ReferenceError。</span><br><span class="line"></span><br><span class="line">原因：ES6 规范要求在声明之前的块级作用域内不能访问 let 和 const 声明的变量，以避免变量提升带来的潜在问题。</span><br></pre></td></tr></table></figure>
+<h3 id="数据类型"><a href="#数据类型" class="headerlink" title="数据类型"></a>数据类型</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">基本数据类型：undefined null boolean number string </span><br><span class="line">复杂数据类型：object，由一组无序的键值对组成</span><br></pre></td></tr></table></figure>
+<p>typeof操作符 用来检测给定变量的数据类型，只能检测基本数据类型，<strong>确定值的原始类型</strong><br>instanceof 判断是什么类型的对象，<strong>确定值的引用类型</strong></p>
+<ul>
+<li><strong>Null，值表示一个空对象指针</strong><ul>
+<li>表示定义了，但是为空</li>
+<li>typeof null = ‘objct’，被认为是一个对空对象的引用<ul>
+<li>为了区分null，可以使用 String(null)</li>
+</ul>
+</li>
+<li>如果定义的变量准备用来保存对象值时，<strong>最好初始化为null</strong>，这样可以知道是否保存了一个对象的引用<ul>
+<li><u>也可以进一步区分null和undefined</u></li>
+</ul>
+</li>
+<li>null 只在与 undefined 进行宽松相等比较时返回 true，与其他任何值进行比较时都不会进行类型转换 </li>
+</ul>
+</li>
+<li><strong>Undefined，表示值未定义</strong><ul>
+<li>void 0</li>
+</ul>
+<ul>
+<li>值派生自null值，只有一个值就是 undefined</li>
+<li>null == undefined 结果为true</li>
+<li>在ECMA-262第2版 引入这个值就是为了区分 <strong>null 和 未初始化变量</strong> 的区别</li>
+<li>无论声明还是未声明，typeof返回的都是”undefined”</li>
+</ul>
+</li>
+<li><strong>Number</strong><ul>
+<li>Number.MAX_VALUE / .MIN_VALUE<ul>
+<li>超出范围的值将自动转换为Infinity / -Infinity</li>
+<li>用isFinite(..)判断是否位于最大和最小数值之间</li>
+</ul>
+</li>
+<li>Number.MAX_SAFE_INTEGER，最大安全数字，这个数范围内不会出现精度丢失，超出就会出现计算不准确的情况 </li>
+</ul>
+</li>
+<li><strong>浮点数</strong><ul>
+<li>由于浮点数值需要的内存空间是保存整数值的2倍<ul>
+<li>像1.这样的小数点后无数字，那么会被作为整数值来保存</li>
+<li>最高精度为17位小数，计算会产生舍入误差问题；toPrecision(..)</li>
+<li>检查等式左右两边差的绝对值是否小于最小精度，才是正确的比较浮点数的方法</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="title class_">Math</span>.<span class="title function_">abs</span>(<span class="number">0.1</span> + <span class="number">0.2</span> - <span class="number">0.3</span>) &lt;= <span class="title class_">Number</span>.<span class="property">EPSILON</span>) <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li><strong>NaN，Not a Number</strong><ul>
+<li>涉及NaN的操作都返回 NaN</li>
+<li><strong>与任何值都不相等，包括NaN本身</strong>(比较时会转换为NaN)</li>
+<li>当对对象调用isNaN(..)时<ul>
+<li>先调用对象的valueOf(..)，确定返回值可否转换为数值</li>
+<li>如果不能，基于返回值再调用toString(..)，再测试返回值</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>Number(..), parseInt(..), parseFloat(..)</strong><ul>
+<li>parseFloat(..)第一个小数点有效，后面的字符串将被忽略；十六进制的字符串会被转换为0</li>
+<li>parseInt(..)找第一个<u>非空格字符</u>，如果不是数字或负号，就返回 NaN<ul>
+<li>parseInt(string, radix)<ul>
+<li>radix 是2-36之间的整数，表示被解析字符串的基数</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Number(..)函数基于一些规则执行转换，其中null返回 0；undefined返回 NaN</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Number(undefined) = NaN // undefined表示一个未定义的值，它没有对应的有效数字表示</span><br><span class="line">Number(null) = 0 // null被认为一个空对象，没有数字值，因此转为数字时变成了0</span><br><span class="line">为对象时，同上调用isNaN()</span><br><span class="line">Number(&#x27;&#x27;) = 0 </span><br><span class="line">parseInt(&#x27;&#x27;) = NaN</span><br></pre></td></tr></table></figure>
+<ul>
+<li><p><strong>String</strong></p>
+<ul>
+<li>字面量  \n \t \b \r \f \ &#39; &quot; \xnn \unnnn</li>
+<li>字符串一旦创建，值就不能改变。如若改变，<strong>先销毁原来的字符串，再用一个包含新值的字符串去填充该变量</strong></li>
+<li>除了<strong>null 和 undefined</strong>没有 toString(..) 方法</li>
+<li>如果不知道转换值是否为null或undefined，可用<strong>String(..)去转换任何类型的值</strong><ul>
+<li>如果值有 toString(..) 方法，则调用该方法并返回对应值</li>
+<li>如果值为 null或undefined，则返回 ‘null’ 或 ‘undefined’</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong>Object</strong></p>
+<ul>
+<li>通过new创建</li>
+<li>每个实例有下列属性和方法<ul>
+<li>Constructor</li>
+<li>hasOwnProperty(propertyName)</li>
+<li>isPrototypeOf(Object)</li>
+<li>propertyIsEnumerable(propertyName)</li>
+<li>toLocaleString()</li>
+<li>toString()</li>
+<li>valueOf()</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong>Symbol</strong></p>
+<ul>
+<li>是ES6引入的新类型，是一切非字符串的对象key的集合</li>
+<li>创建 Symbol 的方式是使用全局的 Symbol(..) 函数（无法用 new 来调用）</li>
+</ul>
+</li>
+</ul>
+<hr>
+<p>每一类装箱对象皆有私有的 Class 属性，这些属性可以用 <strong>Object.prototype.toString</strong> 获取</p>
+<ul>
+<li>JS中没有任何方法可以更改私有的 Class 属性，因此 Object.prototype.toString 可以准确识别对象对应的基本类型，<strong>比 instanceof 更加准确</strong></li>
+<li>但需注意的是，<strong>call 本身会产生装箱操作，所以需要配合 typeof 来区分基本类型还是对象类型</strong></li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 类型判断封装</span></span><br><span class="line"><span class="keyword">let</span> class2type = &#123;&#125;</span><br><span class="line"><span class="string">&#x27;Array Date RegExp Object Error&#x27;</span>.<span class="title function_">split</span>(<span class="string">&#x27; &#x27;</span>).<span class="title function_">forEach</span>(<span class="function"><span class="params">e</span> =&gt;</span> class2type[ <span class="string">&#x27;[object &#x27;</span> + e + <span class="string">&#x27;]&#x27;</span> ] = e.<span class="title function_">toLowerCase</span>()) </span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">type</span>(<span class="params">obj</span>) &#123;</span><br><span class="line">    <span class="keyword">if</span> (obj == <span class="literal">null</span>) <span class="keyword">return</span> <span class="title class_">String</span>(obj)</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">typeof</span> obj === <span class="string">&#x27;object&#x27;</span> ? class2type[ <span class="title class_">Object</span>.<span class="property"><span class="keyword">prototype</span></span>.<span class="property">toString</span>.<span class="title function_">call</span>(obj) ] || <span class="string">&#x27;object&#x27;</span> : <span class="keyword">typeof</span> obj</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<h2 id="操作符"><a href="#操作符" class="headerlink" title="操作符"></a>操作符</h2></blockquote>
+<h3 id="一元操作符，只能操作一个值"><a href="#一元操作符，只能操作一个值" class="headerlink" title="一元操作符，只能操作一个值"></a>一元操作符，只能操作一个值</h3><ul>
+<li>前置递增、递减 ++a --a 先求值再执行其他操作</li>
+<li>后置递增、递减 b++ b-- 递增、递减的操作在语句被求值后才发生</li>
+<li>加减乘除，对非数值时先用Number()执行转换，+/-param 转变为数字</li>
+</ul>
+<h3 id="位操作符，按内存中表示数值的位来操作数值"><a href="#位操作符，按内存中表示数值的位来操作数值" class="headerlink" title="位操作符，按内存中表示数值的位来操作数值"></a>位操作符，按内存中表示数值的位来操作数值</h3><ul>
+<li>按位非 ～</li>
+<li>按位与 &amp;</li>
+<li>按位或 |</li>
+<li>按位异或 ^</li>
+<li>左移</li>
+<li>有符号右移 / 无符号右移</li>
+</ul>
+<h3 id="布尔操作符"><a href="#布尔操作符" class="headerlink" title="布尔操作符"></a>布尔操作符</h3><ul>
+<li>逻辑非 ！，先转换为布尔值，再求反。用!!转换为布尔值</li>
+<li>逻辑与 &amp;&amp;， 是<u>短路操作</u>， a &amp;&amp; b 即a为false时，不会再对 &amp;&amp; b求值 </li>
+<li>逻辑或 ||， 是<u>短路操作</u>，a &amp;&amp; b 即a为true时，不会再对 || b求值<ul>
+<li>不一定返回布尔值</li>
+<li>可以利用 || 来避免为变量赋 null 或 undefined</li>
+</ul>
+</li>
+</ul>
+<h3 id="乘操作符-、除操作符"><a href="#乘操作符-、除操作符" class="headerlink" title="乘操作符*、除操作符/"></a>乘操作符*、除操作符/</h3><ul>
+<li>Infinity*0 和 -Infinity*0 结果都为 NaN</li>
+<li>0/0 = NaN<h3 id="求模-，取余"><a href="#求模-，取余" class="headerlink" title="求模%，取余"></a>求模%，取余</h3></li>
+<li>Infinity%Infinity Infinity%8 2%0 结果都为 NaN</li>
+</ul>
+<h3 id="加操作符"><a href="#加操作符" class="headerlink" title="加操作符 +"></a>加操作符 +</h3><ul>
+<li>Infinity+ -Infinity / 2 + NaN 结果都为 NaN</li>
+<li>+0 + -0 结果 0</li>
+<li>存在string时，做拼接操作</li>
+<li>存在object, number, boolean时，先调用toString(..)方法</li>
+<li>undefined null 本身没有toString(..)方法，则可先调用String(..)转换为string</li>
+</ul>
+<h3 id="减操作符"><a href="#减操作符" class="headerlink" title="减操作符 -"></a>减操作符 -</h3><ul>
+<li>Infinity - Infinity / -Infinity - -Infinity 结果都为 NaN</li>
+<li>string boolean undefined null 则调用Number()</li>
+<li>Number(null) 结果为 0 </li>
+<li>Number(undefined) 结果为 NaN</li>
+</ul>
+<h3 id="关系操作符"><a href="#关系操作符" class="headerlink" title="关系操作符"></a>关系操作符</h3><ul>
+<li>比较两个字符串时，是在比较这两个字符串中对应位置的每个字符的字符编码值<ul>
+<li>大写字母的字符编码全部小于小写字母的</li>
+<li>通常将两个操作数都转换为<strong>小写</strong>再比较</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">NaN跟任何数比较都是false </span><br><span class="line">  * NaN &gt; 3 </span><br><span class="line">  * NaN &lt;= 3  </span><br></pre></td></tr></table></figure>
+
+<h3 id="相等操作符"><a href="#相等操作符" class="headerlink" title="相等操作符 == !="></a>相等操作符 == !=</h3><ul>
+<li>=== 和 !==  只在两个数<strong>未经转换就相等</strong>的情况下返回true</li>
+<li>== 和 != 试图实现跨类型比较，存在类型转换问题，为了保证代码中数据类型完整性，推荐使用 === 和 !==<ul>
+<li>如果其中一个操作数是对象，另一个是原始值，则将对象转换为原始值</li>
+</ul>
+</li>
+<li>Object.is() 确定两个值是否为相同值；不会对其操作数进行类型转换（== 会进行类型转换）；处理带符号的 0 和 NaN 值的时候与 === 不同</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">NaN != NaN  // true</span><br><span class="line">null == undefined // true</span><br></pre></td></tr></table></figure>
+<h3 id="条件操作符"><a href="#条件操作符" class="headerlink" title="条件操作符"></a>条件操作符</h3><ul>
+<li>boolean_expression ? value1 : value2</li>
+</ul>
+<h3 id="赋值操作符"><a href="#赋值操作符" class="headerlink" title="赋值操作符 ="></a>赋值操作符 =</h3><ul>
+<li>复合赋值 *= /= %= += -= &lt;&lt;= &gt;&gt;= &gt;&gt;&gt;=</li>
+</ul>
+<h3 id="逗号操作符，在一条语句中执行多个操作"><a href="#逗号操作符，在一条语句中执行多个操作" class="headerlink" title="逗号操作符，在一条语句中执行多个操作"></a>逗号操作符，在一条语句中执行多个操作</h3><ul>
+<li>用于赋值时，返回表达式最后一项<ul>
+<li>let num = (1,2,3,4,0)  // 0</li>
+</ul>
+</li>
+</ul>
+<h3 id="比较运算符（如-lt-和-gt-）"><a href="#比较运算符（如-lt-和-gt-）" class="headerlink" title="比较运算符（如 &lt;= 和 &gt;=）"></a>比较运算符（如 &lt;= 和 &gt;=）</h3><ul>
+<li>会先尝试将两个操作数转换为数字，再进行比较</li>
+</ul>
+<hr>
+<blockquote>
+<h2 id="语句"><a href="#语句" class="headerlink" title="语句"></a>语句</h2></blockquote>
+<ul>
+<li><strong>if () {}</strong></li>
+<li><strong>while () {}</strong> 前测试循环语句 </li>
+<li><strong>do {} while ()</strong> 后测试循环语句 <ul>
+<li>在对 while (..) 求值之前，{}内的代码至少会被执行一次</li>
+</ul>
+</li>
+<li><strong>for</strong> 前测试循环语句 <ul>
+<li>for (initialization; expression; post-loop-expression) statement</li>
+<li>循环内部定义的变量，在外部仍然可以访问 （ECMAScript不存在块极作用域）</li>
+<li>for(;;) {} 无限循环</li>
+<li><strong>while循环 做不到的 for 也做不到</strong></li>
+</ul>
+</li>
+<li><strong>for in</strong> 精准的迭代语句，可以用来枚举对象属性<ul>
+<li>for (property in expression) statement</li>
+<li>建议使用前先确认对象值不是null或undefined</li>
+</ul>
+</li>
+<li><strong>label语句</strong> 添加标签<ul>
+<li>label: statement，一般与for等循环语句配合使用</li>
+</ul>
+</li>
+<li><strong>break continue 语句</strong><ul>
+<li>continue退出内部循环，执行外部循环</li>
+<li>break立即退出循环</li>
+</ul>
+</li>
+<li><strong>with语句，将代码作用域设置到一个特定的对象</strong><ul>
+<li>with(expression) statement</li>
+<li>大量使用with会导致性能下降，给调试代码造成困难</li>
+</ul>
+</li>
+<li><strong>switch 语句</strong><ul>
+<li>switch比较值时使用全等操作符</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">switch (expression) &#123;</span><br><span class="line">    case value: statement</span><br><span class="line">    break;</span><br><span class="line">    default; statement</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<hr>
+<blockquote>
+<h2 id="函数-Function"><a href="#函数-Function" class="headerlink" title="函数 Function"></a>函数 Function</h2></blockquote>
+<p><strong>参数</strong></p>
+<ul>
+<li>按值传递（对象也是），被传递的值会复制给一个局部变量</li>
+<li>函数参数内部用一个数组来表示，通过<strong>arguments对象</strong>来访问这个数组</li>
+<li>arguments.length 由传入的参数个数决定</li>
+<li>arguments的值永远与对应命名参数的值保持同步（但它们的内存空间是独立的）<ul>
+<li>前提是 arguments[n] 访问的 参数n 有被传入</li>
+</ul>
+</li>
+<li>函数内部的函数名称是只读的</li>
+</ul>
+<p><strong>ECMAScript函数没有签名，不能实现重载</strong></p>
+<ul>
+<li><p>JS是动态类型的语言，函数参数类型在<strong>运行时</strong>才能确定，不在编译时确定</p>
+</li>
+<li><p>函数签名是指函数的声明部分，包括函数名、参数列表和返回类型（如果有的话） </p>
+</li>
+<li><p>函数重载指在同一个作用域内，允许定义多个同名函数，但参数列表或参数类型不同</p>
+<ul>
+<li>但在ECMAScript中，后定义的会覆盖先定义的</li>
+</ul>
+</li>
+<li><p>IIFE 立即执行函数表达式</p>
+<ul>
+<li>是一个立即执行的函数表达式</li>
+<li>通常用于创建一个新的作用域，避免变量污染全局作用域</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<h2 id="闭包"><a href="#闭包" class="headerlink" title="闭包"></a>闭包</h2></blockquote>
+<p><strong>一个引用了另一个函数作用域中变量的函数</strong><br>常见方式：在一个函数内部创建另一个函数<br><u>是一种静态作用域</u></p>
+<ul>
+<li>闭包作用域链 <strong>包含自己的、包含函数的和全局的</strong> <ul>
+<li>在作用域链中查找变量 (作用域链本质上是一个指向变量对象的指针列表)</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">| 本函数活动对象 | 0 | </span><br><span class="line">| 外部函数的活动对象 | 1 | </span><br><span class="line">| 外部函数的外部函数的活动对象 | 2 | </span><br><span class="line">...</span><br><span class="line">| 全局执行环境 | 终点 |</span><br></pre></td></tr></table></figure>
+<ul>
+<li>一般来讲，函数执行完毕后，局部活动对象就会被销毁，<u>内存中仅保存全局作用域</u></li>
+<li>而闭包则会使<strong>内部定义的函数将包含函数的活动对象添加到它的作用域链中</strong><ul>
+<li>当被引用的函数返回后，<u>其执行环境的作用域链会被销毁，但活动对象仍会留在内存中</u></li>
+</ul>
+</li>
+<li>闭包只能取得包含函数中<strong>任何变量的最后一个值</strong>，<strong>因为它们引用的是一个活动对象里的变量</strong><ul>
+<li>闭包保存的是整个变量对象，而不是某个特殊变量</li>
+</ul>
+</li>
+<li>匿名函数的执行环境具有全局性，this通常指向window<ul>
+<li>要想访问作用域中的arguments对象，必须将该对象的引用保存到另一个闭包能访问的变量中</li>
+</ul>
+</li>
+</ul>
+<hr>
+<ul>
+<li>闭包还可以用于在对象中创建私有变量、私有函数<ul>
+<li>有权访问私有变量的共有方法叫 特权方法<ul>
+<li>单例模式、构造函数模式、原型模式</li>
+</ul>
+</li>
+<li>在原型prototype上定义公有方法 例如get() set()<ul>
+<li>但在一个实例上调用时会影响所有实例，可能会导致返回相同的值</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>数据的隐藏和封装，用于创建私有变量和方法</li>
+<li>模拟块级作用域（立即执行函数）</li>
+<li>常用于回调函数</li>
+</ul>
+<hr>
+<ul>
+<li>闭包会引用<strong>包含函数的整个活动对象</strong>，有可能会造成引用无法解除，占用内存<ul>
+<li>创建闭包必须要维护额外的作用域，过度使用可能会占用大量内存</li>
+</ul>
+</li>
+</ul>
+<p>解决：</p>
+<ul>
+<li>变量可以通过<strong>函数参数</strong>的形式传入，避免使用默认的[[scope]]向上查找</li>
+<li>使用setTimeout包裹，通过第三个参数传入</li>
+<li>使用<strong>块级作用域，让变量成为自己上下文的属性，避免共享</strong></li>
+<li>避免循环引用，<strong>确保不再需要时将外部函数的变量引用置为null</strong></li>
+</ul>
+<hr>
+<blockquote>
+<h2 id="执行环境-全局执行环境-函数执行环境"><a href="#执行环境-全局执行环境-函数执行环境" class="headerlink" title="执行环境 全局执行环境 函数执行环境"></a>执行环境 全局执行环境 函数执行环境</h2></blockquote>
+<ul>
+<li>通常指<strong>代码执行时的整个环境，包括当前作用域、变量、函数等信息</strong></li>
+<li>全局执行环境为 window对象</li>
+<li>每进入一个新的执行环境，都会创建一个用于<strong>搜索变量和函数的作用域链</strong></li>
+<li>当代码在一个环境中执行时，会创建变量对象的一个作用域链，保证对执行环境有权访问的所有变量和函数的有序访问<ul>
+<li>哪些方式能延长作用域链<ul>
+<li>嵌套函数、闭包函数（在内部访问外部环境的变量）     </li>
+<li>try-catch中的catch块（将变量赋值给外部作用域的变量来延长作用域）</li>
+<li>with语句 </li>
+<li>ES6模块（使变量和函数在不同模块间共享和使用）</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<h2 id="执行上下文EC"><a href="#执行上下文EC" class="headerlink" title="执行上下文EC"></a>执行上下文EC</h2></blockquote>
+<p>可以简单理解为一个对象，可以认为是 <strong>执行环境的一部分</strong>，更偏向于描述<strong>代码执行时的特定上下文信息</strong>。<br>包含三部分：</p>
+<ol>
+<li><strong>变量对象VO</strong>，存储该执行上下文中所有变量和函数声明<ul>
+<li>当变量对象所在的上下文为active EC时，称为活动对象AO</li>
+</ul>
+</li>
+<li><strong>作用域链</strong>，本质是一个<u>指向变量对象的指针列表</u>，包含父级的[[scope]]和自己的变量对象AO<ul>
+<li>作用域scope是变量和函数可访问的区域或上下文。可以分为块级作用域、函数作用域</li>
+<li>在JS中 作用域 是通过 作用域链 连接起来的</li>
+</ul>
+</li>
+<li><strong>this指向</strong><ul>
+<li>类型：全局执行上下文caller / 函数执行上下文callee / eval执行上下文</li>
+</ul>
+</li>
+</ol>
+<hr>
+<ul>
+<li>变量或函数的上下文 决定了它们可以<u>访问哪些数据以及行为</u></li>
+<li>每个上下文都有一个关联的变量对象</li>
+<li>上下文中的代码在执行时，会创建变量对象的作用域链</li>
+<li>上下文之间连接是线性的、有序的</li>
+</ul>
+<p><strong>无块级作用域</strong></p>
+<ul>
+<li>使用var声明的变量会自动被添加到最接近的环境中</li>
+<li>查询标识符，沿作用域链向上查找</li>
+</ul>
+<p>块级作用域/私有作用域，限制向全局作用域中添加过多变量和函数(避免变量污染全局作用域)</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">(function()&#123;</span><br><span class="line">    // 模拟块级作用域</span><br><span class="line">&#125;)()</span><br></pre></td></tr></table></figure>
+<p><u>function(){}() 这是函数声明，不能加()会导致错误</u></p>
+<hr>
+<blockquote>
+<h2 id="引用类型"><a href="#引用类型" class="headerlink" title="引用类型"></a>引用类型</h2></blockquote>
+<h3 id="Object"><a href="#Object" class="headerlink" title="Object"></a>Object</h3><h3 id="Array"><a href="#Array" class="headerlink" title="Array"></a>Array</h3><ul>
+<li>length属性不是只读的，可通过它来添加或移除数组项</li>
+<li>[]被认为是一个“真”的值</li>
+<li>最多可包含4294967295个项</li>
+<li>ES5 新增.isArray()方法</li>
+<li>toString(..) toLocaleString(..) valueOf(..) join(..) concat(..) includes(..)</li>
+<li>填充：fill(value[, start[, end]])</li>
+<li>栈方法：后进先出 push(..) pop(..) </li>
+<li>队列方法：先进先出 push(..) unshift(..) shift(..) </li>
+<li>重排序：reverse(..) sort(..) </li>
+<li>slice(..)<ul>
+<li>slice(..) 参数中有负数时，则用数组长度加上该数来确定相应位置</li>
+</ul>
+</li>
+<li>splice(..) 会改变原数组<ul>
+<li>删除：splice(起始位置, 项数)</li>
+<li>插入：splice(起始位置, 0, 插入的项)</li>
+<li>替换：splice(起始位置, 1, 插入的项)</li>
+</ul>
+</li>
+<li>toSpliced(..) 不改变原数组，返回一个新数组</li>
+<li>indexOf(..) lastIndexOf(..)从末尾开始找；这两个方法没找到都返回-1</li>
+<li>迭代方法：every(..) filter(..) forEach(..) map(..) some(..)<ul>
+<li>(function(item, index, array){})</li>
+<li>forEach() 只会遍历已存在的、非空的索引</li>
+<li>稀疏数组在使用 map方法 后仍然是稀疏的。空槽的索引在返回的数组中仍然为空</li>
+</ul>
+</li>
+<li>缩小数组：reduce(..) reduceRight(..)<ul>
+<li>(function(prev, cur, index, array){})</li>
+<li>两两执行，prev 为上次化简函数的return值，cur 为当前值(从第二项开始)</li>
+</ul>
+</li>
+<li>嵌套数组展开：flat(depth) 返回一个新数组，属于浅拷贝<ul>
+<li>depth: 指定提取嵌套数组的结构深度，默认为1，当不知道</li>
+<li>待展开数组是稀疏的，即包含了空槽时(不是undefined)，使用 <u>迭代或展开时</u> <strong>会被跳过</strong><ul>
+<li>如[1,2,,3,5,], [1,2,3,[],[],5]</li>
+<li>自己写的话可以这么写</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="title class_">Array</span>.<span class="property"><span class="keyword">prototype</span></span>.<span class="property">flat</span> = <span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="variable language_">this</span>.<span class="title function_">toString</span>().<span class="title function_">split</span>(‘,’).<span class="title function_">map</span>(<span class="function"><span class="params">i</span> =&gt;</span> +i)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Date"><a href="#Date" class="headerlink" title="Date"></a>Date</h3><ul>
+<li>Date.parse(..) Date.UTC(..) Date.now(..) …</li>
+<li>getTime(..) getFullYear(..) getMonth(..) … </li>
+</ul>
+<h3 id="RegExp-正则表达式"><a href="#RegExp-正则表达式" class="headerlink" title="RegExp 正则表达式"></a>RegExp 正则表达式</h3><ul>
+<li>/ pattern / flags (g i m)</li>
+<li>实例属性：global ignoreCase lastIndex multiline source</li>
+<li>实例方法：exec(..)</li>
+<li><strong>RegExp对象是有状态，当用全局检索g 或者 粘性检索y 会将上次成功匹配后的位置记录在 lastIndex 属性中</strong><ul>
+<li>如果在一个RegExp对象上调用exec，它将从lastIndex开始，直到最后一个匹配结束</li>
+<li>当找不到更多的匹配项时，lastIndex将自动重置为0</li>
+<li>这里会产生一个问题：多次调用exec不总是返回相同的值（可以手动设置lastIndex = 0来解决）</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 常用的一些正则</span></span><br><span class="line">/[^\d]*<span class="regexp">/ /</span>/ 非数字，反向</span><br><span class="line">/^<span class="number">1</span>\d&#123;<span class="number">10</span>&#125;$/ <span class="comment">// 以1开头的手机号码</span></span><br><span class="line"><span class="regexp">/^\d&#123;4&#125;-\d&#123;2&#125;-\d&#123;2&#125;$/</span> <span class="comment">// 匹配日期，YYYY-MM-DD</span></span><br><span class="line"><span class="regexp">/^[a-zA-Z0-9_]&#123;4,16&#125;$/</span> <span class="comment">// 匹配用户名</span></span><br><span class="line"><span class="regexp">/^\(https?|ftp):\/\/[^\s/$.?#].[^\s]*$/</span> <span class="comment">// 匹配URL</span></span><br></pre></td></tr></table></figure>
+<h3 id="Function"><a href="#Function" class="headerlink" title="Function"></a>Function</h3><ul>
+<li><strong>每个函数都是 Function 的实例</strong></li>
+<li>函数是<strong>对象</strong>，函数名是<strong>指向函数的指针</strong>，所以函数可以用作 <strong>值</strong> 来使用</li>
+<li><u>没有重载</u>，当创建两个一样的函数时，实际是 <strong>覆盖了前一个函数</strong></li>
+<li>解析器会率先读取 <strong>函数声明</strong>，function xxx(..){..} 声明提升了</li>
+<li><u>函数表达式则在 解析器执行到它所在行时，才会被 解释执行</u> var xxx = function(){}</li>
+<li>函数内部有两个特殊对象：<ul>
+<li><strong>arguments</strong>：类数组对象，保存函数参数</li>
+<li><strong>callee</strong>：指向拥有这个arguments对象的函数（函数执行上下文），典型的有 阶乘函数</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 解耦后，无论函数名是什么，都能正常完成递归调用</span></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">factorial</span>(<span class="params">num</span>) &#123;</span><br><span class="line">    <span class="keyword">if</span>(num &lt;= <span class="number">1</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span></span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> num * <span class="variable language_">arguments</span>.<span class="title function_">callee</span>(num - <span class="number">1</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li><strong>this，引用的是函数执时行的环境对象</strong></li>
+<li><strong>caller，保存着当前函数的函数引用</strong> arguments.callee.caller</li>
+<li>函数属性：<ul>
+<li><strong>length</strong>：表示函数希望接受的命名参数的个数</li>
+<li><strong>prototype</strong>：保存所有实例方法</li>
+</ul>
+</li>
+<li>每个函数都包含两个非继承而来的方法：能扩充函数赖以运行的作用域，使对象不需要与方法有任何耦合关系<ul>
+<li><strong>apply</strong> (作用域, 参数数组arguments/array) </li>
+<li><strong>call</strong> (作用域, 参数1, 参数2…) </li>
+</ul>
+</li>
+<li>bind(..) 会创建一个函数实例，与原函数相关联，<strong>其this值会被绑定到传给bind(..)函数的值</strong> xxx.bind(null)</li>
+<li>toLocaleString(..)、toString(..) 始终返回函数的代码，<strong>在调试代码时有用</strong></li>
+</ul>
+<p><strong>函数声明与函数表达式的区别：</strong></p>
+<ul>
+<li>语法形式不同，函数声明以function开始，而函数表达式则将函数赋值给一个变量</li>
+<li>函数声明会提升，而函数表达式则不会，只有在赋值语句执行后变量才能使用</li>
+<li>函数表达式可以是匿名的也可以是具名的，但函数声明必须要有一个函数名</li>
+<li>适用场景不同，函数表达式通常用于创建匿名函数或函数作为值传递情况下</li>
+</ul>
+<hr>
+<blockquote>
+<h2 id="基础包装类型"><a href="#基础包装类型" class="headerlink" title="基础包装类型"></a>基础包装类型</h2></blockquote>
+<ul>
+<li><strong>String</strong></li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> s1 = <span class="string">&#x27;abcde&#x27;</span>;</span><br><span class="line"><span class="keyword">let</span> s2 = s1.<span class="title function_">substring</span>(<span class="number">2</span>);</span><br></pre></td></tr></table></figure>
+<p>string是 基础数据类型，substring并不是它的方法<br>实际上</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> s1 = <span class="keyword">new</span> <span class="title class_">String</span>(<span class="string">&#x27;abcde&#x27;</span>);</span><br><span class="line">s2 = s1.<span class="title function_">substring</span>(<span class="number">2</span>);</span><br><span class="line">s1 = <span class="literal">null</span>;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>装箱转换：把基本类型转换为对应的对象，它是类型转换中一种相当重要的种类</li>
+<li>自动创建的基础包装类型的对象，<strong>只存在于这行代码执行的瞬间</strong><ul>
+<li>频繁产生临时对象，在一些性能要求高的场景下，避免对基础类型做装箱转换</li>
+</ul>
+</li>
+<li>使用new String(..) 构造函数 和 使用String(..) 转换函数，<strong>这两者是不同的，前者是产生了对象，后者是强制类型转换</strong>(可以使用 typeof 区分)</li>
+<li>当为负数时，substring 将所有参数转为0 todo</li>
+<li>字符方法</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="title function_">charAt</span>() | <span class="title function_">charCodeAt</span>() | string[n] |</span><br><span class="line"><span class="title function_">concat</span>() | string + string |</span><br><span class="line"><span class="title function_">slice</span>(起始，结束) | <span class="title function_">sbustring</span>(起始，结束) | <span class="title function_">substr</span>(起始，返回字符个数) |</span><br><span class="line"><span class="title function_">indexOf</span>() 从前往后 | <span class="title function_">lastIndexOf</span>() 从后往前 |</span><br><span class="line"><span class="title function_">trim</span>()      |</span><br><span class="line"><span class="title function_">toLowerCase</span>() | <span class="title function_">toUpperCase</span>() |</span><br><span class="line"><span class="title function_">match</span>() | <span class="title function_">search</span>() |</span><br><span class="line"><span class="title function_">replace</span>() |</span><br><span class="line"><span class="title function_">localeCompare</span>() 比较<span class="number">2</span>个字符串 |</span><br><span class="line"><span class="title function_">fromCharCode</span>() 接受一个或多个字符编码，转换为一个字符串 |</span><br></pre></td></tr></table></figure>
+<ul>
+<li><strong>Boolean</strong><ul>
+<li>重写了valueOf(..)和toString(..) 返回了true/false ‘true’/‘false’</li>
+<li>使用容易造成误解</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> falseObject = <span class="keyword">new</span> <span class="title class_">Boolean</span>(<span class="literal">false</span>)</span><br><span class="line"><span class="keyword">let</span> falseValue = <span class="literal">false</span></span><br><span class="line">falseObject &amp;&amp; <span class="literal">true</span> <span class="comment">// true</span></span><br><span class="line">falseValue &amp;&amp; <span class="literal">true</span>  <span class="comment">// false</span></span><br><span class="line"><span class="keyword">typeof</span> falseObject  <span class="comment">// object</span></span><br><span class="line"><span class="keyword">typeof</span> falseValue   <span class="comment">// boolean</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>Number</strong><ul>
+<li>toFixed / toExponential(..) 指数表示法 / toPrecision(..)返回前两者其中合适的</li>
+</ul>
+</li>
+</ul>
+<hr>
+<blockquote>
+<h2 id="单体内置对象，不依赖宿主环境"><a href="#单体内置对象，不依赖宿主环境" class="headerlink" title="单体内置对象，不依赖宿主环境"></a>单体内置对象，不依赖宿主环境</h2></blockquote>
+<p><strong>1. Global</strong></p>
+<ul>
+<li>属性： 全局变量、函数</li>
+<li>URI编码方法、window对象</li>
+<li>eval(..)，<strong>修改其所处的词法作用域</strong><ul>
+<li>像一个完整的ECMAScript解析器</li>
+<li>只接受一个参数，即要 <strong>执行的脚本字符串</strong></li>
+<li>在eval(..)中创建的 <strong>任何变量或函数不会被提升</strong></li>
+</ul>
+</li>
+<li>with(..)实际上根据你传递给它的对象凭空<strong>创建了一个全新的词法作用域</strong><ul>
+<li>如果没找到对应的标识符，可能就会自动创建一个<strong>全局变量</strong>（非严格模式下）</li>
+</ul>
+</li>
+<li>try catch 结构的 catch 分句具有块作用域</li>
+</ul>
+<p><strong>2. Math()</strong></p>
+<ul>
+<li>max(..) ｜ min(..) ｜ ceil(..) | floor(..) | round(..) | random(..)</li>
+<li>max(..) ｜ min(..)在没有传参的情况下分别返回 -Infinity | Infinity</li>
+</ul>
+<hr>
+<blockquote>
+<h2 id="面向对象"><a href="#面向对象" class="headerlink" title="面向对象"></a>面向对象</h2></blockquote>
+<h3 id="对象"><a href="#对象" class="headerlink" title="对象"></a>对象</h3><p><strong>无序属性的集合，可以包含基本值、对象或函数</strong><br>特征：具有唯一标识性，状态和行为（统一抽象为 属性）<br>JS对象独有的特色：具有高度动态性</p>
+<ul>
+<li>对象数据属性类型，大多数情况只关心值即可<ul>
+<li>value writable enumerable configurable(能否通过delete删除)</li>
+<li>改变默认特征：Object.defineProperty(对象，属性名，一个描述符对象)</li>
+<li>一旦把configurable: false，不能再变回可配置的（true），会抛出错误</li>
+</ul>
+</li>
+<li>访问器属性<ul>
+<li>getter(..)方法(取值时调用) setter(..)方法(设值时调用) 与对象数据属性value 会冲突，不能同时定义</li>
+<li>get(..) set(val)  这两个是关键字</li>
+</ul>
+</li>
+<li>定义多个属性 Object.defineProperties(要操作的对象，属性值)</li>
+<li>读取属性特征 Object.getOwnPropertyDescriptor(要操作的对象，属性名称)</li>
+<li>Object.freeze(..) 可以使一个对象被冻结。可以防止扩展，并使现有的属性不能被删除也不能添加新属性，对象的原型也不能被重新指定<h3 id="创建对象"><a href="#创建对象" class="headerlink" title="创建对象"></a>创建对象</h3></li>
+<li>工厂模式：抽象了创建具体对象的过程</li>
+<li>构造函数模式</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">不用<span class="keyword">new</span>运算符 获取对象的方法有哪些?</span><br><span class="line">- 对象字面量 &#123;&#125;</span><br><span class="line">- 工厂函数，返回新创建的对象</span><br><span class="line">- <span class="title class_">Object</span>.<span class="title function_">create</span>()</span><br><span class="line">- <span class="title class_">ES6</span>的<span class="keyword">class</span></span><br><span class="line">- 原型链</span><br></pre></td></tr></table></figure>
+
+<h3 id="复制对象"><a href="#复制对象" class="headerlink" title="复制对象"></a>复制对象</h3><ul>
+<li><p>浅拷贝shallow copy</p>
+<ul>
+<li><strong>以赋值形式拷贝引用对象，修改原始对象时也会受到影响，因为指向同一个地址</strong></li>
+<li>常见的方法：<ul>
+<li>ES6的 <strong>Object.assign(目标对象, 源对象..)</strong></li>
+<li><strong>展开运算符 …</strong></li>
+<li><strong>Array.prototype.slice(..)</strong></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>深拷贝deep copy</p>
+<ul>
+<li><strong>递归地赋值原始对象及其所有嵌套对象，创建了一个新对象，与原始对象完全独立，修改不影响原始对象</strong></li>
+<li>常见的方法：<ul>
+<li><strong>JSON.parse(JSON.stringify(..))</strong><ul>
+<li><strong>性能最快</strong>，但对某些特殊类型对象可能会失效<ul>
+<li><strong>包含循环引用的对象</strong>（对象之间相互引用，形成无限循环）执行此方法会报错（手动接触引用或者使用weakMap）</li>
+<li><strong>undefined、任意函数以及symbol值</strong>，在序列化过程中会被忽略(作为对象的属性值时)或者被转换成null(作为数组属性值时)</li>
+<li>函数、undefined 被单独转换时，会返回 undefined<ul>
+<li>简单来说，函数、undefined、symbol值都不是有效的数据类型，序列化时被忽略也是为了确保JSON字符串的有效性跟可靠性，以防出现不一致的行为或丢失等潜在风险</li>
+</ul>
+</li>
+<li>null还是被转换为null</li>
+<li><strong>不可枚举的属性</strong> 默认会被 忽略</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>递归复制</strong>，逐层复制对象属性</li>
+<li>使用<strong>Lodash</strong>工具库 </li>
+<li>结构化克隆算法 <strong>structuredClone</strong><ul>
+<li>structuredClone(data)</li>
+<li>支持复杂数据结构，包括 Date、Map、Set、循环引用等</li>
+</ul>
+</li>
+<li>使用 <strong>MessageChannel</strong><ul>
+<li>允许创建一个新的消息通道，通过两个 MessagePort 属性发送数据</li>
+<li>异步操作<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">deepCloneWithMessageChannel</span>(<span class="params">obj</span>) &#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">Promise</span>(<span class="function">(<span class="params">resolve</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> &#123; port1, port2 &#125; = <span class="keyword">new</span> <span class="title class_">MessageChannel</span>();</span><br><span class="line">    port1.<span class="title function_">postMessage</span>(obj);</span><br><span class="line">    port2.<span class="property">onmessage</span> = <span class="function">(<span class="params">event</span>) =&gt;</span> &#123;</span><br><span class="line">      <span class="title function_">resolve</span>(event.<span class="property">data</span>);</span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> original = &#123; <span class="attr">a</span>: <span class="number">1</span>, <span class="attr">b</span>: &#123; <span class="attr">c</span>: <span class="number">2</span> &#125; &#125;;</span><br><span class="line"><span class="title function_">deepCloneWithMessageChannel</span>(original).<span class="title function_">then</span>(<span class="function">(<span class="params">copy</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(copy);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li>使用 Object.assign（浅拷贝 + 递归）</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3 id="原型"><a href="#原型" class="headerlink" title="原型"></a>原型</h3><p><strong>用于实现对象的属性继承，行为重用</strong><br><strong>通过复制已存在的原型对象来实现，但这里的复制并不是真实的复制，而是使新对象持有一个原型的引用</strong><br>简单来说有两点：</p>
+<ol>
+<li>每个对象有私有字段prototype，即对象原型</li>
+<li>读取属性时，如果对象本身没有，就向上查找原型直到找到为止<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">Person</span>(<span class="params"></span>)&#123;&#125; <span class="comment">// 构造函数</span></span><br><span class="line"><span class="title class_">Person</span>.<span class="property"><span class="keyword">prototype</span></span>.<span class="property">name</span> = <span class="string">&#x27;aaa&#x27;</span> <span class="comment">// 原型</span></span><br><span class="line"><span class="keyword">let</span> p1 = <span class="keyword">new</span> <span class="title class_">Person</span>() <span class="comment">// 对象实例</span></span><br></pre></td></tr></table></figure></li>
+</ol>
+<ul>
+<li>每个函数都有一个 prototype 属性，该属性是一个指针对象，是一个对象</li>
+<li>Object内建对象 是 <strong>最高级父级对象</strong></li>
+<li>该对象包含由 特定引用类型的实例 共享的<u>属性和方法</u></li>
+<li>好处是可以让 <strong>所有对象实例共享它所包含的属性和方法</strong></li>
+<li>所有原型对象会自动获得一个 <strong>constructor（构造函数）属性</strong>，指向与之关联的构造函数</li>
+<li>当为对象实例添加一个属性时，就会 屏蔽原型对象中保存的 <strong>同名属性</strong>，即会阻止访问原型中的属性，但<u>不会修改那个属性</u><ul>
+<li><strong>自身属性优先级高于其原型对象中同名的属性</strong></li>
+</ul>
+</li>
+<li>Object.getPrototypeOf(..) / for in / Object.keys(..) / Object.getOwnPropertyNames(..) / isPrototype(..)<ul>
+<li>使用hasOwnProperty(..)判断哪个是实例属性，哪个是原型属性；只有属性存在于<u>实例中</u>时才返回true</li>
+<li>for in (“xxx” in p1) 只要能访问到就为true <ul>
+<li><strong>实例和原型中的属性都包括</strong>（能通过对象访问的、可枚举的属性）</li>
+</ul>
+</li>
+<li>Object.keys()返回包含所有可枚举属性的字符串数组</li>
+<li>Object.getOwnPropertyNames()无论是否枚举都返回</li>
+</ul>
+</li>
+<li>使用 <u>对象字面量形式</u> 创建时，相当于<strong>重写</strong>了prototype对象，<strong>constructor属性就会变成新的，指向了Object构造函数</strong></li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="title class_">Person</span>.<span class="property"><span class="keyword">prototype</span></span> = &#123;</span><br><span class="line">    <span class="attr">constructor</span>: <span class="title class_">Person</span>, <span class="comment">// 需要手动指向</span></span><br><span class="line">    <span class="attr">name</span>: <span class="string">&#x27;John&#x27;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>原型陷阱:</strong> 当重写了整个原型对象时，就切断了跟先前已经创建的实例对象之间的联系，<strong>已经创建的实例引用的依然是最初的原型</strong></p>
+<ul>
+<li>在原型中查找值的过程是一次搜索，<strong>对原型对象做的任何修改都能够立即从实例上反映出来</strong></li>
+<li>当原型对象中包含引用类型值属性时，当通过某个实例改变值时会导致所有实例指向的该属性值都会改变</li>
+<li>推荐使用构造函数 + 原型模式组合使用</li>
+<li>寄生构造函数模式，稳妥构造函数模式（安全性）</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// object.create 兼容写法</span></span><br><span class="line"><span class="keyword">var</span> objectCreate = <span class="keyword">function</span> (<span class="params">arg</span>) &#123;</span><br><span class="line">    <span class="keyword">if</span> (!arg) &#123; <span class="keyword">return</span> &#123;&#125; &#125;</span><br><span class="line">    <span class="keyword">function</span> <span class="title function_">obj</span> (<span class="params"></span>) &#123;&#125;</span><br><span class="line">    obj.<span class="property"><span class="keyword">prototype</span></span> = arg</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> obj</span><br><span class="line">&#125;</span><br><span class="line"><span class="title class_">Object</span>.<span class="property">create</span> = <span class="title class_">Object</span>.<span class="property">create</span> || objectCreate</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<h2 id="继承"><a href="#继承" class="headerlink" title="继承"></a>继承</h2><p>继承是一个对象获得另一个对象的属性和方法的能力，JS中继承通过原型链实现。</p>
+</blockquote>
+<h3 id="原型链"><a href="#原型链" class="headerlink" title="原型链"></a>原型链</h3><p>由原型对象组成，每个对象都有__proto__属性，指向创建该对象的构造函数的原型，将对象连接组成原型链。<br>是一个用来<u>实现继承</u>和<u>属性共享</u>的对象链<br>通过原型链继承原型上的属性或方法</p>
+<ul>
+<li>__proto__是<strong>某个实例对象</strong>的(非标准)属性，prototype则是属于<strong>构造器函数</strong>的属性</li>
+<li>所有函数的默认原型是Object的实例，默认原型的指针指向Object.prototype<ul>
+<li>即所有自定义类型都会继承toString()、valueOf()等默认方法</li>
+</ul>
+</li>
+<li>用instanceof(..), isPrototypeOf(..)确定原型和实例的关系</li>
+<li>实现继承时，不能使用对象字面量创建原型，这样就重写原型链，切断了相互间的关系</li>
+<li>在创建子类型实例时，不能向超类型的构造函数中传递参数，解决方法如下：<ul>
+<li><strong>借用构造函数，在子类型构造函数内部调用超类型构造函数</strong><ul>
+<li>xxx.call(this，参数值)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>实例通过 __proto__ 指向 原型prototype，通过 constructor 指向构造函数。</li>
+</ul>
+<h3 id="组合继承"><a href="#组合继承" class="headerlink" title="组合继承"></a>组合继承</h3><ul>
+<li>使用原型链实现对原型属性和方法的继承</li>
+<li>通过借用构造函数来实现对实例属性的继承</li>
+<li>这样既在原型上定义方法实现函数复用，又能保证每个实例都有它自己的属性</li>
+</ul>
+<h3 id="原型式继承"><a href="#原型式继承" class="headerlink" title="原型式继承"></a>原型式继承</h3><ul>
+<li>借助已有对象创建新对象，实现对某个对象的简单继承</li>
+<li>如ES5的 Object.create()</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">object</span>(<span class="params">o</span>) &#123; </span><br><span class="line">    <span class="keyword">function</span> <span class="title function_">F</span>(<span class="params"></span>)&#123;&#125;</span><br><span class="line">    F.<span class="property"><span class="keyword">prototype</span></span> = o</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="title function_">F</span>()</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> person = &#123;</span><br><span class="line">    <span class="attr">name</span>: <span class="string">&#x27;John&#x27;</span>,</span><br><span class="line">    <span class="attr">friends</span>: [<span class="string">&#x27;bob&#x27;</span>,<span class="string">&#x27;jack&#x27;</span>]</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> anotherPerson = <span class="title function_">object</span>(person)</span><br><span class="line">anotherPerson.<span class="property">name</span> = <span class="string">&#x27;greg&#x27;</span></span><br><span class="line">anotherPerson.<span class="property">friends</span>.<span class="title function_">push</span>(<span class="string">&#x27;helen&#x27;</span>) <span class="comment">// 被anotherPerson共享</span></span><br></pre></td></tr></table></figure>
+<h3 id="寄生式继承"><a href="#寄生式继承" class="headerlink" title="寄生式继承"></a>寄生式继承</h3><ul>
+<li>借用构造函数来继承属性，通过原型链等混成形式来继承</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">inhreitPrototype</span>(<span class="params">subType, superType</span>) &#123; <span class="comment">// 接受2个构造函数</span></span><br><span class="line">    <span class="keyword">var</span> prototype = <span class="title class_">Object</span>(superType.<span class="property"><span class="keyword">prototype</span></span>); <span class="comment">// 创建对象副本</span></span><br><span class="line">    prototype.<span class="property">constructor</span> = subType; <span class="comment">// 增强对象</span></span><br><span class="line">    subType.<span class="property"><span class="keyword">prototype</span></span> = prototype; <span class="comment">// 指定对象</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>ES5中 Object.create(person, object) 是静态方法，以一个现有对象作为原型，创建一个新对象</p>
+<ul>
+<li>规范了原型是继承，比用 new 来创建对象更规范些 </li>
+<li>object { xxx: { vlaue: ‘’} }</li>
+</ul>
+</li>
+<li><p>ES5继承是先创建子类实例对象this，再将父类方法添加到this上(Parent.apply(this))（实例在前，继承在后）</p>
+</li>
+<li><p>ES6语法糖 class / extends 也可以实现继承</p>
+</li>
+<li><p>ES6继承是先创建父类实例对象this，再用子类构造函数去修改this(super(…args)) </p>
+<ul>
+<li>只有调用super后才能使用this</li>
+<li>继承在前，实例在后</li>
+</ul>
+</li>
+</ul>
+<hr>
+<blockquote>
+<h2 id="性能"><a href="#性能" class="headerlink" title="性能"></a>性能</h2></blockquote>
+<p>JavaScript 引擎会在 <strong>编译阶段</strong> 进行数项的性能优化<br>其中有些优化依赖于能够根据代码的词法进行 静态分析，并 <strong>预先确定</strong> 所有变量和函数的定义位置，才能在执行过程中快速找到标识符。<br>但如果引擎在代码中发现了 eval()或with() ，它只能简单地假设关于标识符位置的判断都是无效的，因为无法在 词法分析阶段 明确知道 eval()会接收到什么代码，这些代码会如何对作用域进行修改，也无法知道传递给 with 用来创建新词法作用域的对象的内容到底是什么。</p>
+<ul>
+<li>最悲观的情况是如果出现了 eval()或with()，所有的优化可能都是无意义的，因此最简单的做法就是完全不做任何优化。</li>
+<li><strong>使用任何一个机制都将导致代码运行变慢</strong></li>
+</ul>
+<hr>
+<blockquote>
+<h2 id="编译"><a href="#编译" class="headerlink" title="编译"></a>编译</h2></blockquote>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> a = <span class="number">2</span></span><br></pre></td></tr></table></figure>
+<p>| 词法分析 / 分词 | var / a / = / 2 |<br>| 语法分析 / 解析 | AST抽象语法树 |<br>| 代码生成 |</p>
+<ul>
+<li>大部分编译发生在代码执行前的几微秒甚至更少时间内</li>
+<li>引擎、编译器、作用域</li>
+<li>LHS 赋值 / RHS 取值</li>
+<li><strong>包含变量和函数所在内的所有声明都会在任何代码被执行前首先处理</strong><ul>
+<li>首先分为两部分： <ul>
+<li>var a 在<u>编译阶段</u>进行，即<strong>声明提升</strong></li>
+<li>a = 2 会被留到<strong>原地等待<u>执行阶段</u>时才进行赋值操作</strong></li>
+</ul>
+</li>
+<li>先声明后赋值</li>
+<li><strong>函数声明会比变量先提升</strong></li>
+</ul>
+</li>
+</ul>
+<hr>
+<blockquote>
+<h2 id="模块"><a href="#模块" class="headerlink" title="模块"></a>模块</h2></blockquote>
+<ul>
+<li>两个特征：<ul>
+<li>为创建内部作用域而调用了一个包装函数</li>
+<li>包装函数的返回值必须至少包括一个对内部函数的引用，这样就会创建涵盖整个包装函数内部作用域的闭包</li>
+</ul>
+</li>
+</ul>
+<hr>
+<blockquote>
+<h2 id="动态作用域"><a href="#动态作用域" class="headerlink" title="动态作用域"></a>动态作用域</h2></blockquote>
+<p>JS本身采用词法作用域，即静态作用域。<br>可以通过以下方式实现动态作用域<br>在动态作用域中，变量作用域是根据函数调用栈中的调用顺序来确定，而不是根据代码中的声明位置</p>
+<ul>
+<li>eval(..)函数</li>
+<li>with(..)语句</li>
+</ul>
+<hr>
+<blockquote>
+<h2 id="调用栈"><a href="#调用栈" class="headerlink" title="调用栈"></a>调用栈</h2></blockquote>
+<ul>
+<li>为了到达 <strong>当前执行位置</strong> 所调用的所有函数，可以当作一个函数调用链</li>
+<li>非严格模式下默认绑定会绑定到 <strong>全局对象</strong></li>
+<li>调用位置是否有上下文 a.b.c，隐式绑定会把函数c中调用的this绑定到这个上下文对象中，对象属性引用链中只有最后一层（即b）影响调用位置<ul>
+<li>隐式绑定到函数会丢失绑定对象，就会引用 <strong>默认绑定</strong></li>
+</ul>
+</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">foo</span>(<span class="params"></span>) &#123; </span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="variable language_">this</span>.<span class="property">a</span>) </span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> obj = &#123;</span><br><span class="line">    <span class="attr">a</span>: <span class="number">2</span>,</span><br><span class="line">    <span class="attr">foo</span>: foo</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> bar = obj.<span class="property">foo</span></span><br><span class="line"><span class="keyword">var</span> a = <span class="number">1</span></span><br><span class="line"><span class="comment">// bar()引用的是 foo函数 本身，bar()是不带任何修饰的函数调用，因此应用了默认绑定</span></span><br><span class="line"><span class="title function_">bar</span>() <span class="comment">// 1</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li><strong>显式绑定</strong> <ul>
+<li>call(..) | apply(..) |  bind(..) (Function.prototype.bind）硬绑定</li>
+<li>把 null 或 undefined 作为this的绑定对象传入 call ｜ apply ｜ bind，这些在<strong>调用时会被忽略，实际应用默认绑定规则</strong></li>
+</ul>
+</li>
+<li><strong>new 创建的函数，this绑定的是新创建的对象</strong></li>
+<li>优先级： <strong>new &gt; 显式绑定 &gt; 隐式绑定</strong></li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 手动修改调用时的绑定</span></span><br><span class="line"><span class="keyword">if</span> (!<span class="title class_">Function</span>.<span class="property"><span class="keyword">prototype</span></span>.<span class="property">softBind</span>) &#123; </span><br><span class="line">    <span class="title class_">Function</span>.<span class="property"><span class="keyword">prototype</span></span>.<span class="property">softBind</span> = <span class="keyword">function</span>(<span class="params">obj</span>) &#123;</span><br><span class="line">        <span class="keyword">var</span> fn = <span class="variable language_">this</span>; <span class="comment">// 每次调用时当前的对象</span></span><br><span class="line">        <span class="comment">// 捕获所有 curried 参数</span></span><br><span class="line">        <span class="keyword">var</span> curried = [].<span class="property">slice</span>.<span class="title function_">call</span>( <span class="variable language_">arguments</span>, <span class="number">1</span> ); </span><br><span class="line">        <span class="keyword">var</span> bound = <span class="keyword">function</span>(<span class="params"></span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> fn.<span class="title function_">apply</span>(</span><br><span class="line">                (!<span class="variable language_">this</span> || <span class="variable language_">this</span> === (<span class="variable language_">window</span> || <span class="variable language_">global</span>)) ?</span><br><span class="line">                        obj : <span class="variable language_">this</span>, curried.<span class="property">concat</span>.<span class="title function_">apply</span>( curried, <span class="variable language_">arguments</span> )); </span><br><span class="line">        &#125;;</span><br><span class="line">        bound.<span class="property"><span class="keyword">prototype</span></span> = <span class="title class_">Object</span>.<span class="title function_">create</span>( fn.<span class="property"><span class="keyword">prototype</span></span> );</span><br><span class="line">        <span class="keyword">return</span> bound; </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li><strong>箭头函数的绑定无法被修改</strong></li>
+</ul>
+<hr>
+<ul>
+<li>JS中实际上不存在所谓的构造函数，只有<strong>对于函数的构造调用</strong><ul>
+<li>创建一个全新对象</li>
+<li>新对象会被执行 <strong>原型连接</strong></li>
+<li>新对象会绑定到<strong>函数调用的this</strong></li>
+<li>如果函数没有返回其他对象，那么new表达式的函数调用会自动返回这个新对象</li>
+</ul>
+</li>
+<li>Object.create(..) 会创建一个<strong>新对象并把它关联到我们指定的对象</strong><ul>
+<li>通过 Prototype机制 委托来关联对象并且避免不必要的麻烦</li>
+<li>使用 new 的构造函数调用会生成 .prototype 和 .constructor 引用</li>
+</ul>
+</li>
+<li>Object.create(null) 和 {} 很像，但是并不会创建 Object.prototype 这个委托<ul>
+<li>Object.create(null)<strong>没有原型链</strong>，创建的对象没有原型，所以它比 {} ‘更空’</li>
+<li>这类对象通常被称为 纯净对象 或 字典对象</li>
+</ul>
+</li>
+</ul>
+<hr>
+<blockquote>
+<h2 id="尾调用优化"><a href="#尾调用优化" class="headerlink" title="尾调用优化"></a>尾调用优化</h2></blockquote>
+<ul>
+<li>尾调用就是一个出现在另一个函数“结尾”处的函数调用（某个函数最后一步是调用另一个函数）</li>
+<li>函数调用会形成一个调用记录（调用帧），所有的形成一个调用栈<ul>
+<li>当出现尾调用时，如函数A内最后调用了B，此时A就结束了，那完全可以删除A的调用帧，只保留B的调用帧即可</li>
+<li>每次执行时调用帧只有一项，将大大节省内存</li>
+<li>但只有不再用到外层函数的内部变量时，才能进行尾调用优化（闭包就不行）</li>
+</ul>
+</li>
+<li>在递归问题上可以更好地运用起来，即尾调用自身，只保留一个调用记录，复杂度为O(1)</li>
+<li>ES6中尾递归不会发生栈溢出，相对节省内存<ul>
+<li>ES6的尾调用只在严格模式下生效<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 阶乘就函数可以改为</span></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">tailFactorial</span>(<span class="params">num, total = <span class="number">1</span></span>) &#123;</span><br><span class="line">    <span class="keyword">if</span>(num === <span class="number">1</span>) <span class="keyword">return</span> total</span><br><span class="line">    <span class="keyword">return</span> <span class="title function_">tailFactorial</span>(num - <span class="number">1</span>, num * total)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+</ul>
+<hr>
+<blockquote>
+<h2 id="模块-1"><a href="#模块-1" class="headerlink" title="模块"></a>模块</h2></blockquote>
+<p><strong>简单来说就是将代码分成独立的块，再把这些块连接起来</strong><br><u>思路：逻辑分块、各自封装、相互独立，每个块自行决定对外暴露什么，同时也自行决定引入哪些外部代码。</u></p>
+<p>模块必须在依赖加载完成后才能被加载<br>ES6之前可以使用 函数作用域 和 立即调用函数表达式 将模块定义封装在匿名闭包中<br><strong>模块永远是单例，无论请求多少次，只会被加载一次</strong></p>
+<ul>
+<li><strong>CommonJS</strong><ul>
+<li>在服务器端实现模块化代码组织</li>
+<li>Node.js 使用了轻微修改版本的 CommonJS，其中它不需要考虑网络延迟问题</li>
+<li>使用require(..)指定依赖，用module.exports定义公共API</li>
+</ul>
+</li>
+<li><strong>AMD</strong><ul>
+<li>以浏览器为目标执行环境，需要考虑网络延迟问题</li>
+<li>实现核心是用函数包装模块定义，可以防止声明全局变量</li>
+<li>define(..)定义公共API，异步加载</li>
+</ul>
+</li>
+<li><strong>UMD，通用模块定义</strong><ul>
+<li>统一了CommonJS和AMD生态系统，在启动时检测要使用哪种模块系统，然后进行适当配置，将逻辑包装在一个立即调用的函数表达式里</li>
+</ul>
+</li>
+<li><strong>ES6模块</strong><ul>
+<li>&lt;script type=”module”&gt;&lt;/script&gt;</li>
+<li>是异步加载和执行的</li>
+<li>顶级this 的值是 undefined（windows下）</li>
+<li>解析到上述标签后回立即下载模块文件，但执行会延迟到文档解析完成；有多个标签时也是按顺序执行</li>
+<li>嵌入模块的代码不能使用 import 加载到其他模块。只有通过外部文件加载的模块才可以使用 import 加载</li>
+<li>使用 <strong>export</strong> 导出，且必须在模块顶级，不能嵌套在语句中。支持 命名导出 和 默认导出<ul>
+<li>默认导出使用 default关键字 作为值来导出，default命令只能使用一次，不可重复默认导出。不用加{ } </li>
+<li>输出的值是动态绑定的，绑定其所在模块</li>
+</ul>
+</li>
+<li>使用 <strong>import</strong> 引入其他模块导出的值，也必须出现在模块顶级，不能嵌套<ul>
+<li>会被提升到模块顶部</li>
+<li>导入对模块而言是<strong>只读</strong>的，相当于是const声明的变量，不能直接修改导出值</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">&lt;!-- 第二个执行 --&gt;</span><br><span class="line"><span class="language-xml"><span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">&quot;module&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span></span><br><span class="line">&lt;!-- 第三个执行 --&gt;</span><br><span class="line"><span class="language-xml"><span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">&quot;module&quot;</span> <span class="attr">src</span>=<span class="string">&quot;module.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span></span><br><span class="line">&lt;!-- 第一个执行 --&gt; </span><br><span class="line">&lt;script&gt;&lt;script&gt;                                                             </span><br></pre></td></tr></table></figure>
+<p>总结：</p>
+<ul>
+<li>CommonJs，由Node.js社区采用<ul>
+<li>require导入模块，module.exports 和 exports 导出模块</li>
+<li>在运行时同步加载模块，适用于服务器端（运行时加载）</li>
+<li>文件就是一个模块，输入时必须查找对象属性</li>
+<li>模块输出的是值的拷贝（浅拷贝），导出值变化不会影响导入值</li>
+<li>加载整个模块里的所有方法，然后在使用时再运用对应的方法</li>
+</ul>
+</li>
+<li>AMD，RequireJS 库提出<ul>
+<li>require异步加载模块，define定义模块</li>
+<li>适用于浏览器端，允许异步加载依赖模块</li>
+</ul>
+</li>
+<li>ES6 Modules，ES6中的模块化规范     <ul>
+<li>import导入模块，export导出模块</li>
+<li>按需加载 异步加载 编译时加载</li>
+<li>语法更清晰</li>
+<li>输出的是值的引用，import指向内存地址，导入值会随导出值而变化</li>
+</ul>
+</li>
+</ul>
+<hr>
+<blockquote>
+<h2 id="高频触发优化方式"><a href="#高频触发优化方式" class="headerlink" title="高频触发优化方式"></a>高频触发优化方式</h2></blockquote>
+<ol>
+<li><strong>防抖 Debouncing</strong></li>
+<li><strong>节流 Throttling</strong></li>
+<li><strong>事件委托</strong><ul>
+<li>对大量相似的元素，将事件处理程序添加到这一组元素的共同祖先上，利用<strong>事件冒泡</strong>处理事件</li>
+<li>动态绑定事件，减少事件处理程序的数量，提高性能</li>
+</ul>
+</li>
+<li><strong>使用原生API替代框架功能</strong></li>
+<li><strong>适当情况下存储计算过的结果，避免重复计算</strong></li>
+</ol>
+<hr>
+<blockquote>
+<h2 id="ES6-ES7-新特性"><a href="#ES6-ES7-新特性" class="headerlink" title="ES6 ES7 新特性"></a>ES6 ES7 新特性</h2></blockquote>
+<h3 id="ES6"><a href="#ES6" class="headerlink" title="ES6"></a>ES6</h3><ul>
+<li><strong>类class</strong> <ul>
+<li>静态方法使用staic关键字修饰，该方法不会被实例继承，而是直接通过类调用</li>
+<li>如果在实例上调用静态方法，会抛出错误，表示不存在该方法</li>
+<li>父类静态方法可以被子类继承</li>
+<li>修饰器@只能用于类和类的方法，不能用于函数（存在函数提升）</li>
+</ul>
+</li>
+<li><strong>数据结构：Set、Map、WeakSet、WeakMap</strong><ul>
+<li>Set集合，类似于数组，以[值，值]的形式存储元素，且成员的值是唯一的不重复<ul>
+<li>本身是一个构造函数，用来生成Set数据结构</li>
+<li>操作方法：add(value) has(value) delete(value) clear()</li>
+<li>遍历方法：keys() values() entries() forEach()</li>
+<li>添加值时不会发生类型转换，因此1和’1’是不同的值（精确相等===）</li>
+<li>Array.from(set)将Set结构转为数组（也可以用于数组去重）</li>
+</ul>
+</li>
+<li>WeakSet与Set相似，但成员只能是<u>对象或数组</u>且都是弱引用且不可遍历<ul>
+<li>其他对象不再引用该对象时，垃圾回收机制就会自动回收该对象。</li>
+<li>（弱引用是指不能确保其引用的对象不会被垃圾回收器回收的引用，换句话说就是可能在任意时间被回收）因此获取不到size属性</li>
+<li>一个用处是存储DOM节点，不用担心引用未及时解除引用而造成内存泄漏</li>
+</ul>
+</li>
+<li>Map，类似于对象，以[键，值]的形式存储元素<ul>
+<li>键名的范围不限于字符串或Symbol，可以是各种类型。可以在键值类型丰富的情况下使用</li>
+<li>如果键是简单类型的值，只要值严格相等，包括+0、-0都会视为是一个键</li>
+<li>对同一个值多次赋值，后面的将覆盖前面的值</li>
+<li>操作方法：get(key) set(key,value) has(key) delete(key) clear()</li>
+<li>遍历方法：keys() values() entries() forEach()</li>
+<li>可使用扩展运算符…快速转为数组</li>
+</ul>
+</li>
+<li>WeakMap与Map相似，但键名只接受对象。<ul>
+<li>也是弱引用，没有遍历方法和size属性</li>
+<li>get() set() has() delete() 无法清空，不支持clear()</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>Reflect，与Proxy对象一样，为操作对象而提供的API</strong><ul>
+<li>将Object上一些明显属于语言层面的方法放到Reflect上</li>
+<li>修改某些Object方法的返回结果，使其更合理。如Object.defineProperty(obj,prop,desc)在无法定义属性时会抛出错误，而Reflect.defineProperty…则会返回false</li>
+<li>Obejct操作从命令变为函数行为，如 in,delete 在 Reflect 中用 has, deleteProperty</li>
+<li>方法与Proxy对象 方法一一对应，可以方便地调用对应的Reflect方法完成默认行为</li>
+</ul>
+</li>
+<li><strong>Promise，是一个对象，用来传递异步操作的消息</strong><ul>
+<li>3种状态：Pending Resolved Rejected</li>
+<li>从Pending变为Resolved 或 Rejected，一旦发生状态就凝固不会再变</li>
+<li>可以将异步操作以同步操作流程表达，避免层层嵌套的回调函数（链式调用，代码更简洁）</li>
+<li>Promise.then 接收的如果不是函数，那么Promise会忽略它，并会将上一个then的值传递</li>
+<li>缺点：无法中途取消Promise；不设置回调函数那么内部错误不会被反应到外部；Pending状态时无法得知目前在哪个阶段</li>
+</ul>
+</li>
+<li><strong>stream模式</strong><ul>
+<li>连续的数据流：如果你需要处理大量的数据流，例如从文件、网络或其他来源读取连续的数据块，并进行实时处理，那么使用 Stream 模式可能更合适。Stream 提供了一种高效处理大数据的方式，可以分块读取和处理数据，减少内存占用和提高性能。</li>
+<li>基于事件驱动：例如实时消息传递、监视文件系统变化等，那么使用 Stream 可能更自然和高效。Stream 提供了一种异步事件驱动的方式，可以方便地处理事件流，并且可以与其他事件驱动的模块和框架无缝集成。</li>
+</ul>
+</li>
+<li>Promise 模式相对于 Stream 模式来说，可能更简单和易于理解<ul>
+<li>Promise 提供了一种更直观的方式来处理异步操作，可以通过链式调用来组织和处理异步任务，适合处理<strong>一次性的异步操作</strong></li>
+<li>根据具体情况，有时 Promise 可能会更容易理解和维护，因为它提供了一种线性的、顺序执行的方式来处理异步任务</li>
+</ul>
+</li>
+<li><strong>Generator函数</strong><ul>
+<li>是一种异步编程解决方案；像一个状态机，封装了多个内部状态</li>
+<li>是分段执行的；返回一个遍历器对象</li>
+<li>写法：<ul>
+<li>function* funcGenerator(){}</li>
+<li>内部使用yield定义不同状态，是暂停执行的标记，本身无返回值</li>
+<li>调用next()方法来恢复执行，返回一个对象{value, done}<ul>
+<li>当调用了该方法后，内部指针指向该语句时才会执行，类似手动地去 惰性求值</li>
+<li>可以带参数</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<hr>
+<blockquote>
+<h2 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h2></blockquote>
+<p><strong>函数柯里化Currying，是一种函数式编程的技术</strong></p>
+<ul>
+<li>将多参数的函数转换成一系列只接受单个参数的函数的过程。可以理解成为函数预置通用参数，供多次调用</li>
+<li>有几个步骤：  <ol>
+<li>接受原始函数</li>
+<li>转换为一系列函数</li>
+<li>返回最终结果</li>
+</ol>
+</li>
+<li>优点：<ol>
+<li>提高函数复用行</li>
+<li>参数延迟求值</li>
+<li>与函数组合使用，可以创建更具灵活性和复用性的函数</li>
+</ol>
+</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 原始函数</span></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">add</span>(<span class="params">x, y, z</span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> x + y + z;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 柯里化函数</span></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">curriedAdd</span>(<span class="params">x</span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">function</span>(<span class="params">y</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">function</span>(<span class="params">z</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> x + y + z;</span><br><span class="line">        &#125;;</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 使用柯里化函数</span></span><br><span class="line"><span class="keyword">var</span> curriedResult = <span class="title function_">curriedAdd</span>(<span class="number">1</span>)(<span class="number">2</span>)(<span class="number">3</span>)</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(curriedResult) <span class="comment">// 6</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 使用原始函数</span></span><br><span class="line"><span class="keyword">var</span> normalResult = <span class="title function_">add</span>(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>)</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(normalResult) <span class="comment">// 6</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p><strong>序列化</strong></p>
+<ul>
+<li>将 数据结构或对象 转换为可以 <strong>存储或传输的格式</strong>，通常是字节流或文本格式，以便在不同系统之间进行 <strong>交换或存储</strong></li>
+<li>序列化通常用于将<strong>内存中的对象转换为可持久化的形式</strong>，比如存储在文件中或通过网络传输</li>
+<li>反序列化则是将序列化后的数据重新转换为 原始的数据结构或对象</li>
+<li><strong>目的是实现数据持久化、数据传输和跨平台通信</strong></li>
+<li>JSON、XML等格式都是常见的序列化格式</li>
+</ul>
+<p><strong>如何优雅地复用代码</strong></p>
+<ul>
+<li><strong>模块化</strong>，将功能划分为独立的模块，使用 import和export 来实现模块之前的通信</li>
+<li><strong>函数封装</strong>，编写可复用的函数，确保函数功能单一性和通用性；（混入mixin、继承）</li>
+<li><strong>选择合适的设计模式实现复用</strong></li>
+<li><strong>函数式编程</strong>，将功能分解为小的纯函数，利用 高阶函数、柯里化 等技术</li>
+<li><strong>利用现有库和框架避免重复造轮子</strong>；还要编写清晰的文档和注释帮助其他开发者更易理解和复用</li>
+<li><strong>测试</strong>，利用单元测试来验证代码正确性和稳定性</li>
+</ul>
+<p><strong>剩余参数</strong></p>
+<ul>
+<li>语法允许我们将一个不定数量的参数表示为一个数组</li>
+<li>以减少由参数引起的样板代码<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">function</span>(<span class="params">a, b, ...theArgs</span>) &#123;</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// theArgs 表示收集该函数的第三个参数和所有后续参数</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<p><strong>和 arguments对象的区别</strong><br>主要有三个：</p>
+<ul>
+<li>剩余参数只包含 那些没有 <strong>对应形参的实参</strong> ，而 arguments 对象包含了 传给函数的所有实参</li>
+<li>arguments对象只是一个类数组对象，而剩余参数是 <strong>真正的Array实例</strong><ul>
+<li>即能在它上面直接使用所有的数组方法，比如 sort，map，forEach或pop</li>
+</ul>
+</li>
+<li>arguments对象还有一些附加的属性（如callee属性）</li>
+</ul>
+<p><strong>形参、实参</strong></p>
+<ul>
+<li>形参（Parameters）：形式参数是在 函数或方法的定义中声明的变量。<ul>
+<li>它们在函数或方法内部被用作占位符，用来表示在函数调用时将要传递给函数的值。</li>
+<li>形参是函数或方法签名的一部分，它们指定了函数或方法期望接收的数据类型和数量。</li>
+</ul>
+</li>
+<li>实参（Arguments）：实际参数是在函数或方法调用时传递给函数或方法的值。<ul>
+<li>它们是实际要传递给函数或方法的数据。</li>
+<li>当函数或方法被调用时，实参被传递给形参，并且在函数或方法的执行过程中，实参的值将被使用。</li>
+</ul>
+</li>
+</ul>
+<p><strong>数组空值</strong></p>
+<ul>
+<li>数组空位有自己的位置，反映在length属性上</li>
+<li>但空位的位置上的值未定义，即值不存在。如果一定要读取，结果就是 undefined</li>
+<li>那么属性名也不存在，所以无论在 in 、hasOwnProperty、 Object.keys() 方法都取不到空位的key值</li>
+<li>map遍历时发现空位就直接跳过，不进入回调函数<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> arr =[,,,]</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(arr.<span class="property">length</span>) <span class="comment">// 3</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="number">0</span> <span class="keyword">in</span> arr) <span class="comment">// false</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="title class_">Object</span>.<span class="title function_">keys</span>(arr)) <span class="comment">// [ ]</span></span><br><span class="line">arr.<span class="title function_">map</span>(<span class="function"><span class="params">n</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(n) <span class="comment">// 空位直接跳过不进入回调函数</span></span><br><span class="line">  <span class="keyword">return</span> <span class="number">1</span></span><br><span class="line">&#125;) <span class="comment">// no return value [&lt;3 empty items]</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<p><strong>setTimeout(fn, 0)</strong></p>
+<ul>
+<li>常用于让某些代码在当前同步代码块执行完之后再执行，比如等待 DOM 更新完成后执行某些操作。</li>
+<li>允许浏览器有时间去处理其他事件（如渲染、处理用户输入等），从而避免长时间阻塞主线程。</li>
+</ul>
+
+  </div>
+</article>
+
+        
+        
+      </div>
+      <footer class="footer">
+    <div class="footer-content">
+        <p>&copy; 2025 蘑菇小记</p>
+        <p class="copyright">All rights reserved.</p>
+    </div>
+</footer>
+    </div>
+    <button id="back-to-top" title="回到顶部">↑</button>
+  </body>
+</html>

@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="">
+    <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>前端存储总结 | 蘑菇小记</title>
+    <link rel="stylesheet" href="/css/breeze.css">
+    <script src="/js/toc.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const backToTopButton = document.getElementById('back-to-top');
+
+            // 当页面滚动超过 300px 时显示按钮
+            window.onscroll = function() {
+                if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
+                backToTopButton.style.display = "block";
+                } else {
+                backToTopButton.style.display = "none";
+                }
+            };
+            
+            // 点击按钮时平滑滚动回顶部
+            backToTopButton.addEventListener('click', function() {
+                const scrollToTop = function() {
+                    const c = document.documentElement.scrollTop || document.body.scrollTop;
+                    if (c > 0) {
+                    window.requestAnimationFrame(scrollToTop);
+                    window.scrollTo(0, c - c / 8);
+                    }
+                };
+                scrollToTop();
+            });
+        });
+        window.isMobile = /mobile|android|iphone|ipad|phone/i.test(navigator.userAgent);
+    </script>
+
+    
+<meta name="generator" content="Hexo 5.4.2"></head>
+    
+  <body>
+    <div class="container">
+      <header class="header-container post-header">
+    <div class="title">
+        <img src="/images/Icon-leaf.png" class="leaf-icon">
+        <a href="/">蘑菇小记</a>
+    </div>
+    <nav class="nav">
+        <ul>
+            
+                <li><a href="/archives" class="nav-item">Archives</a></li>
+            
+                <li><a href="/about" class="nav-item">About</a></li>
+            
+          </ul>
+    </nav>
+</header>
+
+      <div class="main-content">
+        
+          
+
+<aside class="post-toc">
+    <div class="toc-wrapper collapsed">
+  <div class="toc-toggle">
+    <span class="toc-toggle-icon"></span>
+  </div>
+  <div class="toc-content">
+    
+      <div class="toc-body">
+        <ol class="toc"><li class="toc-item toc-level-5"><a class="toc-link" href="#HTTP%E5%8D%8F%E8%AE%AE%E6%97%A0%E7%8A%B6%E6%80%81%E7%89%B9%E6%80%A7%EF%BC%9A%E7%94%A8%E6%88%B7%E4%B8%A4%E6%AC%A1HTTP%E8%AF%B7%E6%B1%82%EF%BC%8C%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%B9%B6%E4%B8%8D%E8%83%BD%E7%9F%A5%E9%81%93%E8%AF%B7%E6%B1%82%E6%9D%A5%E8%87%AA%E5%90%8C%E4%B8%80%E4%B8%AA%E7%94%A8%E6%88%B7"><span class="toc-text">HTTP协议无状态特性：用户两次HTTP请求，服务器并不能知道请求来自同一个用户</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%80%BB%E7%BB%93%EF%BC%9A%E4%BD%BF%E7%94%A8%E5%9C%BA%E6%99%AF%E6%AF%94%E8%BE%83%E6%9C%89%E9%99%90%EF%BC%8C%E7%94%B1%E4%BA%8E%E5%AE%89%E5%85%A8%E6%80%A7%E5%92%8C%E5%82%A8%E5%AD%98%E7%A9%BA%E9%97%B4%E7%9A%84%E9%97%AE%E9%A2%98%EF%BC%8C%E4%B8%80%E8%88%AC%E4%B8%8D%E6%8E%A8%E8%8D%90%E4%BD%BF%E7%94%A8-Cookie"><span class="toc-text">总结：使用场景比较有限，由于安全性和储存空间的问题，一般不推荐使用 Cookie</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%80%BB%E7%BB%93%EF%BC%9A%E5%A4%A7%E9%83%A8%E5%88%86%E5%9C%BA%E6%99%AF%E4%B8%8B-LocalStorage-%E5%8F%AF%E4%BB%A5%E6%9B%BF%E4%BB%A3-Cookie-%EF%BC%8C%E4%BD%86%E6%9C%80%E5%A4%9A%E6%94%AF%E6%8C%814%EF%BD%9E5MB%EF%BC%8C%E5%8F%AA%E6%94%AF%E6%8C%81%E5%AD%97%E7%AC%A6%E4%B8%B2"><span class="toc-text">总结：大部分场景下 LocalStorage 可以替代 Cookie ，但最多支持4～5MB，只支持字符串</span></a>
+      </div>
+    
+  </div>
+</div>
+
+
+</aside>
+
+<article class="post-detail has-toc toc-collapsed">
+    <div class="post-title-container">
+        <h1 class="post-title">前端存储总结</h1>
+    </div>
+    <div class="post-meta">
+        <time datetime="2021-03-11T09:15:09.000Z">2021-03-11</time>
+        
+          <div class="post-tags">
+            
+              <a href="/tags/%E5%89%8D%E7%AB%AF%E5%AD%98%E5%82%A8/" class="post-tag">前端存储</a>
+            
+          </div>
+        
+        
+          <div class="post-categories">
+            
+              <a href="/categories/JS/" class="post-category">JS</a>
+            
+          </div>
+        
+  </div>
+  <div class="post-content">
+    
+
+    <p>一般的主流方案有三个：</p>
+<ul>
+<li>Cookie</li>
+<li>Web Storage</li>
+<li>IndexedDB</li>
+</ul>
+<blockquote>
+<p><strong>Cookie</strong></p>
+</blockquote>
+<p>1994年被发明，并不是为了在 浏览中存放数据，是为了解决 <strong>HTTP协议无状态特性</strong> 的问题</p>
+<h5 id="HTTP协议无状态特性：用户两次HTTP请求，服务器并不能知道请求来自同一个用户"><a href="#HTTP协议无状态特性：用户两次HTTP请求，服务器并不能知道请求来自同一个用户" class="headerlink" title="HTTP协议无状态特性：用户两次HTTP请求，服务器并不能知道请求来自同一个用户"></a>HTTP协议无状态特性：用户两次HTTP请求，服务器并不能知道请求来自同一个用户</h5><p>现在仍在部分领域有价值，但不再适合作为前端本地存储的方案去使用</p>
+<ul>
+<li><p>Cookie安全问题</p>
+<ul>
+<li>每次请求都会发送Cookie，因为如果不是HTTPS协议并加密，其保存的信息容易被窃取，导致安全风险</li>
+<li>一旦信息被窃取，容易被利用，信息泄露</li>
+<li>可以用session配合缓解问题，但session同时会占用额外的服务器资源</li>
+<li>每次请求自动发送 这个特性会导致CSRF攻击的安全风险</li>
+<li>可能还会增加带宽占用，但依据现在的网络环境可以忽略不计</li>
+</ul>
+</li>
+<li><p>Cookie只允许存储4kb大小的数据</p>
+</li>
+<li><p>操作较复杂，但可以使用类库来解决</p>
+</li>
+</ul>
+<p>常用的有在广告中，跨站标记用户、跟踪用户行为<br>例如你打开了两个页面，但能看到同样的广告</p>
+<p><strong>Cookie 执行同源策略</strong>，这里就衍生了第三方Cookie<br>例如访问 a 时，设置了 b 的 Cookie ，那么对 a 来说就是 第三方Cookie<br>第三方Cookie有一个重要特性：<strong>Cookie可以被服务端通过请求头来要求浏览器设置</strong></p>
+<figure class="highlight json"><table><tr><td class="code"><pre><span class="line">Set-Cookie<span class="punctuation">:</span> userId=<span class="number">123</span></span><br></pre></td></tr></table></figure>
+
+<p>画图描述<br>当用户处于 abc.com 时，浏览器会向 taobao.com/some-ads 发起一个 HTTP 请求<br>当淘宝服务器返回广告内容时，会顺带一个 Set-Cookie 的 HTTP 请求头，告诉浏览器设置一个源为 taobao.com 的 Cookie，里面存上当前用户的 ID 等信息<br>这个 Cookie 相对于 abc.com 而言就是第三方 Cookie，因为它属于 taobao.com<br>而当用户访问 xyz.com 时，由于 xyz.com 上也嵌入了淘宝的广告，因此用户的浏览器也会向 taobao.com/some-ads 发起请求<br>有意思的来了，发请求时，浏览器发现本地已有 taobao.com 的 Cookie（此前访问 abc.com 时设置的），因此，浏览器会将这个 Cookie 发送过去<br>淘宝服务器根据发过来的 Cookie，发现当前访问 xyz.com 的用户和之前访问 abc.com 的用户是同一个，因此会返回相同的广告</p>
+<p>综上，Cookie 两个特点：<strong>可以被浏览器设置</strong>、<strong>浏览器每次请求会自动带上</strong></p>
+<ul>
+<li><p>Cookie设置</p>
+<ul>
+<li><p>SameSite：Chrome 80版本新特性，有三个值：Lax（允许部分）/None（都发送）/Strict（不发送）<br>  默认设置为Lax，即允许同站或子站访问Cookie，目前支持<a> <link> <form> get表单<br>  老版本则是None，允许所有跨站Cookie<br>  设置Lax可能会导致第三方Cookie失效<br>  解决：在返回请求的header里设置 Set-Cookie: userId=123; SameSite=None</p>
+</li>
+<li><p>Secure，HttpOnly：常用属性<br>  Secure只允许 Cookie 在 HTTPS 请求中被使用<br>  HttpOnly 禁止使用 JS 访问 cookie，这样的好处就是避免了XSS攻击<br>  配置如下：Set-Cookie: userId=123; SameSite=None; Secure; HttpOnly</p>
+</li>
+</ul>
+</li>
+<li><p>XSS攻击<br>  例如一些网站不会对内容的HTML标签进行过滤，那么就可以对其发起攻击或者在console可以用document.cookie获取到cookie信息<br>  当设置了 HttpOnly 后，以上的做法就失效了</p>
+</li>
+</ul>
+<h4 id="总结：使用场景比较有限，由于安全性和储存空间的问题，一般不推荐使用-Cookie"><a href="#总结：使用场景比较有限，由于安全性和储存空间的问题，一般不推荐使用-Cookie" class="headerlink" title="总结：使用场景比较有限，由于安全性和储存空间的问题，一般不推荐使用 Cookie"></a>总结：使用场景比较有限，由于安全性和储存空间的问题，一般不推荐使用 Cookie</h4><blockquote>
+<p><strong>Web Storage</strong></p>
+</blockquote>
+<p>2014年发布的HTML5标准中，新增了Web Storage，包括LocalStorage、SessionStorage</p>
+<p>LocalStorage特点：</p>
+<ul>
+<li>使用 Key-Value 形式储存，key、value以字符串存储<br>  只能以字符串，这个问题可以看这个 <a target="_blank" rel="noopener" href="https://www.zhihu.com/question/366665675/answer/1127726009">https://www.zhihu.com/question/366665675/answer/1127726009</a><br>  <img src="/img/store-1.png" alt="图1"></li>
+<li>大小有 10MB</li>
+<li>使用方便</li>
+</ul>
+<p>跟Cookie对比起来：</p>
+<ul>
+<li><strong>存储空间更大，使用更方便</strong></li>
+<li>Cookie可以被服务器设置，但LocalStorage只能被前端手动设置</li>
+<li>Cookie会由浏览器自动发给服务器，<br>  LocalStorage需要手动获取放到请求里发送给服务器，因此可以<strong>避免 CSRF 攻击</strong></li>
+</ul>
+<blockquote>
+<p><strong>CSRF攻击</strong>，跨站伪造攻击</p>
+</blockquote>
+<ul>
+<li>特点：诱导你去访问某个需要你的权限的接口，HTTPS接口并不能阻止这种访问<br>  某些恶意网站会诱导你点击表单按钮，请求一个你之前登录过的网站的接口，此时浏览器会将你的Cookie一并发送</li>
+</ul>
+<p>用LocalStorage替换 比较常见的做法是：<br><strong>token 加上HTTPS请求</strong>，提高登录安全性<br>即 用户登录后，将服务器返回的 token存到 LocalStorage 里，<br>之后每次请求前都取出 token放到请求数据里，<br>服务器就知道是同一个用户发起的请求<br>由于 HTTPS 的存在，也不用担心 token 会被泄露给第三方</p>
+<ul>
+<li><p>缺点：</p>
+<ul>
+<li><p>无法像Cookie设置过期时间</p>
+</li>
+<li><p>只能存入字符串，一般使用 JSON.stringify() 配合 JSON.parse() 解决</p>
+<p>  但 JSON.stringify() 本身存在一些问题，即无法正确转换JS部分属性，无法转换循环引用的对象<br>  undefined, Function, RegExp(转换后变成了空对象）, Date(转换后变成了字符串)</p>
+<p>  Symbol 无法被转换，<br>  但由于 Symbol 本身的定义（全局唯一性）就决定了它不应该被转换，否则即使转换回来，也不会是原来的Symbol</p>
+<p>  Function 比较特殊，可以先调用 .toString() 转换为字符串储存，需要时再 eval 转回来</p>
+  <figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> demo = <span class="title class_">JSON</span>.<span class="title function_">stringify</span>(&#123;</span><br><span class="line">    <span class="attr">a</span>: <span class="literal">undefined</span>,</span><br><span class="line">    <span class="attr">b</span>: <span class="keyword">function</span>(<span class="params"></span>)&#123;&#125;,</span><br><span class="line">    <span class="attr">c</span>: <span class="regexp">/abc/</span>,</span><br><span class="line">    <span class="attr">d</span>: <span class="keyword">new</span> <span class="title class_">Date</span>()</span><br><span class="line">&#125;);</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(demo) <span class="comment">// &quot;&#123;&quot;c&quot;:&#123;&#125;,&quot;d&quot;:&quot;2021-03-11T12:09:26.243Z&quot;&#125;&quot;</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="title class_">JSON</span>.<span class="title function_">parse</span>(demo)) <span class="comment">// &#123;&quot;c&quot;: &#123;&#125;, &quot;d&quot;: &quot;2021-03-11T12:09:26.243Z&quot;&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> demo2 = &#123;<span class="attr">key</span>: <span class="string">&#x27;1&#x27;</span>&#125;</span><br><span class="line">demo2[key2] = demo2</span><br><span class="line"><span class="title class_">JSON</span>.<span class="title function_">stringify</span>(demo2)  <span class="comment">// Uncaught TypeError: Converting circular structure to JSON</span></span><br></pre></td></tr></table></figure>
+<h4 id="总结：大部分场景下-LocalStorage-可以替代-Cookie-，但最多支持4～5MB，只支持字符串"><a href="#总结：大部分场景下-LocalStorage-可以替代-Cookie-，但最多支持4～5MB，只支持字符串" class="headerlink" title="总结：大部分场景下 LocalStorage 可以替代 Cookie ，但最多支持4～5MB，只支持字符串"></a>总结：大部分场景下 LocalStorage 可以替代 Cookie ，但最多支持4～5MB，只支持字符串</h4><p>不适用 大量数据 和 复杂数据 的存储</p>
+</li>
+</ul>
+</li>
+</ul>
+
+  </div>
+</article>
+
+        
+        
+      </div>
+      <footer class="footer">
+    <div class="footer-content">
+        <p>&copy; 2025 蘑菇小记</p>
+        <p class="copyright">All rights reserved.</p>
+    </div>
+</footer>
+    </div>
+    <button id="back-to-top" title="回到顶部">↑</button>
+  </body>
+</html>

@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="">
+    <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>说说使用v-for时key的作用 | 蘑菇小记</title>
+    <link rel="stylesheet" href="/css/breeze.css">
+    <script src="/js/toc.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const backToTopButton = document.getElementById('back-to-top');
+
+            // 当页面滚动超过 300px 时显示按钮
+            window.onscroll = function() {
+                if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
+                backToTopButton.style.display = "block";
+                } else {
+                backToTopButton.style.display = "none";
+                }
+            };
+            
+            // 点击按钮时平滑滚动回顶部
+            backToTopButton.addEventListener('click', function() {
+                const scrollToTop = function() {
+                    const c = document.documentElement.scrollTop || document.body.scrollTop;
+                    if (c > 0) {
+                    window.requestAnimationFrame(scrollToTop);
+                    window.scrollTo(0, c - c / 8);
+                    }
+                };
+                scrollToTop();
+            });
+        });
+        window.isMobile = /mobile|android|iphone|ipad|phone/i.test(navigator.userAgent);
+    </script>
+
+    
+<meta name="generator" content="Hexo 5.4.2"></head>
+    
+  <body>
+    <div class="container">
+      <header class="header-container post-header">
+    <div class="title">
+        <img src="/images/Icon-leaf.png" class="leaf-icon">
+        <a href="/">蘑菇小记</a>
+    </div>
+    <nav class="nav">
+        <ul>
+            
+                <li><a href="/archives" class="nav-item">Archives</a></li>
+            
+                <li><a href="/about" class="nav-item">About</a></li>
+            
+          </ul>
+    </nav>
+</header>
+
+      <div class="main-content">
+        
+          
+
+<aside class="post-toc">
+    <div class="toc-wrapper collapsed">
+  <div class="toc-toggle">
+    <span class="toc-toggle-icon"></span>
+  </div>
+  <div class="toc-content">
+    
+      <div class="toc-body">
+        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9B%B4%E6%94%B9itemsArray%E6%95%B0%E7%BB%84%E5%85%83%E7%B4%A0%E9%A1%BA%E5%BA%8F"><span class="toc-text">更改itemsArray数组元素顺序</span></a></li></ol>
+      </div>
+    
+  </div>
+</div>
+
+
+</aside>
+
+<article class="post-detail has-toc toc-collapsed">
+    <div class="post-title-container">
+        <h1 class="post-title">说说使用v-for时key的作用</h1>
+    </div>
+    <div class="post-meta">
+        <time datetime="2021-01-07T06:41:46.000Z">2021-01-07</time>
+        
+          <div class="post-tags">
+            
+              <a href="/tags/v-for/" class="post-tag">v-for</a>
+            
+          </div>
+        
+        
+          <div class="post-categories">
+            
+              <a href="/categories/vue/" class="post-category">vue</a>
+            
+          </div>
+        
+  </div>
+  <div class="post-content">
+    
+
+    <p>通常我们在用v-for指令渲染列表时，如果没有定义 <strong>v-bind:key</strong>，那么会得到错误提示，<br>可能你会不以为然地加上就万事大吉了<br>但，在某些情况下还是要小心为妙</p>
+<p>先来看一下vue官方文档</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">当 Vue 正在更新使用 v-for 渲染的元素列表时，它默认使用 “就地更新” 的策略。</span><br><span class="line">如果数据项的顺序被改变，Vue 将 不会移动 DOM元素来匹配数据项的顺序</span><br><span class="line">而是就地更新每个元素，并且确保它们在每个索引位置正确渲染。</span><br></pre></td></tr></table></figure>
+
+<p><strong>即当不使用key时，vue更倾向于 复用DOM，尝试改变 数据层面 而不是 去操作DOM层面</strong><br>但文档上提出来这个模式的使用范围：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">这个默认的模式是高效的，但是只适用于 不依赖子组件状态或临时DOM状态 的列表渲染输出。</span><br></pre></td></tr></table></figure>
+<p>我们来看个例子</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">test-comp</span> <span class="attr">:data</span>=<span class="string">&quot;item&quot;</span> <span class="attr">v-for</span>=<span class="string">&quot;(item,index) in itemsArray&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">test-comp</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">button</span> @<span class="attr">click</span>=<span class="string">&quot;handle&quot;</span>&gt;</span>unshift first<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- 子组件 test-comp --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span>&#123;&#123; data.word &#125;&#125; - &#123;&#123; data.id &#125;&#125; - &#123;&#123; data.date &#125;&#125;<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;text&quot;</span> <span class="attr">placeholder</span>=<span class="string">&quot;请填写&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>文档中提到了<strong>临时DOM状态</strong>，这个例子里我们看子组件里的input输入框<br>该输入框没有绑定 Vue实例 中的任何数据，也就是说他是 <strong>独立于当前应用程序的状态</strong><br>如果我们在框中输入内容，那么这个内容将会被暂时存储在 临时DOM状态中</p>
+<p><img src="/img/vue-for-key.png" alt="图1"></p>
+<h3 id="更改itemsArray数组元素顺序"><a href="#更改itemsArray数组元素顺序" class="headerlink" title="更改itemsArray数组元素顺序"></a>更改itemsArray数组元素顺序</h3><p>我们随便输入一些到输入框中，我们通过底下的unshift first 按钮去改变顺序，在数据头部增加一组ID为11的数据<br><img src="/img/vue-for-key2.png" alt="图2"><br><strong>可以看到input输入框不会随着数组顺序的改变而变化</strong><br>为何？这就是上面说的 <u>就地更新</u>，改变数组元素顺序并没有移动DOM元素，而是数据发生变化。</p>
+<p>于是，我们把key属性加上<br><strong>使用 key 时，它会基于key的变化重新排列元素顺序，并且会移除 key不存在 的元素</strong></p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">test-comp</span> <span class="attr">:data</span>=<span class="string">&quot;item&quot;</span> <span class="attr">v-for</span>=<span class="string">&quot;(item,index) in itemsArray&quot;</span> <span class="attr">:key</span>=<span class="string">&quot;index&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">test-comp</span>&gt;</span></span><br><span class="line">    ...</span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>但结果并没有变化<br><strong>由于这里的key值只是采用了当前项的索引</strong><br><strong>当数组数据改变时，index并没有变化，只是传入的item发生了改变，所以输入框的内容还是不会改变</strong></p>
+<p>我们改用数据项的id作为key值</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">test-comp</span> <span class="attr">:data</span>=<span class="string">&quot;item&quot;</span> <span class="attr">v-for</span>=<span class="string">&quot;(item,index) in itemsArray&quot;</span> <span class="attr">:key</span>=<span class="string">&quot;item.id&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">test-comp</span>&gt;</span></span><br><span class="line">    ...</span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p><img src="/img/vue-for-key3.png" alt="图3"></p>
+<p><strong>id 是每项数据的唯一标识，能够确保每项的key是独特唯一的，vue能正确跟踪key变化而重新排列元素顺序</strong></p>
+<p>也就是说，我们应该尽可能地使用节点数据的 <strong>唯一ID</strong><br>这样做Vue可以更准确地跟踪 <strong>每个节点的身份并更新组件状态</strong>，并且能够 重用 和 重新排列 现有元素</p>
+<p><strong>注意</strong>: </p>
+<ul>
+<li>不要使用 <strong>对象</strong> 或 <strong>数组</strong> 之类的 <strong>非基本类型值</strong> 作为 v-for的key<ul>
+<li> 接受的值为：number | string | boolean (2.4.2 新增) | symbol (2.5.12 新增)</li>
+</ul>
+</li>
+<li><strong>重复的 key 会造成渲染错误</strong></li>
+</ul>
+
+  </div>
+</article>
+
+        
+        
+      </div>
+      <footer class="footer">
+    <div class="footer-content">
+        <p>&copy; 2025 蘑菇小记</p>
+        <p class="copyright">All rights reserved.</p>
+    </div>
+</footer>
+    </div>
+    <button id="back-to-top" title="回到顶部">↑</button>
+  </body>
+</html>

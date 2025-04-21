@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="">
+    <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>性能优化总结 | 蘑菇小记</title>
+    <link rel="stylesheet" href="/css/breeze.css">
+    <script src="/js/toc.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const backToTopButton = document.getElementById('back-to-top');
+
+            // 当页面滚动超过 300px 时显示按钮
+            window.onscroll = function() {
+                if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
+                backToTopButton.style.display = "block";
+                } else {
+                backToTopButton.style.display = "none";
+                }
+            };
+            
+            // 点击按钮时平滑滚动回顶部
+            backToTopButton.addEventListener('click', function() {
+                const scrollToTop = function() {
+                    const c = document.documentElement.scrollTop || document.body.scrollTop;
+                    if (c > 0) {
+                    window.requestAnimationFrame(scrollToTop);
+                    window.scrollTo(0, c - c / 8);
+                    }
+                };
+                scrollToTop();
+            });
+        });
+        window.isMobile = /mobile|android|iphone|ipad|phone/i.test(navigator.userAgent);
+    </script>
+
+    
+<meta name="generator" content="Hexo 5.4.2"></head>
+    
+  <body>
+    <div class="container">
+      <header class="header-container post-header">
+    <div class="title">
+        <img src="/images/Icon-leaf.png" class="leaf-icon">
+        <a href="/">蘑菇小记</a>
+    </div>
+    <nav class="nav">
+        <ul>
+            
+                <li><a href="/archives" class="nav-item">Archives</a></li>
+            
+                <li><a href="/about" class="nav-item">About</a></li>
+            
+          </ul>
+    </nav>
+</header>
+
+      <div class="main-content">
+        
+          
+
+<article class="post-detail ">
+    <div class="post-title-container">
+        <h1 class="post-title">性能优化总结</h1>
+    </div>
+    <div class="post-meta">
+        <time datetime="2021-02-24T11:26:21.000Z">2021-02-24</time>
+        
+          <div class="post-tags">
+            
+              <a href="/tags/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/" class="post-tag">性能优化</a>
+            
+          </div>
+        
+        
+  </div>
+  <div class="post-content">
+    
+
+    <p>希望这次学习能构建一个完整的性能优化体系，而不是人云亦云</p>
+<p>不急着去做，而是多思考<br>到底我们需要优化什么，哪些是关注的点</p>
+<p>用什么衡量？ – <strong>性能指标</strong><br>设定指标后，优化到什么程度才合适？这就要确定 <strong>性能标准</strong><br>然后开始<strong>性能实践</strong>，接着<strong>采集上报</strong>，这就出现<strong>监控预警平台</strong></p>
+<p>那么，</p>
+<blockquote>
+<p>什么样的指标值得关注</p>
+</blockquote>
+<ul>
+<li>可衡量的，即可通过代码来度量</li>
+<li>关注以用户为中心的关键结果和真实体验</li>
+</ul>
+<blockquote>
+<p>几个关键指标，几个极限值待补充</p>
+</blockquote>
+<ul>
+<li>加载：LCP (最大绘制内容)</li>
+<li>交互：CLS (视觉稳定性指标，即布局偏移量)</li>
+<li>FID (首次输入延迟)</li>
+</ul>
+<blockquote>
+<p>首屏时间=白屏时间+渲染时间</p>
+</blockquote>
+<blockquote>
+<p>从页面加载过程来看3个阶段中有哪些性能瓶颈点</p>
+</blockquote>
+<ul>
+<li><strong>客户端发起请求阶段</strong><br>当用户在浏览器输入URL时，浏览器向DNS服务器发起DNS查询，获取到IP地址，然后浏览器通过IP地址找到目标服务器，<br>发起TCP三次握手和TLS协商，建立TCP连接</li>
+</ul>
+<p>在这个过程中，<strong>本地缓存</strong>、<strong>DNS 查询</strong>、<strong>HTTP 请求</strong>容易成为瓶颈点<br><strong>本地缓存</strong>可以让静态资源加载更快，一般包括强缓存和协商缓存两种形式<br>每进行一次<strong>DNS 查询</strong>，都需要经历手机到信号塔再到认证DNS服务器的过程，耗时过长，可以让DNS查询走缓存<br><strong>HTTP 请求</strong>最大的瓶颈点在于请求阻塞，一般浏览器同域名的连接限制为6个，为了解决阻塞问题，可以通过不同域名增加请求并行<br>连接数，例如将静态服务器xxx.com分散为几个域名，每次请求随机选一个域名地址进行请求</p>
+<ul>
+<li><p><strong>服务端数据处理请求阶段</strong><br>服务端接收到请求后，会有检验拦截，处理加工数据最后返回给前端<br>那么这个过程中，需要关注<strong>是否做了数据缓存处理、是否做了 Gip 压缩，以及是否有重定向</strong></p>
+</li>
+<li><p><strong>客户端页面渲染阶段</strong><br>前端拿到数据后，开始解析并渲染</p>
+</li>
+</ul>
+<p><strong>所谓解析，就是 HTML 解析器把页面内容转换为 DOM 树和 CSSOM树的过程。</strong><br>构建DOM树的过程中有3点会严重影响前端性能：</p>
+<ul>
+<li>当 HTML 标签不满足 Web 语义化时，浏览器就需要更多时间去解析 DOM 标签的含义</li>
+<li>DOM 节点的数量越多，构建 DOM 树的时间就会变长，进而延长解析时间</li>
+<li>文档中包含<SCRIPT> 标签时，DOM构造过程就会被阻塞暂停，等待服务器请求脚本</li>
+</ul>
+<blockquote>
+<p>性能瓶颈点<br>数据缓存<br>重定向</p>
+</blockquote>
+<blockquote>
+<p>手动采集，一般通过埋点，兼容性强，但通常与业务代码耦合，覆盖率不足<br>自动化采集，引入一段通用代码，独立性强，但无法满足个性化需求</p>
+</blockquote>
+<blockquote>
+<p>服务端模板业务，DOMContentLoaded<br>SPA单页面，Performance API有偏差，MutationObserver</p>
+</blockquote>
+<p><strong>如何通过设计性能SDK（软件开发工具包）来指定合理的上报策略以解决性能直销采集过程中的难点</strong><br>这里讲两个大主题： 性能SDK设计 和 上报策略设计</p>
+<blockquote>
+<p>性能SDK设计</p>
+</blockquote>
+<p>SDK是指开发者为特定软件、平台、操作系统提供的开发工具集<br>性能SDK包括了API接口、工程引入、文档平台、开发调试工具将性能采集代码合上报策略封装在一起，通过<br>采集白屏、首屏等指标，上报到性能平台后端进行处理</p>
+<blockquote>
+<p>SDK接入设计</p>
+</blockquote>
+<p>可封装代码，最终安装一个npm包</p>
+<blockquote>
+<p>SDK运行设计</p>
+</blockquote>
+<p>即性能SDK能在各个业务下稳定运行</p>
+<p>面临的业务场景：</p>
+<ul>
+<li>各类页面，如平台型页面、3C类页面、中后台页面</li>
+<li>一些可视化搭建的平台</li>
+<li>各个终端，如PC、移动端、小程序端等</li>
+</ul>
+<p><strong>尽可能用原生JS去做性能指标的采集，从而实现跨不统计数栈的采集</strong></p>
+<ul>
+<li>容错<ul>
+<li>自身报错可通过try catch捕捉后上报异常监控平台，不要因为SDK报错而影响引入性能SDK页面的正常运行</li>
+<li>好的测试（自测和QA）也是平稳运行的一大保障</li>
+<li>确定top 10%用户的机型和浏览器类型，每次开发完成后可对这几类进行自测</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>上报策略设计，如全量上传还是抽样等都需要确定</p>
+</blockquote>
+<blockquote>
+<p>日志数据过滤</p>
+</blockquote>
+<p><strong>在采集性能指标之后，最好先对异常数据进行过滤</strong></p>
+<p>异常数据分：</p>
+<ul>
+<li>计算错误导致的，如负数或非数值数据（200+’30’）</li>
+<li>合法异常值、极大、极小值</li>
+</ul>
+<blockquote>
+<p>数据抽样策略</p>
+</blockquote>
+<p>全量还是抽样需要根据日活量来确定</p>
+<p>一般日活10w以下，也没必要抽样<br>日活千万的app如果上报全量日志，会耗费大量用户的流量和请求带宽</p>
+<blockquote>
+<p>上报机制选择</p>
+</blockquote>
+<p>弱网情况下，将日志存储到本地，延时到强网下再上报<br>强网下可直接上报</p>
+<p>还可以让 SDK 根据 App 忙碌状态，选择合适的上报策略</p>
+<p>一些其他的策略，<br>如批量数据上报，默认消息数量达到<strong>30条</strong>才上报，或者只在 App 启动时上报等策略。<br>可以根据实际情况进行选择</p>
+
+  </div>
+</article>
+
+        
+        
+      </div>
+      <footer class="footer">
+    <div class="footer-content">
+        <p>&copy; 2025 蘑菇小记</p>
+        <p class="copyright">All rights reserved.</p>
+    </div>
+</footer>
+    </div>
+    <button id="back-to-top" title="回到顶部">↑</button>
+  </body>
+</html>

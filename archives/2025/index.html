@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="">
+    <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>蘑菇小记</title>
+    <link rel="stylesheet" href="/css/breeze.css">
+    <script src="/js/toc.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const backToTopButton = document.getElementById('back-to-top');
+
+            // 当页面滚动超过 300px 时显示按钮
+            window.onscroll = function() {
+                if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
+                backToTopButton.style.display = "block";
+                } else {
+                backToTopButton.style.display = "none";
+                }
+            };
+            
+            // 点击按钮时平滑滚动回顶部
+            backToTopButton.addEventListener('click', function() {
+                const scrollToTop = function() {
+                    const c = document.documentElement.scrollTop || document.body.scrollTop;
+                    if (c > 0) {
+                    window.requestAnimationFrame(scrollToTop);
+                    window.scrollTo(0, c - c / 8);
+                    }
+                };
+                scrollToTop();
+            });
+        });
+        window.isMobile = /mobile|android|iphone|ipad|phone/i.test(navigator.userAgent);
+    </script>
+
+    
+<meta name="generator" content="Hexo 5.4.2"></head>
+    
+  <body>
+    <div class="container">
+      <header class="header-container ">
+    <div class="title">
+        <img src="/images/Icon-leaf.png" class="leaf-icon">
+        <a href="/">蘑菇小记</a>
+    </div>
+    <nav class="nav">
+        <ul>
+            
+                <li><a href="/archives" class="nav-item">Archives</a></li>
+            
+                <li><a href="/about" class="nav-item">About</a></li>
+            
+          </ul>
+    </nav>
+</header>
+
+      <div class="main-content">
+        
+          
+  
+  <div class="post-list">
+      
+        <div class="year-section">
+          <div class="year-title">
+              <img src="/images/Icon-eco.png" class="leaf-icon">
+          </div>
+          
+            <div class="post-item">
+              <h4 class="post-title">
+                <a href="/2025/04/21/hello-world/">Hello World</a>
+              </h4>
+              <div class="post-meta">
+                <time datetime="2025-04-21T06:03:06.635Z">2025-04-21</time>
+              </div>
+            </div>
+          
+        </div>
+      
+
+
+       <!-- 分页导航 -->
+    
+  </div>
+  
+
+        
+        <aside class="sidebar ">
+    <div class="sidebar-section search-section">
+      <form class="search-form" action="//google.com/search" method="get" accept-charset="UTF-8" target="_blank">
+        <input type="search" name="q" class="search-input" placeholder="Search...">
+        <input type="hidden" name="sitesearch" value="http://karencxx.github.io">
+      </form>
+    </div>
+  
+    <div class="sidebar-section category-section">
+      <h3 class="sidebar-title">Categories</h3>
+      <ul class="category-list">
+        
+          <li class="category-item">
+            <a href="/categories/BOM/">
+              BOM (2)
+            </a>
+          </li>
+        
+          <li class="category-item">
+            <a href="/categories/CSS/">
+              CSS (1)
+            </a>
+          </li>
+        
+          <li class="category-item">
+            <a href="/categories/JS/">
+              JS (7)
+            </a>
+          </li>
+        
+          <li class="category-item">
+            <a href="/categories/React/">
+              React (1)
+            </a>
+          </li>
+        
+          <li class="category-item">
+            <a href="/categories/express/">
+              express (2)
+            </a>
+          </li>
+        
+          <li class="category-item">
+            <a href="/categories/snabbdom/">
+              snabbdom (1)
+            </a>
+          </li>
+        
+          <li class="category-item">
+            <a href="/categories/vue/">
+              vue (8)
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  
+    <div class="sidebar-section tag-section">
+      <h3 class="sidebar-title">Tags</h3>
+      
+  <div class="tagcloud">
+    <a href="/tags/hexo/" style="font-size: 16px; color: #a1e048">hexo</a> <a href="/tags/js-this/" style="font-size: 16px; color: #a1e048">js-this</a> <a href="/tags/source-code/" style="font-size: 25px; color: #539f4f">source code</a> <a href="/tags/typescript/" style="font-size: 16px; color: #a1e048">typescript</a> <a href="/tags/v-for/" style="font-size: 16px; color: #a1e048">v-for</a> <a href="/tags/vue-router/" style="font-size: 16px; color: #a1e048">vue-router</a> <a href="/tags/vuex%E6%8E%A2%E7%A9%B6/" style="font-size: 16px; color: #a1e048">vuex探究</a> <a href="/tags/webpack/" style="font-size: 16px; color: #a1e048">webpack</a> <a href="/tags/%E5%89%8D%E7%AB%AF%E5%AD%98%E5%82%A8/" style="font-size: 16px; color: #a1e048">前端存储</a> <a href="/tags/%E5%A4%8D%E4%B9%A0/" style="font-size: 34px; color: #045d56">复习</a> <a href="/tags/%E5%AE%9A%E6%97%B6%E5%99%A8/" style="font-size: 16px; color: #a1e048">定时器</a> <a href="/tags/%E5%BC%80%E5%8F%91%E6%8A%80%E5%B7%A7/" style="font-size: 25px; color: #539f4f">开发技巧</a> <a href="/tags/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/" style="font-size: 16px; color: #a1e048">性能优化</a> <a href="/tags/%E9%83%A8%E7%BD%B2/" style="font-size: 16px; color: #a1e048">部署</a> <a href="/tags/%E9%9A%8F%E7%AC%94%E5%86%99/" style="font-size: 16px; color: #a1e048">随笔写</a>
+  </div>
+
+
+    </div>
+  </aside>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      var tagItems = document.querySelectorAll('.tag-item');
+      var fontSizes = ['f12', 'f13', 'f14', 'f15', 'f16'];
+      tagItems.forEach(function(item) {
+        var randomSize = fontSizes[Math.floor(Math.random() * fontSizes.length)];
+        item.classList.add('tag-' + randomSize);
+      });
+    });
+  </script>
+      </div>
+      <footer class="footer">
+    <div class="footer-content">
+        <p>&copy; 2025 蘑菇小记</p>
+        <p class="copyright">All rights reserved.</p>
+    </div>
+</footer>
+    </div>
+    <button id="back-to-top" title="回到顶部">↑</button>
+  </body>
+</html>
