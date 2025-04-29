@@ -196,7 +196,7 @@
 <li>使用ref.current访问当前值</li>
 </ul>
 </li>
-<li><p>件使用场景</p>
+<li><p>使用场景</p>
 <ul>
 <li>必须手动操作DOM，setState实现不了。例如文件上传或富文本操作</li>
 <li>在处理文件输入时特别有用，因为文件输入的值是只读的，不能通过React状态来控制</li>
@@ -228,9 +228,16 @@
 <p>redux 单向数据流</p>
 </blockquote>
 <ul>
-<li>State、Action、Reducer</li>
+<li>数据管理中心</li>
+<li>State、Action、Reducer<ul>
+<li>Action作为行为载体，映射相应的Reducer</li>
+</ul>
+</li>
 <li>中间件：Redux Thunk（异步）、Redux logger（日志）</li>
-<li>使用 Reducer 更新，支持同步和异步</li>
+<li>使用 Reducer 更新，支持同步和异步<ul>
+<li>Reducer描述如何修改数据的纯函数，修改行为的实质</li>
+</ul>
+</li>
 <li>单一数据源，整个应用的状态存储在一个对象树中（State）</li>
 <li>状态是只读的：不能直接修改状态，必须通过 Dispatch 触发动作（Action）。</li>
 <li>使用纯函数更新状态：Reducer 是纯函数，接收旧状态和 Action，返回新状态。</li>
@@ -240,47 +247,66 @@
 <p>React Hooks</p>
 </blockquote>
 <ul>
-<li>只能用于函数组件或自定义Hook</li>
-<li>所有Hooks以use开头</li>
-<li>Hooks严重依赖调用顺序，必须保持一致</li>
-<li>只能用于顶层代码，不能在<strong>条件语句、循环、嵌套函数</strong>里使用<ul>
+<li><p>只能用于函数组件或自定义Hook</p>
+</li>
+<li><p>所有Hooks以use开头</p>
+</li>
+<li><p>Hooks严重依赖调用顺序，必须保持一致</p>
+</li>
+<li><p>只能用于顶层代码，不能在<strong>条件语句、循环、嵌套函数</strong>里使用</p>
+<ul>
 <li>依赖于<strong>调用顺序</strong>来正确管理和更新组件的状态和副作用</li>
 <li>基于数组索引来存储和检索状态和副作用的，因此任何条件性地调用 Hooks 都会破坏这种索引顺序，导致不可预测的行为和错误</li>
 <li>下次渲染时将无法正确匹配每个 Hook 的状态</li>
 </ul>
 </li>
-<li>设计 Hook 的一个重要原则是：副作用和状态更新应该是确定的，这样组件的行为就能被清晰地理解和预测</li>
-<li><strong>Effect Hook 模拟生命周期</strong><ul>
+<li><p>设计 Hook 的一个重要原则是：副作用和状态更新应该是确定的，这样组件的行为就能被清晰地理解和预测</p>
+</li>
+<li><p><strong>Effect Hook 模拟生命周期</strong></p>
+<ul>
 <li>useEffect 可以看作是 componentDidMount、componentDidUpdate、componentWillUnMount 的结合</li>
 <li>useEffect(()=&gt;{}, []) 第二个参数是根据依赖的state判断是哪个生命周期，空数组代表didMount，无依赖或有依赖则为didUpdate</li>
 <li>useEffect(()=&gt;{ 返回一个函数fn }, []) </li>
 <li>如果依赖是[]，那么是模拟willUnMount，组件销毁时执行函数fn</li>
-<li>如果无依赖或依赖某些属性，那么更新时也会执行fn，即在下一次更新或卸载前先执行了本次的fn</li>
+<li>如果无依赖或依赖某些属性，那么更新时也会执行fn，即在下一次更新或卸载前先执行了本次的fn（优先调用上次保存的回调函数中返回的函数）</li>
 <li>不能在其中使用useState，会报错</li>
 <li>第二个参数是依赖数组，务必准确列出所有依赖项，避免遗漏导致逻辑异常</li>
 <li>避免在其中更新依赖项，防止出现无限循环</li>
 <li>常见用途：组件初始化时获取数据；监听某个状态或props的变化并触发逻辑；清理副作用（如取消订阅、清除定时器等）</li>
 </ul>
 </li>
-<li><strong>useContext</strong>，获取context对象</li>
-<li><strong>useRef</strong>，获取组件真实节点；帮助引用一个不需要渲染的值</li>
-<li><strong>useMemo</strong>，缓存传入的props，避免依赖的组件每次都重新渲染；在每次重新渲染时缓存计算的结果<ul>
+<li><p><strong>useContext</strong>，获取context对象</p>
+</li>
+<li><p><strong>useRef</strong>，获取组件真实节点；帮助引用一个不需要渲染的值</p>
+</li>
+<li><p><strong>useMemo</strong>，缓存传入的props，避免依赖的组件每次都重新渲染；在每次重新渲染时缓存计算的结果</p>
+<ul>
 <li>useMemo(calculateValue, dependencies)</li>
 </ul>
 </li>
-<li><strong>useReducer</strong>，组件内部的redux，是一个Hook<ul>
+<li><p><strong>useReducer</strong>，组件内部的redux，是一个Hook</p>
+<ul>
 <li>useReducer(reducer, initialArg, init?)</li>
 <li>返回[state, dispatch]，state为首次渲染提供初始值；dispatch函数可以根据交互修改state</li>
 <li>并不是持久化存储，会随组件被销毁而销毁</li>
 <li>属于组件内部，各个组件是隔离的，单纯使用无法共享数据</li>
 </ul>
 </li>
-<li><strong>useCallback</strong>，缓存回调函数<ul>
+<li><p><strong>useCallback</strong>，缓存回调函数</p>
+<ul>
 <li>避免传入的回调每次都是新的函数实例导致依赖组件重新渲染，具有性能优化的效果</li>
 </ul>
 </li>
-<li><strong>自定义Hook</strong><ul>
+<li><p><strong>自定义Hook</strong></p>
+<ul>
 <li>扩展性，解耦代码；封装通用功能；可以开发和使用第三方Hook</li>
+</ul>
+</li>
+<li><p>好处：</p>
+<ul>
+<li>跨组件复用</li>
+<li>类定义更为复杂</li>
+<li>状态与UI隔离，状态会变成更小的粒度，容易被抽成一个自定义的Hooks</li>
 </ul>
 </li>
 </ul>
@@ -387,11 +413,17 @@
 </blockquote>
 <ul>
 <li>是React中用于复用组件逻辑的一种高级技巧</li>
-<li>是基于React组合特性而形成的设计模式</li>
+<li>是基于React组合特性而形成的设计模式，是增强函数，不是组件</li>
 <li>接受一个组件和额外的参数，返回一个新组件</li>
 <li>是纯函数，没有副作用</li>
 <li>优点：逻辑复用、不影响被包裹组件的内部逻辑</li>
 <li>缺点：hoc传递给被包裹组件的props容易和被包裹后的组件重名，从而被覆盖</li>
+<li>应用场景：<ul>
+<li>权限控制，抽象逻辑统一对页面进行权限判断，按不同条件进行页面渲染</li>
+<li>性能监控，统一埋点</li>
+<li>代码复用</li>
+</ul>
+</li>
 </ul>
 <blockquote>
 <p>Hooks 库</p>
@@ -410,6 +442,108 @@
 </li>
 </ul>
 </li>
+</ul>
+<blockquote>
+<p>transaction 事务</p>
+</blockquote>
+<ul>
+<li>在一段时间内，把一堆更新操作打包起来，统一处理。</li>
+<li>react里大概是<ul>
+<li>开启事务</li>
+<li>收集期间发生的所有 setState 调用</li>
+<li>等到事务结束后</li>
+<li>执行 batched updates（批量更新）</li>
+<li>调用 render</li>
+<li>生成新的 Virtual DOM</li>
+<li>diff，找差异</li>
+<li>最后一次性操作真实 DOM</li>
+</ul>
+</li>
+<li>setState(updater, callback)在回调函数里可马上获取最新值</li>
+<li>在 React 中，事务并不是一直开的，通常在这几种场景中自动开启：<ul>
+<li>React 自己绑定的事件处理器里（比如点击事件）</li>
+<li>React 的生命周期函数里（如 componentDidMount）</li>
+<li>执行 setTimeout、Promise 这种异步逻辑时，旧版 React 可能没有事务，需要 unstable_batchedUpdates 手动包一下（新版 React 18 起自动处理了）。</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line">[同步事件触发] ——→ (事务开启) ——→ (多次 setState) ——→ (事务结束批量更新)</span><br><span class="line"></span><br><span class="line">[异步回调触发] ——→ (事务开启) ——→ (多次 setState) ——→ (事务结束批量更新)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>Concurrent Mode</p>
+</blockquote>
+<ul>
+<li><p>目的</p>
+<ul>
+<li>防止大渲染任务卡住页面</li>
+<li>让用户交互始终流畅</li>
+</ul>
+</li>
+<li><p>怎么做</p>
+<ul>
+<li>渲染变成可中断小任务（基于Fiber）</li>
+<li>高优先级（如点击、输入）可以插队</li>
+</ul>
+</li>
+<li><p>核心API</p>
+<ul>
+<li>startTransition</li>
+<li>useTransition</li>
+<li> useDeferredValue</li>
+<li> Suspense</li>
+</ul>
+</li>
+<li><p>场景</p>
+<ul>
+<li>输入框搜索</li>
+<li>大数据切换</li>
+<li>图片懒加载</li>
+</ul>
+</li>
+<li><p>原理（Fiber 链表、小步渲染、中断恢复）</p>
+<ul>
+<li>React 16中 Fiber 架构将组件树转成了一种链表结构</li>
+<li>把渲染过程拆成了可中断的小单元</li>
+<li>每处理一个节点，React 都可以检查「浏览器有没有空余时间」。</li>
+<li>如果时间不足，就中断当前渲染，把 CPU 控制权还给浏览器，保证流畅性。</li>
+<li>靠 React 内部的调度器 Scheduler管理任务的优先级</li>
+<li>每个 Fiber 节点有状态能保存节点进度，这样中断后可以继续渲染</li>
+</ul>
+</li>
+<li><p>Concurrent Mode 让 React 不再是单线程直线执行的库，而变成了一个具有任务调度器（scheduler）的异步协作系统</p>
+</li>
+</ul>
+<blockquote>
+<p>React/Vue 中使用 key={index}（即用数组的索引作为 key）</p>
+</blockquote>
+<ul>
+<li>这样做可行，但不推荐</li>
+<li>如果你的列表是静态的，永远不做修改，那么这种情况是安全的</li>
+<li>会导致错误的DOM diff<ul>
+<li>如果数据发生了排序或删除，可能出现<ul>
+<li>UI更新不正确</li>
+<li>状态错误复用，就地复用</li>
+<li>动画或输入框错乱</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>如果是静态列表，仅某一项数据改变，使用 index 作为 key 是否会导致该项重新渲染？<ul>
+<li>如果列表顺序不变、列表长度不变<ul>
+<li>使用 index 作为 key只会更新那一项，不会全部重渲染</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>diff算法里，同级节点比较多是什么</p>
+</blockquote>
+<ul>
+<li><p>节点类型不同时直接删除旧节点，创建新节点</p>
+</li>
+<li><p>如果类型相同</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line">节点类型相同 → 比较属性（浅比较）</span><br><span class="line">属性不同 → 更新DOM属性</span><br><span class="line">比较children</span><br><span class="line">  - 文本 → 替换</span><br><span class="line">  - 单节点 → 递归 diff</span><br><span class="line">  - 多节点 → 基于 key 的 diff（核心）</span><br><span class="line">    - 如果没有key，自动使用元素索引index作为key，按位置对比</span><br><span class="line">    - key 是动态生成的 (如随机)，每次渲染都被当作新节点</span><br><span class="line">    - key 相同，比较 props 和 children，尝试复用；</span><br><span class="line">    - key 不同，直接卸载旧节点，挂载新节点</span><br></pre></td></tr></table></figure></li>
 </ul>
 
   </div>

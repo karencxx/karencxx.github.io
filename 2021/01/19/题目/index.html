@@ -430,7 +430,7 @@
 </li>
 </ol>
 <h3 id="Vue"><a href="#Vue" class="headerlink" title="Vue"></a>Vue</h3><ol>
-<li><p>Vue生命周期钩子有哪些，分别在什么时候触发？它们的作用是什么？<br>beforeCreate，在实例初始化后，<br>created，实例创建完成后，初始化注入和初始化打他、props等数据属性后，但未挂载到DOM上<br>beforeMount，挂载开始前被调用，相关render函数首次被调用，VDOM创建完成未渲染<br>mounted，实例挂载后调用，真实DOM已渲染完成<br>beforeUpdate，响应数据更新时调用<br>updated，数据变化时虚拟DOM重新渲染和打补丁之后调用<br>beforeDestroy，实例销毁之前调用，执行一些清理工作（删除节点、watcher依赖、清除定时器、取消事件监听等）<br>destroyed，实例销毁后调用，执行一些最终清理工作</p>
+<li><p>Vue生命周期钩子有哪些，分别在什么时候触发？它们的作用是什么？<br>beforeCreate，在实例初始化后，<br>created，实例创建完成后，初始化注入和初始化data、props等数据属性后，但未挂载到DOM上<br>beforeMount，挂载开始前被调用，相关render函数首次被调用，VDOM创建完成未渲染<br>mounted，实例挂载后调用，真实DOM已渲染完成<br>beforeUpdate，响应数据更新时调用<br>updated，数据变化时虚拟DOM重新渲染和打补丁之后调用<br>beforeDestroy，实例销毁之前调用，执行一些清理工作（删除节点、watcher依赖、清除定时器、取消事件监听等）<br>destroyed，实例销毁后调用，执行一些最终清理工作</p>
 </li>
 <li><p>解释Vue中的双向数据绑定及其实现原理<br>是一种数据同步机制<br>实现双向数据绑定主要依赖v-model指令和响应式系统<br>当数据改变会自动更新视图，在视图中的操作也会更新到数据模型上<br>而响应式则是双向数据绑定到基础，主要通过数据劫持和观察者模式来实现<br>分几个步骤：<br>1、数据劫持，通过Object.defineProperty来拦截对象属性的get、set方法来监听数据的变化<br>2、观察者模式<br>   3、 订阅依赖并追踪<br>   4、 更新视图，数据变化时通知所有依赖数据的视图更新</p>
 </li>

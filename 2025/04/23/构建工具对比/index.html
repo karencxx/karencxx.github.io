@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="">
+    <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>构建工具深度对比 | 蘑菇小记</title>
+    <link rel="stylesheet" href="/css/breeze.css">
+    <script src="/js/toc.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const backToTopButton = document.getElementById('back-to-top');
+
+            // 当页面滚动超过 300px 时显示按钮
+            window.onscroll = function() {
+                if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
+                backToTopButton.style.display = "block";
+                } else {
+                backToTopButton.style.display = "none";
+                }
+            };
+            
+            // 点击按钮时平滑滚动回顶部
+            backToTopButton.addEventListener('click', function() {
+                const scrollToTop = function() {
+                    const c = document.documentElement.scrollTop || document.body.scrollTop;
+                    if (c > 0) {
+                    window.requestAnimationFrame(scrollToTop);
+                    window.scrollTo(0, c - c / 8);
+                    }
+                };
+                scrollToTop();
+            });
+        });
+        window.isMobile = /mobile|android|iphone|ipad|phone/i.test(navigator.userAgent);
+    </script>
+
+    
+<meta name="generator" content="Hexo 5.4.2"></head>
+    
+  <body>
+    <div class="container">
+      <header class="header-container post-header">
+    <div class="title">
+        <img src="/images/Icon-leaf.png" class="leaf-icon">
+        <a href="/">蘑菇小记</a>
+    </div>
+    <nav class="nav">
+        <ul>
+            
+                <li><a href="/archives" class="nav-item">Archives</a></li>
+            
+                <li><a href="/about" class="nav-item">About</a></li>
+            
+          </ul>
+    </nav>
+</header>
+
+      <div class="main-content">
+        
+          
+
+<aside class="post-toc">
+    <div class="toc-wrapper collapsed">
+  <div class="toc-toggle">
+    <span class="toc-toggle-icon"></span>
+  </div>
+  <div class="toc-content">
+    
+      <div class="toc-body">
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E2%9A%99%EF%B8%8F-Webpack-vs-Vite"><span class="toc-text">⚙️ Webpack vs Vite</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E7%AE%80%E4%BB%8B"><span class="toc-text">一、简介</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BA%8C%E3%80%81%E5%BC%80%E5%8F%91%E6%A8%A1%E5%BC%8F%E5%AF%B9%E6%AF%94"><span class="toc-text">二、开发模式对比</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%89%E3%80%81%E6%9E%84%E5%BB%BA%E5%8E%9F%E7%90%86%E5%AF%B9%E6%AF%94"><span class="toc-text">三、构建原理对比</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%9B%9B%E3%80%81%E4%BD%93%E9%AA%8C%E4%B8%8E%E7%94%9F%E6%80%81"><span class="toc-text">四、体验与生态</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BA%94%E3%80%81%E4%BD%BF%E7%94%A8%E5%9C%BA%E6%99%AF%E6%8E%A8%E8%8D%90"><span class="toc-text">五、使用场景推荐</span></a></li></ol></li></ol></li></ol>
+      </div>
+    
+  </div>
+</div>
+
+
+</aside>
+
+<article class="post-detail has-toc toc-collapsed">
+    <div class="post-title-container">
+        <h1 class="post-title">构建工具深度对比</h1>
+    </div>
+    <div class="post-meta">
+        <time datetime="2025-04-23T11:06:59.000Z">2025-04-23</time>
+        
+        
+  </div>
+  <div class="post-content">
+    
+
+    <blockquote>
+<h2 id="⚙️-Webpack-vs-Vite"><a href="#⚙️-Webpack-vs-Vite" class="headerlink" title="⚙️ Webpack vs Vite"></a>⚙️ Webpack vs Vite</h2></blockquote>
+<h4 id="一、简介"><a href="#一、简介" class="headerlink" title="一、简介"></a>一、简介</h4><ul>
+<li><p>Webpack: 老牌模块打包工具，支持一切前端资源的处理和打包</p>
+<ul>
+<li>通过分析模块之间的依赖，最终将所有模块打包成一份或者多份代码包 (bundler)，供 HTML 直接引用</li>
+<li>仅提供了 打包功能 和一套 文件处理机制，然后通过生态中的各种 Loader 和 Plugin 对代码进行预编译和打包。高度可扩展</li>
+<li>基于node，只能识别js模块，因此需要不同的文件转换器，也就是Loader，各个 Loader 完全独立，即插即用<ul>
+<li>通常将代码进行分析，构建 AST (抽象语法树)， 遍历进行定向的修改后，重新生成新的代码字符串</li>
+</ul>
+</li>
+<li>plugin插件可以监听事件，根据需求在相应的时间点对打包内容进行定向的修改</li>
+<li>工作流程：加载-编译-输出</li>
+<li>通过链式调用，按顺序串起一个个 Loader；</li>
+<li>通过事件流机制，让 Plugin 可以插入到整个生产过程中的每个步骤中；</li>
+<li>Loader 总是在 Plugin 之前处理资源文件内容<ul>
+<li>用于模块的转换阶段，触发在module阶段，在webpack读取模块文件时触发</li>
+<li>loaders → AST → 交给后续模块处理 </li>
+</ul>
+</li>
+<li>plugin则贯穿整个生命周期，可以在任意阶段“插入钩子”处理逻辑</li>
+<li>Loader执行顺序：从右到左（从下到上）执行</li>
+<li>Plugin 的执行顺序：基于事件钩子的发布订阅</li>
+</ul>
+</li>
+<li><p>Vite: 新一代构建工具，利用原生 ES 模块和 esbuild 实现极速开发体验</p>
+</li>
+<li><p>编译优化</p>
+<ul>
+<li>无用代码消除</li>
+<li>Tree-shaking，消除那些被 引用了但未被使用 的模块代码(ES6模块机制，静态可提前分析)</li>
+<li>代码分割技术，分成多份进行懒加载或异步加载<ul>
+<li>按页面 / 功能 / 文件修改频率 区分</li>
+</ul>
+</li>
+<li>作用域提升，将分散的模块划分到同一个作用域中，避免了代码的重复引入，有效减少打包后的代码体积和运行时的内存损耗；</li>
+<li>编译性能优化<ul>
+<li>HMR</li>
+<li>babel-loader</li>
+<li>多进程并发</li>
+<li>第三方库提前打包缓存</li>
+<li>使用分析寻找优化点，source-maps</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="二、开发模式对比"><a href="#二、开发模式对比" class="headerlink" title="二、开发模式对比"></a>二、开发模式对比</h4><hr>
+<table>
+<thead>
+<tr>
+<th align="left">特性</th>
+<th align="center">Webpack</th>
+<th align="right">Vite</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">启动方式</td>
+<td align="center">一次性打包所有模块（bundle）</td>
+<td align="right">依赖浏览器原生 ESM，按需加载</td>
+</tr>
+<tr>
+<td align="left">启动速度</td>
+<td align="center">慢，项目越大越明显</td>
+<td align="right">快，几乎是秒级启动</td>
+</tr>
+<tr>
+<td align="left">热更新 HMR</td>
+<td align="center">重新构建部分模块</td>
+<td align="right">精准模块更新，速度极快</td>
+</tr>
+<tr>
+<td align="left">使用入口</td>
+<td align="center">JS 文件（如 <code>index.js</code>）</td>
+<td align="right">HTML 文件（如 <code>index.html</code>）</td>
+</tr>
+</tbody></table>
+<h4 id="三、构建原理对比"><a href="#三、构建原理对比" class="headerlink" title="三、构建原理对比"></a>三、构建原理对比</h4><hr>
+<table>
+<thead>
+<tr>
+<th align="left">构建阶段</th>
+<th align="center">Webpack</th>
+<th align="right">Vite</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">开发时</td>
+<td align="center">通过 devServer 启动打包服务</td>
+<td align="right">原生模块+esbuild 实时转译</td>
+</tr>
+<tr>
+<td align="left">构建时</td>
+<td align="center">全部依赖构建为 bundle</td>
+<td align="right">使用 Rollup 构建生产包</td>
+</tr>
+<tr>
+<td align="left">静态资源</td>
+<td align="center">通过 loader 处理（如 file-loader）</td>
+<td align="right">原生支持多种格式，配置简单</td>
+</tr>
+<tr>
+<td align="left">插件系统</td>
+<td align="center">Loader + Plugin（两套机制）</td>
+<td align="right">统一插件系统（vite-plugin-xxx）</td>
+</tr>
+</tbody></table>
+<h4 id="四、体验与生态"><a href="#四、体验与生态" class="headerlink" title="四、体验与生态"></a>四、体验与生态</h4><hr>
+<table>
+<thead>
+<tr>
+<th align="left">对比项</th>
+<th align="center">Webpack</th>
+<th align="right">Vite</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">配置复杂度</td>
+<td align="center">高，配置项多</td>
+<td align="right">低，开箱即用</td>
+</tr>
+<tr>
+<td align="left">文档友好度</td>
+<td align="center">丰富但较庞杂</td>
+<td align="right">简洁清晰，API 现代化</td>
+</tr>
+<tr>
+<td align="left">插件生态</td>
+<td align="center">成熟广泛，适配老项目   &gt;&gt;&gt;</td>
+<td align="right">适配 Vue/React ，生态持续增长中</td>
+</tr>
+<tr>
+<td align="left">开发体验</td>
+<td align="center">冗长等待时间</td>
+<td align="right">快速反馈、冷启动快</td>
+</tr>
+</tbody></table>
+<h4 id="五、使用场景推荐"><a href="#五、使用场景推荐" class="headerlink" title="五、使用场景推荐"></a>五、使用场景推荐</h4><hr>
+<ul>
+<li><strong>Webpack</strong>: 老项目迁移或升级 / 重插件、微前端项目</li>
+<li><strong>Vite</strong>: 新项目快速开发 / 中后台、小型工具项目</li>
+</ul>
+<blockquote>
+<p><strong>Vite 更现代、更快，适合快速开发；Webpack 功能强大、生态成熟，适合复杂应用。</strong></p>
+</blockquote>
+<p>你可以配合下面的结构图理解二者差异（已生成，见图）。</p>
+
+  </div>
+</article>
+
+        
+        
+      </div>
+      <footer class="footer">
+    <div class="footer-content">
+        <p>&copy; 2025 蘑菇小记</p>
+        <p class="copyright">All rights reserved.</p>
+    </div>
+</footer>
+    </div>
+    <button id="back-to-top" title="回到顶部">↑</button>
+  </body>
+</html>

@@ -123,7 +123,9 @@
 <p><strong>线程上下文切换比进程上下文切换要快得多</strong></p>
 <blockquote>
 <h2 id="JS为何是单线程"><a href="#JS为何是单线程" class="headerlink" title="JS为何是单线程"></a>JS为何是单线程</h2></blockquote>
-<p>主要与用途有关: js用途主要是<u>与用户互动及操作DOM</u>，如果不是单线程会带来复杂的同步问题</p>
+<p>主要与用途有关: js用途主要是<u>与用户互动及操作DOM</u>，如果不是单线程会带来复杂的同步问题<br>非同步单线程，非同步就说不是一行一行执行，可能会跳着</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="built_in">setTimeout</span>(<span class="function">() =&gt;</span> &#123; <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;a&#x27;</span>)&#125;, <span class="number">0</span>)</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;b&#x27;</span>)</span><br></pre></td></tr></table></figure>
+<p>其实在执行的时候没有忽略setTimeout这行，只是遇到了非同步事件，将其放到了事件队列中，再执行下一行</p>
 <blockquote>
 <p>web worker</p>
 </blockquote>
@@ -259,6 +261,10 @@
 <blockquote>
 <p>async/await<br>是基于Promise的语法糖，基于Promise的封装<br>async用于声明一个异步函数，await用于等待异步操作完成</p>
 </blockquote>
+<ul>
+<li>本身是promise+generator的语法糖</li>
+<li>所以await后面的代码是microtask<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">async</span> <span class="keyword">function</span> <span class="title function_">async</span>(<span class="params"></span>) &#123;</span><br><span class="line">	<span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;async start&#x27;</span>);</span><br><span class="line">	<span class="keyword">await</span> <span class="title function_">async2</span>();</span><br><span class="line">	<span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;async end&#x27;</span>);</span><br><span class="line">&#125;</span><br><span class="line">等价于</span><br><span class="line"><span class="keyword">async</span> <span class="keyword">function</span> <span class="title function_">async</span>(<span class="params"></span>) &#123;</span><br><span class="line">	<span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;async start&#x27;</span>);</span><br><span class="line">	<span class="title class_">Promise</span>.<span class="title function_">resolve</span>(<span class="title function_">async2</span>()).<span class="title function_">then</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;async end&#x27;</span>);</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
 <p>总结来自：<a target="_blank" rel="noopener" href="https://juejin.cn/post/6844904050543034376#heading-28">https://juejin.cn/post/6844904050543034376#heading-28</a><br>动画演示：<a target="_blank" rel="noopener" href="https://jakearchibald.com/2015/tasks-microtasks-queues-and-schedules/?utm_source=html5weekly">https://jakearchibald.com/2015/tasks-microtasks-queues-and-schedules/?utm_source=html5weekly</a></p>
 
   </div>
