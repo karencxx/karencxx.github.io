@@ -67,7 +67,7 @@
   <div class="toc-content">
     
       <div class="toc-body">
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E2%9A%99%EF%B8%8F-Webpack-vs-Vite"><span class="toc-text">⚙️ Webpack vs Vite</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E7%AE%80%E4%BB%8B"><span class="toc-text">一、简介</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BA%8C%E3%80%81%E5%BC%80%E5%8F%91%E6%A8%A1%E5%BC%8F%E5%AF%B9%E6%AF%94"><span class="toc-text">二、开发模式对比</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%89%E3%80%81%E6%9E%84%E5%BB%BA%E5%8E%9F%E7%90%86%E5%AF%B9%E6%AF%94"><span class="toc-text">三、构建原理对比</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%9B%9B%E3%80%81%E4%BD%93%E9%AA%8C%E4%B8%8E%E7%94%9F%E6%80%81"><span class="toc-text">四、体验与生态</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BA%94%E3%80%81%E4%BD%BF%E7%94%A8%E5%9C%BA%E6%99%AF%E6%8E%A8%E8%8D%90"><span class="toc-text">五、使用场景推荐</span></a></li></ol></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E2%9A%99%EF%B8%8F-%E6%BC%94%E8%BF%9B%E6%97%B6%E9%97%B4"><span class="toc-text">⚙️ 演进时间</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E2%9A%99%EF%B8%8F-Webpack-vs-Vite"><span class="toc-text">⚙️ Webpack vs Vite</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E7%AE%80%E4%BB%8B"><span class="toc-text">一、简介</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BA%8C%E3%80%81%E5%BC%80%E5%8F%91%E6%A8%A1%E5%BC%8F%E5%AF%B9%E6%AF%94"><span class="toc-text">二、开发模式对比</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%89%E3%80%81%E6%9E%84%E5%BB%BA%E5%8E%9F%E7%90%86%E5%AF%B9%E6%AF%94"><span class="toc-text">三、构建原理对比</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%9B%9B%E3%80%81%E4%BD%93%E9%AA%8C%E4%B8%8E%E7%94%9F%E6%80%81"><span class="toc-text">四、体验与生态</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BA%94%E3%80%81%E4%BD%BF%E7%94%A8%E5%9C%BA%E6%99%AF%E6%8E%A8%E8%8D%90"><span class="toc-text">五、使用场景推荐</span></a></li></ol></li></ol></li></ol>
       </div>
     
   </div>
@@ -89,31 +89,54 @@
     
 
     <blockquote>
+<h2 id="⚙️-演进时间"><a href="#⚙️-演进时间" class="headerlink" title="⚙️ 演进时间"></a>⚙️ 演进时间</h2></blockquote>
+<figure class="highlight txt"><table><tr><td class="code"><pre><span class="line">Grunt (2012) ─┐</span><br><span class="line">              ├─&gt; Gulp (2013) ──┐</span><br><span class="line">                                ├─&gt; Webpack (2014) ─┐</span><br><span class="line">                                                    ├─&gt; Vite (2020)</span><br><span class="line">                            Rollup (2015) ──────────┘</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>早期：Grunt / Gulp 用于简单的自动化任务（压缩、编译 Less 等）</li>
+<li>中期：Webpack 成为主流打包工具，支持模块化和复杂配置</li>
+<li>现代：Rollup 和 Vite 走向轻量化、原生模块、极致开发体验方向</li>
+</ul>
+<blockquote>
 <h2 id="⚙️-Webpack-vs-Vite"><a href="#⚙️-Webpack-vs-Vite" class="headerlink" title="⚙️ Webpack vs Vite"></a>⚙️ Webpack vs Vite</h2></blockquote>
 <h4 id="一、简介"><a href="#一、简介" class="headerlink" title="一、简介"></a>一、简介</h4><ul>
-<li><p>Webpack: 老牌模块打包工具，支持一切前端资源的处理和打包</p>
+<li><p><strong>Webpack: 老牌模块打包工具，支持一切前端资源的处理和打包</strong></p>
 <ul>
 <li>通过分析模块之间的依赖，最终将所有模块打包成一份或者多份代码包 (bundler)，供 HTML 直接引用</li>
 <li>仅提供了 打包功能 和一套 文件处理机制，然后通过生态中的各种 Loader 和 Plugin 对代码进行预编译和打包。高度可扩展</li>
 <li>基于node，只能识别js模块，因此需要不同的文件转换器，也就是Loader，各个 Loader 完全独立，即插即用<ul>
 <li>通常将代码进行分析，构建 AST (抽象语法树)， 遍历进行定向的修改后，重新生成新的代码字符串</li>
+<li>让webpack可以加载和解析非JS文件的能力</li>
 </ul>
 </li>
-<li>plugin插件可以监听事件，根据需求在相应的时间点对打包内容进行定向的修改</li>
+<li>plugin插件可以监听事件，根据需求在相应的时间点对打包内容进行定向的修改；扩展webpack功能</li>
 <li>工作流程：加载-编译-输出</li>
 <li>通过链式调用，按顺序串起一个个 Loader；</li>
 <li>通过事件流机制，让 Plugin 可以插入到整个生产过程中的每个步骤中；</li>
 <li>Loader 总是在 Plugin 之前处理资源文件内容<ul>
+<li>类型为数组</li>
 <li>用于模块的转换阶段，触发在module阶段，在webpack读取模块文件时触发</li>
 <li>loaders → AST → 交给后续模块处理 </li>
+<li>常见的loader: file / url / source-map / image / babel / css / style / eslint</li>
 </ul>
 </li>
-<li>plugin则贯穿整个生命周期，可以在任意阶段“插入钩子”处理逻辑</li>
+<li>plugin则贯穿整个生命周期，可以在任意阶段“插入钩子”处理逻辑<ul>
+<li>常见plugin: define-plugin / html-webpack-plugin / uglifyjs-webpack-plugin / mini-css-extract-plugin</li>
+</ul>
+</li>
 <li>Loader执行顺序：从右到左（从下到上）执行</li>
-<li>Plugin 的执行顺序：基于事件钩子的发布订阅</li>
+<li>Plugin 的执行顺序：基于事件钩子的发布订阅<figure class="highlight html"><table><tr><td class="code"><pre><span class="line">bundle: 由webpack打包出来的文件；打包后实际是一个立即执行函数，接受一个参数（模块对象）</span><br><span class="line">chunk: 代码块，一个chunk由多个模块组合而成，用于代码合并和分割</span><br><span class="line">module: 是开发中的单个模块，一个模块对应一个文件</span><br></pre></td></tr></table></figure></li>
 </ul>
 </li>
-<li><p>Vite: 新一代构建工具，利用原生 ES 模块和 esbuild 实现极速开发体验</p>
+<li><p>HMR，热更新</p>
+<ul>
+<li>不刷新浏览器的情况下将新变更的模块替换旧模块</li>
+<li>在server端和client端都做了处理</li>
+<li>watch模式监听文件变化</li>
+<li>webpack-dev-server</li>
+</ul>
+</li>
+<li><p><strong>Vite: 新一代构建工具，利用原生 ES 模块和 esbuild 实现极速开发体验</strong></p>
 </li>
 <li><p>编译优化</p>
 <ul>
@@ -199,41 +222,72 @@
 <table>
 <thead>
 <tr>
-<th align="left">对比项</th>
-<th align="center">Webpack</th>
-<th align="right">Vite</th>
+<th>工具</th>
+<th>类型/定位</th>
+<th>构建模式</th>
+<th>上手难度</th>
+<th>性能（开发 / 构建）</th>
+<th>支持模块化</th>
+<th>使用场景</th>
 </tr>
 </thead>
 <tbody><tr>
-<td align="left">配置复杂度</td>
-<td align="center">高，配置项多</td>
-<td align="right">低，开箱即用</td>
+<td><strong>Grunt</strong></td>
+<td>任务执行器（Task Runner）</td>
+<td>配置式，按顺序执行任务</td>
+<td>★☆☆☆☆</td>
+<td>较慢（频繁磁盘 I/O）</td>
+<td>否</td>
+<td>简单工具链自动化任务</td>
 </tr>
 <tr>
-<td align="left">文档友好度</td>
-<td align="center">丰富但较庞杂</td>
-<td align="right">简洁清晰，API 现代化</td>
+<td><strong>Gulp</strong></td>
+<td>流式任务执行器</td>
+<td>流式（stream）</td>
+<td>★★☆☆☆</td>
+<td>较快（内存流处理）</td>
+<td>否</td>
+<td>中小型自动化流程任务</td>
 </tr>
 <tr>
-<td align="left">插件生态</td>
-<td align="center">成熟广泛，适配老项目   &gt;&gt;&gt;</td>
-<td align="right">适配 Vue/React ，生态持续增长中</td>
+<td><strong>Webpack</strong></td>
+<td>模块打包器（Module Bundler）</td>
+<td>构建依赖图，插件驱动</td>
+<td>★★★★☆</td>
+<td>构建慢，功能强</td>
+<td>是</td>
+<td>主流框架，企业项目</td>
 </tr>
 <tr>
-<td align="left">开发体验</td>
-<td align="center">冗长等待时间</td>
-<td align="right">快速反馈、冷启动快</td>
+<td><strong>Rollup</strong></td>
+<td>现代打包器，没有按需加载等高级功能，聚焦库的打包</td>
+<td>ESM为核心</td>
+<td>★★★☆☆</td>
+<td>构建快（Tree Shaking 优秀）</td>
+<td>是</td>
+<td>打包组件库/工具库</td>
+</tr>
+<tr>
+<td><strong>Vite</strong></td>
+<td>现代构建工具 + Dev Server</td>
+<td>依赖原生 ESM</td>
+<td>★★☆☆☆</td>
+<td>开发快 / 构建快（基于 esbuild + Rollup）</td>
+<td>是</td>
+<td>开发体验极佳，现代框架默认选择（如 Vue3）</td>
 </tr>
 </tbody></table>
 <h4 id="五、使用场景推荐"><a href="#五、使用场景推荐" class="headerlink" title="五、使用场景推荐"></a>五、使用场景推荐</h4><hr>
 <ul>
+<li><strong>Grunt、Gulp</strong>: 编写构建任务脚本 / 小工具</li>
 <li><strong>Webpack</strong>: 老项目迁移或升级 / 重插件、微前端项目</li>
 <li><strong>Vite</strong>: 新项目快速开发 / 中后台、小型工具项目</li>
+<li><strong>Rollup</strong>: 打包组件库 / UI组件、vue、d3</li>
+<li><strong>parcel</strong>: 适用于简单的实验性项目，生态差</li>
 </ul>
 <blockquote>
 <p><strong>Vite 更现代、更快，适合快速开发；Webpack 功能强大、生态成熟，适合复杂应用。</strong></p>
 </blockquote>
-<p>你可以配合下面的结构图理解二者差异（已生成，见图）。</p>
 
   </div>
 </article>

@@ -407,6 +407,12 @@
 <li><strong>for in</strong> 精准的迭代语句，可以用来枚举对象属性<ul>
 <li>for (property in expression) statement</li>
 <li>建议使用前先确认对象值不是null或undefined</li>
+<li>会遍历对象的整个原型链，获取的是对象的键名，适用遍历对象</li>
+</ul>
+</li>
+<li><strong>for of</strong> 执行一个循环，该循环处理来自可迭代对象的值序列<ul>
+<li>ES6新增，遍历获取对象的键值</li>
+<li>用来遍历数组、类数组对象、字符串、Set、Map及Generator对象</li>
 </ul>
 </li>
 <li><strong>label语句</strong> 添加标签<ul>
@@ -883,6 +889,7 @@
 </ul>
 </li>
 <li>实例通过 __proto__ 指向 原型prototype，通过 constructor 指向构造函数。</li>
+<li>终点是 Object.prototype.<strong>proto</strong> = null</li>
 </ul>
 <h3 id="组合继承"><a href="#组合继承" class="headerlink" title="组合继承"></a>组合继承</h3><ul>
 <li>使用原型链实现对原型属性和方法的继承</li>

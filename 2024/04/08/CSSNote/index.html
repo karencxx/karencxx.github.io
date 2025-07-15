@@ -305,7 +305,12 @@
 </ul>
 <blockquote>
 <h2 id="margin-塌陷现象"><a href="#margin-塌陷现象" class="headerlink" title="margin 塌陷现象"></a>margin 塌陷现象</h2></blockquote>
-<p>当垂直方向上相邻的两个块级元素出现时，它们之间的垂直外边距会重合<br><u>产生所谓的塌陷现象，会导致元素之间的间距比预期要小或完全没有</u><br><u>取两者margin间较大的值展示</u>  </p>
+<p>当垂直方向上相邻的两个块级元素出现时，它们之间的垂直外边距会重合，取两者间较大值<br><u>产生所谓的塌陷现象，会导致元素之间的间距比预期要小或完全没有</u><br><u>取两者margin间较大的值展示</u>  </p>
+<p><strong>只发生在垂直方向</strong></p>
+<ul>
+<li>HTML文档流是垂直方向布局优先的，块级元素天然按 top - bottom 排列</li>
+<li>避免多个上下margin叠加导致空隙扩大，css标准采用了‘塌陷’的机制来控制垂直间距</li>
+</ul>
 <p>通常发生在：</p>
 <ul>
 <li>相邻兄弟元素的margin塌陷</li>
@@ -315,7 +320,11 @@
 <ul>
 <li>只给一个元素设置间距</li>
 <li>创建一个新的BFC（给div包裹一个外层div）防止外边距重叠</li>
-<li>父子元素间可设置border或padding避免相遇</li>
+<li>父子元素间可设置border或padding避免相遇，overflow: hidden / auto;<ul>
+<li>当父元素没有边框、内边距或其他内容时，子元素会“塌陷”到外部</li>
+</ul>
+</li>
+<li>使用flex / grid 布局代替传统流式布局</li>
 </ul>
 <blockquote>
 <h2 id="link与-import区别"><a href="#link与-import区别" class="headerlink" title="link与@import区别"></a>link与@import区别</h2></blockquote>
@@ -324,6 +333,8 @@
 <li>当解析到link时，页面会同步加载所引的css，而@import所引用的css会等到页面加载完才被加载</li>
 <li>@import需要 IE5 以上才能使用</li>
 <li>link可以使用js动态引入，@import不行</li>
+<li>&lt;link rel=”stylesheet” href=”styles.css” /&gt;</li>
+<li>import styles from ‘./styles.module.css’;</li>
 </ul>
 <blockquote>
 <h2 id="CSS伪类和伪元素"><a href="#CSS伪类和伪元素" class="headerlink" title="CSS伪类和伪元素"></a>CSS伪类和伪元素</h2></blockquote>
@@ -484,6 +495,21 @@
 <p>即元素宽高都设为0，设置边框样式<br>如果是正三角，就设底边框颜色，其他边框设为透明</p>
 <figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-class">.triangle</span> &#123;</span><br><span class="line">    <span class="attribute">width</span>: <span class="number">0</span>;</span><br><span class="line">    <span class="attribute">height</span>: <span class="number">0</span>;</span><br><span class="line">    <span class="attribute">border-top</span>: <span class="number">0</span>;</span><br><span class="line">    <span class="attribute">border-left</span>: <span class="number">80px</span> solid transparent;</span><br><span class="line">    <span class="attribute">border-right</span>: <span class="number">90px</span> solid transparent;</span><br><span class="line">    <span class="attribute">border-bottom</span>: <span class="number">100px</span> solid <span class="number">#eee</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
+<blockquote>
+<p>文本的单行和多行溢出省略效果</p>
+</blockquote>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="comment">/* 单行 */</span></span><br><span class="line"><span class="selector-class">.text</span> &#123;</span><br><span class="line">  <span class="attribute">overflow</span>: hidden;</span><br><span class="line">  <span class="attribute">text-overflow</span>: ellipsis;  <span class="comment">/* 省略号展示 */</span></span><br><span class="line">  <span class="attribute">white-space</span>: nowrap;  <span class="comment">/* 不换行 */</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/* 多行 css */</span></span><br><span class="line"><span class="selector-class">.text</span> &#123;</span><br><span class="line">  <span class="attribute">overflow</span>: hidden;</span><br><span class="line">  <span class="attribute">text-overflow</span>: ellipsis;</span><br><span class="line">  -webkit-<span class="selector-tag">line</span>-clamp: <span class="number">2</span>; <span class="comment">/* 指定行数 */</span></span><br><span class="line">  <span class="attribute">display</span>: -webkit-box; <span class="comment">/* 结合上面使用，作为弹性伸缩盒子模型显示 */</span></span><br><span class="line">  -webkit-<span class="attribute">box-orient</span>: vertical; <span class="comment">/* 设定子元素的排列方式 */</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>多行 (js)<ul>
+<li>监听DOM尺寸变化</li>
+<li>判断是否溢出 scrollHeight &gt; offsetHeight</li>
+<li>二分查找多行截取字符临界值<ul>
+<li>这也是前端性能优化的问题 <figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">truncateText</span>(<span class="params">text, container, maxLines</span>) &#123;</span><br><span class="line">  <span class="keyword">const</span> style = <span class="variable language_">window</span>.<span class="title function_">getComputedStyle</span>(container)</span><br><span class="line">  <span class="keyword">const</span> lineHeight = <span class="built_in">parseFloat</span>(style.<span class="property">height</span>)</span><br><span class="line">  <span class="keyword">const</span> maxHeight = lineHeight * maxLines</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 1. 创建隐藏容器用于测量高度</span></span><br><span class="line">  <span class="keyword">const</span> temp = <span class="variable language_">document</span>.<span class="title function_">createElement</span>(<span class="string">&#x27;div&#x27;</span>)</span><br><span class="line">  temp.<span class="property">style</span>.<span class="property">position</span> = <span class="string">&#x27;absolute&#x27;</span></span><br><span class="line">  temp.<span class="property">style</span>.<span class="property">visibility</span> = <span class="string">&#x27;hidden&#x27;</span></span><br><span class="line">  temp.<span class="property">style</span>.<span class="property">width</span> = container.<span class="property">offsetWidth</span> + <span class="string">&#x27;px&#x27;</span></span><br><span class="line">  temp.<span class="property">style</span>.<span class="property">lineHeight</span> = style.<span class="property">lineHeight</span></span><br><span class="line">  temp.<span class="property">style</span>.<span class="property">font</span> = style.<span class="property">font</span></span><br><span class="line">  <span class="variable language_">document</span>.<span class="property">body</span>.<span class="title function_">appendChild</span>(temp)</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 2. 二分查找</span></span><br><span class="line">  <span class="keyword">let</span> low = <span class="number">0</span></span><br><span class="line">  <span class="keyword">let</span> high = text.<span class="property">length</span></span><br><span class="line">  <span class="keyword">let</span> result = text</span><br><span class="line"></span><br><span class="line">  <span class="keyword">while</span>(low &lt;= high) &#123;</span><br><span class="line">    <span class="keyword">const</span> mid = <span class="title class_">Math</span>.<span class="title function_">floor</span>((low + high) / <span class="number">2</span>)</span><br><span class="line">    temp.<span class="property">textContent</span> = text.<span class="title function_">slice</span>(<span class="number">0</span>, mid) + <span class="string">&#x27;...&#x27;</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span>(temp.<span class="property">scrollHeight</span> &lt;= maxHeight) &#123;</span><br><span class="line">      low = mid + <span class="number">1</span></span><br><span class="line">      result = temp.<span class="property">textContent</span></span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      high = mid - <span class="number">1</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> result</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
 <blockquote>
 <p>画一个3d正方体</p>
 </blockquote>

@@ -178,6 +178,28 @@
 <p>弱网情况下，将日志存储到本地，延时到强网下再上报<br>强网下可直接上报</p>
 <p>还可以让 SDK 根据 App 忙碌状态，选择合适的上报策略</p>
 <p>一些其他的策略，<br>如批量数据上报，默认消息数量达到<strong>30条</strong>才上报，或者只在 App 启动时上报等策略。<br>可以根据实际情况进行选择</p>
+<blockquote>
+<p>加载时间</p>
+</blockquote>
+<ul>
+<li>performance.timing 是一个较旧的 API，它提供了一些性能相关的数据，但这些数据的粒度较粗，且存在一些问题，已被废弃<ul>
+<li>数据不完整</li>
+<li>存在浏览器兼容问题</li>
+<li>性能问题</li>
+</ul>
+</li>
+<li>Performance Timeline API 是一个更现代、更强大的性能分析工具，它提供了更详细、更精确的性能数据<ul>
+<li>有一些主要的API<ul>
+<li>PerformanceEntry，是性能数据的基本单位，包含了各种性能事件的信息</li>
+<li>PerformanceObserver，一个用于监听性能事件的接口，可以实时获取性能数据</li>
+<li>PerformanceMark，用于标记特定的时间点</li>
+<li>PerformanceMeasure，用于测量两个时间点的时间间隔</li>
+</ul>
+</li>
+</ul>
+</li>
+<li></li>
+</ul>
 
   </div>
 </article>

@@ -261,6 +261,9 @@
 <li>是<strong>DOM空节点</strong>，但不是主DOM树的一部分</li>
 <li>存在于内存中不在DOM树中，变化不触发DOM树的重新渲染</li>
 <li>当子元素插入到文档片段时不会引起页面回流，因此能带来更好的性能</li>
+<li>脱离文档流，里面的DOM节点没有实际渲染上下文，如offsetWidth、scrollHeight</li>
+<li>不能用于测量文本高度或判断溢出，因为没有布局信息</li>
+<li>可以用来批量构建临时节点，然后插入到真实DOM容器中</li>
 </ul>
 </li>
 </ul>
@@ -323,7 +326,7 @@
 <li>HTTP/2、HTTP/3<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">多路复用，允许多个请求同时在单个连接上进行</span><br><span class="line">二进制传输，更加紧凑、高效，减少数据大小</span><br><span class="line">头部压缩，减少数据大小</span><br><span class="line">服务器推送</span><br><span class="line">优化连接管理，减少开销提高性能</span><br><span class="line">安全性增强</span><br></pre></td></tr></table></figure></li>
 <li><em>HTTPS超文本传输安全协议，HyperText Transfer Protocol Secure</em>*</li>
 <li>使用SSL/TLS加密数据<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">客户端向服务端发起HTTPS请求</span><br><span class="line">服务端返回包含数字证书的信息给客户端</span><br><span class="line">客户端检验证书是否合法，生成随机密钥并加密发送给服务端</span><br><span class="line">服务端解密随机密钥</span><br></pre></td></tr></table></figure>
-双方使用<strong>随机密钥</strong>来加密和解密通信过程中的数据<br>用于保护网站敏感数据，如用户登录、支付信息等</li>
+增加一个安全层，利用SSL/TLS加密数据包，解密接受到的http内容<br>双方使用<strong>随机密钥</strong>来加密和解密通信过程中的数据<br>用于保护网站敏感数据，如用户登录、支付信息等</li>
 </ul>
 <blockquote>
 <h3 id="事件循环机制Event-Loop"><a href="#事件循环机制Event-Loop" class="headerlink" title="事件循环机制Event Loop"></a>事件循环机制Event Loop</h3></blockquote>
@@ -356,22 +359,30 @@
 <li>通常分为三种：<ol>
 <li>存储型XSS攻击，恶意脚本代码存储在网站数据库中，当访问页面时，会从服务端返回并执行</li>
 <li>反射型XSS攻击，将恶意链接发送给用户，用户点击后返回恶意代码并执行</li>
-<li>DOM型XSS攻击，通过修改网页所使用的DOM环境导致非预期的行为</li>
+<li>DOM型XSS攻击，通过修改网页所使用的DOM环境导致非预期的行为；属于前端的JS安全漏洞</li>
 </ol>
 </li>
 <li>防御措施：<ul>
-<li>cookie设置httpOnly</li>
+<li>对一些敏感信息进行保护，如cookie设置httpOnly；也可以使用验证码</li>
 <li>对用户输入进行严格过滤，转译页面上的输入内容和输出内容</li>
 <li>限制JavaScript执行的权限</li>
+<li>CSP，内容安全策略。本质是建立一个白名单，配置规则，由浏览器端来实现拦截</li>
 </ul>
 </li>
 </ul>
 </li>
 <li><strong>CSRF(Cross-Site Request Forgery)跨站请求伪造</strong><ul>
 <li>在登录过的网站上进行非预期无感知的操作，比如向目标网站发送恶意请求，从而可以发起类似资金转账、更改账号信息等未授权的操作</li>
+<li>利用cookie会在同源请求中携带发送给服务器来冒充用户</li>
+<li>常见的攻击<ul>
+<li>get类型，在img里构建一个请求，打开网站时会自动发起提交</li>
+<li>post类型，构建一个隐藏的表单，当进入页面时，自动提交表单</li>
+<li>链接型，在a标签的href属性里构建请求，诱导点击</li>
+</ul>
+</li>
 <li>防止攻击的常见方法：<ol>
-<li>使用CSRF Token，随机生成Token，并在服务端检验有效性，确保请求合法</li>
-<li>同源检测</li>
+<li>使用CSRF Token，随机生成Token，并在服务端检验有效性，确保请求合法（但如果接受的服务器没有保留token就没办法验证）</li>
+<li>同源检测，根据http请求头中origin或referer信息来判断请求是否为允许访问的站点</li>
 <li>使用 SameSite Cookie属性，限制Cookie发送，防止跨站点请求（用于敏感操作的cookie应该具有较短的生命周期）</li>
 <li>设置合适的HTTP头部（X-Ruquested-With、Content-Type…）确保请求安全性</li>
 <li>使用双重身份验证，增加攻击者难度</li>
@@ -380,7 +391,56 @@
 </li>
 </ul>
 </li>
+<li><strong>网络劫持</strong>，通过拦截、篡改用户网络请求或响应内容的方式，来达到控制流量、插入广告、诱导点击、钓鱼攻击等目的的行为<ul>
+<li>DNS劫持，如打开官网跳转到假冒站，或插广告<ul>
+<li>DNS强制解析，修改本地DNS记录，引导用户道缓存的服务器</li>
 </ul>
+</li>
+<li>HTTP劫持，由于http明文传输，运营商会修改响应，如加上广告</li>
+<li>HTTPS劫持，伪造证书中间人，窃取加密通信数据，如公共wifi</li>
+<li>TCP劫持</li>
+<li>路由器劫持</li>
+<li>应用层恶意注入JS，如弹窗广告、测速广告条</li>
+<li>内容缓存污染</li>
+</ul>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>使用 HTTPS / HSTS</td>
+<td>强制加密连接，避免中间人劫持</td>
+</tr>
+<tr>
+<td>DNS over HTTPS（DoH） / DoT</td>
+<td>避免 DNS 被运营商污染</td>
+</tr>
+<tr>
+<td>检查证书合法性</td>
+<td>防止伪造 HTTPS 证书</td>
+</tr>
+<tr>
+<td>页面完整性校验（如 SRI）</td>
+<td>防止 JS/CSS 被中途篡改</td>
+</tr>
+<tr>
+<td>避免公共 WiFi 或使用 VPN</td>
+<td>防止局域网中间人劫持</td>
+</tr>
+<tr>
+<td>加强 CSP / 关闭外链加载</td>
+<td>提高注入攻击防护能力</td>
+</tr>
+<tr>
+<td>客户端签名校验</td>
+<td>前端代码校验防止注入</td>
+</tr>
+</tbody></table>
 <blockquote>
 <h3 id="存储机制"><a href="#存储机制" class="headerlink" title="存储机制"></a>存储机制</h3></blockquote>
 <p>一般主流方案：Cookie、Web Storage、IndexedDB、Cache Storage</p>
@@ -511,33 +571,44 @@
 <h3 id="HTTP请求方法"><a href="#HTTP请求方法" class="headerlink" title="HTTP请求方法"></a>HTTP请求方法</h3><p><strong>get / post / options / put / patch / delete / head / trace</strong></p>
 </blockquote>
 <ul>
-<li>get，用于向服务器请求获取数据，如获取网页、图片等<ul>
+<li><p>get，用于向服务器请求获取数据，如获取网页、图片等</p>
+<ul>
 <li>请求参数附在URL上，以查询字符串形式发送</li>
 <li>请求长度受限，不修改资源，无副作用</li>
 <li>可被缓存，也可以被书签、历史记录保存</li>
 <li>数据在URL中可见，<u>不适合发送敏感信息</u></li>
 </ul>
 </li>
-<li>post，用于向服务器提交数据，如表单数据、上传文件等操作；更多编码格式<ul>
+<li><p>post，用于向服务器提交数据，如表单数据、上传文件等操作；更多编码格式</p>
+<ul>
 <li>请求参数附在请求体中，不会在浏览器历史记录中显示</li>
 <li>不可被浏览器缓存，不会被书签、历史记录保存</li>
 <li>数据不暴露在URL中，适合发送大量数据和敏感信息</li>
 </ul>
 </li>
-<li>head，类似于get，但服务器只返回请求头部信息，通常用于检查资源的元数据，例如文件是否存在、最后修改时间</li>
-<li>options，用于请求服务器告知客户端对指定资源支持的各种请求方法、HTTP头部信息等</li>
-<li>put，用于向服务器发送数据，从而更新指定资源内容。如果资源不存在，则创建一个新资源</li>
-<li>patch，类似于put，但仅传输需要更新的数据部分，非整个资源</li>
-<li>delete，用于请求服务器删除指定的资源</li>
-<li>trace，用于在请求链路中追踪请求的传输路径，常用于诊断和调试</li>
+<li><p>head，类似于get，但服务器只返回请求头部信息，通常用于检查资源的元数据，例如文件是否存在、最后修改时间</p>
+</li>
+<li><p>options，用于请求服务器告知客户端对指定资源支持的各种请求方法、HTTP头部信息等</p>
+</li>
+<li><p>put，用于向服务器发送数据，从而更新指定资源内容。如果资源不存在，则创建一个新资源</p>
+</li>
+<li><p>patch，类似于put，但仅传输需要更新的数据部分，非整个资源</p>
+</li>
+<li><p>delete，用于请求服务器删除指定的资源</p>
+</li>
+<li><p>trace，用于在请求链路中追踪请求的传输路径，常用于诊断和调试</p>
+</li>
+<li><p>post可以理解为创建数据，而put则为更新数据</p>
+</li>
 </ul>
 <blockquote>
 <h3 id="常见状态码"><a href="#常见状态码" class="headerlink" title="常见状态码"></a>常见状态码</h3></blockquote>
 <ul>
 <li>200: 成功，并返回数据</li>
 <li>301: 永久移动，永久重定向，浏览器会缓存</li>
-<li>302: 临时重定向</li>
+<li>302: 临时重定向，请求方法可能改变（比如 POST → GET）</li>
 <li>304: 资源未修改，可使用缓存</li>
+<li>307: 临时重定向，但请求方法就是可预测的</li>
 <li>400: 请求语法错误</li>
 <li>404: 资源不存在</li>
 <li>403: 拒绝请求</li>
@@ -572,7 +643,7 @@
 <blockquote>
 <h3 id="跨标签页通讯"><a href="#跨标签页通讯" class="headerlink" title="跨标签页通讯"></a>跨标签页通讯</h3></blockquote>
 <ol>
-<li>设置同域下共享的 LocalStorage 或 SessionStorage，适用于较小量的数据通讯</li>
+<li>设置同域下共享的 LocalStorage，适用于较小量的数据通讯</li>
 <li>Cookies，在相同域名下的不同路径间共享数据</li>
 <li>window.opener，如果通过window.open()打开的新标签页，可以通过该属性获取父窗口，并在父子窗口间通讯</li>
 <li>postMessage</li>
@@ -623,6 +694,47 @@
 <li>防止按钮重复点击提交（多次提交应该只处理一次）；扣款</li>
 <li>重复请求接口时，要确保结果不因为多次请求而出问题</li>
 <li>接口设计时，区分是否要保证接口幂等，比如上传、更新信息</li>
+</ul>
+<blockquote>
+<p>babel</p>
+</blockquote>
+<ul>
+<li>转译过程三个阶段<ul>
+<li>解析Parse，解析代码生成抽象语法树AST</li>
+<li>转换Transform，拿到AST后进行变换一系列的操作</li>
+<li>生成Generate，将变换后的AST转换为JS代码（使用模块babel-generator）</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>git svn</p>
+</blockquote>
+<ul>
+<li>git是分布式，分支是指针指向某次提交<ul>
+<li>分支创建开销更小且不影响其他人</li>
+<li>可以在一个工作目录下快速切换分支</li>
+<li>内容存储使用的是 SHA-1 哈希算法</li>
+</ul>
+</li>
+<li>svn是集中式的，不能离线使用<ul>
+<li>分支是整个版本库的复制的完整目录，分支变化会影响其他人</li>
+<li>会发生分支遗漏情况</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line">git fetch 只是将远程仓库的变化下载下来，并没有和本地分支合并。</span><br><span class="line">git pull 会将远程仓库的变化下载下来，并和当前分支合并。</span><br></pre></td></tr></table></figure>
+<ul>
+<li>git merge 和 git rebase 都是用于分支合并，关键在 commit 记录的处理上不同：<ul>
+<li>git merge 会新建一个新的 commit 对象，然后两个分支以前的commit 记录都指向这个新 commit 记录<ul>
+<li>保留了之前每个分支的 commit 历史</li>
+</ul>
+</li>
+<li>git rebase 会先找到两个分支的第一个共同的 commit 祖先记录，将提取当前分支这之后的所有 commit 记录，然后将这个commit 记录添加到目标分支的最新提交后面。<ul>
+<li>经过这个合并后，两个分支合并后的 commit 记录就变为了线性的记录了。</li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 
   </div>
